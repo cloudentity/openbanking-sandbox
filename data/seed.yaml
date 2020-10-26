@@ -1,0 +1,3272 @@
+claims:
+- authorization_server_id: system
+  id: bube15t8739jub0p4edg
+  mapping: name
+  name: name
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ee0
+  mapping: family_name
+  name: family_name
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4eeg
+  mapping: given_name
+  name: given_name
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ef0
+  mapping: middle_name
+  name: middle_name
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4efg
+  mapping: nickname
+  name: nickname
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4eg0
+  mapping: preferred_username
+  name: preferred_username
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4egg
+  mapping: profile
+  name: profile
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4eh0
+  mapping: picture
+  name: picture
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ehg
+  mapping: website
+  name: website
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ei0
+  mapping: gender
+  name: gender
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4eig
+  mapping: birthdate
+  name: birthdate
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ej0
+  mapping: zoneinfo
+  name: zoneinfo
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ejg
+  mapping: locale
+  name: locale
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ek0
+  mapping: updated_at
+  name: updated_at
+  scopes:
+  - profile
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ekg
+  mapping: email
+  name: email
+  scopes:
+  - email
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4el0
+  mapping: email_verified
+  name: email_verified
+  scopes:
+  - email
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4elg
+  mapping: address.formatted
+  name: address.formatted
+  scopes:
+  - address
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4em0
+  mapping: address.street_address
+  name: address.street_address
+  scopes:
+  - address
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4emg
+  mapping: address.locality
+  name: address.locality
+  scopes:
+  - address
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4en0
+  mapping: address.region
+  name: address.region
+  scopes:
+  - address
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4eng
+  mapping: address.country
+  name: address.country
+  scopes:
+  - address
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4eo0
+  mapping: address.postal_code
+  name: address.postal_code
+  scopes:
+  - address
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4eog
+  mapping: phone_number
+  name: phone_number
+  scopes:
+  - phone
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4ep0
+  mapping: phone_number_verified
+  name: phone_number_verified
+  scopes:
+  - phone
+  tenant_id: system
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f1g
+  mapping: name
+  name: name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f20
+  mapping: family_name
+  name: family_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f2g
+  mapping: given_name
+  name: given_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f30
+  mapping: middle_name
+  name: middle_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f3g
+  mapping: nickname
+  name: nickname
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f40
+  mapping: preferred_username
+  name: preferred_username
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f4g
+  mapping: profile
+  name: profile
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f50
+  mapping: picture
+  name: picture
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f5g
+  mapping: website
+  name: website
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f60
+  mapping: gender
+  name: gender
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f6g
+  mapping: birthdate
+  name: birthdate
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f70
+  mapping: zoneinfo
+  name: zoneinfo
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f7g
+  mapping: locale
+  name: locale
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f80
+  mapping: updated_at
+  name: updated_at
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f8g
+  mapping: email
+  name: email
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f90
+  mapping: email_verified
+  name: email_verified
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4f9g
+  mapping: address.formatted
+  name: address.formatted
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4fa0
+  mapping: address.street_address
+  name: address.street_address
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4fag
+  mapping: address.locality
+  name: address.locality
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4fb0
+  mapping: address.region
+  name: address.region
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4fbg
+  mapping: address.country
+  name: address.country
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4fc0
+  mapping: address.postal_code
+  name: address.postal_code
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4fcg
+  mapping: phone_number
+  name: phone_number
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: system
+  id: bube15t8739jub0p4fd0
+  mapping: phone_number_verified
+  name: phone_number_verified
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fp0
+  mapping: name
+  name: name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fpg
+  mapping: family_name
+  name: family_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fq0
+  mapping: given_name
+  name: given_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fqg
+  mapping: middle_name
+  name: middle_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fr0
+  mapping: nickname
+  name: nickname
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4frg
+  mapping: preferred_username
+  name: preferred_username
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fs0
+  mapping: profile
+  name: profile
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fsg
+  mapping: picture
+  name: picture
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4ft0
+  mapping: website
+  name: website
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4ftg
+  mapping: gender
+  name: gender
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fu0
+  mapping: birthdate
+  name: birthdate
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fug
+  mapping: zoneinfo
+  name: zoneinfo
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fv0
+  mapping: locale
+  name: locale
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4fvg
+  mapping: updated_at
+  name: updated_at
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g00
+  mapping: email
+  name: email
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g0g
+  mapping: email_verified
+  name: email_verified
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g10
+  mapping: address.formatted
+  name: address.formatted
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g1g
+  mapping: address.street_address
+  name: address.street_address
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g20
+  mapping: address.locality
+  name: address.locality
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g2g
+  mapping: address.region
+  name: address.region
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g30
+  mapping: address.country
+  name: address.country
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g3g
+  mapping: address.postal_code
+  name: address.postal_code
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g40
+  mapping: phone_number
+  name: phone_number
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: admin
+  id: bube15t8739jub0p4g4g
+  mapping: phone_number_verified
+  name: phone_number_verified
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gd0
+  mapping: name
+  name: name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gdg
+  mapping: family_name
+  name: family_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4ge0
+  mapping: given_name
+  name: given_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4geg
+  mapping: middle_name
+  name: middle_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gf0
+  mapping: nickname
+  name: nickname
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gfg
+  mapping: preferred_username
+  name: preferred_username
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gg0
+  mapping: profile
+  name: profile
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4ggg
+  mapping: picture
+  name: picture
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gh0
+  mapping: website
+  name: website
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4ghg
+  mapping: gender
+  name: gender
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gi0
+  mapping: birthdate
+  name: birthdate
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gig
+  mapping: zoneinfo
+  name: zoneinfo
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gj0
+  mapping: locale
+  name: locale
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gjg
+  mapping: updated_at
+  name: updated_at
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gk0
+  mapping: email
+  name: email
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gkg
+  mapping: email_verified
+  name: email_verified
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gl0
+  mapping: address.formatted
+  name: address.formatted
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4glg
+  mapping: address.street_address
+  name: address.street_address
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gm0
+  mapping: address.locality
+  name: address.locality
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gmg
+  mapping: address.region
+  name: address.region
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gn0
+  mapping: address.country
+  name: address.country
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gng
+  mapping: address.postal_code
+  name: address.postal_code
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4go0
+  mapping: phone_number
+  name: phone_number
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: developer
+  id: bube15t8739jub0p4gog
+  mapping: phone_number_verified
+  name: phone_number_verified
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h10
+  mapping: address.formatted
+  name: address.formatted
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h1g
+  mapping: address.street_address
+  name: address.street_address
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h20
+  mapping: address.locality
+  name: address.locality
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h2g
+  mapping: address.region
+  name: address.region
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h30
+  mapping: address.country
+  name: address.country
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h3g
+  mapping: address.postal_code
+  name: address.postal_code
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h40
+  mapping: phone_number
+  name: phone_number
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h4g
+  mapping: phone_number_verified
+  name: phone_number_verified
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h50
+  mapping: name
+  name: name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h5g
+  mapping: family_name
+  name: family_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h60
+  mapping: given_name
+  name: given_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h6g
+  mapping: middle_name
+  name: middle_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h70
+  mapping: nickname
+  name: nickname
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h7g
+  mapping: preferred_username
+  name: preferred_username
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h80
+  mapping: profile
+  name: profile
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h8g
+  mapping: picture
+  name: picture
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h90
+  mapping: website
+  name: website
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4h9g
+  mapping: gender
+  name: gender
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4ha0
+  mapping: birthdate
+  name: birthdate
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4hag
+  mapping: zoneinfo
+  name: zoneinfo
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4hb0
+  mapping: locale
+  name: locale
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4hbg
+  mapping: updated_at
+  name: updated_at
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4hc0
+  mapping: email
+  name: email
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: default
+  id: bube15t8739jub0p4hcg
+  mapping: email_verified
+  name: email_verified
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+clients:
+- audience:
+  - admin
+  authorization_server_id: admin
+  client_id: admin
+  client_id_issued_at: 1603723415
+  client_name: Admin Portal
+  client_secret: ztCswN8vggHx22_mKE3kwRlvOs-0ILQfxG5T4zZC3MU
+  grant_types:
+  - authorization_code
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - https://localhost:8443/app/default/admin/callback
+  - https://localhost:8443/app/default/admin/silent
+  - http://localhost:3000/app/default/admin/callback
+  - http://localhost:3000/app/default/admin/silent
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - offline_access
+  - openid
+  - profile
+  subject_type: public
+  system: true
+  tenant_id: default
+  token_endpoint_auth_method: none
+  token_endpoint_signing_alg: none
+  trusted: true
+  userinfo_signed_response_alg: none
+- audience:
+  - default
+  authorization_server_id: default
+  client_id: default
+  client_id_issued_at: 1603723415
+  client_name: User Portal
+  client_secret: U5fMpaXNDkKng5ChllygIF73Ind1QshNSR39rKv_rpo
+  grant_types:
+  - authorization_code
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - https://localhost:8443/app/default/default/callback
+  - https://localhost:8443/app/default/default/silent
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - introspect_tokens
+  - list_clients_with_access
+  - manage_consents
+  - offline_access
+  - openid
+  - profile
+  - revoke_client_access
+  - revoke_tokens
+  - view_consents
+  subject_type: public
+  system: true
+  tenant_id: default
+  token_endpoint_auth_method: none
+  token_endpoint_signing_alg: none
+  trusted: true
+  userinfo_signed_response_alg: none
+- audience:
+  - default-demo
+  authorization_server_id: default
+  client_id: default-demo
+  client_id_issued_at: 1603723415
+  client_name: Demo Portal
+  client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
+  grant_types:
+  - authorization_code
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - https://localhost:8443/default/default/demo
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - email
+  - introspect_tokens
+  - list_clients_with_access
+  - manage_consents
+  - offline_access
+  - openid
+  - profile
+  - revoke_client_access
+  - revoke_tokens
+  - view_consents
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_signing_alg: none
+  userinfo_signed_response_alg: none
+- audience:
+  - developer-developer
+  authorization_server_id: developer
+  client_id: developer-developer
+  client_id_issued_at: 1603723415
+  client_name: Developer Portal
+  client_secret: flux99MKFQR4jz651JMv28HC68XpAgFvFV7eM2hkqMs
+  grant_types:
+  - authorization_code
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - https://localhost:8443/app/default/developer/developer/callback
+  - https://localhost:8443/app/default/developer/developer/silent
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - offline_access
+  - openid
+  - profile
+  subject_type: public
+  system: true
+  tenant_id: default
+  token_endpoint_auth_method: none
+  token_endpoint_signing_alg: none
+  trusted: true
+  userinfo_signed_response_alg: none
+- audience:
+  - system
+  authorization_server_id: system
+  client_id: system
+  client_id_issued_at: 1603723415
+  client_name: System
+  client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
+  grant_types:
+  - client_credentials
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - code
+  subject_type: public
+  system: true
+  tenant_id: system
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_signing_alg: none
+  userinfo_signed_response_alg: none
+idps:
+- authorization_server_id: admin
+  credentials:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta:
+      supervisor_client: {}
+    saml: {}
+    static:
+      users:
+      - authentication_context:
+          name: Administrator
+        password: admin
+        username: admin
+  id: default
+  mappings:
+  - source: .
+    target: .
+    type: any
+  method: static
+  name: Default
+  settings:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta: {}
+    saml: {}
+    static: {}
+  tenant_id: default
+- authorization_server_id: developer
+  credentials:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta:
+      supervisor_client: {}
+    saml: {}
+    static:
+      users:
+      - authentication_context:
+          name: Developer
+        password: developer
+        username: developer
+  id: default
+  mappings:
+  - source: .
+    target: .
+    type: any
+  method: static
+  name: Default
+  settings:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta: {}
+    saml: {}
+    static: {}
+  tenant_id: default
+- authorization_server_id: default
+  credentials:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta:
+      supervisor_client: {}
+    saml: {}
+    static:
+      users:
+      - authentication_context:
+          name: John Doe
+        password: user
+        username: user
+  id: default
+  mappings:
+  - source: .
+    target: .
+    type: any
+  method: static
+  name: Default
+  settings:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta: {}
+    saml: {}
+    static: {}
+  tenant_id: default
+policies:
+- id: block_admin_api
+  language: cloudentity
+  policy_name: Block API
+  server_id: admin
+  tenant_id: default
+  type: api
+  validators:
+  - name: "false"
+- id: block_admin_dcr
+  language: cloudentity
+  policy_name: Block DCR
+  server_id: admin
+  tenant_id: default
+  type: dcr
+  validators:
+  - name: "false"
+- id: block_admin_developer
+  language: cloudentity
+  policy_name: Block Developer
+  server_id: admin
+  tenant_id: default
+  type: developer
+  validators:
+  - name: "false"
+- id: block_admin_machine
+  language: cloudentity
+  policy_name: Block Machine
+  server_id: admin
+  tenant_id: default
+  type: machine
+  validators:
+  - name: "false"
+- id: block_admin_user
+  language: cloudentity
+  policy_name: Block User
+  server_id: admin
+  tenant_id: default
+  type: user
+  validators:
+  - name: "false"
+- id: block_default_api
+  language: cloudentity
+  policy_name: Block API
+  server_id: default
+  tenant_id: default
+  type: api
+  validators:
+  - name: "false"
+- id: block_default_dcr
+  language: cloudentity
+  policy_name: Block DCR
+  server_id: default
+  tenant_id: default
+  type: dcr
+  validators:
+  - name: "false"
+- id: block_default_developer
+  language: cloudentity
+  policy_name: Block Developer
+  server_id: default
+  tenant_id: default
+  type: developer
+  validators:
+  - name: "false"
+- id: block_default_machine
+  language: cloudentity
+  policy_name: Block Machine
+  server_id: default
+  tenant_id: default
+  type: machine
+  validators:
+  - name: "false"
+- id: block_default_user
+  language: cloudentity
+  policy_name: Block User
+  server_id: default
+  tenant_id: default
+  type: user
+  validators:
+  - name: "false"
+- id: block_developer_api
+  language: cloudentity
+  policy_name: Block API
+  server_id: developer
+  tenant_id: default
+  type: api
+  validators:
+  - name: "false"
+- id: block_developer_dcr
+  language: cloudentity
+  policy_name: Block DCR
+  server_id: developer
+  tenant_id: default
+  type: dcr
+  validators:
+  - name: "false"
+- id: block_developer_developer
+  language: cloudentity
+  policy_name: Block Developer
+  server_id: developer
+  tenant_id: default
+  type: developer
+  validators:
+  - name: "false"
+- id: block_developer_machine
+  language: cloudentity
+  policy_name: Block Machine
+  server_id: developer
+  tenant_id: default
+  type: machine
+  validators:
+  - name: "false"
+- id: block_developer_user
+  language: cloudentity
+  policy_name: Block User
+  server_id: developer
+  tenant_id: default
+  type: user
+  validators:
+  - name: "false"
+- id: block_system_api
+  language: cloudentity
+  policy_name: Block API
+  server_id: system
+  tenant_id: default
+  type: api
+  validators:
+  - name: "false"
+- id: block_system_api
+  language: cloudentity
+  policy_name: Block API
+  server_id: system
+  tenant_id: system
+  type: api
+  validators:
+  - name: "false"
+- id: block_system_dcr
+  language: cloudentity
+  policy_name: Block DCR
+  server_id: system
+  tenant_id: default
+  type: dcr
+  validators:
+  - name: "false"
+- id: block_system_dcr
+  language: cloudentity
+  policy_name: Block DCR
+  server_id: system
+  tenant_id: system
+  type: dcr
+  validators:
+  - name: "false"
+- id: block_system_developer
+  language: cloudentity
+  policy_name: Block Developer
+  server_id: system
+  tenant_id: default
+  type: developer
+  validators:
+  - name: "false"
+- id: block_system_developer
+  language: cloudentity
+  policy_name: Block Developer
+  server_id: system
+  tenant_id: system
+  type: developer
+  validators:
+  - name: "false"
+- id: block_system_machine
+  language: cloudentity
+  policy_name: Block Machine
+  server_id: system
+  tenant_id: default
+  type: machine
+  validators:
+  - name: "false"
+- id: block_system_machine
+  language: cloudentity
+  policy_name: Block Machine
+  server_id: system
+  tenant_id: system
+  type: machine
+  validators:
+  - name: "false"
+- id: block_system_user
+  language: cloudentity
+  policy_name: Block User
+  server_id: system
+  tenant_id: system
+  type: user
+  validators:
+  - name: "false"
+- id: block_system_user
+  language: cloudentity
+  policy_name: Block User
+  server_id: system
+  tenant_id: default
+  type: user
+  validators:
+  - name: "false"
+- id: nist-aal-1_admin_api
+  language: cloudentity
+  policy_name: NIST-AAL-1 API
+  server_id: admin
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_admin_user
+  language: cloudentity
+  policy_name: NIST-AAL-1 User
+  server_id: admin
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_default_api
+  language: cloudentity
+  policy_name: NIST-AAL-1 API
+  server_id: default
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_default_user
+  language: cloudentity
+  policy_name: NIST-AAL-1 User
+  server_id: default
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_developer_api
+  language: cloudentity
+  policy_name: NIST-AAL-1 API
+  server_id: developer
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_developer_user
+  language: cloudentity
+  policy_name: NIST-AAL-1 User
+  server_id: developer
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_system_api
+  language: cloudentity
+  policy_name: NIST-AAL-1 API
+  server_id: system
+  tenant_id: system
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_system_api
+  language: cloudentity
+  policy_name: NIST-AAL-1 API
+  server_id: system
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_system_user
+  language: cloudentity
+  policy_name: NIST-AAL-1 User
+  server_id: system
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_system_user
+  language: cloudentity
+  policy_name: NIST-AAL-1 User
+  server_id: system
+  tenant_id: system
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-2_admin_api
+  language: cloudentity
+  policy_name: NIST-AAL-2 API
+  server_id: admin
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_admin_user
+  language: cloudentity
+  policy_name: NIST-AAL-2 User
+  server_id: admin
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_default_api
+  language: cloudentity
+  policy_name: NIST-AAL-2 API
+  server_id: default
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_default_user
+  language: cloudentity
+  policy_name: NIST-AAL-2 User
+  server_id: default
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_developer_api
+  language: cloudentity
+  policy_name: NIST-AAL-2 API
+  server_id: developer
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_developer_user
+  language: cloudentity
+  policy_name: NIST-AAL-2 User
+  server_id: developer
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_system_api
+  language: cloudentity
+  policy_name: NIST-AAL-2 API
+  server_id: system
+  tenant_id: system
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_system_api
+  language: cloudentity
+  policy_name: NIST-AAL-2 API
+  server_id: system
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_system_user
+  language: cloudentity
+  policy_name: NIST-AAL-2 User
+  server_id: system
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_system_user
+  language: cloudentity
+  policy_name: NIST-AAL-2 User
+  server_id: system
+  tenant_id: system
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-3_admin_api
+  language: cloudentity
+  policy_name: NIST-AAL-3 API
+  server_id: admin
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_admin_user
+  language: cloudentity
+  policy_name: NIST-AAL-3 User
+  server_id: admin
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_default_api
+  language: cloudentity
+  policy_name: NIST-AAL-3 API
+  server_id: default
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_default_user
+  language: cloudentity
+  policy_name: NIST-AAL-3 User
+  server_id: default
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_developer_api
+  language: cloudentity
+  policy_name: NIST-AAL-3 API
+  server_id: developer
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_developer_user
+  language: cloudentity
+  policy_name: NIST-AAL-3 User
+  server_id: developer
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_system_api
+  language: cloudentity
+  policy_name: NIST-AAL-3 API
+  server_id: system
+  tenant_id: system
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_system_api
+  language: cloudentity
+  policy_name: NIST-AAL-3 API
+  server_id: system
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_system_user
+  language: cloudentity
+  policy_name: NIST-AAL-3 User
+  server_id: system
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_system_user
+  language: cloudentity
+  policy_name: NIST-AAL-3 User
+  server_id: system
+  tenant_id: system
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+policy_execution_points:
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4etg
+  tenant_id: system
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4etg
+  tenant_id: system
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4eu0
+  tenant_id: system
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4eu0
+  tenant_id: system
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4ev0
+  tenant_id: system
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4ev0
+  tenant_id: system
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4evg
+  tenant_id: system
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4evg
+  tenant_id: system
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4f00
+  tenant_id: system
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4f00
+  tenant_id: system
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4f0g
+  tenant_id: system
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4f0g
+  tenant_id: system
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4f10
+  tenant_id: system
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4f10
+  tenant_id: system
+  type: scope_dynamic_client_registration
+- policy_id: block_admin_developer
+  server_id: admin
+  target_fk: bube15t8739jub0p4g90
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_admin_dcr
+  server_id: admin
+  target_fk: bube15t8739jub0p4g90
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_admin_developer
+  server_id: admin
+  target_fk: bube15t8739jub0p4g9g
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_admin_dcr
+  server_id: admin
+  target_fk: bube15t8739jub0p4g9g
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_admin_dcr
+  server_id: admin
+  target_fk: bube15t8739jub0p4gag
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_admin_developer
+  server_id: admin
+  target_fk: bube15t8739jub0p4gag
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_admin_dcr
+  server_id: admin
+  target_fk: bube15t8739jub0p4gb0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_admin_developer
+  server_id: admin
+  target_fk: bube15t8739jub0p4gb0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_admin_developer
+  server_id: admin
+  target_fk: bube15t8739jub0p4gbg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_admin_dcr
+  server_id: admin
+  target_fk: bube15t8739jub0p4gbg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_admin_developer
+  server_id: admin
+  target_fk: bube15t8739jub0p4gc0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_admin_dcr
+  server_id: admin
+  target_fk: bube15t8739jub0p4gc0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_admin_developer
+  server_id: admin
+  target_fk: bube15t8739jub0p4gcg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_admin_dcr
+  server_id: admin
+  target_fk: bube15t8739jub0p4gcg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_default_developer
+  server_id: default
+  target_fk: bube15t8739jub0p4hh0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_default_dcr
+  server_id: default
+  target_fk: bube15t8739jub0p4hh0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_default_developer
+  server_id: default
+  target_fk: bube15t8739jub0p4hhg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_default_dcr
+  server_id: default
+  target_fk: bube15t8739jub0p4hhg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_default_developer
+  server_id: default
+  target_fk: bube15t8739jub0p4hig
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_default_dcr
+  server_id: default
+  target_fk: bube15t8739jub0p4hig
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_default_developer
+  server_id: default
+  target_fk: bube15t8739jub0p4hj0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_default_dcr
+  server_id: default
+  target_fk: bube15t8739jub0p4hj0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_default_developer
+  server_id: default
+  target_fk: bube15t8739jub0p4hjg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_default_dcr
+  server_id: default
+  target_fk: bube15t8739jub0p4hjg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_default_developer
+  server_id: default
+  target_fk: bube15t8739jub0p4hk0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_default_dcr
+  server_id: default
+  target_fk: bube15t8739jub0p4hk0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_default_developer
+  server_id: default
+  target_fk: bube15t8739jub0p4hkg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_default_dcr
+  server_id: default
+  target_fk: bube15t8739jub0p4hkg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_developer_developer
+  server_id: developer
+  target_fk: bube15t8739jub0p4gt0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_developer_dcr
+  server_id: developer
+  target_fk: bube15t8739jub0p4gt0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_developer_developer
+  server_id: developer
+  target_fk: bube15t8739jub0p4gtg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_developer_dcr
+  server_id: developer
+  target_fk: bube15t8739jub0p4gtg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_developer_dcr
+  server_id: developer
+  target_fk: bube15t8739jub0p4gug
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_developer_developer
+  server_id: developer
+  target_fk: bube15t8739jub0p4gug
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_developer_developer
+  server_id: developer
+  target_fk: bube15t8739jub0p4gv0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_developer_dcr
+  server_id: developer
+  target_fk: bube15t8739jub0p4gv0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_developer_developer
+  server_id: developer
+  target_fk: bube15t8739jub0p4gvg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_developer_dcr
+  server_id: developer
+  target_fk: bube15t8739jub0p4gvg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_developer_developer
+  server_id: developer
+  target_fk: bube15t8739jub0p4h00
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_developer_dcr
+  server_id: developer
+  target_fk: bube15t8739jub0p4h00
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_developer_developer
+  server_id: developer
+  target_fk: bube15t8739jub0p4h0g
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_developer_dcr
+  server_id: developer
+  target_fk: bube15t8739jub0p4h0g
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fhg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fhg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fi0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fi0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fj0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fj0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fjg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fjg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fk0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fk0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fkg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fkg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fl0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fl0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fm0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fm0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_system_developer
+  server_id: system
+  target_fk: bube15t8739jub0p4fmg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_system_dcr
+  server_id: system
+  target_fk: bube15t8739jub0p4fmg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+servers:
+- access_token_strategy: jwt
+  access_token_ttl: 1h0m0s
+  authorization_code_ttl: 10m0s
+  color: '#EC5348'
+  cookie_max_age: 1h0m0s
+  dynamic_client_registration:
+    initial_access_token: {}
+    software_statement:
+      jwks:
+        keys: null
+  enforce_pkce: true
+  grant_types:
+  - authorization_code
+  id: admin
+  id_token_ttl: 1h0m0s
+  issuer_url: https://localhost:8443/default/admin
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: STzYNgPGgrRI58L6d1oUEBMRHBzi8V1N-xqCdA5Y7FA
+      kid: "283246254291715724525323622448251404606"
+      kty: EC
+      use: sig
+      x: 6xI6TmqUYk7AhRPYJfsVsXPDXs_l8szPqJCPSt3xF-A
+      x5c:
+      - MIIBxDCCAWqgAwIBAgIRANUXPoj59A6Vk7ZgkrTyAT4wCgYIKoZIzj0EAwIwLDEUMBIGA1UEChMLQ2xvdWRlbnRpdHkxFDASBgNVBAMTC0Nsb3VkZW50aXR5MB4XDTIwMTAyNjE0NDMzNVoXDTIwMTEyNjE0NDMzNVowLDEUMBIGA1UEChMLQ2xvdWRlbnRpdHkxFDASBgNVBAMTC0Nsb3VkZW50aXR5MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE6xI6TmqUYk7AhRPYJfsVsXPDXs/l8szPqJCPSt3xF+BRYKPQ/zMbcGjPl1wwqccBjyfWrAq7lhSq252eYfdaIKNtMGswDgYDVR0PAQH/BAQDAgKkMBMGA1UdJQQMMAoGCCsGAQUFBwMBMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFObZsZ9wXZK1/FTNIFUsXzdUP7VRMBQGA1UdEQQNMAuCCWxvY2FsaG9zdDAKBggqhkjOPQQDAgNIADBFAiAdbve8NyEJkWWnvk+nLhOfU+ukPlwIBF6Nx+CukoBeHAIhAOaQr/2uvNyCAypeCgujMRVVSNNBw0CsgRPVnHOGz+im
+      x5t: lhjLNP_dADbzeyvcRHo5elbkglU
+      x5t#S256: uMvJ9epp1STxa__2IkiznO2j40DFPF-bCahLsgzLdJU
+      "y": UWCj0P8zG3Boz5dcMKnHAY8n1qwKu5YUqtudnmH3WiA
+  name: Admin
+  refresh_token_ttl: 720h0m0s
+  scope_grant_method:
+    OIDC: {}
+    custom: {}
+    method: oidc
+  secret: uNbJLd3sREiOAnM2UOJD34HY85OFT5K7RQN3_v4p-qo
+  subject_identifier_algorithm_salt: bTreL3Qxj4ZHI6i5Sx7bXvbeSSiNwqlhpdZ1YBCgQqU
+  subject_identifier_types:
+  - public
+  - pairwise
+  tenant_id: default
+  token_endpoint_authn_methods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - self_signed_tls_client_auth
+  - tls_client_auth
+  - none
+  type: admin
+- access_token_strategy: jwt
+  access_token_ttl: 1h0m0s
+  authorization_code_ttl: 10m0s
+  color: '#007FFF'
+  cookie_max_age: 1h0m0s
+  dynamic_client_registration:
+    initial_access_token: {}
+    software_statement:
+      jwks:
+        keys: null
+  grant_types:
+  - authorization_code
+  id: default
+  id_token_ttl: 1h0m0s
+  issuer_url: https://localhost:8443/default/default
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: _YtxI3H78Vz45HdYrGKPCaY5eimql_th7Zy-08U6mdk
+      kid: "121932793983841123947379245834878139638"
+      kty: EC
+      use: sig
+      x: HiXq-hSxKzoUiBFoDjetVYtFyg6N2tWg9XRnFX5etrM
+      x5c:
+      - MIIBxDCCAWmgAwIBAgIQW7tm48+/1BzWS+7XBUE89jAKBggqhkjOPQQDAjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwHhcNMjAxMDI2MTQ0MzM1WhcNMjAxMTI2MTQ0MzM1WjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQeJer6FLErOhSIEWgON61Vi0XKDo3a1aD1dGcVfl62syC/fgJwceEWoW02iBnWnU6M6ZjeUxCeNKKqrVj+7PX0o20wazAOBgNVHQ8BAf8EBAMCAqQwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUd4xDFZD7Zhc0tFtmYD4z10d8ycowFAYDVR0RBA0wC4IJbG9jYWxob3N0MAoGCCqGSM49BAMCA0kAMEYCIQCiqAFZos7MqHcm2VqsWUlW71hIY7G9hFWxKtWMww+X3wIhAPS/R252tHeGIZ2WGwKH5OOmRjjHPSCTDEWy+PGtHt1J
+      x5t: lzBTT9NZt9xTII0k8356_O48TtE
+      x5t#S256: bnzW3uKkuz9caQgEE_tByRChY4e2_0sGKR69yJacVCw
+      "y": IL9-AnBx4RahbTaIGdadTozpmN5TEJ40oqqtWP7s9fQ
+  name: Default
+  refresh_token_ttl: 720h0m0s
+  scope_grant_method:
+    OIDC: {}
+    custom: {}
+    method: oidc
+  secret: RFXSgCEPk5_zbhoC2yp2ey1N1zPLgPeV-yuThqIrrvQ
+  subject_identifier_algorithm_salt: QEMkqXAzS89MgjZ4QjCmYfI5kO-CEKRnbew_XXbmfNY
+  subject_identifier_types:
+  - public
+  - pairwise
+  tenant_id: default
+  token_endpoint_authn_methods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - self_signed_tls_client_auth
+  - tls_client_auth
+  - none
+  type: regular
+- access_token_strategy: jwt
+  access_token_ttl: 1h0m0s
+  authorization_code_ttl: 10m0s
+  color: '#76B141'
+  cookie_max_age: 1h0m0s
+  dynamic_client_registration:
+    initial_access_token: {}
+    software_statement:
+      jwks:
+        keys: null
+  enforce_pkce: true
+  grant_types:
+  - authorization_code
+  id: developer
+  id_token_ttl: 1h0m0s
+  issuer_url: https://localhost:8443/default/developer
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: dwFFAzuzzid-gLq7EVENmibGsH-Xu8P5dTpMRHSSCU0
+      kid: "35670397700397517212591576830336369527"
+      kty: EC
+      use: sig
+      x: iqBb9pNTUTzYwjUmdnD6oj9Rx_ptKD2R4qyjH2cwtZ0
+      x5c:
+      - MIIBwzCCAWmgAwIBAgIQGtXeY4Mw7ZOVI1wNsn0DdzAKBggqhkjOPQQDAjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwHhcNMjAxMDI2MTQ0MzM1WhcNMjAxMTI2MTQ0MzM1WjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASKoFv2k1NRPNjCNSZ2cPqiP1HH+m0oPZHirKMfZzC1nS3yjVgp+99aD0MVRZQPIHgXl1zWGQCtnDSoKpeyipkIo20wazAOBgNVHQ8BAf8EBAMCAqQwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU/0qysPbbE+rPDLhtr880w/4wSlgwFAYDVR0RBA0wC4IJbG9jYWxob3N0MAoGCCqGSM49BAMCA0gAMEUCICRccSpDGnK1GcCZe7MAFIvAxqPOSKpbmzOGrdV/Q54xAiEAgJafEMueilK5NbbyyR8YZbf4Fv7zYwwe6yrxQ5QBkrI=
+      x5t: A6M0Y-P4A3gHJ1FbCNTLon1zsuE
+      x5t#S256: D8JJEoE0rdlXCKYDCh51_U0AZ6aXAOdR2wItZ2lvnoU
+      "y": LfKNWCn731oPQxVFlA8geBeXXNYZAK2cNKgql7KKmQg
+  name: Developer
+  refresh_token_ttl: 720h0m0s
+  scope_grant_method:
+    OIDC: {}
+    custom: {}
+    method: oidc
+  secret: qr3vYt3lVNHw42wkuYAK2PYRou_k60tVsN2NMmOlBAI
+  subject_identifier_algorithm_salt: QopSJQZe1-PuUPrHCiRr0g6sIzjXQgrh6QwC8RGQovY
+  subject_identifier_types:
+  - public
+  - pairwise
+  tenant_id: default
+  token_endpoint_authn_methods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - self_signed_tls_client_auth
+  - tls_client_auth
+  - none
+  type: developer
+- access_token_strategy: jwt
+  access_token_ttl: 1h0m0s
+  authorization_code_ttl: 10m0s
+  color: '#393954'
+  cookie_max_age: 1h0m0s
+  dynamic_client_registration:
+    initial_access_token: {}
+    software_statement:
+      jwks:
+        keys: null
+  grant_types:
+  - client_credentials
+  id: system
+  id_token_ttl: 1h0m0s
+  issuer_url: https://localhost:8443/system/system
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: yk5vE5Mv5-vVnxcfcHzU2HKTA8bvlsUGtwu22ELZSsQ
+      kid: "20633649247157965333760408779074266381"
+      kty: EC
+      use: sig
+      x: zkMB1zhirYa2onm9056CcfEzJWj7Ar1_SDVgFhRzDmo
+      x5c:
+      - MIIBwzCCAWmgAwIBAgIQD4Xlc5HscbAPiE6oPANlDTAKBggqhkjOPQQDAjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwHhcNMjAxMDI2MTQ0MzM1WhcNMjAxMTI2MTQ0MzM1WjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATOQwHXOGKthraieb3TnoJx8TMlaPsCvX9INWAWFHMOakz+4K7eIemnuFP+9enx9rGwspL5d26fPbdK3YF8Tjx3o20wazAOBgNVHQ8BAf8EBAMCAqQwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU/zbJJGTnGPvprXl4AyqzVOpkjmAwFAYDVR0RBA0wC4IJbG9jYWxob3N0MAoGCCqGSM49BAMCA0gAMEUCIQDG7+1FUS4sjUccCysOPdMmBU93Tlt+GrLW/rsxJITLBgIgI8LMsUbDXK6ECJ3r5pYX5GeczE5kHl5tWb6+xha+mrs=
+      x5t: 735PBNIKobM8jbZ3ViFrdaTnXP8
+      x5t#S256: Xj7CZ9ZDpA8RaO1k-0jxdOaRPaHMY1IrR7MRBhKujlM
+      "y": TP7grt4h6ae4U_716fH2sbCykvl3bp89t0rdgXxOPHc
+  name: System
+  refresh_token_ttl: 720h0m0s
+  scope_grant_method:
+    OIDC: {}
+    custom: {}
+    method: oidc
+  secret: TkDsdkrxV_oIFfP-MXAitsyxyL5_gPLSWuJjW4qQOHU
+  subject_identifier_algorithm_salt: pje-WVsdzxIafWIA5ru20RbYrUu4trzS6UlEJrUHr98
+  subject_identifier_types:
+  - public
+  - pairwise
+  tenant_id: system
+  token_endpoint_authn_methods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - self_signed_tls_client_auth
+  - tls_client_auth
+  - none
+  type: system
+- access_token_strategy: jwt
+  access_token_ttl: 1h0m0s
+  authorization_code_ttl: 10m0s
+  color: '#393954'
+  cookie_max_age: 1h0m0s
+  dynamic_client_registration:
+    initial_access_token: {}
+    software_statement:
+      jwks:
+        keys: null
+  enforce_pkce: true
+  grant_types:
+  - client_credentials
+  id: system
+  id_token_ttl: 1h0m0s
+  issuer_url: https://localhost:8443/default/system
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: KB7hXvxMgvDaSBJHdtkTnmixNabKBjStxEttqVikwkw
+      kid: "305704867708789308774885275018584042937"
+      kty: EC
+      use: sig
+      x: 2wrwP9bulax6TDLJb-rogQN2k_XfYOv3MbzGVXg1ERw
+      x5c:
+      - MIIBxTCCAWqgAwIBAgIRAOX8naq9VqFhuCt05ekSrbkwCgYIKoZIzj0EAwIwLDEUMBIGA1UEChMLQ2xvdWRlbnRpdHkxFDASBgNVBAMTC0Nsb3VkZW50aXR5MB4XDTIwMTAyNjE0NDMzNVoXDTIwMTEyNjE0NDMzNVowLDEUMBIGA1UEChMLQ2xvdWRlbnRpdHkxFDASBgNVBAMTC0Nsb3VkZW50aXR5MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2wrwP9bulax6TDLJb+rogQN2k/XfYOv3MbzGVXg1ERwCkND8yd21ik/kUVWjq9MsND1Auxz54hKukmpjF6uE4aNtMGswDgYDVR0PAQH/BAQDAgKkMBMGA1UdJQQMMAoGCCsGAQUFBwMBMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFOADTOvchihhtEzqs1nBJ5xDr6xpMBQGA1UdEQQNMAuCCWxvY2FsaG9zdDAKBggqhkjOPQQDAgNJADBGAiEAkDHRfF8fhjZNMVEm9bNUvuIuf9XTbudsRJKfeAkwk4YCIQDdjHfDhpEyU5fYz/3FkYY6KTIqEsPcbiY7s8TrI4wswg==
+      x5t: XB50MJ86v-4uGGtk_8tCqvtMJhA
+      x5t#S256: stfdC-8PE6oVRNrVY4tUu67mtpc-tPr3WGgp19ukfiQ
+      "y": ApDQ_MndtYpP5FFVo6vTLDQ9QLsc-eISrpJqYxerhOE
+  name: System
+  refresh_token_ttl: 720h0m0s
+  scope_grant_method:
+    OIDC: {}
+    custom: {}
+    method: oidc
+  secret: 6Kz4iMgGQLCcKK9p30AbIPsZl5QX_Dh_f8syrceLp6I
+  subject_identifier_algorithm_salt: TXrrBgQgAk2exlQs-wHLIuRaIzWqjJDLjGuNItH60B8
+  subject_identifier_types:
+  - public
+  - pairwise
+  tenant_id: default
+  token_endpoint_authn_methods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - self_signed_tls_client_auth
+  - tls_client_auth
+  - none
+  type: system
+servers_bindings:
+- dependent: default
+  server_id: developer
+  tenant_id: default
+services:
+- audience: spiffe://localhost/system/system/bube15t8739jub0p4epg
+  authorization_server_id: system
+  id: bube15t8739jub0p4epg
+  name: Profile
+  scopes:
+  - authorization_server_id: system
+    description: This scope value requests access to the email and email_verified claims.
+    display_name: Email
+    id: bube15t8739jub0p4eq0
+    name: email
+    tenant_id: system
+  - authorization_server_id: system
+    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    display_name: Phone
+    id: bube15t8739jub0p4eqg
+    name: phone
+    tenant_id: system
+  - authorization_server_id: system
+    description: This scope value requests access to the address claim.
+    display_name: Address
+    id: bube15t8739jub0p4er0
+    name: address
+    tenant_id: system
+  - authorization_server_id: system
+    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    display_name: Profile
+    id: bube15t8739jub0p4erg
+    name: profile
+    tenant_id: system
+  - authorization_server_id: system
+    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    display_name: OpenID
+    id: bube15t8739jub0p4es0
+    name: openid
+    tenant_id: system
+  - authorization_server_id: system
+    description: This scope value requests offline access using refresh token.
+    display_name: Offline access
+    id: bube15t8739jub0p4esg
+    name: offline_access
+    tenant_id: system
+  system: true
+  tenant_id: system
+- audience: spiffe://localhost/system/system/bube15t8739jub0p4et0
+  authorization_server_id: system
+  id: bube15t8739jub0p4et0
+  name: User Privacy & Consent
+  scopes:
+  - authorization_server_id: system
+    display_name: View consents
+    id: bube15t8739jub0p4etg
+    name: view_consents
+    tenant_id: system
+  - authorization_server_id: system
+    display_name: Manage consents
+    id: bube15t8739jub0p4eu0
+    name: manage_consents
+    tenant_id: system
+  system: true
+  tenant_id: system
+- audience: spiffe://localhost/system/system/bube15t8739jub0p4eug
+  authorization_server_id: system
+  id: bube15t8739jub0p4eug
+  name: OAuth2
+  scopes:
+  - authorization_server_id: system
+    display_name: Introspect tokens
+    id: bube15t8739jub0p4ev0
+    name: introspect_tokens
+    tenant_id: system
+  - authorization_server_id: system
+    display_name: Revoke tokens
+    id: bube15t8739jub0p4evg
+    name: revoke_tokens
+    tenant_id: system
+  - authorization_server_id: system
+    display_name: List clients with access
+    id: bube15t8739jub0p4f00
+    name: list_clients_with_access
+    tenant_id: system
+  - authorization_server_id: system
+    display_name: Revoke client access
+    id: bube15t8739jub0p4f0g
+    name: revoke_client_access
+    tenant_id: system
+  - authorization_server_id: system
+    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    display_name: Use Dynamic Client Registration
+    id: bube15t8739jub0p4f10
+    name: dcr_register
+    tenant_id: system
+  system: true
+  tenant_id: system
+- audience: spiffe://localhost/default/system/bube15t8739jub0p4fdg
+  authorization_server_id: system
+  id: bube15t8739jub0p4fdg
+  name: Profile
+  scopes:
+  - authorization_server_id: system
+    description: This scope value requests access to the email and email_verified claims.
+    display_name: Email
+    id: bube15t8739jub0p4fe0
+    name: email
+    tenant_id: default
+  - authorization_server_id: system
+    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    display_name: Phone
+    id: bube15t8739jub0p4feg
+    name: phone
+    tenant_id: default
+  - authorization_server_id: system
+    description: This scope value requests access to the address claim.
+    display_name: Address
+    id: bube15t8739jub0p4ff0
+    name: address
+    tenant_id: default
+  - authorization_server_id: system
+    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    display_name: Profile
+    id: bube15t8739jub0p4ffg
+    name: profile
+    tenant_id: default
+  - authorization_server_id: system
+    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    display_name: OpenID
+    id: bube15t8739jub0p4fg0
+    name: openid
+    tenant_id: default
+  - authorization_server_id: system
+    description: This scope value requests offline access using refresh token.
+    display_name: Offline access
+    id: bube15t8739jub0p4fgg
+    name: offline_access
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/system/bube15t8739jub0p4fh0
+  authorization_server_id: system
+  id: bube15t8739jub0p4fh0
+  name: User Privacy & Consent
+  scopes:
+  - authorization_server_id: system
+    display_name: View consents
+    id: bube15t8739jub0p4fhg
+    name: view_consents
+    tenant_id: default
+  - authorization_server_id: system
+    display_name: Manage consents
+    id: bube15t8739jub0p4fi0
+    name: manage_consents
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/system/bube15t8739jub0p4fig
+  authorization_server_id: system
+  id: bube15t8739jub0p4fig
+  name: OAuth2
+  scopes:
+  - authorization_server_id: system
+    display_name: Introspect tokens
+    id: bube15t8739jub0p4fj0
+    name: introspect_tokens
+    tenant_id: default
+  - authorization_server_id: system
+    display_name: Revoke tokens
+    id: bube15t8739jub0p4fjg
+    name: revoke_tokens
+    tenant_id: default
+  - authorization_server_id: system
+    display_name: List clients with access
+    id: bube15t8739jub0p4fk0
+    name: list_clients_with_access
+    tenant_id: default
+  - authorization_server_id: system
+    display_name: Revoke client access
+    id: bube15t8739jub0p4fkg
+    name: revoke_client_access
+    tenant_id: default
+  - authorization_server_id: system
+    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    display_name: Use Dynamic Client Registration
+    id: bube15t8739jub0p4fl0
+    name: dcr_register
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/system/bube15t8739jub0p4flg
+  authorization_server_id: system
+  id: bube15t8739jub0p4flg
+  name: Login and Scope Grant
+  scopes:
+  - authorization_server_id: system
+    id: bube15t8739jub0p4fm0
+    name: manage_logins
+    tenant_id: default
+  - authorization_server_id: system
+    id: bube15t8739jub0p4fmg
+    name: manage_scope_grants
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/system/bube15t8739jub0p4fn0
+  authorization_server_id: system
+  id: bube15t8739jub0p4fn0
+  name: Gateway
+  scopes:
+  - authorization_server_id: system
+    id: bube15t8739jub0p4fng
+    name: read_gateway_configuration
+    tenant_id: default
+  - authorization_server_id: system
+    id: bube15t8739jub0p4fo0
+    name: write_gateway_configuration
+    tenant_id: default
+  - authorization_server_id: system
+    id: bube15t8739jub0p4fog
+    name: push_gateway_requests
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/admin/bube15t8739jub0p4g50
+  authorization_server_id: admin
+  id: bube15t8739jub0p4g50
+  name: Profile
+  scopes:
+  - authorization_server_id: admin
+    description: This scope value requests access to the email and email_verified claims.
+    display_name: Email
+    id: bube15t8739jub0p4g5g
+    name: email
+    tenant_id: default
+  - authorization_server_id: admin
+    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    display_name: Phone
+    id: bube15t8739jub0p4g60
+    name: phone
+    tenant_id: default
+  - authorization_server_id: admin
+    description: This scope value requests access to the address claim.
+    display_name: Address
+    id: bube15t8739jub0p4g6g
+    name: address
+    tenant_id: default
+  - authorization_server_id: admin
+    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    display_name: Profile
+    id: bube15t8739jub0p4g70
+    name: profile
+    tenant_id: default
+  - authorization_server_id: admin
+    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    display_name: OpenID
+    id: bube15t8739jub0p4g7g
+    name: openid
+    tenant_id: default
+  - authorization_server_id: admin
+    description: This scope value requests offline access using refresh token.
+    display_name: Offline access
+    id: bube15t8739jub0p4g80
+    name: offline_access
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/admin/bube15t8739jub0p4g8g
+  authorization_server_id: admin
+  id: bube15t8739jub0p4g8g
+  name: User Privacy & Consent
+  scopes:
+  - authorization_server_id: admin
+    display_name: View consents
+    id: bube15t8739jub0p4g90
+    name: view_consents
+    tenant_id: default
+  - authorization_server_id: admin
+    display_name: Manage consents
+    id: bube15t8739jub0p4g9g
+    name: manage_consents
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/admin/bube15t8739jub0p4ga0
+  authorization_server_id: admin
+  id: bube15t8739jub0p4ga0
+  name: OAuth2
+  scopes:
+  - authorization_server_id: admin
+    display_name: Introspect tokens
+    id: bube15t8739jub0p4gag
+    name: introspect_tokens
+    tenant_id: default
+  - authorization_server_id: admin
+    display_name: Revoke tokens
+    id: bube15t8739jub0p4gb0
+    name: revoke_tokens
+    tenant_id: default
+  - authorization_server_id: admin
+    display_name: List clients with access
+    id: bube15t8739jub0p4gbg
+    name: list_clients_with_access
+    tenant_id: default
+  - authorization_server_id: admin
+    display_name: Revoke client access
+    id: bube15t8739jub0p4gc0
+    name: revoke_client_access
+    tenant_id: default
+  - authorization_server_id: admin
+    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    display_name: Use Dynamic Client Registration
+    id: bube15t8739jub0p4gcg
+    name: dcr_register
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/developer/bube15t8739jub0p4gp0
+  authorization_server_id: developer
+  id: bube15t8739jub0p4gp0
+  name: Profile
+  scopes:
+  - authorization_server_id: developer
+    description: This scope value requests access to the email and email_verified claims.
+    display_name: Email
+    id: bube15t8739jub0p4gpg
+    name: email
+    tenant_id: default
+  - authorization_server_id: developer
+    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    display_name: Phone
+    id: bube15t8739jub0p4gq0
+    name: phone
+    tenant_id: default
+  - authorization_server_id: developer
+    description: This scope value requests access to the address claim.
+    display_name: Address
+    id: bube15t8739jub0p4gqg
+    name: address
+    tenant_id: default
+  - authorization_server_id: developer
+    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    display_name: Profile
+    id: bube15t8739jub0p4gr0
+    name: profile
+    tenant_id: default
+  - authorization_server_id: developer
+    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    display_name: OpenID
+    id: bube15t8739jub0p4grg
+    name: openid
+    tenant_id: default
+  - authorization_server_id: developer
+    description: This scope value requests offline access using refresh token.
+    display_name: Offline access
+    id: bube15t8739jub0p4gs0
+    name: offline_access
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/developer/bube15t8739jub0p4gsg
+  authorization_server_id: developer
+  id: bube15t8739jub0p4gsg
+  name: User Privacy & Consent
+  scopes:
+  - authorization_server_id: developer
+    display_name: View consents
+    id: bube15t8739jub0p4gt0
+    name: view_consents
+    tenant_id: default
+  - authorization_server_id: developer
+    display_name: Manage consents
+    id: bube15t8739jub0p4gtg
+    name: manage_consents
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/developer/bube15t8739jub0p4gu0
+  authorization_server_id: developer
+  id: bube15t8739jub0p4gu0
+  name: OAuth2
+  scopes:
+  - authorization_server_id: developer
+    display_name: Introspect tokens
+    id: bube15t8739jub0p4gug
+    name: introspect_tokens
+    tenant_id: default
+  - authorization_server_id: developer
+    display_name: Revoke tokens
+    id: bube15t8739jub0p4gv0
+    name: revoke_tokens
+    tenant_id: default
+  - authorization_server_id: developer
+    display_name: List clients with access
+    id: bube15t8739jub0p4gvg
+    name: list_clients_with_access
+    tenant_id: default
+  - authorization_server_id: developer
+    display_name: Revoke client access
+    id: bube15t8739jub0p4h00
+    name: revoke_client_access
+    tenant_id: default
+  - authorization_server_id: developer
+    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    display_name: Use Dynamic Client Registration
+    id: bube15t8739jub0p4h0g
+    name: dcr_register
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/default/bube15t8739jub0p4hd0
+  authorization_server_id: default
+  id: bube15t8739jub0p4hd0
+  name: Profile
+  scopes:
+  - authorization_server_id: default
+    description: This scope value requests access to the email and email_verified claims.
+    display_name: Email
+    id: bube15t8739jub0p4hdg
+    name: email
+    tenant_id: default
+  - authorization_server_id: default
+    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    display_name: Phone
+    id: bube15t8739jub0p4he0
+    name: phone
+    tenant_id: default
+  - authorization_server_id: default
+    description: This scope value requests access to the address claim.
+    display_name: Address
+    id: bube15t8739jub0p4heg
+    name: address
+    tenant_id: default
+  - authorization_server_id: default
+    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    display_name: Profile
+    id: bube15t8739jub0p4hf0
+    name: profile
+    tenant_id: default
+  - authorization_server_id: default
+    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    display_name: OpenID
+    id: bube15t8739jub0p4hfg
+    name: openid
+    tenant_id: default
+  - authorization_server_id: default
+    description: This scope value requests offline access using refresh token.
+    display_name: Offline access
+    id: bube15t8739jub0p4hg0
+    name: offline_access
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/default/bube15t8739jub0p4hgg
+  authorization_server_id: default
+  id: bube15t8739jub0p4hgg
+  name: User Privacy & Consent
+  scopes:
+  - authorization_server_id: default
+    display_name: View consents
+    id: bube15t8739jub0p4hh0
+    name: view_consents
+    tenant_id: default
+  - authorization_server_id: default
+    display_name: Manage consents
+    id: bube15t8739jub0p4hhg
+    name: manage_consents
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/default/bube15t8739jub0p4hi0
+  authorization_server_id: default
+  id: bube15t8739jub0p4hi0
+  name: OAuth2
+  scopes:
+  - authorization_server_id: default
+    display_name: Introspect tokens
+    id: bube15t8739jub0p4hig
+    name: introspect_tokens
+    tenant_id: default
+  - authorization_server_id: default
+    display_name: Revoke tokens
+    id: bube15t8739jub0p4hj0
+    name: revoke_tokens
+    tenant_id: default
+  - authorization_server_id: default
+    display_name: List clients with access
+    id: bube15t8739jub0p4hjg
+    name: list_clients_with_access
+    tenant_id: default
+  - authorization_server_id: default
+    display_name: Revoke client access
+    id: bube15t8739jub0p4hk0
+    name: revoke_client_access
+    tenant_id: default
+  - authorization_server_id: default
+    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    display_name: Use Dynamic Client Registration
+    id: bube15t8739jub0p4hkg
+    name: dcr_register
+    tenant_id: default
+  system: true
+  tenant_id: default
+tenants:
+- authentication_context_settings:
+    attributes:
+    - description: List of scopes
+      name: scp
+      type: string_array
+    - description: List of groups that user belongs to
+      name: groups
+      type: string_array
+    - description: Email
+      name: email
+      type: string
+    - description: Email verified
+      name: email_verified
+      type: bool
+    - description: Phone
+      name: phone_number
+      type: string
+    - description: Phone verified
+      name: phone_number_verified
+      type: bool
+    - description: Full mailing address
+      name: address.formatted
+      type: string
+    - description: Full street address
+      name: address.street_address
+      type: string
+    - description: City or locality
+      name: address.locality
+      type: string
+    - description: Stage, province, prefecture or region
+      name: address.region
+      type: string
+    - description: Country
+      name: address.country
+      type: string
+    - description: Postal code
+      name: address.postal_code
+      type: string
+    - description: Name
+      name: name
+      type: string
+    - description: Given name
+      name: given_name
+      type: string
+    - description: Middle name
+      name: middle_name
+      type: string
+    - description: Family name
+      name: family_name
+      type: string
+    - description: Nickname
+      name: nickname
+      type: string
+    - description: The primary username that represents the user
+      name: preferred_username
+      type: string
+    - description: URL of the profile page
+      name: profile
+      type: string
+    - description: URL of the profile picture
+      name: picture
+      type: string
+    - description: URL of the web page
+      name: website
+      type: string
+    - description: Gender
+      name: gender
+      type: string
+    - description: Birthdate
+      name: birthdate
+      type: string
+    - description: Zoneinfo
+      name: zoneinfo
+      type: string
+    - description: Locale
+      name: locale
+      type: string
+    - description: Last update
+      name: updated_at
+      type: number
+  id: default
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: X-fyb3foLQBdRoj-GPNxWuav9oiHxriPnqV-TkpCxI4
+      kid: "51076151891499070092989142217049672266"
+      kty: EC
+      use: sig
+      x: o0t05csQYpl6o26ww9GT4OVREyBFIIlrUlle5dZKIO0
+      x5c:
+      - MIIBwjCCAWmgAwIBAgIQJmzotqlNrxVO2SPGIkaKSjAKBggqhkjOPQQDAjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwHhcNMjAxMDI2MTQ0MzM1WhcNMjAxMTI2MTQ0MzM1WjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASjS3TlyxBimXqjbrDD0ZPg5VETIEUgiWtSWV7l1kog7SGe4G8XBNyoJ1PrMFdRBihUDsOZ45A5SQ7FBc47/aPWo20wazAOBgNVHQ8BAf8EBAMCAqQwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUTtUv5Ie3ojeVolTw+lOuHayyev8wFAYDVR0RBA0wC4IJbG9jYWxob3N0MAoGCCqGSM49BAMCA0cAMEQCIDX50o4DJZy1uVBwjwnN7fsOIZYMJtcVLMZoN/bSnnjGAiBouUpASbjHsUx5v33VmZBiufNGnjnoO30DsRuPz6JNvQ==
+      x5t: YRnegI80CvnTo4jSw-E7nO6PqXc
+      x5t#S256: w16uagJslkf67eS7flMCL92BxINQF-frFv4ZyCGVJFw
+      "y": IZ7gbxcE3KgnU-swV1EGKFQOw5njkDlJDsUFzjv9o9Y
+  name: default
+  url: https://localhost:8443/default
+- authentication_context_settings:
+    attributes:
+    - description: List of scopes
+      name: scp
+      type: string_array
+    - description: List of groups that user belongs to
+      name: groups
+      type: string_array
+    - description: Email
+      name: email
+      type: string
+    - description: Email verified
+      name: email_verified
+      type: bool
+    - description: Phone
+      name: phone_number
+      type: string
+    - description: Phone verified
+      name: phone_number_verified
+      type: bool
+    - description: Full mailing address
+      name: address.formatted
+      type: string
+    - description: Full street address
+      name: address.street_address
+      type: string
+    - description: City or locality
+      name: address.locality
+      type: string
+    - description: Stage, province, prefecture or region
+      name: address.region
+      type: string
+    - description: Country
+      name: address.country
+      type: string
+    - description: Postal code
+      name: address.postal_code
+      type: string
+    - description: Name
+      name: name
+      type: string
+    - description: Given name
+      name: given_name
+      type: string
+    - description: Middle name
+      name: middle_name
+      type: string
+    - description: Family name
+      name: family_name
+      type: string
+    - description: Nickname
+      name: nickname
+      type: string
+    - description: The primary username that represents the user
+      name: preferred_username
+      type: string
+    - description: URL of the profile page
+      name: profile
+      type: string
+    - description: URL of the profile picture
+      name: picture
+      type: string
+    - description: URL of the web page
+      name: website
+      type: string
+    - description: Gender
+      name: gender
+      type: string
+    - description: Birthdate
+      name: birthdate
+      type: string
+    - description: Zoneinfo
+      name: zoneinfo
+      type: string
+    - description: Locale
+      name: locale
+      type: string
+    - description: Last update
+      name: updated_at
+      type: number
+  id: system
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: Bvr-zA_OJFlQXPC5LqkQXBH9qgfCRU-bwWVV-fykWQs
+      kid: "47371647463746024431940681773388256704"
+      kty: EC
+      use: sig
+      x: 0gmSHotUGGWnoLzlwmzPHWgj4Dz_Lz0z4h2JwNuQg8k
+      x5c:
+      - MIIBwzCCAWmgAwIBAgIQI6NyizNzhC/EoWUu99nVwDAKBggqhkjOPQQDAjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwHhcNMjAxMDI2MTQ0MzM1WhcNMjAxMTI2MTQ0MzM1WjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATSCZIei1QYZaegvOXCbM8daCPgPP8vPTPiHYnA25CDyVH20+nPxBG6BH1Fc8sFsIN4jxip95ItldJi2fFpLdjUo20wazAOBgNVHQ8BAf8EBAMCAqQwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUoKmMbDQGCgMxngefgDQOoPC87UIwFAYDVR0RBA0wC4IJbG9jYWxob3N0MAoGCCqGSM49BAMCA0gAMEUCIFoxrNdC7NI0DLfw1MXgt+NT06EyEpRhFD3DivQoVcWIAiEA4SfzmFGX7WkU+YFvskYmAchQqYXlm5w/wAmGTzi/XAQ=
+      x5t: 8Fn-M550BswBtZ2iB2vYE0Ty6z0
+      x5t#S256: ILbB6LI4mMXLBNhyuNkU6h5k2-7iVJ2-MW9rD2-jBZ4
+      "y": UfbT6c_EEboEfUVzywWwg3iPGKn3ki2V0mLZ8Wkt2NQ
+  name: default
+  url: https://localhost:8443/system
+
