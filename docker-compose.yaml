@@ -1,6 +1,62 @@
 version: "3.0"
+
+networks:
+  system:
+    driver: bridge
+
 services:
   bank:
     build: bank
+    networks:
+      - system
     ports:
       - "8080:8080"
+  acp:
+    container_name: acp
+    image: docker.artifactory.syntegrity.com/authorization:latest
+    networks:
+      - system
+    ports:
+     - 8443:8443
+    restart: on-failure
+    volumes:
+      - ./data/seed.yaml:/seed.yaml
+    command:
+     - server
+     - start
+     - --sql.url
+     - postgres://user:password@postgres/authorization?sslmode=disable
+     - --hazelcast.address
+     - hazelcast:5701
+     - --secret.key
+     - KNEcLGdDqpwrXDubqPgDSUkMMsLPXaHh
+     - --server.cert.path
+     - /certs/srv/cert.pem
+     - --server.key.path
+     - /certs/srv/cert-key.pem
+
+  postgres:
+    image: postgres:12.4
+    container_name: postgres
+    command: ["postgres", "-c", "log_statement=all"]
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - system
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=authorization
+
+  hazelcast:
+    image: hazelcast/hazelcast:3.12
+    networks:
+      - system
+    ports:
+      - 5701:5701
