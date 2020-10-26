@@ -1,0 +1,6 @@
+version: "3.0"
+services:
+  bank:
+    build: bank
+    ports:
+      - "8080:8080"
