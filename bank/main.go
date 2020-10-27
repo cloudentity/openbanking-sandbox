@@ -30,7 +30,7 @@ func main() {
 	viper.AutomaticEnv()
 
 	hc, err := httpx.NewClient(httpx.ClientConfig{
-		Timeout:            time.Second * 10,
+		Timeout:            time.Second * 3,
 		InsecureSkipVerify: viper.GetBool("client.insecureSkipVerify"),
 		RootCA:             viper.GetString("client.rootCA"),
 	})
@@ -59,7 +59,7 @@ func main() {
 			err           error
 		)
 
-		if loginID == "" {
+		if loginID == "" || loginState == "" {
 			c.String(http.StatusBadRequest, "missing login_id param")
 			return
 		}

@@ -11,11 +11,18 @@ services:
       - system
     ports:
       - "8080:8080"
+    volumes:
+      - ./data/ca.pem:/ca.pem
+    environment:
+      - CLIENT_ROOTCA=/ca.pem
+
   acp:
     container_name: acp
     image: docker.artifactory.syntegrity.com/authorization:latest
     networks:
-      - system
+      system:
+        aliases:
+          - authorization.cloudentity.com
     ports:
      - 8443:8443
     restart: on-failure
