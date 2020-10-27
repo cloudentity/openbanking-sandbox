@@ -35,6 +35,7 @@ services:
      - --server.key.path
      - /certs/srv/cert-key.pem
      - --demo
+     - --dev
 
   postgres:
     image: postgres:12.4

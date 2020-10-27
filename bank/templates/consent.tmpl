@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <title>Consent</title>
+</head>
+
+<body>
+  <h1>Consent</h1>
+
+  <p>Approve consent for client {{ .client_id }}</p>
+
+  <form action="?login_id={{ .login_id }}&login_state={{ .login_state }}" method="post">
+    {{ range .requested_scopes }}
+    <input type="checkbox" name="scopes" value="{{ . }}">{{ . }}<br />
+    {{ end }}
+    <input type="submit" name="action" value="Reject">
+    <input type="submit" name="action" value="Approve">
+  </form>
+</body>
+</html>
