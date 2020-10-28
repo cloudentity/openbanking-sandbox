@@ -2,15 +2,21 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
+	"crypto/x509"
 	"errors"
+	"fmt"
+	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
+	"runtime"
 	"strings"
+	"time"
 
 	"github.com/cloudentity/acp/pkg/swagger/client"
 	"github.com/cloudentity/acp/pkg/swagger/client/logins"
 	"github.com/cloudentity/acp/pkg/swagger/models"
-	"github.com/cloudentity/go-tools/httpx"
 	"github.com/gin-gonic/gin"
 	httptransport "github.com/go-openapi/runtime/client"
 	"golang.org/x/oauth2"
@@ -54,11 +60,7 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	parts := strings.Split(u.Path, "/")
 	acpClient.tenant = parts[1]
 
-	if hc, err = httpx.NewClient(httpx.ClientConfig{
-		Timeout:            config.Timeout,
-		InsecureSkipVerify: config.InsecureSkipVerify,
-		RootCA:             config.RootCA,
-	}); err != nil {
+	if hc, err = newHttpClient(config); err != nil {
 		return acpClient, err
 	}
 
@@ -133,4 +135,46 @@ func (a *AcpClient) RejectScopeGrant(r LoginRequest, rejectReason string, reject
 	}
 
 	return response.Payload.RedirectTo, nil
+}
+
+func newHttpClient(config Config) (*http.Client, error) {
+	var (
+		pool *x509.CertPool
+		data []byte
+		err  error
+	)
+
+	if pool, err = x509.SystemCertPool(); err != nil {
+		return nil, err
+	}
+
+	if config.RootCA != "" {
+		if data, err = ioutil.ReadFile(config.RootCA); err != nil {
+			return nil, fmt.Errorf("failed to read http client root ca: %+v", err)
+		}
+
+		pool.AppendCertsFromPEM(data)
+	}
+
+	return &http.Client{
+		Timeout: config.Timeout,
+		Transport: &http.Transport{
+			Proxy: http.ProxyFromEnvironment,
+			DialContext: (&net.Dialer{
+				Timeout:   30 * time.Second,
+				KeepAlive: 30 * time.Second,
+				DualStack: true,
+			}).DialContext,
+			MaxIdleConns:          100,
+			ResponseHeaderTimeout: config.Timeout,
+			IdleConnTimeout:       90 * time.Second,
+			TLSHandshakeTimeout:   10 * time.Second,
+			ExpectContinueTimeout: 1 * time.Second,
+			MaxIdleConnsPerHost:   runtime.GOMAXPROCS(0) + 1,
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: config.InsecureSkipVerify, // nolint
+				RootCAs:            pool,
+			},
+		},
+	}, nil
 }
