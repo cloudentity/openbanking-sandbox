@@ -10,6 +10,8 @@
 
   <p>Approve consent for client {{ .client_id }}</p>
 
+  <img src="/assets/favicon.png" />
+
   <form action="?login_id={{ .login_request.ID }}&login_state={{ .login_request.State }}" method="post">
     {{ range .requested_scopes }}
     <input type="checkbox" name="scopes" value="{{ . }}">{{ . }}<br />

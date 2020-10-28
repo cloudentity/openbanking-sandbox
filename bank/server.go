@@ -49,9 +49,11 @@ func NewServer() (Server, error) {
 func (s *Server) Start() error {
 	r := gin.Default()
 	r.LoadHTMLGlob("templates/*")
+	r.Static("/assets", "./assets")
 
 	r.GET("/", s.Get())
 	r.POST("/", s.Post())
+	r.GET("/test", s.Test())
 
 	return r.Run()
 }

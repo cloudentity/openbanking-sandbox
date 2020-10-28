@@ -71,3 +71,13 @@ func (s *Server) Post() func(*gin.Context) {
 		c.Redirect(http.StatusFound, redirect)
 	}
 }
+
+func (s *Server) Test() func(*gin.Context) {
+	return func(c *gin.Context) {
+		c.HTML(http.StatusOK, "consent.tmpl", gin.H{
+			"login_request":    LoginRequest{ID: "1", State: "123"},
+			"client_id":        "client-123",
+			"requested_scopes": []string{"email", "openid"},
+		})
+	}
+}
