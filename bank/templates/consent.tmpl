@@ -10,12 +10,12 @@
 
   <p>Approve consent for client {{ .client_id }}</p>
 
-  <form action="?login_id={{ .login_id }}&login_state={{ .login_state }}" method="post">
+  <form action="?login_id={{ .login_request.ID }}&login_state={{ .login_request.State }}" method="post">
     {{ range .requested_scopes }}
     <input type="checkbox" name="scopes" value="{{ . }}">{{ . }}<br />
     {{ end }}
     <input type="submit" name="action" value="Reject">
-    <input type="submit" name="action" value="Approve">
+    <Input type="submit" name="action" value="Approve">
   </form>
 </body>
 </html>
