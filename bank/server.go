@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/url"
 	"time"
 
 	"github.com/caarlos0/env"
@@ -12,10 +13,10 @@ type Server struct {
 }
 
 type Config struct {
-	ClientID           string        `env:"CLIENT_ID"`
-	ClientSecret       string        `env:"CLIENT_SECRET"`
-	TokenURL           string        `env:"TOKEN_URL"`
-	Timeout            time.Duration `env:"TIMEOUT"`
+	ClientID           string        `env:"CLIENT_ID,required"`
+	ClientSecret       string        `env:"CLIENT_SECRET,required"`
+	TokenURL           url.URL       `env:"TOKEN_URL,required"`
+	Timeout            time.Duration `env:"TIMEOUT" envDefault:"5s"`
 	RootCA             string        `env:"ROOT_CA"`
 	InsecureSkipVerify bool          `env:"INSECURE_SKIP_VERIFY"`
 }

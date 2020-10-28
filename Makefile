@@ -1,11 +1,10 @@
 .PHONY: build
 build:
-	make bank-deps
 	docker-compose build
 
 .PHONY: bank-deps
 bank-deps:
-	cd bank && go mod vendor
+	cd bank && go mod vendor # todo
 
 .PHONY: run
 run:

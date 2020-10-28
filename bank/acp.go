@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
-	"net/url"
 	"runtime"
 	"strings"
 	"time"
@@ -49,15 +48,13 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	var (
 		acpClient = AcpClient{}
 		hc        *http.Client
-		u         *url.URL
 		err       error
 	)
 
-	if u, err = url.Parse(config.TokenURL); err != nil {
-		return acpClient, err
+	parts := strings.Split(config.TokenURL.Path, "/")
+	if len(parts) == 0 {
+		return acpClient, errors.New("can't get tenant from token url")
 	}
-
-	parts := strings.Split(u.Path, "/")
 	acpClient.tenant = parts[1]
 
 	if hc, err = newHttpClient(config); err != nil {
@@ -68,13 +65,13 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		ClientID:     config.ClientID,
 		ClientSecret: config.ClientSecret,
 		Scopes:       []string{"manage_scope_grants"},
-		TokenURL:     config.TokenURL,
+		TokenURL:     config.TokenURL.String(),
 	}
 
 	acpClient.client = client.New(httptransport.NewWithClient(
-		u.Host,
+		config.TokenURL.Host,
 		"/",
-		[]string{u.Scheme},
+		[]string{config.TokenURL.Scheme},
 		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
 	), nil)
 
