@@ -1,32 +1,12 @@
 package main
 
 import (
-	"net/url"
-	"time"
-
-	"github.com/caarlos0/env"
 	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
 )
 
 type Server struct {
 	Client AcpClient
-}
-
-type Config struct {
-	ClientID           string        `env:"CLIENT_ID,required"`
-	ClientSecret       string        `env:"CLIENT_SECRET,required"`
-	TokenURL           url.URL       `env:"TOKEN_URL,required"`
-	Timeout            time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA             string        `env:"ROOT_CA"`
-	InsecureSkipVerify bool          `env:"INSECURE_SKIP_VERIFY"`
-}
-
-func LoadConfig() (config Config, err error) {
-	if err := env.Parse(&config); err != nil {
-		return config, err
-	}
-
-	return config, err
 }
 
 func NewServer() (Server, error) {
@@ -37,11 +17,11 @@ func NewServer() (Server, error) {
 	)
 
 	if config, err = LoadConfig(); err != nil {
-		return server, err
+		return server, errors.Wrapf(err, "failed to load config")
 	}
 
 	if server.Client, err = NewAcpClient(config); err != nil {
-		return server, err
+		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
 	return server, nil
