@@ -4,8 +4,6 @@ github.com/PuerkitoBio/purell
 github.com/PuerkitoBio/urlesc
 # github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef
 github.com/asaskevich/govalidator
-# github.com/caarlos0/env v3.5.0+incompatible
-## explicit
 # github.com/caarlos0/env/v6 v6.4.0
 ## explicit
 github.com/caarlos0/env/v6
