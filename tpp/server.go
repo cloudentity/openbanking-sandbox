@@ -6,17 +6,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 )
 
 type Server struct {
 	Config Config
-	// Client AcpClient
 }
 
 func NewServer() (Server, error) {
 	var (
-		config Config
 		server = Server{}
 		err    error
 	)
@@ -24,12 +21,6 @@ func NewServer() (Server, error) {
 	if server.Config, err = LoadConfig(); err != nil {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
-
-	logrus.Infof("XXX config: %+v", config)
-
-	// if server.Client, err = NewAcpClient(config); err != nil {
-	// 	return server, errors.Wrapf(err, "failed to init acp client")
-	// }
 
 	return server, nil
 }
