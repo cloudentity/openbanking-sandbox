@@ -2,22 +2,106 @@
 
 <html>
 <head>
+  <link rel="stylesheet" href="/assets/material-components-web.min.css">
+  <script src="/assets/material-components-web.min.js"></script>
+  <link href="/assets/fonts.css" rel="stylesheet">
+  <link href="/assets/material-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
   <title>Consent</title>
 </head>
 
 <body>
-  <h1>Consent</h1>
+<div class="header"></div>
+<div class="content">
+  <p class="consent-title">Account selection</p>
 
-  <p>Approve consent for client {{ .client_id }}</p>
+  <p class="consent-subtitle">Select the account(s) to share with [{{ .client_id }}]</p>
 
-  <img src="/assets/favicon.png" />
 
   <form action="?login_id={{ .login_request.ID }}&login_state={{ .login_request.State }}" method="post">
-    {{ range .requested_scopes }}
-    <input type="checkbox" name="scopes" value="{{ . }}">{{ . }}<br />
-    {{ end }}
-    <input type="submit" name="action" value="Reject">
-    <Input type="submit" name="action" value="Approve">
+    <div class="form-block">
+      <div class="form-block-title">Select accounts to connect</div>
+        {{ range .requested_scopes }}
+          <div class="account-row">
+            <div class="account-header">
+              <div>
+                <div class="account-header-title">{{ . }}</div>
+                <div class="caption account-header-subtitle">**** **** **** 3325</div>
+              </div>
+              <div class="mdc-switch">
+                <div class="mdc-switch__track"></div>
+                <div class="mdc-switch__thumb-underlay">
+                  <div class="mdc-switch__thumb"></div>
+                  <input
+                          type="checkbox"
+                          id="{{ . }}"
+                          name="scopes"
+                          value="{{ . }}"
+                          class="mdc-switch__native-control"
+                          role="switch"
+                          aria-checked="false"
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        {{ end }}
+    </div>
+
+    <div class="form-block" style="margin-top: 24px;">
+      <div class="form-block-title">Review the data you will be sharing</div>
+        {{ range .requested_scopes }}
+          <div class="account-row">
+            <div class="account-header">
+              <div class="account-header-title">{{ . }}</div>
+              <button id="show-description"
+                      class="mdc-icon-button"
+                      aria-label="Show description"
+                      aria-hidden="true"
+                      aria-pressed="false"
+                      onclick="return toggle({{ . }});">
+                <i class="material-icons mdc-icon-button__icon" data-icon-id="{{ . }}"> keyboard_arrow_down</i>
+              </button>
+            </div>
+            <div class="account-description account-description-hidden" data-desc-id="{{ . }}">
+              description
+            </div>
+          </div>
+        {{ end }}
+    </div>
+
+    <div class="form-actions">
+      <button class="mdc-button mdc-button--outlined" type="submit" name="action" value="deny">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">Cancel</span>
+      </button>
+      <button class="mdc-button mdc-button--raised" type="submit" name="action" value="confirm" style="margin-left: 8px">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">Confirm</span>
+      </button>
+    </div>
   </form>
+</div>
+
+<script>
+  function toggle (value) {
+    var el = document.querySelector("[data-desc-id='" + value + "']");
+    if (el.classList.contains('account-description-visible')) {
+      el.classList.remove("account-description-visible");
+      el.classList.add("account-description-hidden");
+      document.querySelector("[data-icon-id='" + value + "']").innerText = "keyboard_arrow_down";
+    } else {
+      el.classList.remove("account-description-hidden");
+      el.classList.add("account-description-visible");
+      document.querySelector("[data-icon-id='" + value + "']").innerText = "keyboard_arrow_up";
+    }
+
+    return false;
+  }
+
+  var switchControls = [].map.call(document.querySelectorAll('.mdc-switch'), function (el) {
+    return new window.mdc.switchControl.MDCSwitch(el)
+  });
+</script>
 </body>
 </html>
