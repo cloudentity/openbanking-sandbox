@@ -2,9 +2,9 @@
 build:
 	docker-compose build
 
-.PHONY: bank-deps
-bank-deps:
-	cd bank && go mod vendor # todo
+.PHONY: download-deps
+download-deps:
+	go mod vendor
 
 .PHONY: run
 run:

@@ -5,9 +5,20 @@ networks:
     driver: bridge
 
 services:
-  bank:
-    build: bank
-    container_name: bank
+  tpp:
+    build:
+      context: .
+      dockerfile: tpp/Dockerfile
+    container_name: tpp
+    networks:
+      - system
+    ports:
+      - "8090:8090"
+  consent-page:
+    build:
+      context: .
+      dockerfile: consent-page/Dockerfile
+    container_name: consent-page
     networks:
       - system
     ports:

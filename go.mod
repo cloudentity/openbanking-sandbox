@@ -1,4 +1,4 @@
-module github.com/openbanking-sandbox/bank
+module github.com/openbanking-sandbox
 
 go 1.15
 
