@@ -42,6 +42,9 @@ type Dump struct {
 	// gateways
 	Gateways []*Gateway `json:"gateways"`
 
+	// openbanking consents
+	OpenbankingConsents []*OBConsent `json:"openbanking_consents"`
+
 	// policies
 	Policies []*Policy `json:"policies"`
 
@@ -109,6 +112,10 @@ func (m *Dump) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGateways(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateOpenbankingConsents(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -352,6 +359,31 @@ func (m *Dump) validateGateways(formats strfmt.Registry) error {
 			if err := m.Gateways[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("gateways" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Dump) validateOpenbankingConsents(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.OpenbankingConsents) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.OpenbankingConsents); i++ {
+		if swag.IsZero(m.OpenbankingConsents[i]) { // not required
+			continue
+		}
+
+		if m.OpenbankingConsents[i] != nil {
+			if err := m.OpenbankingConsents[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("openbanking_consents" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

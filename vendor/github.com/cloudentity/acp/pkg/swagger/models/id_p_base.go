@@ -42,6 +42,9 @@ type IDPBase struct {
 
 	// mappings
 	Mappings Mappings `json:"mappings,omitempty"`
+
+	// transformer
+	Transformer *ScriptTransformer `json:"transformer,omitempty"`
 }
 
 // Validate validates this ID p base
@@ -53,6 +56,10 @@ func (m *IDPBase) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMappings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTransformer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -89,6 +96,24 @@ func (m *IDPBase) validateMappings(formats strfmt.Registry) error {
 			return ve.ValidateName("mappings")
 		}
 		return err
+	}
+
+	return nil
+}
+
+func (m *IDPBase) validateTransformer(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Transformer) { // not required
+		return nil
+	}
+
+	if m.Transformer != nil {
+		if err := m.Transformer.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("transformer")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -19,6 +19,7 @@ import (
 	"github.com/cloudentity/acp/pkg/swagger/client/idps"
 	"github.com/cloudentity/acp/pkg/swagger/client/logins"
 	"github.com/cloudentity/acp/pkg/swagger/client/oauth2"
+	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/client/policies"
 	"github.com/cloudentity/acp/pkg/swagger/client/scopes"
 	"github.com/cloudentity/acp/pkg/swagger/client/servers"
@@ -77,6 +78,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Web {
 	cli.Idps = idps.New(transport, formats)
 	cli.Logins = logins.New(transport, formats)
 	cli.Oauth2 = oauth2.New(transport, formats)
+	cli.Openbanking = openbanking.New(transport, formats)
 	cli.Policies = policies.New(transport, formats)
 	cli.Scopes = scopes.New(transport, formats)
 	cli.Servers = servers.New(transport, formats)
@@ -144,6 +146,8 @@ type Web struct {
 
 	Oauth2 oauth2.ClientService
 
+	Openbanking openbanking.ClientService
+
 	Policies policies.ClientService
 
 	Scopes scopes.ClientService
@@ -169,6 +173,7 @@ func (c *Web) SetTransport(transport runtime.ClientTransport) {
 	c.Idps.SetTransport(transport)
 	c.Logins.SetTransport(transport)
 	c.Oauth2.SetTransport(transport)
+	c.Openbanking.SetTransport(transport)
 	c.Policies.SetTransport(transport)
 	c.Scopes.SetTransport(transport)
 	c.Servers.SetTransport(transport)
