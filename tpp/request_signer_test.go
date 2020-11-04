@@ -26,9 +26,6 @@ func TestSignRequest(t *testing.T) {
 		},
 	}
 
-	jwt, err := SignRequest(request, signingKey)
+	_, err = SignRequest(request, signingKey)
 	require.NoError(t, err)
-
-	t.Logf("XXX jwt: %s", jwt)
-	t.Fail()
 }
