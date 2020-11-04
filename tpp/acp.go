@@ -17,6 +17,7 @@ import (
 	"github.com/cloudentity/acp/pkg/swagger/client"
 	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/models"
+	"github.com/dgrijalva/jwt-go"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
 	"golang.org/x/oauth2"
@@ -86,6 +87,7 @@ func (a *AcpClient) RegisterAccountAccessConsent(permissions []string) (string, 
 type AcpWebClient struct {
 	Config
 	httpClient *http.Client
+	signingKey interface{}
 }
 
 func NewAcpWebClient(config Config) (client AcpWebClient, err error) {
@@ -95,23 +97,58 @@ func NewAcpWebClient(config Config) (client AcpWebClient, err error) {
 
 	client.Config = config
 
+	if client.signingKey, err = config.GetSigningKey(); err != nil {
+		return client, err
+	}
+
 	return client, nil
 }
 
-func (a *AcpWebClient) AuthorizeURL(indentID string, challenge string, scopes []string) string {
+func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []string) (string, error) {
 	var (
-		buf bytes.Buffer
-
-		queryParams = url.Values{
-			// todo replace request jwt and request openbanking_intent_id as essential claim
-			"response_type":         {"code"},
-			"client_id":             {a.ClientID},
-			"redirect_uri":          {a.RedirectURL.String()},
-			"scope":                 {strings.Join(scopes, " ")},
-			"code_challenge":        {challenge},
-			"code_challenge_method": {"S256"},
-		}
+		buf           bytes.Buffer
+		signedRequest string
+		err           error
 	)
+
+	request := Request{
+		StandardClaims: jwt.StandardClaims{
+			Issuer:    "issuer", // todo aud OR as issuer??
+			ExpiresAt: time.Now().Add(time.Minute).Unix(),
+		},
+		ClientID:     a.ClientID,
+		Scope:        strings.Join(scopes, ""),
+		ResponseType: "code",
+		RedirectURI:  a.RedirectURL.String(),
+		Claims: Claims{
+			Userinfo: map[string]Claim{
+				"openbanking_intent_id": {
+					Essential: true,
+					Value:     intentID,
+				},
+			},
+			IdToken: map[string]Claim{
+				"openbanking_intent_id": {
+					Essential: true,
+					Value:     intentID,
+				},
+			},
+		},
+	}
+
+	if signedRequest, err = SignRequest(request, a.signingKey); err != nil {
+		return "", errors.Wrapf(err, "failed to sign request")
+	}
+
+	queryParams := url.Values{
+		"response_type":         {"code"},
+		"client_id":             {a.ClientID},
+		"redirect_uri":          {a.RedirectURL.String()},
+		"scope":                 {strings.Join(scopes, " ")},
+		"code_challenge":        {challenge},
+		"code_challenge_method": {"S256"},
+		"request":               {signedRequest},
+	}
 
 	buf.WriteString(a.AuthURL.String())
 	if strings.Contains(a.AuthURL.String(), "?") {
@@ -121,7 +158,7 @@ func (a *AcpWebClient) AuthorizeURL(indentID string, challenge string, scopes []
 	}
 
 	buf.WriteString(queryParams.Encode())
-	return buf.String()
+	return buf.String(), nil
 }
 
 func (a *AcpWebClient) Exchange(code string, verifier string) (body []byte, err error) {

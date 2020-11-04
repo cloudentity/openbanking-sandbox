@@ -27,6 +27,7 @@ func (s *Server) Login() func(*gin.Context) {
 			encodedVerifier    string
 			encodedCookieValue string
 			challenge          string
+			loginURL           string
 			err                error
 		)
 
@@ -55,7 +56,9 @@ func (s *Server) Login() func(*gin.Context) {
 		hash.Write([]byte(encodedVerifier))
 		challenge = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(hash.Sum([]byte{}))
 
-		loginURL := s.WebClient.AuthorizeURL(intentID, challenge, []string{"accounts"})
+		if loginURL, err = s.WebClient.AuthorizeURL(intentID, challenge, []string{"accounts"}); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
+		}
 
 		c.HTML(http.StatusOK, "intent_registered.tmpl", gin.H{
 			"intent_id": intentID,
