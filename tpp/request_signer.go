@@ -9,6 +9,7 @@ type Request struct {
 	RedirectURI  string `json:"redirect_uri"`
 	ResponseType string `json:"response_type"`
 	Claims       Claims `json:"claims"`
+	Nonce        string `json:"nonce"`
 }
 
 type Claim struct {

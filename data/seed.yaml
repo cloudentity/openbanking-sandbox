@@ -1222,18 +1222,24 @@ clients:
   - client_credentials
   - authorization_code
   jwks:
-    keys: []
+    keys:
+    - e: AQAB
+      kid: 9857606f-d07e-4d9c-9000-5994ff4cd663
+      kty: RSA
+      "n": sO3jVqJcK8AMk0d-SIyeuBlFFkfE2YM-ettzy2MkSKNNhKvBekYf4lGVMOrF-XbwN2R4RXG9-OZ0yzRv4WWd7OixUnYaKHTC7HVWQ0E6w2iWdyo075WhabSkHGI52_V7l46JvkcSAj7lkTU6nMjIV1Ke3AvaWp3vuixESmwOM66wLT2e-UzzqV0g1P11CTfQQrpiWi4J1J-7Wp39wsGRfFSS1eC3wL-rQtUD1P6rZcVU-U19g2Mbb2_ibE4htVNdQ6XBbbRAopJW_uLnv1ACdyb66-NIwF1yyZn5hLyo68UldWtUvT5oFFAisVncODoNlAmE6UhY1XLNZyWtw9VYZQ
+      use: sig
   privacy: {}
   redirect_uris:
   - http://localhost:8090/callback
   registration_token: {}
-  request_object_signing_alg: none
+  request_object_signing_alg: RS256
   response_types:
   - token
   - code
   scopes:
   - accounts
   - introspect_tokens
+  - openid
   - revoke_tokens
   subject_type: pairwise
   tenant_id: default
@@ -1612,6 +1618,66 @@ openbanking_consents:
     TransactionToDateTime: "0001-01-01T00:00:00.000Z"
   client_id: bugkgm23g9kregtu051g
   consent_id: bugmlkp57vor2aujr8j0
+  server_id: openbanking
+  tenant_id: default
+  type: account_access
+- account_access_consent:
+    ConsentId: buhavi5l5bhhc8q4ho40
+    CreationDateTime: "2020-11-04T13:42:32.767Z"
+    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
+    Permissions:
+    - ReadAccountsBasic
+    Status: AwaitingAuthorisation
+    StatusUpdateDateTime: "2020-11-04T13:42:32.767Z"
+    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
+    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
+  client_id: bugkgm23g9kregtu051g
+  consent_id: buhavi5l5bhhc8q4ho40
+  server_id: openbanking
+  tenant_id: default
+  type: account_access
+- account_access_consent:
+    ConsentId: buhavltl5bhhc8q4ho50
+    CreationDateTime: "2020-11-04T13:42:47.894Z"
+    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
+    Permissions:
+    - ReadAccountsBasic
+    Status: AwaitingAuthorisation
+    StatusUpdateDateTime: "2020-11-04T13:42:47.894Z"
+    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
+    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
+  client_id: bugkgm23g9kregtu051g
+  consent_id: buhavltl5bhhc8q4ho50
+  server_id: openbanking
+  tenant_id: default
+  type: account_access
+- account_access_consent:
+    ConsentId: buhbehal3lcubchn6h70
+    CreationDateTime: "2020-11-04T14:14:29.847Z"
+    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
+    Permissions:
+    - ReadAccountsBasic
+    Status: AwaitingAuthorisation
+    StatusUpdateDateTime: "2020-11-04T14:14:29.847Z"
+    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
+    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
+  client_id: bugkgm23g9kregtu051g
+  consent_id: buhbehal3lcubchn6h70
+  server_id: openbanking
+  tenant_id: default
+  type: account_access
+- account_access_consent:
+    ConsentId: buhbu5hldh161h4c00og
+    CreationDateTime: "2020-11-04T14:47:50.572Z"
+    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
+    Permissions:
+    - ReadAccountsBasic
+    Status: AwaitingAuthorisation
+    StatusUpdateDateTime: "2020-11-04T14:47:50.572Z"
+    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
+    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
+  client_id: bugkgm23g9kregtu051g
+  consent_id: buhbu5hldh161h4c00og
   server_id: openbanking
   tenant_id: default
   type: account_access
@@ -2776,14 +2842,6 @@ policy_execution_points:
   tenant_id: default
   type: scope_dynamic_client_registration
 - server_id: openbanking
-  target_fk: bugkgm23g9kregtu051g
-  tenant_id: default
-  type: client_user_token
-- server_id: openbanking
-  target_fk: bugkgm23g9kregtu051g
-  tenant_id: default
-  type: client_machine_token
-- server_id: openbanking
   target_fk: openbanking
   tenant_id: default
   type: server_client_assignment
@@ -2799,6 +2857,14 @@ policy_execution_points:
   target_fk: openbanking
   tenant_id: default
   type: server_dynamic_client_registration
+- server_id: openbanking
+  target_fk: bugkgm23g9kregtu051g
+  tenant_id: default
+  type: client_user_token
+- server_id: openbanking
+  target_fk: bugkgm23g9kregtu051g
+  tenant_id: default
+  type: client_machine_token
 - policy_id: block_system_developer
   server_id: system
   target_fk: bube15t8739jub0p4fhg

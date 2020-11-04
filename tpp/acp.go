@@ -5,6 +5,7 @@ import (
 	"context"
 	"crypto/tls"
 	"crypto/x509"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net"
@@ -20,6 +21,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 )
@@ -104,7 +106,7 @@ func NewAcpWebClient(config Config) (client AcpWebClient, err error) {
 	return client, nil
 }
 
-func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []string) (string, error) {
+func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []string, nonce string) (string, error) {
 	var (
 		buf           bytes.Buffer
 		signedRequest string
@@ -113,13 +115,13 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 
 	request := Request{
 		StandardClaims: jwt.StandardClaims{
-			Issuer:    "issuer", // todo aud OR as issuer??
 			ExpiresAt: time.Now().Add(time.Minute).Unix(),
 		},
 		ClientID:     a.ClientID,
-		Scope:        strings.Join(scopes, ""),
+		Scope:        strings.Join(scopes, " "),
 		ResponseType: "code",
 		RedirectURI:  a.RedirectURL.String(),
+		Nonce:        nonce,
 		Claims: Claims{
 			Userinfo: map[string]Claim{
 				"openbanking_intent_id": {
@@ -135,6 +137,7 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 			},
 		},
 	}
+	logrus.Infof("request: %+v", request)
 
 	if signedRequest, err = SignRequest(request, a.signingKey); err != nil {
 		return "", errors.Wrapf(err, "failed to sign request")
@@ -161,8 +164,19 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 	return buf.String(), nil
 }
 
-func (a *AcpWebClient) Exchange(code string, verifier string) (body []byte, err error) {
-	var response *http.Response
+type Token struct {
+	AccessToken string  `json:"access_token"`
+	TokenType   string  `json:"token_type"`
+	Scope       string  `json:"scope"`
+	ExpiresIn   int     `json:"expires_in"`
+	IDToken     *string `json:"id_token"`
+}
+
+func (a *AcpWebClient) Exchange(code string, verifier string) (token Token, err error) {
+	var (
+		response *http.Response
+		body     []byte
+	)
 
 	values := url.Values{
 		"grant_type":    {"authorization_code"},
@@ -173,19 +187,23 @@ func (a *AcpWebClient) Exchange(code string, verifier string) (body []byte, err 
 	}
 
 	if response, err = a.httpClient.PostForm(a.TokenURL.String(), values); err != nil {
-		return []byte{}, fmt.Errorf("error while obtaining token: %w", err)
+		return token, fmt.Errorf("error while obtaining token: %w", err)
 	}
 	defer response.Body.Close()
 
 	if response.StatusCode != http.StatusOK {
-		return []byte{}, errors.New(fmt.Sprintf("ACP responded with status code: %v", response.Status))
+		return token, errors.New(fmt.Sprintf("ACP responded with status code: %v", response.Status))
 	}
 
 	if body, err = ioutil.ReadAll(response.Body); err != nil {
-		return []byte{}, fmt.Errorf("error during decoding exchange body: %w", err)
+		return token, fmt.Errorf("error during decoding exchange body: %w", err)
 	}
 
-	return body, nil
+	if err = json.Unmarshal(body, &token); err != nil {
+		return token, fmt.Errorf("error during parsing token response: %w", err)
+	}
+
+	return token, nil
 }
 
 func newHttpClient(config Config) (*http.Client, error) {
