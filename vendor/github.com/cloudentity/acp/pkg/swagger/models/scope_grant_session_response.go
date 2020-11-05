@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -19,6 +21,9 @@ type ScopeGrantSessionResponse struct {
 
 	// authentication context class reference
 	Acr string `json:"acr,omitempty"`
+
+	// scopes that passed policy validation
+	AllowedScopes map[string]bool `json:"allowed_scopes,omitempty"`
 
 	// authentication methods references
 	Amr []string `json:"amr"`
@@ -66,7 +71,7 @@ type ScopeGrantSessionResponse struct {
 	RequestedGrantType string `json:"requested_grant_type,omitempty"`
 
 	// list of requested scopes
-	RequestedScopes []string `json:"requested_scopes"`
+	RequestedScopes []*RequestedScope `json:"requested_scopes"`
 
 	// is scope grant approved
 	ScopeGrantApproved bool `json:"scope_grant_approved,omitempty"`
@@ -109,6 +114,10 @@ func (m *ScopeGrantSessionResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateRequestedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRequestedScopes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -168,6 +177,31 @@ func (m *ScopeGrantSessionResponse) validateRequestedAt(formats strfmt.Registry)
 
 	if err := validate.FormatOf("requested_at", "body", "date-time", m.RequestedAt.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *ScopeGrantSessionResponse) validateRequestedScopes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RequestedScopes) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.RequestedScopes); i++ {
+		if swag.IsZero(m.RequestedScopes[i]) { // not required
+			continue
+		}
+
+		if m.RequestedScopes[i] != nil {
+			if err := m.RequestedScopes[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("requested_scopes" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

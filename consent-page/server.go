@@ -34,7 +34,6 @@ func (s *Server) Start() error {
 
 	r.GET("/", s.Get())
 	r.POST("/", s.Post())
-	r.GET("/test", s.Test())
 
 	return r.Run()
 }

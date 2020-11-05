@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -37,7 +39,7 @@ type GetAccountAccessConsentResponse struct {
 	Permissions []string `json:"permissions"`
 
 	// requested scopes
-	RequestedScopes []string `json:"requested_scopes"`
+	RequestedScopes []*RequestedScope `json:"requested_scopes"`
 
 	// Specifies the status of consent resource in code form.
 	Status string `json:"status,omitempty"`
@@ -69,6 +71,10 @@ func (m *GetAccountAccessConsentResponse) Validate(formats strfmt.Registry) erro
 	}
 
 	if err := m.validateExpirationDateTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRequestedScopes(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -111,6 +117,31 @@ func (m *GetAccountAccessConsentResponse) validateExpirationDateTime(formats str
 
 	if err := validate.FormatOf("expiration_date_time", "body", "date-time", m.ExpirationDateTime.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *GetAccountAccessConsentResponse) validateRequestedScopes(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RequestedScopes) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.RequestedScopes); i++ {
+		if swag.IsZero(m.RequestedScopes[i]) { // not required
+			continue
+		}
+
+		if m.RequestedScopes[i] != nil {
+			if err := m.RequestedScopes[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("requested_scopes" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

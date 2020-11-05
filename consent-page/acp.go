@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/cloudentity/acp/pkg/swagger/client"
-	"github.com/cloudentity/acp/pkg/swagger/client/logins"
+	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/models"
 	"github.com/gin-gonic/gin"
 	httptransport "github.com/go-openapi/runtime/client"
@@ -64,7 +64,7 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	cc := clientcredentials.Config{
 		ClientID:     config.ClientID,
 		ClientSecret: config.ClientSecret,
-		Scopes:       []string{"manage_scope_grants"},
+		Scopes:       []string{"manage_openbanking_consents"},
 		TokenURL:     config.TokenURL.String(),
 	}
 
@@ -78,13 +78,13 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	return acpClient, nil
 }
 
-func (a *AcpClient) GetScopeGrant(r LoginRequest) (*models.ScopeGrantSessionResponse, error) {
+func (a *AcpClient) GetAccountAccessConsent(r LoginRequest) (*models.GetAccountAccessConsentResponse, error) {
 	var (
-		response *logins.GetScopeGrantRequestOK
+		response *openbanking.GetAccountAccessConsentSystemOK
 		err      error
 	)
 
-	if response, err = a.client.Logins.GetScopeGrantRequest(logins.NewGetScopeGrantRequestParams().
+	if response, err = a.client.Openbanking.GetAccountAccessConsentSystem(openbanking.NewGetAccountAccessConsentSystemParams().
 		WithTid(a.tenant).WithLoginID(r.ID), nil); err != nil {
 		return nil, err
 	}
@@ -92,42 +92,41 @@ func (a *AcpClient) GetScopeGrant(r LoginRequest) (*models.ScopeGrantSessionResp
 	return response.Payload, nil
 }
 
-func (a *AcpClient) ApproveScopeGrant(r LoginRequest, approvedScopes []string) (string, error) {
+func (a *AcpClient) ApproveAccountAccessConsent(r LoginRequest, accountIDs []string) (string, error) {
 	var (
-		response *logins.AcceptScopeGrantRequestOK
+		response *openbanking.AcceptAccountAccessConsentSystemOK
 		err      error
 	)
 
-	acceptScopeGrant := &models.AcceptScopeGrant{
-		GrantedScopes: approvedScopes,
-		ID:            r.ID,
+	accept := &models.AcceptAccountAccessConsentRequest{
+		GrantedScopes: []string{"openid", "accounts"}, // todo
+		AccountIDs:    accountIDs,
 		LoginState:    r.State,
 	}
 
-	if response, err = a.client.Logins.AcceptScopeGrantRequest(logins.NewAcceptScopeGrantRequestParams().
-		WithTid(a.tenant).WithLoginID(r.ID).WithAcceptScopeGrant(acceptScopeGrant), nil); err != nil {
+	if response, err = a.client.Openbanking.AcceptAccountAccessConsentSystem(openbanking.NewAcceptAccountAccessConsentSystemParams().
+		WithTid(a.tenant).WithLoginID(r.ID).WithAcceptAccountAccessConsent(accept), nil); err != nil {
 		return "", err
 	}
 
 	return response.Payload.RedirectTo, nil
 }
 
-func (a *AcpClient) RejectScopeGrant(r LoginRequest, rejectReason string, rejectStatusCode int64) (string, error) {
+func (a *AcpClient) RejectAccountAccessConsent(r LoginRequest, rejectReason string, rejectStatusCode int64) (string, error) {
 	var (
-		response *logins.RejectScopeGrantRequestOK
+		response *openbanking.RejectAccountAccessConsentSystemOK
 		err      error
 	)
 
-	rejectScopeGrant := &models.RejectScopeGrant{
+	reject := &models.RejectAccountAccessConsentRequest{
 		ID:         r.ID,
 		LoginState: r.State,
 		Error:      rejectReason,
 		StatusCode: rejectStatusCode,
 	}
 
-	if response, err = a.client.Logins.RejectScopeGrantRequest(logins.NewRejectScopeGrantRequestParams().
-		WithTid(a.tenant).WithLoginID(r.ID).WithRejectScopeGrant(rejectScopeGrant), nil); err != nil {
-
+	if response, err = a.client.Openbanking.RejectAccountAccessConsentSystem(openbanking.NewRejectAccountAccessConsentSystemParams().
+		WithTid(a.tenant).WithLoginID(r.ID).WithRejectAccountAccessConsent(reject), nil); err != nil {
 		return "", nil
 	}
 

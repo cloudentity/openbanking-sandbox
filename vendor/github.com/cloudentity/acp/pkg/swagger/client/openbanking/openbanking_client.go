@@ -43,7 +43,9 @@ type ClientService interface {
 }
 
 /*
-  AcceptAccountAccessConsentSystem Accept account access consent
+  AcceptAccountAccessConsentSystem accepts account access consent
+
+  This API can be used by a custom openbanking consent page to notify ACP that user granted consent to a given accounts.
 */
 func (a *Client) AcceptAccountAccessConsentSystem(params *AcceptAccountAccessConsentSystemParams, authInfo runtime.ClientAuthInfoWriter) (*AcceptAccountAccessConsentSystemOK, error) {
 	// : Validate the params before sending
@@ -202,7 +204,10 @@ func (a *Client) GetAccountAccessConsentRequest(params *GetAccountAccessConsentR
 }
 
 /*
-  GetAccountAccessConsentSystem Get account access consent
+  GetAccountAccessConsentSystem gets account access consent
+
+  This API can be used by a custom openbanking consent page.
+The consent page must first use client credentials flow to create account access consent.
 */
 func (a *Client) GetAccountAccessConsentSystem(params *GetAccountAccessConsentSystemParams, authInfo runtime.ClientAuthInfoWriter) (*GetAccountAccessConsentSystemOK, error) {
 	// : Validate the params before sending
@@ -237,7 +242,9 @@ func (a *Client) GetAccountAccessConsentSystem(params *GetAccountAccessConsentSy
 }
 
 /*
-  RejectAccountAccessConsentSystem Reject account access consent
+  RejectAccountAccessConsentSystem rejects account access consent
+
+  This API can be used by a custom openbanking consent page to notify ACP that user rejected access to accounts.
 */
 func (a *Client) RejectAccountAccessConsentSystem(params *RejectAccountAccessConsentSystemParams, authInfo runtime.ClientAuthInfoWriter) (*RejectAccountAccessConsentSystemOK, error) {
 	// : Validate the params before sending

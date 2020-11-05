@@ -1012,6 +1012,7 @@ clients:
   - token
   scopes:
   - introspect_tokens
+  - manage_openbanking_consents
   - manage_scope_grants
   - revoke_tokens
   subject_type: public
@@ -1301,97 +1302,6 @@ idps:
     static: {}
   tenant_id: default
   transformer: {}
-openbanking_consents:
-- account_access_consent:
-    ConsentId: bugmlkp57vor2aujr8j0
-    CreationDateTime: "2020-11-03T14:36:03.698Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsBasic
-    Status: AwaitingAuthorisation
-    StatusUpdateDateTime: "2020-11-03T14:36:03.698Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: bugmlkp57vor2aujr8j0
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
-- account_access_consent:
-    ConsentId: buhavi5l5bhhc8q4ho40
-    CreationDateTime: "2020-11-04T13:42:32.767Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsBasic
-    Status: AwaitingAuthorisation
-    StatusUpdateDateTime: "2020-11-04T13:42:32.767Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: buhavi5l5bhhc8q4ho40
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
-- account_access_consent:
-    ConsentId: buhavltl5bhhc8q4ho50
-    CreationDateTime: "2020-11-04T13:42:47.894Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsBasic
-    Status: AwaitingAuthorisation
-    StatusUpdateDateTime: "2020-11-04T13:42:47.894Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: buhavltl5bhhc8q4ho50
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
-- account_access_consent:
-    ConsentId: buhbehal3lcubchn6h70
-    CreationDateTime: "2020-11-04T14:14:29.847Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsBasic
-    Status: AwaitingAuthorisation
-    StatusUpdateDateTime: "2020-11-04T14:14:29.847Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: buhbehal3lcubchn6h70
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
-- account_access_consent:
-    ConsentId: buhbu5hldh161h4c00og
-    CreationDateTime: "2020-11-04T14:47:50.572Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsBasic
-    Status: AwaitingAuthorisation
-    StatusUpdateDateTime: "2020-11-04T14:47:50.572Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: buhbu5hldh161h4c00og
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
-- account_access_consent:
-    ConsentId: buhst555gintc6es9alg
-    CreationDateTime: "2020-11-05T10:06:12.170Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsBasic
-    Status: AwaitingAuthorisation
-    StatusUpdateDateTime: "2020-11-05T10:06:12.170Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: buhst555gintc6es9alg
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
 policies:
 - id: block_admin_api
   language: cloudentity
@@ -2440,6 +2350,19 @@ policy_execution_points:
   type: scope_dynamic_client_registration
 - policy_id: block_system_developer
   server_id: system
+  target_fk: bui20p1jkpv9e38d5jlg
+  tenant_id: default
+  type: scope_client_assignment
+- server_id: system
+  target_fk: bui20p1jkpv9e38d5jlg
+  tenant_id: default
+  type: scope_user_grant
+- server_id: system
+  target_fk: bui20p1jkpv9e38d5jlg
+  tenant_id: default
+  type: scope_machine_grant
+- policy_id: block_system_developer
+  server_id: system
   target_fk: bube15t8739jub0p4etg
   tenant_id: system
   type: scope_client_assignment
@@ -2560,7 +2483,6 @@ servers:
     software_statement:
       jwks:
         keys: null
-  enforce_pkce: true
   grant_types:
   - authorization_code
   id: admin
@@ -2613,7 +2535,6 @@ servers:
     software_statement:
       jwks:
         keys: null
-  enforce_pkce: true
   grant_types:
   - authorization_code
   id: developer
@@ -2690,7 +2611,7 @@ servers:
       x5t#S256: kALY_L8dUUuHdq9rN9h33CNmiWch8X2VbVVTafrNAsg
       "y": tTWLHk0rDYKaLtJmZ3E8rEz-sPWkVb3cHDR0W_gOpBs
   key_type: ecdsa
-  name: openbanking
+  name: openbankingg
   profile: openbanking_uk
   refresh_token_ttl: 720h0m0s
   root_cas: |
@@ -2717,8 +2638,9 @@ servers:
     -----END CERTIFICATE-----
   scope_grant_method:
     OIDC: {}
-    custom: {}
-    method: oidc
+    custom:
+      scope_grant_url: http://localhost:8080
+    method: custom
   secret: mEPU_dqAKxKZ3Yt4kdEjFe2HEBcdFHc2majkvPgq-50
   subject_identifier_algorithm_salt: NCb8R3X-LM8ICq_QXtgbroDoBbomb6T1YqZ2HWuhw7c
   subject_identifier_types:
@@ -2737,7 +2659,6 @@ servers:
     software_statement:
       jwks:
         keys: null
-  enforce_pkce: true
   grant_types:
   - client_credentials
   id: system
@@ -3350,6 +3271,17 @@ services:
     name: accounts
     tenant_id: default
   system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/system/bui20gpjkpv9e38d5jjg
+  authorization_server_id: system
+  id: bui20gpjkpv9e38d5jjg
+  name: Openbanking
+  scopes:
+  - authorization_server_id: system
+    display_name: manage Openbanking consents
+    id: bui20p1jkpv9e38d5jlg
+    name: manage_openbanking_consents
+    tenant_id: default
   tenant_id: default
 tenants:
 - authentication_context_settings:
