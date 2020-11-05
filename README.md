@@ -16,7 +16,6 @@ make run
 
 ``` sh
 * acp admin: https://localhost:8443/app/default/admin
-* acp demo client: https://localhost:8443/default/default/demo (user / user)
-* tpp: http://localhost:8090
+* tpp: http://localhost:8090 (user / user)
 * consent-page: http://localhost:8090
 ```

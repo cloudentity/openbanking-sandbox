@@ -134,6 +134,10 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 					Essential: true,
 					Value:     intentID,
 				},
+				"acr": {
+					Essential: true,
+					Value:     "urn:openbanking:psd2:sca",
+				},
 			},
 		},
 	}
