@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
@@ -39,6 +40,8 @@ func (s *Server) Login() func(*gin.Context) {
 			encodedCookieValue string
 			challenge          string
 			loginURL           string
+			u                  *url.URL
+			data               = gin.H{}
 			err                error
 		)
 
@@ -86,10 +89,28 @@ func (s *Server) Login() func(*gin.Context) {
 			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
 		}
 
-		c.HTML(http.StatusOK, "intent_registered.tmpl", gin.H{
-			"intent_id": intentID,
-			"login_url": loginURL,
-		})
+		// debug only
+		if u, err = url.Parse(loginURL); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to parse login url: %+v", err))
+		}
+
+		rp := u.Query()["request"]
+		if len(rp) > 0 {
+			parser := jwt.Parser{}
+			claims := jwt.MapClaims{}
+			idToken, _, _ := parser.ParseUnverified(rp[0], &claims)
+			header, _ := json.MarshalIndent(idToken.Header, "", "  ")
+			payload, _ := json.MarshalIndent(claims, "", "  ")
+
+			data["request_raw"] = rp[0]
+			data["request_header"] = string(header)
+			data["request_payload"] = string(payload)
+		}
+
+		data["intent_id"] = intentID
+		data["login_url"] = loginURL
+
+		c.HTML(http.StatusOK, "intent_registered.tmpl", data)
 	}
 }
 

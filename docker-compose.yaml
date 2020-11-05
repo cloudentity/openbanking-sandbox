@@ -46,7 +46,7 @@ services:
 
   acp:
     container_name: acp
-    image: docker.artifactory.syntegrity.com/authorization:latest
+    image: docker.artifactory.syntegrity.com/authorization:aut-1865-openbanking-authorize-integration
     networks:
       system:
         aliases:

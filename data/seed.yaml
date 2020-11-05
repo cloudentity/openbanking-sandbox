@@ -2691,7 +2691,7 @@ servers:
       "y": tTWLHk0rDYKaLtJmZ3E8rEz-sPWkVb3cHDR0W_gOpBs
   key_type: ecdsa
   name: openbanking
-  profile: default
+  profile: openbanking_uk
   refresh_token_ttl: 720h0m0s
   root_cas: |
     -----BEGIN CERTIFICATE-----
