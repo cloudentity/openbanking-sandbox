@@ -3,6 +3,7 @@ package main
 import "github.com/dgrijalva/jwt-go"
 
 type Request struct {
+	jwt.StandardClaims
 	ClientID     string `json:"client_id"`
 	Scope        string `json:"scope"`
 	RedirectURI  string `json:"redirect_uri"`

@@ -12,6 +12,10 @@ run:
 	./scripts/wait.sh
 	make seed # todo add import to acp start cmd
 
+.PHONY: lint
+lint:
+	golangci-lint run --fix --deadline=5m ./...
+
 .PHONY: clean
 clean:
 	docker-compose down

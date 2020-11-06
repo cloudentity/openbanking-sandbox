@@ -82,7 +82,10 @@ func (s *Server) Login() func(*gin.Context) {
 		c.SetCookie("app", encodedCookieValue, 0, "/", "", false, true)
 
 		hash := sha256.New()
-		hash.Write([]byte(encodedVerifier))
+		if _, err = hash.Write([]byte(encodedVerifier)); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("error while creating challenge: %+v", err))
+			return
+		}
 		challenge = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(hash.Sum([]byte{}))
 
 		if loginURL, err = s.WebClient.AuthorizeURL(intentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
