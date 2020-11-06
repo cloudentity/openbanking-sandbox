@@ -93,7 +93,6 @@ func (s *Server) Login() func(*gin.Context) {
 		if u, err = url.Parse(loginURL); err != nil {
 			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to parse login url: %+v", err))
 		}
-
 		rp := u.Query()["request"]
 		if len(rp) > 0 {
 			parser := jwt.Parser{}
@@ -117,12 +116,13 @@ func (s *Server) Login() func(*gin.Context) {
 func (s *Server) Callback() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			app        string
-			appStorage = AppStorage{}
-			code       = c.Query("code")
-			token      Token
-			data       = gin.H{}
-			err        error
+			app              string
+			appStorage       = AppStorage{}
+			userinfoResponse map[string]interface{}
+			code             = c.Query("code")
+			token            Token
+			data             = gin.H{}
+			err              error
 		)
 
 		if c.Query("error") != "" {
@@ -141,13 +141,20 @@ func (s *Server) Callback() func(*gin.Context) {
 		}
 
 		if token, err = s.WebClient.Exchange(code, appStorage.Verifier); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to exchange code: %+v", err))
+			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to exchange code: %+v", err))
 			return
 		}
 
 		// todo validate id_token and compare nonce val
 
+		if userinfoResponse, err = s.WebClient.Userinfo(token.AccessToken); err != nil {
+			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to introspect access token: %+v", err))
+			return
+		}
+
 		data["access_token"] = token.AccessToken
+		userinfoResp, _ := json.MarshalIndent(userinfoResponse, "", "  ")
+		data["userinfo"] = string(userinfoResp)
 
 		if token.IDToken != nil {
 			parser := jwt.Parser{}

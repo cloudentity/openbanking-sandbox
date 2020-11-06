@@ -210,6 +210,38 @@ func (a *AcpWebClient) Exchange(code string, verifier string) (token Token, err 
 	return token, nil
 }
 
+func (a *AcpWebClient) Userinfo(token string) (body map[string]interface{}, err error) {
+	var (
+		request  *http.Request
+		response *http.Response
+		bs       []byte
+	)
+
+	if request, err = http.NewRequest("GET", "https://authorization.cloudentity.com:8443/default/openbanking/userinfo", nil); err != nil {
+		return body, fmt.Errorf("error while building request: %w", err)
+	}
+	request.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
+
+	if response, err = a.httpClient.Do(request); err != nil {
+		return body, fmt.Errorf("error while calling userinfo endpoint: %w", err)
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode != http.StatusOK {
+		return body, errors.New(fmt.Sprintf("ACP responded with status code: %v", response.Status))
+	}
+
+	if bs, err = ioutil.ReadAll(response.Body); err != nil {
+		return body, fmt.Errorf("error during decoding exchange body: %w", err)
+	}
+
+	if err = json.Unmarshal(bs, &body); err != nil {
+		return body, err
+	}
+
+	return body, nil
+}
+
 func newHttpClient(config Config) (*http.Client, error) {
 	var (
 		pool *x509.CertPool
