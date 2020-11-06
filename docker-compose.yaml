@@ -43,6 +43,20 @@ services:
       - ISSUER_URL=https://authorization.cloudentity.com:8443/default/system
       - ROOT_CA=/ca.pem
 
+  bank:
+    build:
+      context: .
+      dockerfile: bank/Dockerfile
+    container_name: bank
+    networks:
+      - system
+    ports:
+      - "8070:8070"
+    volumes:
+      - ./data/ca.pem:/ca.pem
+    environment:
+      - ROOT_CA=/ca.pem
+
   acp:
     container_name: acp
     image: docker.artifactory.syntegrity.com/authorization:aut-1865-openbanking-authorize-integration
