@@ -18,7 +18,6 @@ import (
 	"github.com/cloudentity/acp/pkg/swagger/client"
 	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/models"
-	"github.com/dgrijalva/jwt-go"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
@@ -114,9 +113,6 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 	)
 
 	request := Request{
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Minute).Unix(),
-		},
 		ClientID:     a.ClientID,
 		Scope:        strings.Join(scopes, " "),
 		ResponseType: "code",

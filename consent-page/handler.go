@@ -57,7 +57,20 @@ func (s *Server) Post() func(*gin.Context) {
 
 		switch c.PostForm("action") {
 		case "confirm":
-			if redirect, err = s.Client.ApproveAccountAccessConsent(loginRequest, c.PostFormArray("account_ids")); err != nil {
+			var response *models.GetAccountAccessConsentResponse
+
+			if response, err = s.Client.GetAccountAccessConsent(loginRequest); err != nil {
+				c.String(http.StatusBadRequest, fmt.Sprintf("failed to get account access consent: %+v", err))
+				return
+			}
+
+			// it's the consent page responsibility to decide which scopes should be granted
+			grantScopes := make([]string, len(response.RequestedScopes))
+			for i, r := range response.RequestedScopes {
+				grantScopes[i] = r.RequestedName
+			}
+
+			if redirect, err = s.Client.ApproveAccountAccessConsent(loginRequest, c.PostFormArray("account_ids"), grantScopes); err != nil {
 				c.String(http.StatusBadRequest, fmt.Sprintf("failed to accept account access consent: %+v", err))
 				return
 			}

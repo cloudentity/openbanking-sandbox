@@ -92,14 +92,14 @@ func (a *AcpClient) GetAccountAccessConsent(r LoginRequest) (*models.GetAccountA
 	return response.Payload, nil
 }
 
-func (a *AcpClient) ApproveAccountAccessConsent(r LoginRequest, accountIDs []string) (string, error) {
+func (a *AcpClient) ApproveAccountAccessConsent(r LoginRequest, accountIDs []string, grantScopes []string) (string, error) {
 	var (
 		response *openbanking.AcceptAccountAccessConsentSystemOK
 		err      error
 	)
 
 	accept := &models.AcceptAccountAccessConsentRequest{
-		GrantedScopes: []string{"openid", "accounts"}, // todo
+		GrantedScopes: grantScopes,
 		AccountIDs:    accountIDs,
 		LoginState:    r.State,
 	}
