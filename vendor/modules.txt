@@ -7,7 +7,7 @@ github.com/asaskevich/govalidator
 # github.com/caarlos0/env/v6 v6.4.0
 ## explicit
 github.com/caarlos0/env/v6
-# github.com/cloudentity/acp v1.4.1-0.20201026131940-8a1c44f16341
+# github.com/cloudentity/acp v1.4.1-0.20201105143857-58f43f4c64e8
 ## explicit
 github.com/cloudentity/acp/pkg/swagger/client
 github.com/cloudentity/acp/pkg/swagger/client/apis
@@ -19,6 +19,7 @@ github.com/cloudentity/acp/pkg/swagger/client/gateways
 github.com/cloudentity/acp/pkg/swagger/client/idps
 github.com/cloudentity/acp/pkg/swagger/client/logins
 github.com/cloudentity/acp/pkg/swagger/client/oauth2
+github.com/cloudentity/acp/pkg/swagger/client/openbanking
 github.com/cloudentity/acp/pkg/swagger/client/policies
 github.com/cloudentity/acp/pkg/swagger/client/scopes
 github.com/cloudentity/acp/pkg/swagger/client/servers
@@ -27,6 +28,9 @@ github.com/cloudentity/acp/pkg/swagger/client/tenants
 github.com/cloudentity/acp/pkg/swagger/models
 # github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
+# github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible
+## explicit
+github.com/dgrijalva/jwt-go
 # github.com/gin-contrib/sse v0.1.0
 github.com/gin-contrib/sse
 # github.com/gin-gonic/gin v1.6.3
@@ -77,6 +81,9 @@ github.com/go-playground/validator/v10
 github.com/go-stack/stack
 # github.com/golang/protobuf v1.4.3
 github.com/golang/protobuf/proto
+# github.com/gorilla/securecookie v1.1.1
+## explicit
+github.com/gorilla/securecookie
 # github.com/josharian/intern v1.0.0
 github.com/josharian/intern
 # github.com/json-iterator/go v1.1.10

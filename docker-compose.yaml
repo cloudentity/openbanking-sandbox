@@ -14,6 +14,19 @@ services:
       - system
     ports:
       - "8090:8090"
+    volumes:
+      - ./data/ca.pem:/ca.pem
+      - ./data/tpp_cert.pem:/tpp_cert.pem
+      - ./data/tpp_key.pem:/tpp_key.pem
+    environment:
+      - CLIENT_ID=bugkgm23g9kregtu051g
+      - TOKEN_URL=https://authorization.cloudentity.com:8443/default/openbanking/oauth2/token
+      - AUTH_URL=https://localhost:8443/default/openbanking/oauth2/authorize
+      - REDIRECT_URL=http://localhost:8090/callback
+      - CERT_FILE=/tpp_cert.pem
+      - KEY_FILE=/tpp_key.pem
+      - ROOT_CA=/ca.pem
+
   consent-page:
     build:
       context: .
@@ -33,7 +46,7 @@ services:
 
   acp:
     container_name: acp
-    image: docker.artifactory.syntegrity.com/authorization:latest
+    image: docker.artifactory.syntegrity.com/authorization:aut-1865-openbanking-authorize-integration
     networks:
       system:
         aliases:
@@ -43,6 +56,8 @@ services:
     restart: on-failure
     volumes:
       - ./data/seed.yaml:/seed.yaml
+    environment:
+      - LOGGING_LEVEL=debug
     command:
      - server
      - start

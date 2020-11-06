@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <title>TPP sample app</title>
+</head>
+
+<body>
+  <h1>Intent registered</h1>
+
+  <h2>IntentID</h2>
+  <pre>{{ .intent_id }}</pre>
+
+  <h2>Login URL</h2>
+  <pre>{{ .login_url }}</pre>
+
+  <h2>Request param</h2>
+  <pre>{{ .request_raw }}</pre>
+  <pre>{{ .request_header }}</pre>
+  <pre>{{ .request_payload }}</pre>
+
+  <a href="{{ .login_url }}">Login</a>
+</body>
+</html>

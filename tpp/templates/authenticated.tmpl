@@ -7,5 +7,13 @@
 
 <body>
   <h1>Authenticated</h1>
+  <h2>Access token</h2>
+  <pre>{{ .access_token }}</pre>
+  <h2>Userinfo</h2>
+  <pre>{{ .userinfo }}</pre>
+  <h2>ID Token</h2>
+  <pre>{{ .id_token_raw }}</pre>
+  <pre>{{ .id_token_header }}</pre>
+  <pre>{{ .id_token_payload }}</pre>
 </body>
 </html>

@@ -48,6 +48,9 @@ type IDP struct {
 
 	// settings
 	Settings *IDPSettings `json:"settings,omitempty"`
+
+	// transformer
+	Transformer *ScriptTransformer `json:"transformer,omitempty"`
 }
 
 // Validate validates this ID p
@@ -67,6 +70,10 @@ func (m *IDP) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTransformer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -136,6 +143,24 @@ func (m *IDP) validateSettings(formats strfmt.Registry) error {
 		if err := m.Settings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *IDP) validateTransformer(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Transformer) { // not required
+		return nil
+	}
+
+	if m.Transformer != nil {
+		if err := m.Transformer.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("transformer")
 			}
 			return err
 		}

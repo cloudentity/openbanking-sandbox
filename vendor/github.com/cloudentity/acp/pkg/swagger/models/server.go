@@ -68,8 +68,8 @@ type Server struct {
 	// Name
 	Name string `json:"name,omitempty"`
 
-	// Allow to enable additional profiles
-	Profiles []string `json:"profiles"`
+	// Server profile
+	Profile string `json:"profile,omitempty"`
 
 	// Flag indicating whether client certificate should be read from header.
 	// If set to true, than the client certificate header is required.

@@ -77,11 +77,6 @@ type CreateAuthorizationServerParams struct {
 
 	/*Server*/
 	Server *models.Server
-	/*InitialProfile
-	  Initial profile
-
-	*/
-	InitialProfile *string
 	/*Tid
 	  Tenant id
 
@@ -142,17 +137,6 @@ func (o *CreateAuthorizationServerParams) SetServer(server *models.Server) {
 	o.Server = server
 }
 
-// WithInitialProfile adds the initialProfile to the create authorization server params
-func (o *CreateAuthorizationServerParams) WithInitialProfile(initialProfile *string) *CreateAuthorizationServerParams {
-	o.SetInitialProfile(initialProfile)
-	return o
-}
-
-// SetInitialProfile adds the initialProfile to the create authorization server params
-func (o *CreateAuthorizationServerParams) SetInitialProfile(initialProfile *string) {
-	o.InitialProfile = initialProfile
-}
-
 // WithTid adds the tid to the create authorization server params
 func (o *CreateAuthorizationServerParams) WithTid(tid string) *CreateAuthorizationServerParams {
 	o.SetTid(tid)
@@ -187,22 +171,6 @@ func (o *CreateAuthorizationServerParams) WriteToRequest(r runtime.ClientRequest
 		if err := r.SetBodyParam(o.Server); err != nil {
 			return err
 		}
-	}
-
-	if o.InitialProfile != nil {
-
-		// query param initial_profile
-		var qrInitialProfile string
-		if o.InitialProfile != nil {
-			qrInitialProfile = *o.InitialProfile
-		}
-		qInitialProfile := qrInitialProfile
-		if qInitialProfile != "" {
-			if err := r.SetQueryParam("initial_profile", qInitialProfile); err != nil {
-				return err
-			}
-		}
-
 	}
 
 	// path param tid

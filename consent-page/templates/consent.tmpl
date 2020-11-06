@@ -15,18 +15,18 @@
 <div class="content">
   <p class="consent-title">Account selection</p>
 
-  <p class="consent-subtitle">Select the account(s) to share with [{{ .client_id }}]</p>
+  <p class="consent-subtitle">Hello, {{ .subject}}, Select the account(s) to share</p>
 
 
   <form action="?login_id={{ .login_request.ID }}&login_state={{ .login_request.State }}" method="post">
     <div class="form-block">
       <div class="form-block-title">Select accounts to connect</div>
-        {{ range .requested_scopes }}
+        {{ range .account_ids }}
           <div class="account-row">
             <div class="account-header">
               <div>
                 <div class="account-header-title">{{ . }}</div>
-                <div class="caption account-header-subtitle">**** **** **** 3325</div>
+                <!-- <div class="caption account-header-subtitle">**** **** **** 3325</div> -->
               </div>
               <div class="mdc-switch">
                 <div class="mdc-switch__track"></div>
@@ -35,12 +35,13 @@
                   <input
                           type="checkbox"
                           id="{{ . }}"
-                          name="scopes"
+                          name="account_ids"
                           value="{{ . }}"
                           class="mdc-switch__native-control"
                           role="switch"
-                          aria-checked="false"
-                  >
+                          aria-checked="true"
+                          checked
+                    >
                 </div>
               </div>
             </div>
@@ -50,7 +51,7 @@
 
     <div class="form-block" style="margin-top: 24px;">
       <div class="form-block-title">Review the data you will be sharing</div>
-        {{ range .requested_scopes }}
+        {{ range .permissions }}
           <div class="account-row">
             <div class="account-header">
               <div class="account-header-title">{{ . }}</div>
