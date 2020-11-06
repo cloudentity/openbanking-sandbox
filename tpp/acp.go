@@ -20,7 +20,6 @@ import (
 	"github.com/cloudentity/acp/pkg/swagger/models"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 )
@@ -38,9 +37,9 @@ func NewAcpMTLSClient(config Config) (AcpClient, error) {
 		err       error
 	)
 
-	parts := strings.Split(config.TokenURL.Path, "/")
+	parts := strings.Split(config.IssuerURL.Path, "/")
 	if len(parts) < 2 {
-		return acpClient, errors.New("can't get tenant/server from token url")
+		return acpClient, errors.New("can't get tenant/server from issuer url")
 	}
 	acpClient.tenant = parts[1]
 	acpClient.server = parts[2]
@@ -52,14 +51,14 @@ func NewAcpMTLSClient(config Config) (AcpClient, error) {
 	cc := clientcredentials.Config{
 		ClientID:  config.ClientID,
 		Scopes:    []string{"accounts"},
-		TokenURL:  config.TokenURL.String(),
+		TokenURL:  fmt.Sprintf("%s/oauth2/token", config.IssuerURL.String()),
 		AuthStyle: oauth2.AuthStyleInParams,
 	}
 
 	acpClient.client = client.New(httptransport.NewWithClient(
-		config.TokenURL.Host,
+		config.IssuerURL.Host,
 		"/",
-		[]string{config.TokenURL.Scheme},
+		[]string{config.IssuerURL.Scheme},
 		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
 	), nil)
 
@@ -137,7 +136,6 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 			},
 		},
 	}
-	logrus.Infof("request: %+v", request)
 
 	if signedRequest, err = SignRequest(request, a.signingKey); err != nil {
 		return "", errors.Wrapf(err, "failed to sign request")
@@ -153,8 +151,9 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 		"request":               {signedRequest},
 	}
 
-	buf.WriteString(a.AuthURL.String())
-	if strings.Contains(a.AuthURL.String(), "?") {
+	authorizeURL := fmt.Sprintf("%s/oauth2/authorize", a.IssuerURL.String())
+	buf.WriteString(authorizeURL)
+	if strings.Contains(authorizeURL, "?") {
 		buf.WriteByte('&')
 	} else {
 		buf.WriteByte('?')
@@ -186,7 +185,7 @@ func (a *AcpWebClient) Exchange(code string, verifier string) (token Token, err 
 		"code_verifier": {verifier},
 	}
 
-	if response, err = a.httpClient.PostForm(a.TokenURL.String(), values); err != nil {
+	if response, err = a.httpClient.PostForm(fmt.Sprintf("%s/oauth2/token", a.IssuerURL.String()), values); err != nil {
 		return token, fmt.Errorf("error while obtaining token: %w", err)
 	}
 	defer response.Body.Close()
@@ -213,7 +212,7 @@ func (a *AcpWebClient) Userinfo(token string) (body map[string]interface{}, err 
 		bs       []byte
 	)
 
-	if request, err = http.NewRequest("GET", "https://authorization.cloudentity.com:8443/default/openbanking/userinfo", nil); err != nil {
+	if request, err = http.NewRequest("GET", fmt.Sprintf("%s/userinfo", a.Config.IssuerURL.String()), nil); err != nil {
 		return body, fmt.Errorf("error while building request: %w", err)
 	}
 	request.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))

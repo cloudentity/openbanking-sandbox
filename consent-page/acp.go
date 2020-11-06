@@ -51,9 +51,9 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		err       error
 	)
 
-	parts := strings.Split(config.TokenURL.Path, "/")
+	parts := strings.Split(config.IssuerURL.Path, "/")
 	if len(parts) == 0 {
-		return acpClient, errors.New("can't get tenant from token url")
+		return acpClient, errors.New("can't get tenant from issuer url")
 	}
 	acpClient.tenant = parts[1]
 
@@ -65,13 +65,13 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		ClientID:     config.ClientID,
 		ClientSecret: config.ClientSecret,
 		Scopes:       []string{"manage_openbanking_consents"},
-		TokenURL:     config.TokenURL.String(),
+		TokenURL:     fmt.Sprintf("%s/oauth/token", config.IssuerURL.String()),
 	}
 
 	acpClient.client = client.New(httptransport.NewWithClient(
-		config.TokenURL.Host,
+		config.IssuerURL.Host,
 		"/",
-		[]string{config.TokenURL.Scheme},
+		[]string{config.IssuerURL.Scheme},
 		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
 	), nil)
 
