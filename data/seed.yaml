@@ -979,10 +979,10 @@ clients:
     keys: []
   privacy: {}
   redirect_uris:
-  - https://localhost:8443/app/default/admin/callback
-  - https://localhost:8443/app/default/admin/silent
-  - http://localhost:3000/app/default/admin/callback
-  - http://localhost:3000/app/default/admin/silent
+  - https://authorization.cloudentity.com:8443/app/default/admin/callback
+  - https://authorization.cloudentity.com:8443/app/default/admin/silent
+  - http://authorization.cloudentity.com:3000/app/default/admin/callback
+  - http://authorization.cloudentity.com:3000/app/default/admin/silent
   registration_token: {}
   request_object_signing_alg: none
   response_types:
@@ -1076,8 +1076,8 @@ clients:
     keys: []
   privacy: {}
   redirect_uris:
-  - https://localhost:8443/app/default/developer/developer/callback
-  - https://localhost:8443/app/default/developer/developer/silent
+  - https://authorization.cloudentity.com:8443/app/default/developer/developer/callback
+  - https://authorization.cloudentity.com:8443/app/default/developer/developer/silent
   registration_token: {}
   request_object_signing_alg: none
   response_types:
@@ -1108,10 +1108,10 @@ clients:
     keys: []
   privacy: {}
   redirect_uris:
-  - https://localhost:8443/app/default/openbanking/callback
-  - https://localhost:8443/app/default/openbanking/silent
-  - http://localhost:3000/app/default/openbanking/callback
-  - http://localhost:3000/app/default/openbanking/silent
+  - https://authorization.cloudentity.com:8443/app/default/openbanking/callback
+  - https://authorization.cloudentity.com:8443/app/default/openbanking/silent
+  - http://authorization.cloudentity.com:3000/app/default/openbanking/callback
+  - http://authorization.cloudentity.com:3000/app/default/openbanking/silent
   registration_token: {}
   request_object_signing_alg: none
   response_types:
@@ -1148,7 +1148,7 @@ clients:
     keys: []
   privacy: {}
   redirect_uris:
-  - https://localhost:8443/default/openbanking/demo
+  - https://authorization.cloudentity.com:8443/default/openbanking/demo
   registration_token: {}
   request_object_signing_alg: none
   response_types:
@@ -2493,7 +2493,7 @@ servers:
   - authorization_code
   id: admin
   id_token_ttl: 1h0m0s
-  issuer_url: https://localhost:8443/default/admin
+  issuer_url: https://authorization.cloudentity.com:8443/default/admin
   jwks:
     keys:
     - alg: ES256
@@ -2545,7 +2545,7 @@ servers:
   - authorization_code
   id: developer
   id_token_ttl: 1h0m0s
-  issuer_url: https://localhost:8443/default/developer
+  issuer_url: https://authorization.cloudentity.com:8443/default/developer
   jwks:
     keys:
     - alg: ES256
@@ -2601,7 +2601,7 @@ servers:
   - refresh_token
   id: openbanking
   id_token_ttl: 1h0m0s
-  issuer_url: https://localhost:8443/default/openbanking
+  issuer_url: https://authorization.cloudentity.com:8443/default/openbanking
   jwks:
     keys:
     - alg: ES256
@@ -2669,7 +2669,7 @@ servers:
   - client_credentials
   id: system
   id_token_ttl: 1h0m0s
-  issuer_url: https://localhost:8443/system/system
+  issuer_url: https://authorization.cloudentity.com:8443/system/system
   jwks:
     keys:
     - alg: ES256
@@ -2721,7 +2721,7 @@ servers:
   - client_credentials
   id: system
   id_token_ttl: 1h0m0s
-  issuer_url: https://localhost:8443/default/system
+  issuer_url: https://authorization.cloudentity.com:8443/default/system
   jwks:
     keys:
     - alg: ES256
@@ -2760,7 +2760,7 @@ servers:
   - none
   type: system
 services:
-- audience: spiffe://localhost/system/system/bube15t8739jub0p4epg
+- audience: spiffe://authorization.cloudentity.com/system/system/bube15t8739jub0p4epg
   authorization_server_id: system
   id: bube15t8739jub0p4epg
   name: Profile
@@ -2803,7 +2803,7 @@ services:
     tenant_id: system
   system: true
   tenant_id: system
-- audience: spiffe://localhost/system/system/bube15t8739jub0p4et0
+- audience: spiffe://authorization.cloudentity.com/system/system/bube15t8739jub0p4et0
   authorization_server_id: system
   id: bube15t8739jub0p4et0
   name: User Privacy & Consent
@@ -2820,7 +2820,7 @@ services:
     tenant_id: system
   system: true
   tenant_id: system
-- audience: spiffe://localhost/system/system/bube15t8739jub0p4eug
+- audience: spiffe://authorization.cloudentity.com/system/system/bube15t8739jub0p4eug
   authorization_server_id: system
   id: bube15t8739jub0p4eug
   name: OAuth2
@@ -2853,7 +2853,7 @@ services:
     tenant_id: system
   system: true
   tenant_id: system
-- audience: spiffe://localhost/default/system/bube15t8739jub0p4fdg
+- audience: spiffe://authorization.cloudentity.com/default/system/bube15t8739jub0p4fdg
   authorization_server_id: system
   id: bube15t8739jub0p4fdg
   name: Profile
@@ -2896,7 +2896,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/system/bube15t8739jub0p4fh0
+- audience: spiffe://authorization.cloudentity.com/default/system/bube15t8739jub0p4fh0
   authorization_server_id: system
   id: bube15t8739jub0p4fh0
   name: User Privacy & Consent
@@ -2913,7 +2913,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/system/bube15t8739jub0p4fig
+- audience: spiffe://authorization.cloudentity.com/default/system/bube15t8739jub0p4fig
   authorization_server_id: system
   id: bube15t8739jub0p4fig
   name: OAuth2
@@ -2946,7 +2946,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/system/bube15t8739jub0p4flg
+- audience: spiffe://authorization.cloudentity.com/default/system/bube15t8739jub0p4flg
   authorization_server_id: system
   id: bube15t8739jub0p4flg
   name: Login and Scope Grant
@@ -2961,7 +2961,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/system/bube15t8739jub0p4fn0
+- audience: spiffe://authorization.cloudentity.com/default/system/bube15t8739jub0p4fn0
   authorization_server_id: system
   id: bube15t8739jub0p4fn0
   name: Gateway
@@ -2980,7 +2980,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/admin/bube15t8739jub0p4g50
+- audience: spiffe://authorization.cloudentity.com/default/admin/bube15t8739jub0p4g50
   authorization_server_id: admin
   id: bube15t8739jub0p4g50
   name: Profile
@@ -3023,7 +3023,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/admin/bube15t8739jub0p4g8g
+- audience: spiffe://authorization.cloudentity.com/default/admin/bube15t8739jub0p4g8g
   authorization_server_id: admin
   id: bube15t8739jub0p4g8g
   name: User Privacy & Consent
@@ -3040,7 +3040,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/admin/bube15t8739jub0p4ga0
+- audience: spiffe://authorization.cloudentity.com/default/admin/bube15t8739jub0p4ga0
   authorization_server_id: admin
   id: bube15t8739jub0p4ga0
   name: OAuth2
@@ -3073,7 +3073,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/developer/bube15t8739jub0p4gp0
+- audience: spiffe://authorization.cloudentity.com/default/developer/bube15t8739jub0p4gp0
   authorization_server_id: developer
   id: bube15t8739jub0p4gp0
   name: Profile
@@ -3116,7 +3116,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/developer/bube15t8739jub0p4gsg
+- audience: spiffe://authorization.cloudentity.com/default/developer/bube15t8739jub0p4gsg
   authorization_server_id: developer
   id: bube15t8739jub0p4gsg
   name: User Privacy & Consent
@@ -3133,7 +3133,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/developer/bube15t8739jub0p4gu0
+- audience: spiffe://authorization.cloudentity.com/default/developer/bube15t8739jub0p4gu0
   authorization_server_id: developer
   id: bube15t8739jub0p4gu0
   name: OAuth2
@@ -3166,7 +3166,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/openbanking/bugkg8q3g9kregtu04l0
+- audience: spiffe://authorization.cloudentity.com/default/openbanking/bugkg8q3g9kregtu04l0
   authorization_server_id: openbanking
   id: bugkg8q3g9kregtu04l0
   name: Profile
@@ -3209,7 +3209,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/openbanking/bugkg8q3g9kregtu04og
+- audience: spiffe://authorization.cloudentity.com/default/openbanking/bugkg8q3g9kregtu04og
   authorization_server_id: openbanking
   id: bugkg8q3g9kregtu04og
   name: User Privacy & Consent
@@ -3228,7 +3228,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/openbanking/bugkg8q3g9kregtu04q0
+- audience: spiffe://authorization.cloudentity.com/default/openbanking/bugkg8q3g9kregtu04q0
   authorization_server_id: openbanking
   id: bugkg8q3g9kregtu04q0
   name: OAuth2
@@ -3265,7 +3265,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/openbanking/bugkg8q3g9kregtu04t0
+- audience: spiffe://authorization.cloudentity.com/default/openbanking/bugkg8q3g9kregtu04t0
   authorization_server_id: openbanking
   id: bugkg8q3g9kregtu04t0
   name: Openbanking
@@ -3278,7 +3278,7 @@ services:
     tenant_id: default
   system: true
   tenant_id: default
-- audience: spiffe://localhost/default/system/bui20gpjkpv9e38d5jjg
+- audience: spiffe://authorization.cloudentity.com/default/system/bui20gpjkpv9e38d5jjg
   authorization_server_id: system
   id: bui20gpjkpv9e38d5jjg
   name: Openbanking
@@ -3389,7 +3389,7 @@ tenants:
       x5t#S256: w16uagJslkf67eS7flMCL92BxINQF-frFv4ZyCGVJFw
       "y": IZ7gbxcE3KgnU-swV1EGKFQOw5njkDlJDsUFzjv9o9Y
   name: default
-  url: https://localhost:8443/default
+  url: https://authorization.cloudentity.com:8443/default
 - authentication_context_settings:
     attributes:
     - description: List of scopes
@@ -3486,5 +3486,4 @@ tenants:
       x5t#S256: ILbB6LI4mMXLBNhyuNkU6h5k2-7iVJ2-MW9rD2-jBZ4
       "y": UfbT6c_EEboEfUVzywWwg3iPGKn3ki2V0mLZ8Wkt2NQ
   name: default
-  url: https://localhost:8443/system
-
+  url: https://authorization.cloudentity.com:8443/system

@@ -72,6 +72,8 @@ services:
      - /certs/srv/cert-key.pem
      - --demo
      - --dev
+     - --server.url
+     - https://authorization.cloudentity.com:8443
 
   postgres:
     image: postgres:12.4

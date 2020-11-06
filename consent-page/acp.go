@@ -65,7 +65,7 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		ClientID:     config.ClientID,
 		ClientSecret: config.ClientSecret,
 		Scopes:       []string{"manage_openbanking_consents"},
-		TokenURL:     fmt.Sprintf("%s/oauth/token", config.IssuerURL.String()),
+		TokenURL:     fmt.Sprintf("%s/oauth2/token", config.IssuerURL.String()),
 	}
 
 	acpClient.client = client.New(httptransport.NewWithClient(
