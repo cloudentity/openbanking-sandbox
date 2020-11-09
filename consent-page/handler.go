@@ -32,6 +32,7 @@ func (s *Server) Get() func(*gin.Context) {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to get accounts from bank: %+v", err))
 			return
 		}
+		// accounts ids should be masked
 
 		c.HTML(http.StatusOK, "consent.tmpl", gin.H{
 			"login_request": loginRequest,
