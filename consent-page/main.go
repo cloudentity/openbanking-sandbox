@@ -14,7 +14,7 @@ import (
 type Config struct {
 	ClientID           string        `env:"CLIENT_ID,required"`
 	ClientSecret       string        `env:"CLIENT_SECRET,required"`
-	IssuerURL          *url.URL      `env:"ISSUER_URL,required"`
+	TokenURL           *url.URL      `env:"TOKEN_URL,required"`
 	Timeout            time.Duration `env:"TIMEOUT" envDefault:"5s"`
 	RootCA             string        `env:"ROOT_CA"`
 	InsecureSkipVerify bool          `env:"INSECURE_SKIP_VERIFY"`

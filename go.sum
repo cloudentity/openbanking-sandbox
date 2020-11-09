@@ -119,6 +119,8 @@ github.com/cloudentity/acp v1.4.1-0.20201105143857-58f43f4c64e8 h1:7LUNsbnile+3X
 github.com/cloudentity/acp v1.4.1-0.20201105143857-58f43f4c64e8/go.mod h1:l8E/OtlGVkkcY54paQYMKzT0Hi3zQVTYSk2KL0IDJUo=
 github.com/cloudentity/acp v1.4.1-0.20201109095141-c6f6a5fe2277 h1:MxYp98yHG+dgZxGnY7ntRadykyY80ZhlB7nHQ3zTUVM=
 github.com/cloudentity/acp v1.4.1-0.20201109095141-c6f6a5fe2277/go.mod h1:l8E/OtlGVkkcY54paQYMKzT0Hi3zQVTYSk2KL0IDJUo=
+github.com/cloudentity/acp v1.4.1-0.20201109145430-1e97c55f6bd8 h1:eyhU7vXhQqdCrkxpw7qi2KgoMaktN9zzhfIy8siLIdk=
+github.com/cloudentity/acp v1.4.1-0.20201109145430-1e97c55f6bd8/go.mod h1:l8E/OtlGVkkcY54paQYMKzT0Hi3zQVTYSk2KL0IDJUo=
 github.com/cloudentity/acp v1.4.1 h1:DnSgNIDDQ1ilEDMmzRInH664zjebLBb4YzN80ZSUZCA=
 github.com/cloudentity/authorization-engine v0.0.0-20201007072928-6ad907a54ee5/go.mod h1:+qCc0ySCB+VyyuudEjbP+S34FAl86zvCIS06ABeV16w=
 github.com/cloudentity/encoding v0.1.16-0.20200908094608-4338b021f9ee/go.mod h1:kxyj1UkczV6nsq6zxZQbqf0rKtH1r2CNyfaMqI+GmQ0=

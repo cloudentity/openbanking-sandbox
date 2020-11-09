@@ -88,7 +88,7 @@ func (s *Server) Login() func(*gin.Context) {
 		}
 		challenge = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(hash.Sum([]byte{}))
 
-		if loginURL, err = s.WebClient.AuthorizeURL(intentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
+		if loginURL, err = s.WebClient.LoginURL(intentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
 			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
 		}
 

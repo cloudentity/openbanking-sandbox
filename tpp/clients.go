@@ -39,7 +39,7 @@ func NewAcpMTLSClient(config Config) (AcpClient, error) {
 		err       error
 	)
 
-	parts := strings.Split(config.IssuerURL.Path, "/")
+	parts := strings.Split(config.TokenURL.Path, "/")
 	if len(parts) < 2 {
 		return acpClient, errors.New("can't get tenant/server from issuer url")
 	}
@@ -53,14 +53,14 @@ func NewAcpMTLSClient(config Config) (AcpClient, error) {
 	cc := clientcredentials.Config{
 		ClientID:  config.ClientID,
 		Scopes:    []string{"accounts"},
-		TokenURL:  fmt.Sprintf("%s/oauth2/token", config.IssuerURL.String()),
+		TokenURL:  config.TokenURL.String(),
 		AuthStyle: oauth2.AuthStyleInParams,
 	}
 
 	acpClient.client = client.New(httptransport.NewWithClient(
-		config.IssuerURL.Host,
+		config.TokenURL.Host,
 		"/",
-		[]string{config.IssuerURL.Scheme},
+		[]string{config.TokenURL.Scheme},
 		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
 	), nil)
 
@@ -134,7 +134,7 @@ func SignRequest(request Request, signingKey interface{}) (string, error) {
 	return token.SignedString(signingKey)
 }
 
-func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []string, nonce string) (string, error) {
+func (a *AcpWebClient) LoginURL(intentID string, challenge string, scopes []string, nonce string) (string, error) {
 	var (
 		buf           bytes.Buffer
 		signedRequest string
@@ -181,7 +181,7 @@ func (a *AcpWebClient) AuthorizeURL(intentID string, challenge string, scopes []
 		"request":               {signedRequest},
 	}
 
-	authorizeURL := fmt.Sprintf("%s/oauth2/authorize", a.IssuerURL.String())
+	authorizeURL := a.AuthorizeURL.String()
 	buf.WriteString(authorizeURL)
 	if strings.Contains(authorizeURL, "?") {
 		buf.WriteByte('&')
@@ -215,7 +215,7 @@ func (a *AcpWebClient) Exchange(code string, verifier string) (token Token, err 
 		"code_verifier": {verifier},
 	}
 
-	if response, err = a.httpClient.PostForm(fmt.Sprintf("%s/oauth2/token", a.IssuerURL.String()), values); err != nil {
+	if response, err = a.httpClient.PostForm(a.TokenURL.String(), values); err != nil {
 		return token, fmt.Errorf("error while obtaining token: %w", err)
 	}
 	defer response.Body.Close()
@@ -242,7 +242,7 @@ func (a *AcpWebClient) Userinfo(token string) (body map[string]interface{}, err 
 		bs       []byte
 	)
 
-	if request, err = http.NewRequest("GET", fmt.Sprintf("%s/userinfo", a.Config.IssuerURL.String()), nil); err != nil {
+	if request, err = http.NewRequest("GET", a.Config.UserinfoURL.String(), nil); err != nil {
 		return body, fmt.Errorf("error while building request: %w", err)
 	}
 	request.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))

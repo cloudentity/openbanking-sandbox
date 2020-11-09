@@ -13,13 +13,13 @@ import (
 )
 
 type Config struct {
-	Port      int           `env:"PORT" envDefault:"8070"`
-	ClientID  string        `env:"CLIENT_ID,required"`
-	IssuerURL *url.URL      `env:"ISSUER_URL,required"`
-	Timeout   time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA    string        `env:"ROOT_CA,required"`
-	CertFile  string        `env:"CERT_FILE,required"`
-	KeyFile   string        `env:"KEY_FILE,required"`
+	Port     int           `env:"PORT" envDefault:"8070"`
+	ClientID string        `env:"CLIENT_ID,required"`
+	TokenURL *url.URL      `env:"TOKEN_URL,required"`
+	Timeout  time.Duration `env:"TIMEOUT" envDefault:"5s"`
+	RootCA   string        `env:"ROOT_CA,required"`
+	CertFile string        `env:"CERT_FILE,required"`
+	KeyFile  string        `env:"KEY_FILE,required"`
 }
 
 func LoadConfig() (config Config, err error) {
