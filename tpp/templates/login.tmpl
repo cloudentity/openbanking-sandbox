@@ -8,13 +8,17 @@
 <body>
   <h1>TPP sample app</h1>
 
+  <p>TPP in order to authenticate user first needs to make a client credentials call to register a new account access consent.
+    <a href="https://localhost:8443/api/swagger/default/default/#/openbanking/createAccountAccessConsentRequest" target="_blank">(see swagger)</a>
+  </p>
+  <p>Select permissions that your TPP would like to request: </p>
+
   <form action="/login" method="post">
-    Select permissions:
 
-    ReadAccountsBasic <input type="checkbox" name="permissions" value="ReadAccountsBasic" checked/>
-    ReadAccountsDetail <input type="checkbox" name="permissions" value="ReadAccountsDetail">
+    ReadAccountsBasic <input type="checkbox" name="permissions" value="ReadAccountsBasic" checked/><br />
+    ReadAccountsDetail <input type="checkbox" name="permissions" value="ReadAccountsDetail"><br />
 
-    <input type="submit" name="action" value="Register">
+    <input type="submit" name="action" value="Next">
   </form>
 </body>
 </html>

@@ -8,16 +8,27 @@
 <body>
   <h1>Intent registered</h1>
 
-  <h2>IntentID</h2>
-  <pre>{{ .intent_id }}</pre>
+  <p>Account access consent has been registered. Below you can find the response from POST accounts-access-request endpoint. <a href="https://localhost:8443/api/swagger/default/default/#/openbanking/createAccountAccessConsentRequest" target="_blank">(see swagger)</a>
+Please note unique `Data.ConsentID`: {{ .intent_id }}.
+  </p>
+  <pre>{{ .account_access_consent_raw }}</pre>
 
-  <h2>Login URL</h2>
-  <pre>{{ .login_url }}</pre>
+  <p>TPP should now use authorization code grant flow with PKCE to authenticate user.</p>
+  <p>TPP needs to pass signed request claim containg openbanking_intent_id essential claim.</p>
+  <p>Additionally acr essential claim is requested to enforce strong authentication.</p>
+  <p>Decoded request jwt can be found below:</p>
 
-  <h2>Request param</h2>
-  <pre>{{ .request_raw }}</pre>
   <pre>{{ .request_header }}</pre>
   <pre>{{ .request_payload }}</pre>
+
+  <p>Here's the full authorize request:</p>
+  <pre>{{ .login_url }}</pre>
+
+  <p>After clicking Login, TPP will redirect user to ACP to start authentication process.<p/>
+  <p>After authentication, ACP redirects user to bank's consent page.</p>
+  <p>The consent page uses ACP's internal APIs to accept or reject account access consent (<a href="https://localhost:8443/api/swagger/default/default/#/openbanking/acceptAccountAccessConsentSystem" target="_blank">see swagger)</a></p>
+
+  <p>Click Login to proceed.</p>
 
   <a href="{{ .login_url }}">Login</a>
 </body>

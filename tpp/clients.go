@@ -67,7 +67,7 @@ func NewAcpMTLSClient(config Config) (AcpClient, error) {
 	return acpClient, nil
 }
 
-func (a *AcpClient) RegisterAccountAccessConsent(permissions []string) (string, error) {
+func (a *AcpClient) RegisterAccountAccessConsent(permissions []string) (*models.AccountAccessConsentResponse, error) {
 	var (
 		response *openbanking.CreateAccountAccessConsentRequestCreated
 		request  = &models.AccountAccessConsentRequest{
@@ -80,10 +80,10 @@ func (a *AcpClient) RegisterAccountAccessConsent(permissions []string) (string, 
 
 	if response, err = a.client.Openbanking.CreateAccountAccessConsentRequest(openbanking.NewCreateAccountAccessConsentRequestParams().
 		WithTid(a.tenant).WithAid(a.server).WithRequest(request), nil); err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return response.Payload.Data.ConsentID, nil
+	return response.Payload, nil
 }
 
 type AcpWebClient struct {

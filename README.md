@@ -1,7 +1,5 @@
 # openbanking-sandbox
 
-```
-
 ## Build
 
 ```sh
