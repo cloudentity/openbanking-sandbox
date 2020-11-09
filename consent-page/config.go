@@ -14,6 +14,7 @@ type Config struct {
 	Timeout            time.Duration `env:"TIMEOUT" envDefault:"5s"`
 	RootCA             string        `env:"ROOT_CA"`
 	InsecureSkipVerify bool          `env:"INSECURE_SKIP_VERIFY"`
+	BankURL            *url.URL      `env:"BANK_URL"`
 }
 
 func LoadConfig() (config Config, err error) {

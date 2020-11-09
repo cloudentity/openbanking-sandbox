@@ -60,3 +60,32 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 		c.PureJSON(http.StatusOK, response)
 	}
 }
+
+type InternalAccounts struct {
+	Accounts []InternalAccount `json:"accounts"`
+}
+
+type InternalAccount struct {
+	ID   string `json:"id"`
+	Name string `json:"Name"`
+}
+
+// this API is bank specific. It should return all users's account.
+func (s *Server) InternalGetAccounts() func(*gin.Context) {
+	return func(c *gin.Context) {
+		response := InternalAccounts{
+			Accounts: []InternalAccount{
+				{
+					ID:   "27 1140 2004 0000 3002 0135 5387",
+					Name: "Bills",
+				},
+				{
+					ID:   "17 2240 1401 0000 000 0155 1312",
+					Name: "Household",
+				},
+			},
+		}
+
+		c.PureJSON(http.StatusOK, response)
+	}
+}

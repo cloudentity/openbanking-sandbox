@@ -42,6 +42,7 @@ services:
       - CLIENT_SECRET=PBV7q0akoP603rZbU0EFdxbhZ-djxF7FIVwyKaLnBYU
       - ISSUER_URL=https://authorization.cloudentity.com:8443/default/system
       - ROOT_CA=/ca.pem
+      - BANK_URL=http://bank:8070
 
   bank:
     build:

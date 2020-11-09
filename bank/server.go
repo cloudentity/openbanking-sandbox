@@ -29,6 +29,7 @@ func (s *Server) Start() error {
 	r := gin.Default()
 
 	r.GET("/accounts", s.GetAccounts())
+	r.GET("/internal/accounts", s.InternalGetAccounts())
 
 	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
 }

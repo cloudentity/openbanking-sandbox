@@ -6,7 +6,8 @@ import (
 )
 
 type Server struct {
-	Client AcpClient
+	Client     AcpClient
+	BankClient BankClient
 }
 
 func NewServer() (Server, error) {
@@ -23,6 +24,8 @@ func NewServer() (Server, error) {
 	if server.Client, err = NewAcpClient(config); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
+
+	server.BankClient = NewBankClient(config)
 
 	return server, nil
 }

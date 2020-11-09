@@ -148,7 +148,7 @@ func (s *Server) Callback() func(*gin.Context) {
 			return
 		}
 
-		// todo validate id_token and compare nonce val
+		// todo validate id_token and compare nonces
 
 		if userinfoResponse, err = s.WebClient.Userinfo(token.AccessToken); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to introspect access token: %+v", err))
