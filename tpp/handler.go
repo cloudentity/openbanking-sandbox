@@ -9,7 +9,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strings"
 
 	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
 	"github.com/dgrijalva/jwt-go"
@@ -46,7 +45,7 @@ func (s *Server) Login() func(*gin.Context) {
 			err                error
 		)
 
-		requestPermissions := strings.Split(c.PostForm("permissions"), ",")
+		requestPermissions := c.PostFormArray("permissions")
 
 		if intentID, err = s.AcpClient.RegisterAccountAccessConsent(requestPermissions); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to register account access consent: %+v", err))

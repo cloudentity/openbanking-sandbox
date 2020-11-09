@@ -9,8 +9,11 @@
   <h1>TPP sample app</h1>
 
   <form action="/login" method="post">
-    Comma separated list of permissions:
-    <input type="text" name="permissions" value="ReadAccountsBasic">
+    Select permissions:
+
+    ReadAccountsBasic <input type="checkbox" name="permissions" value="ReadAccountsBasic" checked/>
+    ReadAccountsDetail <input type="checkbox" name="permissions" value="ReadAccountsDetail">
+
     <input type="submit" name="action" value="Register">
   </form>
 </body>
