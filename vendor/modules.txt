@@ -9,6 +9,20 @@ github.com/asaskevich/govalidator
 github.com/caarlos0/env/v6
 # github.com/cloudentity/acp v1.4.1-0.20201105143857-58f43f4c64e8
 ## explicit
+github.com/cloudentity/acp/pkg/openbanking/client
+github.com/cloudentity/acp/pkg/openbanking/client/account_access
+github.com/cloudentity/acp/pkg/openbanking/client/accounts
+github.com/cloudentity/acp/pkg/openbanking/client/balances
+github.com/cloudentity/acp/pkg/openbanking/client/beneficiaries
+github.com/cloudentity/acp/pkg/openbanking/client/direct_debits
+github.com/cloudentity/acp/pkg/openbanking/client/offers
+github.com/cloudentity/acp/pkg/openbanking/client/parties
+github.com/cloudentity/acp/pkg/openbanking/client/products
+github.com/cloudentity/acp/pkg/openbanking/client/scheduled_payments
+github.com/cloudentity/acp/pkg/openbanking/client/standing_orders
+github.com/cloudentity/acp/pkg/openbanking/client/statements
+github.com/cloudentity/acp/pkg/openbanking/client/transactions
+github.com/cloudentity/acp/pkg/openbanking/models
 github.com/cloudentity/acp/pkg/swagger/client
 github.com/cloudentity/acp/pkg/swagger/client/apis
 github.com/cloudentity/acp/pkg/swagger/client/claims

@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
@@ -47,7 +48,7 @@ func (s *Server) Login() func(*gin.Context) {
 
 		requestPermissions := strings.Split(c.PostForm("permissions"), ",")
 
-		if intentID, err = s.Client.RegisterAccountAccessConsent(requestPermissions); err != nil {
+		if intentID, err = s.AcpClient.RegisterAccountAccessConsent(requestPermissions); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to register account access consent: %+v", err))
 			return
 		}
@@ -170,6 +171,16 @@ func (s *Server) Callback() func(*gin.Context) {
 			data["id_token_header"] = string(header)
 			data["id_token_payload"] = string(payload)
 		}
+
+		var accountsResp *accounts.GetAccountsOK
+
+		if accountsResp, err = s.BankClient.Accounts.GetAccounts(accounts.NewGetAccountsParams().WithAuthorization(token.AccessToken), nil); err != nil {
+			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to call bank get accounts: %+v", err))
+			return
+		}
+
+		accountsRaw, _ := json.MarshalIndent(accountsResp.Payload, "", "  ")
+		data["accounts_raw"] = string(accountsRaw)
 
 		c.HTML(http.StatusOK, "authenticated.tmpl", data)
 	}

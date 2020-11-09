@@ -26,6 +26,7 @@ type Config struct {
 	RootCA      string        `env:"ROOT_CA,required"`
 	CertFile    string        `env:"CERT_FILE,required"`
 	KeyFile     string        `env:"KEY_FILE,required"`
+	BankURL     *url.URL      `env:"BANK_URL,required"`
 }
 
 func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
@@ -54,8 +55,9 @@ func LoadConfig() (config Config, err error) {
 
 type Server struct {
 	Config       Config
-	Client       AcpClient
+	AcpClient    AcpClient
 	WebClient    AcpWebClient
+	BankClient   OpenbankingClient
 	SecureCookie *securecookie.SecureCookie
 }
 
@@ -69,13 +71,15 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
 
-	if server.Client, err = NewAcpMTLSClient(server.Config); err != nil {
+	if server.AcpClient, err = NewAcpMTLSClient(server.Config); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp mtls client")
 	}
 
 	if server.WebClient, err = NewAcpWebClient(server.Config); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp web client")
 	}
+
+	server.BankClient = NewOpenbankingClient(server.Config)
 
 	server.SecureCookie = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
 

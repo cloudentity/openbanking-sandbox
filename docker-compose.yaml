@@ -25,6 +25,7 @@ services:
       - CERT_FILE=/tpp_cert.pem
       - KEY_FILE=/tpp_key.pem
       - ROOT_CA=/ca.pem
+      - BANK_URL=http://bank:8070
 
   consent-page:
     build:
