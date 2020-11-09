@@ -11,6 +11,7 @@ run:
 	docker-compose up -d
 	./scripts/wait.sh
 	docker exec crdb ./cockroach init --insecure || true
+	make seed
 
 .PHONY: lint
 lint:

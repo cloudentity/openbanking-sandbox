@@ -14,14 +14,6 @@ make build
 make run
 ```
 
-## Seed data
-
-After running `make run` please wait a few seconds and then run: 
-
-```
-make seed
-```
-
 ## URLs
 
 ``` sh
