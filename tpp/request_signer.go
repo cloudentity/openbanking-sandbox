@@ -3,13 +3,16 @@ package main
 import "github.com/dgrijalva/jwt-go"
 
 type Request struct {
-	jwt.StandardClaims
 	ClientID     string `json:"client_id"`
 	Scope        string `json:"scope"`
 	RedirectURI  string `json:"redirect_uri"`
 	ResponseType string `json:"response_type"`
 	Claims       Claims `json:"claims"`
 	Nonce        string `json:"nonce"`
+}
+
+func (r Request) Valid() error {
+	return nil
 }
 
 type Claim struct {
