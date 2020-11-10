@@ -56,11 +56,11 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
-	Config       Config
-	AcpClient    AcpClient
-	WebClient    AcpWebClient
-	BankClient   OpenbankingClient
-	SecureCookie *securecookie.SecureCookie
+	Config              Config
+	AccountAccessClient AcpAccountAccessClient
+	WebClient           AcpWebClient
+	BankClient          OpenbankingClient
+	SecureCookie        *securecookie.SecureCookie
 }
 
 func NewServer() (Server, error) {
@@ -73,7 +73,7 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
 
-	if server.AcpClient, err = NewAcpMTLSClient(server.Config); err != nil {
+	if server.AccountAccessClient, err = NewAcpAccountAccessClient(server.Config); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp mtls client")
 	}
 
