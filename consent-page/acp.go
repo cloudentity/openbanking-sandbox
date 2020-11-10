@@ -53,7 +53,7 @@ func NewAcpClient(config Config) (AcpClient, error) {
 
 	parts := strings.Split(config.TokenURL.Path, "/")
 	if len(parts) == 0 {
-		return acpClient, errors.New("can't get tenant from token url")
+		return acpClient, errors.New("can't get tenant from issuer url")
 	}
 	acpClient.tenant = parts[1]
 

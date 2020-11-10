@@ -14,6 +14,7 @@ func (s *Server) Get() func(*gin.Context) {
 		var (
 			loginRequest = NewLoginRequest(c)
 			response     *models.GetAccountAccessConsentResponse
+			accounts     InternalAccounts
 			err          error
 		)
 
@@ -27,16 +28,16 @@ func (s *Server) Get() func(*gin.Context) {
 			return
 		}
 
-		// at this point, we know that user is authenticated and bank should fetch list of accounts for this user
-		accountIDs := []string{
-			"27 1140 2004 0000 3002 0135 5387",
-			"17 2240 1401 0000 000 0155 1312",
+		if accounts, err = s.BankClient.GetInternalAccounts(response.Subject); err != nil {
+			c.String(http.StatusBadRequest, fmt.Sprintf("failed to get accounts from bank: %+v", err))
+			return
 		}
+		// accounts ids should be masked
 
 		c.HTML(http.StatusOK, "consent.tmpl", gin.H{
 			"login_request": loginRequest,
 			"subject":       response.Subject,
-			"account_ids":   accountIDs,
+			"accounts":      accounts.Accounts,
 			"permissions":   response.Permissions,
 		})
 	}

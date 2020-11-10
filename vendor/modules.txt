@@ -7,8 +7,22 @@ github.com/asaskevich/govalidator
 # github.com/caarlos0/env/v6 v6.4.0
 ## explicit
 github.com/caarlos0/env/v6
-# github.com/cloudentity/acp v1.4.1-0.20201105143857-58f43f4c64e8
+# github.com/cloudentity/acp v1.4.1-0.20201109145430-1e97c55f6bd8
 ## explicit
+github.com/cloudentity/acp/pkg/openbanking/client
+github.com/cloudentity/acp/pkg/openbanking/client/account_access
+github.com/cloudentity/acp/pkg/openbanking/client/accounts
+github.com/cloudentity/acp/pkg/openbanking/client/balances
+github.com/cloudentity/acp/pkg/openbanking/client/beneficiaries
+github.com/cloudentity/acp/pkg/openbanking/client/direct_debits
+github.com/cloudentity/acp/pkg/openbanking/client/offers
+github.com/cloudentity/acp/pkg/openbanking/client/parties
+github.com/cloudentity/acp/pkg/openbanking/client/products
+github.com/cloudentity/acp/pkg/openbanking/client/scheduled_payments
+github.com/cloudentity/acp/pkg/openbanking/client/standing_orders
+github.com/cloudentity/acp/pkg/openbanking/client/statements
+github.com/cloudentity/acp/pkg/openbanking/client/transactions
+github.com/cloudentity/acp/pkg/openbanking/models
 github.com/cloudentity/acp/pkg/swagger/client
 github.com/cloudentity/acp/pkg/swagger/client/apis
 github.com/cloudentity/acp/pkg/swagger/client/claims
@@ -26,8 +40,6 @@ github.com/cloudentity/acp/pkg/swagger/client/servers
 github.com/cloudentity/acp/pkg/swagger/client/services
 github.com/cloudentity/acp/pkg/swagger/client/tenants
 github.com/cloudentity/acp/pkg/swagger/models
-# github.com/davecgh/go-spew v1.1.1
-github.com/davecgh/go-spew/spew
 # github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible
 ## explicit
 github.com/dgrijalva/jwt-go
@@ -105,15 +117,9 @@ github.com/modern-go/reflect2
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
-# github.com/pmezard/go-difflib v1.0.0
-github.com/pmezard/go-difflib/difflib
 # github.com/sirupsen/logrus v1.7.0
 ## explicit
 github.com/sirupsen/logrus
-# github.com/stretchr/testify v1.6.1
-## explicit
-github.com/stretchr/testify/assert
-github.com/stretchr/testify/require
 # github.com/ugorji/go/codec v1.1.7
 github.com/ugorji/go/codec
 # go.mongodb.org/mongo-driver v1.4.2
@@ -180,5 +186,3 @@ google.golang.org/protobuf/runtime/protoiface
 google.golang.org/protobuf/runtime/protoimpl
 # gopkg.in/yaml.v2 v2.3.0
 gopkg.in/yaml.v2
-# gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
-gopkg.in/yaml.v3

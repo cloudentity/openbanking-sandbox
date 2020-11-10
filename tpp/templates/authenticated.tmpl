@@ -7,13 +7,25 @@
 
 <body>
   <h1>Authenticated</h1>
-  <h2>Access token</h2>
+
+  <p>User has been authenticated. Authorization code has been exchanged for an access token using mtls.</p>
+  <p>Access token is opaque:</p>
   <pre>{{ .access_token }}</pre>
-  <h2>Userinfo</h2>
-  <pre>{{ .userinfo }}</pre>
-  <h2>ID Token</h2>
+
+  <p>Addtionally, id_token has been issued:</p>
   <pre>{{ .id_token_raw }}</pre>
   <pre>{{ .id_token_header }}</pre>
   <pre>{{ .id_token_payload }}</pre>
+
+  <p>TPP can call userinfo endpoint:</p>
+  <pre>{{ .userinfo }}</pre>
+
+  <p>Now TPP can make a call to bank's /accounts API</p>
+  <pre>{{ .accounts_raw }}</pre>
+
+  <p>Please note that bank only returned accounts that user explicitly agreed to share on the consent page.</p>
+  <p>Additionally, depending on granted permissions, accounts response may be limited, i.e when only `ReadAccountsBasic` permission has been granted, than account details are not returned.</p>
+
+  <p>For corase-granted authorization of bank APIs, ACP's custom account access introspection can be used (<a href="https://localhost:8443/api/swagger/default/default/#/openbanking/openbankingAccountAccessConsentIntrospect" target="_blank">see swagger).</p>
 </body>
 </html>
