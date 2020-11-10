@@ -29,6 +29,16 @@ services:
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
 
+  financroo:
+    build:
+      context: .
+      dockerfile: financroo/Dockerfile
+    container_name: financroo
+    networks:
+      - system
+    ports:
+      - "8091:8091"
+
   consent-page:
     build:
       context: .
