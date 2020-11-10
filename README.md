@@ -99,7 +99,6 @@ If you would like to configure ACP from scratch please follow the guideliness be
     - scopes tab:
       * Openbanking -> introspect_openbaking_tokens
   * once app has been created adjust env variables in docker-compose.yaml file for bank app
-  * go to settings -> Authorization -> Trusted client certificates and put your tpp client certificate there
 * in the `system` workspace
   * create Bank Consent Page application with the following details:
     - grant_types: client_credentials
@@ -112,3 +111,6 @@ If you would like to configure ACP from scratch please follow the guideliness be
     - scopes tab:
       * Openbanking -> manage_openbanking_consents
   * once app has been created adjust env variables in docker-compose.yaml file for consent-page app
+* if you are using self signed certificates you need to configure Trusted client certificates for system and openbanking workspaces
+  * select workspace -> Settings -> Authorization -> Trusted client certificates
+    - put explicit certificate of a given client or root ca used to sign client certificate
