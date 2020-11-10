@@ -105,7 +105,10 @@ If you would like to configure ACP from scratch please follow the guideliness be
     - grant_types: client_credentials
     - reponse_type: token
     - request object signing algorithm: none
-    - Token Endpoint Authentication Method: Client secret post
+    - Token Endpoint Authentication Method: TLS Client Authentication
+    - Certificate metadata: TLS_CLIENT_AUTH_SUBJECT_DN
+    - Subject Distinguished Name: << put your Bank cert DN >>
+    - enable Certificate bound access tokens
     - scopes tab:
       * Openbanking -> manage_openbanking_consents
   * once app has been created adjust env variables in docker-compose.yaml file for consent-page app
