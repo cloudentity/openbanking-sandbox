@@ -59,14 +59,11 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
 			return
 		}
-		logrus.Infof("introspection response: %+v", introspectionResponse)
+
+		logrus.WithFields(logrus.Fields{"introspection_response": introspectionResponse}).Infof("token introspected")
 
 		authorizedAccounts := introspectionResponse.AccountIDs
 		grantedPermissions := introspectionResponse.Permissions
-
-		// todo transaction from/to
-		// transactionFrom := introspectionResponse.TransactionFromDateTime
-		// transactionTo := introspectionResponse.TransactionToDateTime
 
 		scopes := strings.Split(introspectionResponse.Scope, " ")
 		if !has(scopes, "accounts") {

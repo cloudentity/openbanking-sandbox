@@ -80,7 +80,6 @@ services:
       - ./data/acp_cert.pem:/acp_cert.pem
       - ./data/acp_key.pem:/acp_key.pem
     environment:
-      - LOGGING_LEVEL=debug
       - FEATURES_SWAGGERUI=true
     command:
      - server
@@ -96,7 +95,6 @@ services:
      - --server.key.path
      - /acp_key.pem
      - --demo
-     - --dev
 
   crdb:
     container_name: crdb

@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 type Config struct {
@@ -66,6 +67,8 @@ func main() {
 		server Server
 		err    error
 	)
+
+	log.SetFormatter(&log.JSONFormatter{})
 
 	if server, err = NewServer(); err != nil {
 		logrus.WithError(err).Fatalf("failed to init server")
