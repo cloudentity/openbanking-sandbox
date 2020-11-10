@@ -40,10 +40,14 @@ services:
       - "8080:8080"
     volumes:
       - ./data/ca.pem:/ca.pem
+      - ./data/bank_cert.pem:/bank_cert.pem
+      - ./data/bank_key.pem:/bank_key.pem
     environment:
       - CLIENT_ID=buc3b1hhuc714r78env0
       - CLIENT_SECRET=PBV7q0akoP603rZbU0EFdxbhZ-djxF7FIVwyKaLnBYU
       - TOKEN_URL=https://acp:8443/default/system/oauth2/token
+      - CERT_FILE=/bank_cert.pem
+      - KEY_FILE=/bank_key.pem
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
 
@@ -69,7 +73,7 @@ services:
 
   acp:
     container_name: acp
-    image: docker.artifactory.syntegrity.com/authorization:latest
+    image: docker-public.artifactory.cloudentity.com/authorization:6132257
     networks:
       system:
     ports:

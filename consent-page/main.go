@@ -12,13 +12,13 @@ import (
 )
 
 type Config struct {
-	ClientID           string        `env:"CLIENT_ID,required"`
-	ClientSecret       string        `env:"CLIENT_SECRET,required"`
-	TokenURL           *url.URL      `env:"TOKEN_URL,required"`
-	Timeout            time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA             string        `env:"ROOT_CA"`
-	InsecureSkipVerify bool          `env:"INSECURE_SKIP_VERIFY"`
-	BankURL            *url.URL      `env:"BANK_URL"`
+	ClientID string        `env:"CLIENT_ID,required"`
+	TokenURL *url.URL      `env:"TOKEN_URL,required"`
+	Timeout  time.Duration `env:"TIMEOUT" envDefault:"5s"`
+	RootCA   string        `env:"ROOT_CA"`
+	CertFile string        `env:"CERT_FILE,required"`
+	KeyFile  string        `env:"KEY_FILE,required"`
+	BankURL  *url.URL      `env:"BANK_URL"`
 }
 
 func LoadConfig() (config Config, err error) {

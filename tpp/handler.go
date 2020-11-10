@@ -11,7 +11,8 @@ import (
 	"net/url"
 
 	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
-	"github.com/cloudentity/acp/pkg/swagger/models"
+	"github.com/cloudentity/acp/pkg/openbanking/models"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
@@ -35,7 +36,7 @@ func (s *Server) Get() func(*gin.Context) {
 func (s *Server) Login() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			registerResponse   *models.AccountAccessConsentResponse
+			registerResponse   *models.OBReadConsentResponse1
 			encodedVerifier    string
 			encodedNonce       string
 			encodedCookieValue string
@@ -48,7 +49,7 @@ func (s *Server) Login() func(*gin.Context) {
 
 		requestPermissions := c.PostFormArray("permissions")
 
-		if registerResponse, err = s.AcpClient.RegisterAccountAccessConsent(requestPermissions); err != nil {
+		if registerResponse, err = s.AccountAccessClient.RegisterAccountAccessConsent(requestPermissions); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to register account access consent: %+v", err))
 			return
 		}
@@ -92,7 +93,7 @@ func (s *Server) Login() func(*gin.Context) {
 		}
 		challenge = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(hash.Sum([]byte{}))
 
-		if loginURL, err = s.WebClient.LoginURL(registerResponse.Data.ConsentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
+		if loginURL, err = s.WebClient.LoginURL(*registerResponse.Data.ConsentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
 			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
 		}
 

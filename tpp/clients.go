@@ -16,9 +16,8 @@ import (
 	"time"
 
 	obc "github.com/cloudentity/acp/pkg/openbanking/client"
-	"github.com/cloudentity/acp/pkg/swagger/client"
-	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
-	"github.com/cloudentity/acp/pkg/swagger/models"
+	"github.com/cloudentity/acp/pkg/openbanking/client/account_access"
+	"github.com/cloudentity/acp/pkg/openbanking/models"
 	"github.com/dgrijalva/jwt-go"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
@@ -26,28 +25,19 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 )
 
-type AcpClient struct {
-	client *client.Web
-	tenant string
-	server string
+type AcpAccountAccessClient struct {
+	*obc.Openbanking
 }
 
-func NewAcpMTLSClient(config Config) (AcpClient, error) {
+func NewAcpAccountAccessClient(config Config) (AcpAccountAccessClient, error) {
 	var (
-		acpClient = AcpClient{}
-		hc        *http.Client
-		err       error
+		c   = AcpAccountAccessClient{}
+		err error
+		hc  *http.Client
 	)
 
-	parts := strings.Split(config.TokenURL.Path, "/")
-	if len(parts) < 2 {
-		return acpClient, errors.New("can't get tenant/server from issuer url")
-	}
-	acpClient.tenant = parts[1]
-	acpClient.server = parts[2]
-
 	if hc, err = newHttpClient(config); err != nil {
-		return acpClient, err
+		return c, err
 	}
 
 	cc := clientcredentials.Config{
@@ -57,29 +47,36 @@ func NewAcpMTLSClient(config Config) (AcpClient, error) {
 		AuthStyle: oauth2.AuthStyleInParams,
 	}
 
-	acpClient.client = client.New(httptransport.NewWithClient(
+	parts := strings.Split(config.TokenURL.Path, "/")
+	if len(parts) < 2 {
+		return c, errors.New("can't get tenant / server from token url")
+	}
+	tenant := parts[1]
+	server := parts[2]
+
+	c.Openbanking = obc.New(httptransport.NewWithClient(
 		config.TokenURL.Host,
-		"/",
+		fmt.Sprintf("/%s/%s/open-banking/v3.1/aisp", tenant, server),
 		[]string{config.TokenURL.Scheme},
 		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
 	), nil)
 
-	return acpClient, nil
+	return c, nil
 }
 
-func (a *AcpClient) RegisterAccountAccessConsent(permissions []string) (*models.AccountAccessConsentResponse, error) {
+func (a *AcpAccountAccessClient) RegisterAccountAccessConsent(permissions []string) (*models.OBReadConsentResponse1, error) {
 	var (
-		response *openbanking.CreateAccountAccessConsentRequestCreated
-		request  = &models.AccountAccessConsentRequest{
-			Data: &models.AccountAccessConsentRequestData{
+		response *account_access.CreateAccountAccessConsentsCreated
+		request  = &models.OBReadConsent1{
+			Data: &models.OBReadConsent1Data{
 				Permissions: permissions,
 			},
 		}
 		err error
 	)
 
-	if response, err = a.client.Openbanking.CreateAccountAccessConsentRequest(openbanking.NewCreateAccountAccessConsentRequestParams().
-		WithTid(a.tenant).WithAid(a.server).WithRequest(request), nil); err != nil {
+	if response, err = a.Openbanking.AccountAccess.CreateAccountAccessConsents(account_access.NewCreateAccountAccessConsentsParams().
+		WithOBReadConsent1Param(request), nil); err != nil {
 		return nil, err
 	}
 

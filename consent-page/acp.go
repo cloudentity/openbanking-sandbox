@@ -62,10 +62,10 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	}
 
 	cc := clientcredentials.Config{
-		ClientID:     config.ClientID,
-		ClientSecret: config.ClientSecret,
-		Scopes:       []string{"manage_openbanking_consents"},
-		TokenURL:     config.TokenURL.String(),
+		ClientID:  config.ClientID,
+		Scopes:    []string{"manage_openbanking_consents"},
+		TokenURL:  config.TokenURL.String(),
+		AuthStyle: oauth2.AuthStyleInParams,
 	}
 
 	acpClient.client = client.New(httptransport.NewWithClient(
@@ -136,9 +136,14 @@ func (a *AcpClient) RejectAccountAccessConsent(r LoginRequest, rejectReason stri
 func newHttpClient(config Config) (*http.Client, error) {
 	var (
 		pool *x509.CertPool
+		cert tls.Certificate
 		data []byte
 		err  error
 	)
+
+	if cert, err = tls.LoadX509KeyPair(config.CertFile, config.KeyFile); err != nil {
+		return nil, err
+	}
 
 	if pool, err = x509.SystemCertPool(); err != nil {
 		return nil, err
@@ -168,8 +173,8 @@ func newHttpClient(config Config) (*http.Client, error) {
 			ExpectContinueTimeout: 1 * time.Second,
 			MaxIdleConnsPerHost:   runtime.GOMAXPROCS(0) + 1,
 			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: config.InsecureSkipVerify, // nolint
-				RootCAs:            pool,
+				RootCAs:      pool,
+				Certificates: []tls.Certificate{cert},
 			},
 		},
 	}, nil
