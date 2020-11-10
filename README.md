@@ -70,6 +70,7 @@ If you would like to configure ACP from scratch please follow the guideliness be
 * create tenant
 * create new OpenBanking UK compliant workspace for your customers
 * in the new workspace
+  * configure custom consent page (this can be done currently via curl by updating authorization server settings)
   * create TPP application with the following settings:
     - grant_types: client_credentials, authorization_code
     - respones_types: token, code

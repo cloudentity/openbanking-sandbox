@@ -69,7 +69,7 @@ services:
 
   acp:
     container_name: acp
-    image: docker.artifactory.syntegrity.com/authorization:latest
+    image: docker-public.artifactory.cloudentity.com/authorization:6132257
     networks:
       system:
     ports:
