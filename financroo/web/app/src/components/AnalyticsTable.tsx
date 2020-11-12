@@ -257,7 +257,7 @@ export default function AnalyticsTable({style = {}}) {
     const headHeight = document.getElementsByClassName('analytics-table-head')?.item(0)?.clientHeight;
     const rowHeight = document.getElementsByClassName('analytics-table-row')?.item(0)?.clientHeight;
     const paginationHeight = document.getElementsByClassName('analytics-table-pagination')?.item(0)?.clientHeight;
-    console.log(rootHeight, headHeight, rowHeight, paginationHeight);
+
     if (rootHeight && headHeight && rowHeight && paginationHeight) {
       setRowsPerPage(Math.floor((rootHeight - headHeight - paginationHeight) / rowHeight))
     }

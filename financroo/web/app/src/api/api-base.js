@@ -50,4 +50,4 @@ export default http(superagent, window.location.origin, `/api`);
 
 export const base = http(superagent, window.location.origin, `/api`);
 
-export const baseWithCustomBaseUrl = baseUrl => http(superagent, window.location.origin, baseUrl);
+export const baseWithCustomBaseUrl = (baseUrl, origin = window.location.origin) => http(superagent, origin, baseUrl);

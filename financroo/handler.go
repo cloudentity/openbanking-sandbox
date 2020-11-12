@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -38,17 +39,21 @@ type AccountsRes struct {
 	Accounts []Account `json:"accounts"`
 }
 
-func (s *Server) Accounts() func(ctx *gin.Context) {
+// mock
+
+var accounts = AccountsRes{
+	Accounts: []Account{},
+}
+
+func (s *Server) GetAccounts() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
-		c.JSON(200, AccountsRes{
-			Accounts: []Account{
-				{
-					AccountId:      "wereeloAccountId",
-					Description:    "wereeloDescription",
-					Identification: "wereeloIdentification",
-					Name:           "wereeloName",
-				},
-			},
-		})
+		c.JSON(200, accounts)
+	}
+}
+
+func (s *Server) UpdateAccounts() func(ctx *gin.Context) {
+	return func(c *gin.Context) {
+		json.NewDecoder(c.Request.Body).Decode(&accounts)
+		c.JSON(200, accounts)
 	}
 }

@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import {useFormFactory} from "../utils/forms/formFactory";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import {Link} from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({}) => {
+export default ({onLogin}) => {
   const classes = useStyles();
   const formFactory = useFormFactory({id: 'login-view'})
 
@@ -57,7 +57,7 @@ export default ({}) => {
               Terms of service and have read and acknowledge our Privacy Statement</Typography>
             <Typography style={{marginTop: 32, textAlign: 'center'}}>
               <strong>Already have an account? </strong>
-              <Link to={'/'}>Login</Link>
+              <Button onClick={onLogin}>Login</Button>
             </Typography>
           </div>
         </Grid>

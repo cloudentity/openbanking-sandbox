@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Theme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -6,7 +6,6 @@ import welcomeImage from "../assets/welcome-image.png";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import PageContainer from "./PageContainer";
-import ConnectAccount from "./ConnectAccount";
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 

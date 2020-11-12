@@ -40,7 +40,8 @@ func (s *Server) Start() error {
 		})
 	})
 
-	r.GET("/api/accounts", s.Accounts())
+	r.GET("/api/accounts", s.GetAccounts())
+	r.PUT("/api/accounts", s.UpdateAccounts())
 
 	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
 }

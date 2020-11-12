@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
 import {Switch} from 'react-router';
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
 import {StylesProvider} from '@material-ui/core/styles';
 import superagent from 'superagent';
 import Progress from "./components/Progress";
 import {toJson} from "./api/api-base";
-import Register from "./components/Register";
-import Main from "./components/Main";
 import {ReactQueryDevtools} from "react-query-devtools";
+import {QueryCache, ReactQueryCacheProvider} from "react-query";
+import PrivateRoute from "./components/PrivateRoute";
+import AuthPage from "./components/AuthPage";
+import Callback from "./components/Callback";
+import AuthenticatedAppBase from "./components/AuthenticatedAppBase";
+import {putExpiresInInStore, putIATInInStore, putIdTokenInStore, putTokenInStore} from "./components/auth.utils";
 
 const theme = createMuiTheme({
   palette: {
@@ -38,6 +42,21 @@ const theme = createMuiTheme({
 
 export type Config = {}
 
+const queryCache = new QueryCache();
+
+const tenantId = "default";
+const authorizationServerId = "financroo";
+const scopes = [];
+
+const login = data => {
+  if (data.token) {
+    putTokenInStore(data.token);
+    data.expires_in && putExpiresInInStore(data.expires_in);
+    data.iat && putIATInInStore(data.iat);
+    data.idToken && putIdTokenInStore(data.idToken);
+  }
+}
+
 function App() {
   const [progress, setProgress] = useState(true);
   const [config, setConfig] = useState<Config | null>(null);
@@ -55,15 +74,53 @@ function App() {
       <ReactQueryDevtools/>
       <ThemeProvider theme={theme}>
         <StylesProvider injectFirst>
-          {progress && <Progress/>}
-          {!progress && (
-            <Router>
-              <Switch>
-                <Route exact path={"/register"} render={() => <Register/>}/>
-                <Route exact path={"/"} render={() => <Main/>}/>
-              </Switch>
-            </Router>
-          )}
+          <ReactQueryCacheProvider queryCache={queryCache}>
+            {progress && <Progress/>}
+            {!progress && (
+              <Router>
+                <Suspense fallback={<Progress/>}>
+                  <Switch>
+                    <Route
+                      path="/callback"
+                      render={() =>
+                        <Callback
+                          authorizationServerId={authorizationServerId}
+                          tenantId={tenantId}
+                          login={login}
+                        />}
+                    />
+                    <Route
+                      path="/silent"
+                      render={() =>
+                        <Callback
+                          silent
+                          authorizationServerId={authorizationServerId}
+                          tenantId={tenantId}
+                          login={login}
+                        />}
+                    />
+                    <Route
+                      path={'/auth'}
+                      render={() =>
+                        <AuthPage
+                          login={login}
+                          authorizationServerId={authorizationServerId}
+                          tenantId={tenantId}
+                          scopes={scopes}
+                        />}
+                    />
+                    <PrivateRoute
+                      path="/"
+                      login={login}
+                      component={() =>
+                        <AuthenticatedAppBase authorizationServerId={authorizationServerId} tenantId={tenantId} scopes={scopes}/>}
+                    />
+                    <Route component={() => <Redirect to={'/auth'}/>}/>
+                  </Switch>
+                </Suspense>
+              </Router>
+            )}
+          </ReactQueryCacheProvider>
         </StylesProvider>
       </ThemeProvider>
     </>

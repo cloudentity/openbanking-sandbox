@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({onClose}) => {
+export default ({onAllowAccess, onClose}) => {
   const classes = useStyles();
   const [selected, setSelected] = useState<any | null>(null);
 
@@ -115,7 +115,7 @@ export default ({onClose}) => {
         <div className={classes.footer}>
           <div>
             <Button size={'large'} variant={'outlined'} onClick={() => setSelected(null)}>Cancel</Button>
-            <Button size={'large'} variant={'contained'} color={'primary'} style={{marginLeft: 16}}>Allow access</Button>
+            <Button size={'large'} variant={'contained'} color={'primary'} style={{marginLeft: 16}} onClick={() => onAllowAccess({"account_id":"newElooAccountId","description":"newElooDescription","identification":"newElooIdentification","name":"newElooName"})}>Allow access</Button>
           </div>
         </div>
       )}
