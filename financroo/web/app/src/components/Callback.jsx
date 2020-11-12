@@ -23,7 +23,7 @@ const capitalizeFirstLetter = (string = '') => {
 
 const errorCodeToDisplay = error => capitalizeFirstLetter((error || '').replace(/(\+|_)/g, ' '));
 
-export default function Callback ({tenantId, authorizationServerId, login, silent = false}) {
+export default function Callback ({authorizationServerURL, tenantId, authorizationServerId, clientId, login, silent = false}) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -35,11 +35,8 @@ export default function Callback ({tenantId, authorizationServerId, login, silen
     let PKCE_CODE_VERIFIER_KEY = `pkce_code_verifier`;
     const code = getParamFromUrl('code');
     const errorParam = getParamFromUrl('error');
-    let origin = process.env.NODE_ENV === 'development'
-      ? 'https://localhost:8443'
-      : window.location.origin;
 
-    let authorizationUri = `${origin}/${tenantId}/${authorizationServerId}/oauth2/authorize`;
+    let authorizationUri = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/oauth2/authorize`;
 
     let config = {
       client_id: authorizationServerId,
@@ -47,7 +44,7 @@ export default function Callback ({tenantId, authorizationServerId, login, silen
       authorization_endpoint: authorizationUri,
     };
 
-    let body = `grant_type=authorization_code&client_id=bumgdcphqf52c90ootpg&redirect_uri=${config.redirect_uri}&code=${code}&code_verifier=${localStorage.getItem(PKCE_CODE_VERIFIER_KEY)}`
+    let body = `grant_type=authorization_code&client_id=${clientId}&redirect_uri=${config.redirect_uri}&code=${code}&code_verifier=${localStorage.getItem(PKCE_CODE_VERIFIER_KEY)}`
 
     if (code) {
       authApi.exchangeCodeForToken({body})

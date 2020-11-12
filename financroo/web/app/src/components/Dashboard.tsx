@@ -14,7 +14,7 @@ import Tabs from "@material-ui/core/Tabs";
 import {Button} from "@material-ui/core";
 import {logout} from "./AuthPage";
 
-export default ({userinfo}) => {
+export default ({authorizationServerURL, authorizationServerId, tenantId}) => {
   const [connectAccountOpen, setConnectAccountOpen] = useState(false);
 
   const queryCache = useQueryCache();
@@ -58,7 +58,7 @@ export default ({userinfo}) => {
             <Tab label="Settings" value={'settings'} style={{height: 64}}/>
           </Tabs>
         </Hidden>
-        <Button variant={"outlined"} onClick={() => logout()}>Logout</Button>
+        <Button variant={"outlined"} onClick={() => logout(authorizationServerURL, tenantId, authorizationServerId)}>Logout</Button>
       </PageToolbar>
       {isProgress && <Progress/>}
 

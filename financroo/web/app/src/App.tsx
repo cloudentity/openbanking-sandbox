@@ -40,12 +40,16 @@ const theme = createMuiTheme({
   }
 });
 
-export type Config = {}
+export type Config = {
+  authorizationServerURL: string
+  authorizationServerId: string
+  clientId: string
+  tenantId: string
+
+}
 
 const queryCache = new QueryCache();
 
-const tenantId = "default";
-const authorizationServerId = "financroo";
 const scopes = [];
 
 const login = data => {
@@ -59,7 +63,7 @@ const login = data => {
 
 function App() {
   const [progress, setProgress] = useState(true);
-  const [config, setConfig] = useState<Config | null>(null);
+  const [config, setConfig] = useState<Config>();
 
   useEffect(() => {
     superagent
@@ -84,8 +88,10 @@ function App() {
                       path="/callback"
                       render={() =>
                         <Callback
-                          authorizationServerId={authorizationServerId}
-                          tenantId={tenantId}
+                          authorizationServerURL={config?.authorizationServerURL}
+                          authorizationServerId={config?.authorizationServerId}
+                          tenantId={config?.tenantId}
+                          clientId={config?.clientId}
                           login={login}
                         />}
                     />
@@ -94,8 +100,10 @@ function App() {
                       render={() =>
                         <Callback
                           silent
-                          authorizationServerId={authorizationServerId}
-                          tenantId={tenantId}
+                          authorizationServerURL={config?.authorizationServerURL}
+                          authorizationServerId={config?.authorizationServerId}
+                          tenantId={config?.tenantId}
+                          clientId={config?.clientId}
                           login={login}
                         />}
                     />
@@ -104,16 +112,27 @@ function App() {
                       render={() =>
                         <AuthPage
                           login={login}
-                          authorizationServerId={authorizationServerId}
-                          tenantId={tenantId}
+                          authorizationServerURL={config?.authorizationServerURL}
+                          authorizationServerId={config?.authorizationServerId}
+                          tenantId={config?.tenantId}
+                          clientId={config?.clientId}
                           scopes={scopes}
                         />}
                     />
                     <PrivateRoute
                       path="/"
+                      authorizationServerURL={config?.authorizationServerURL}
+                      authorizationServerId={config?.authorizationServerId}
+                      tenantId={config?.tenantId}
                       login={login}
                       component={() =>
-                        <AuthenticatedAppBase authorizationServerId={authorizationServerId} tenantId={tenantId} scopes={scopes}/>}
+                        <AuthenticatedAppBase
+                          authorizationServerURL={config?.authorizationServerURL}
+                          authorizationServerId={config?.authorizationServerId}
+                          tenantId={config?.tenantId}
+                          clientId={config?.clientId}
+                          scopes={scopes}
+                        />}
                     />
                     <Route component={() => <Redirect to={'/auth'}/>}/>
                   </Switch>

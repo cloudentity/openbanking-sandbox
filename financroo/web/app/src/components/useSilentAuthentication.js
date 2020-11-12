@@ -8,7 +8,7 @@ const TOKEN_EXPIRATION_RATIO_CHECK_INTERVAL = 5000;
 
 const silentAuthenticationThrottled = throttle(silentAuthentication, 30000, {trailing: false});
 
-export const useSilentAuthentication = (authorizationServerId, tenantId, scopes) =>
+export const useSilentAuthentication = (authorizationServerURL, authorizationServerId, tenantId, clientId, scopes) =>
   useEffect(() => {
     const counter = setInterval(async () => {
       const token = getTokenFromStore();
@@ -22,9 +22,9 @@ export const useSilentAuthentication = (authorizationServerId, tenantId, scopes)
       const ratio = (lifetimeInSec - validForInSec) / lifetimeInSec;
 
       if (ratio > TIMEOUT_RATIO_FACTOR || !token) {
-        silentAuthenticationThrottled(tenantId, authorizationServerId, scopes, idTokenHint);
+        silentAuthenticationThrottled(authorizationServerURL, tenantId, authorizationServerId, clientId, scopes, idTokenHint);
       }
     }, TOKEN_EXPIRATION_RATIO_CHECK_INTERVAL);
 
     return () => clearInterval(counter);
-  }, [authorizationServerId, tenantId, scopes]);
+  }, [authorizationServerURL, authorizationServerId, tenantId, clientId, scopes]);

@@ -1,6 +1,0 @@
-{
-  "authorizationServerURL": "https://acp.okta.cloudentity.io:8443/example/consumers",
-  "clientId": "bu3dofllpi0f4nnbs01g",
-  "redirectUri": "http://localhost:3001/accounts/callback",
-  "makeTransferApiUrl": "http://acp.okta.cloudentity.io:8080/banking/transfer"
-}

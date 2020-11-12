@@ -1,15 +1,15 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Redirect, Route} from 'react-router';
 import {api} from '../api/api';
-import {isTokenInStore, removeTokenFromStore} from './auth.utils';
+import {isTokenInStore, removeAllAuthDataFromStore} from './auth.utils';
 import Progress from './Progress';
 
-export default ({component: Component, login, ...rest}) => {
+export default ({component: Component, login, authorizationServerURL, tenantId, authorizationServerId, ...rest}) => {
   const [progress, setProgress] = useState(true);
 
   useEffect(() => {
-    api.userinfo()
-      .catch(() => removeTokenFromStore())
+    api.userinfo(authorizationServerURL, tenantId, authorizationServerId)
+      .catch(() => removeAllAuthDataFromStore())
       .finally(() => setProgress(false));
   }, []);
 

@@ -1,22 +1,12 @@
 import React from 'react';
 import {Redirect} from 'react-router';
 
-import {
-  getTokenFromStore,
-  isTokenInStore,
-  removeExpiresInFromStore,
-  removeIATFromStore,
-  removeTokenFromStore
-} from './auth.utils';
+import {getTokenFromStore, isTokenInStore, removeAllAuthDataFromStore} from './auth.utils';
 import {generateRandomString, pkceChallengeFromVerifier} from './pkce.utils';
 import Register from './Register';
 
-export const origin = process.env.NODE_ENV === 'development'
-  ? 'https://localhost:8443'
-  : window.location.origin;
-
-const calcAuthorizationUrl = async (tenantId, authorizationServerId, scopes = [], silent = false, idTokenHint = "") => {
-  const authorizationUri = `${origin}/${tenantId}/${authorizationServerId}/oauth2/authorize`;
+const calcAuthorizationUrl = async (authorizationServerURL, tenantId, authorizationServerId, clientId, scopes = [], silent = false, idTokenHint = "") => {
+  const authorizationUri = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/oauth2/authorize`;
 
   // Create and store a random "state" value
   const state = generateRandomString();
@@ -31,7 +21,7 @@ const calcAuthorizationUrl = async (tenantId, authorizationServerId, scopes = []
 
   return authorizationUri
     + "?response_type=code"
-    + "&client_id=" + encodeURIComponent("bumgdcphqf52c90ootpg")
+    + "&client_id=" + encodeURIComponent(clientId)
     + "&state=" + encodeURIComponent(state)
     + "&scope=" + encodeURIComponent(scopes.join(' '))
     + "&redirect_uri=" + encodeURIComponent(window.location.origin + `/${silent ? 'silent' : 'callback'}`)
@@ -40,19 +30,19 @@ const calcAuthorizationUrl = async (tenantId, authorizationServerId, scopes = []
     + `${silent ? `&prompt=none&id_token_hint=${idTokenHint}` : ''}`
 }
 
-export const authorize = async (tenantId, authorizationServerId, scopes = []) => {
+export const authorize = async (authorizationServerURL, tenantId, authorizationServerId, clientId, scopes = []) => {
 
   // Authorization URL
-  window.location.href = await calcAuthorizationUrl(tenantId, authorizationServerId, scopes)
+  window.location.href = await calcAuthorizationUrl(authorizationServerURL, tenantId, authorizationServerId, clientId, scopes)
 };
 
 const IFRAME_ID = 'silent-auth-iframe';
 export const SILENT_AUTH_SUCCESS_MESSAGE = 'silentAuthSuccess';
 export const SILENT_AUTH_ERROR_MESSAGE = 'silentAuthFailure';
 
-export const silentAuthentication = async (tenantId, authorizationServerId, scopes, idTokenHint) => {
+export const silentAuthentication = async (authorizationServerURL, tenantId, authorizationServerId, clientId, scopes, idTokenHint) => {
   const iframe = document.createElement("iframe");
-  const src = await calcAuthorizationUrl(tenantId, authorizationServerId, scopes, true, idTokenHint);
+  const src = await calcAuthorizationUrl(authorizationServerURL, tenantId, authorizationServerId, clientId, scopes, true, idTokenHint);
   iframe.setAttribute("src", src)
   iframe.setAttribute("id", IFRAME_ID)
   iframe.style.display = 'none';
@@ -70,17 +60,15 @@ export const silentAuthentication = async (tenantId, authorizationServerId, scop
   document.body.appendChild(iframe);
 }
 
-export const logout = () => {
-  removeTokenFromStore();
-  removeExpiresInFromStore();
-  removeIATFromStore();
-  window.location.href = `${origin}/default/financroo/logout?redirect_to=http://localhost:3001`
+export const logout = (authorizationServerURL, tenantId, authorizationServerId) => {
+  removeAllAuthDataFromStore();
+  window.location.href = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/logout?redirect_to=${window.location.origin}`
 };
 
 
-const AuthPage = ({login, tenantId, authorizationServerId, scopes}) => {
+const AuthPage = ({login, authorizationServerURL, tenantId, authorizationServerId, clientId, scopes}) => {
   const handleLogin = () => {
-    authorize(tenantId, authorizationServerId, scopes);
+    authorize(authorizationServerURL, tenantId, authorizationServerId, clientId, scopes);
   }
 
   if (isTokenInStore()) {

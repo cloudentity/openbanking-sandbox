@@ -19,3 +19,10 @@ export const removeIATFromStore = () => localStorage.removeItem(IAT_KEY);
 export const getIdTokenFromStore = () => localStorage.getItem(ID_TOKEN_KEY);
 export const putIdTokenInStore = (token, name = ID_TOKEN_KEY) => localStorage.setItem(name, token);
 export const removeIdTokenFromStore = () => localStorage.removeItem(ID_TOKEN_KEY);
+
+export const removeAllAuthDataFromStore = () => {
+  removeTokenFromStore();
+  removeExpiresInFromStore();
+  removeIATFromStore();
+  removeIdTokenFromStore();
+}
