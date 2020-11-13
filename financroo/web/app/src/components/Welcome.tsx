@@ -22,7 +22,7 @@ export default ({onConnectClick}) => {
             <Typography variant={'body1'} style={{marginTop: 16}}>Connect your bank, bills and credit cards to uncover insights that can improve
               your
               financial well being</Typography>
-            <Button style={{marginTop: 24}} size={'large'} variant={'contained'} color={'primary'} onClick={onConnectClick}>Connect
+            <Button style={{marginTop: 24}} size={'large'} variant={'contained'} color={'secondary'} onClick={onConnectClick}>Connect
               your bank</Button>
           </Grid>
         </Grid>

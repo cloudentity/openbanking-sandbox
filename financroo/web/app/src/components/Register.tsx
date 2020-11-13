@@ -51,7 +51,7 @@ export default ({onLogin}) => {
             {formFactory.createRequiredField({name: 'username', label: 'Username'})}
             {formFactory.createRequiredField({name: 'password', label: 'Password'})}
 
-            {formFactory.createFormFooter({onSubmit: data => console.log(data), submitText: 'Create Account', buttonWidth: '100%'})}
+            {formFactory.createFormFooter({onSubmit: data => console.log(data), submitText: 'Create Account', submitButtonColor: 'secondary', buttonWidth: '100%'})}
             <Divider style={{margin: '24px 0'}}/>
             <Typography style={{textAlign: 'center'}}>By clicking Create account, you agree to our
               Terms of service and have read and acknowledge our Privacy Statement</Typography>

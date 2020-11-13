@@ -19,6 +19,9 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: "#36C6AF"
+    },
+    secondary: {
+      main: "#1F2D48"
     }
   },
   overrides: {
@@ -75,10 +78,10 @@ function App() {
 
   return (
     <>
-      <ReactQueryDevtools/>
       <ThemeProvider theme={theme}>
         <StylesProvider injectFirst>
           <ReactQueryCacheProvider queryCache={queryCache}>
+            <ReactQueryDevtools/>
             {progress && <Progress/>}
             {!progress && (
               <Router>

@@ -21,7 +21,7 @@ export default ({accounts, onConnectClick}) => {
 
       <div style={{flex: 1}}/>
 
-      <Button color={'primary'} variant={'contained'} size={'large'} style={{width: '100%'}} onClick={onConnectClick}>Connect your bank</Button>
+      <Button color={'secondary'} variant={'contained'} size={'large'} style={{width: '100%'}} onClick={onConnectClick}>Connect your bank</Button>
     </div>
   )
 };

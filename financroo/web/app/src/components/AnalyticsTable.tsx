@@ -360,11 +360,18 @@ export default function AnalyticsTable({style = {}}) {
                       {/*  />*/}
                       {/*</TableCell>*/}
                       <TableCell id={labelId} scope="row" align="left">
-                        {row.transaction_date}
+                        <span style={{background: '#ECECEC', padding: 4}}>{row.transaction_date}</span>
                       </TableCell>
-                      <TableCell align="left">{row.effective_date}</TableCell>
+                      <TableCell align="left">
+                        <span style={{background: '#ECECEC', padding: 4}}>{row.effective_date}</span>
+                      </TableCell>
                       <TableCell align="left">{row.description}</TableCell>
-                      <TableCell align="left">{row.category}</TableCell>
+                      <TableCell align="left">
+                        <div>
+                          <div style={{display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: '#3098D6', position: 'relative', top: 1, marginRight: 4}}/>
+                          {row.category}
+                        </div>
+                      </TableCell>
                       <TableCell align="left">{row.amount}</TableCell>
                     </TableRow>
                   );

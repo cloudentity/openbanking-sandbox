@@ -6,6 +6,7 @@ interface CreateFormFooterProps {
   form: any
   cancelText?: string
   submitText?: string
+  submitButtonColor?: 'primary' | 'secondary'
   disabled?: boolean
   onCancel?: () => void
   onSubmit?: (data: any) => void
@@ -14,7 +15,7 @@ interface CreateFormFooterProps {
   style?: any
 }
 
-export default ({id, form, cancelText, submitText, disabled, onCancel, onSubmit, align = 'left', buttonWidth = 192, style = {}}: CreateFormFooterProps) => (
+export default ({id, form, cancelText, submitText, submitButtonColor = 'primary', disabled, onCancel, onSubmit, align = 'left', buttonWidth = 192, style = {}}: CreateFormFooterProps) => (
   <div style={{textAlign: align, ...style}}>
     {onCancel && (
       <Button id={`${id}-cancel-button`}
@@ -27,7 +28,7 @@ export default ({id, form, cancelText, submitText, disabled, onCancel, onSubmit,
     {onSubmit && (
       <Button id={`${id}-confirm-button`}
               variant={'contained'}
-              color='primary'
+              color={submitButtonColor}
               size="large"
               disabled={disabled}
               onClick={form.handleSubmit(onSubmit)}

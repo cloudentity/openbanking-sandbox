@@ -5,29 +5,37 @@ import deutcshebank from "../assets/banks/deutcshebank-logo.svg";
 import hsbc from "../assets/banks/hsbc-logo.svg";
 import santander from "../assets/banks/santander-logo.svg";
 
+import financrooIcon from "../assets/banks/financroo-icon.svg";
+import gobankIcon from "../assets/banks/gobank-icon.svg";
+import apexfinancialIcon from "../assets/banks/apexfinancial-icon.svg";
+import chaseIcon from "../assets/banks/chase-icon.svg";
+
 export const banks = [
   {
     value: 'gobank',
-    logo: gobank
+    logo: gobank,
+    icon: gobankIcon
   },
   {
     value: 'apexfinancial',
-    logo: apexfinancial
+    logo: apexfinancial,
+    icon: apexfinancialIcon
   },
   {
     value: 'chase',
-    logo: chase
+    logo: chase,
+    icon: chaseIcon
   },
   {
     value: 'deutcshebank',
-    logo: deutcshebank
+    logo: deutcshebank,
   },
   {
     value: 'hsbc',
-    logo: hsbc
+    logo: hsbc,
   },
   {
     value: 'santander',
-    logo: santander
+    logo: santander,
   },
 ]
