@@ -1,0 +1,42 @@
+{
+  "Data": {
+    "Account": [
+      {
+        "BankId": "gobank",
+        "AccountId": "22289",
+        "Status": "Enabled",
+        "StatusUpdateDateTime": "2019-01-01T06:06:06+00:00",
+        "Currency": "GBP",
+        "AccountType": "Personal",
+        "AccountSubType": "CurrentAccount",
+        "Nickname": "Bills"
+      },
+      {
+        "BankId": "gobank",
+        "AccountId": "31820",
+        "Status": "Enabled",
+        "StatusUpdateDateTime": "2018-01-01T06:06:06+00:00",
+        "Currency": "GBP",
+        "AccountType": "Personal",
+        "AccountSubType": "CurrentAccount",
+        "Nickname": "Household"
+      },
+      {
+        "BankId": "apexfinancial",
+        "AccountId": "31821",
+        "Status": "Enabled",
+        "StatusUpdateDateTime": "2018-01-01T06:06:06+00:00",
+        "Currency": "GBP",
+        "AccountType": "Personal",
+        "AccountSubType": "CurrentAccount",
+        "Nickname": "Household"
+      }
+    ]
+  },
+  "Links": {
+    "Self": "https://api.alphabank.com/open-banking/v3.1/aisp/accounts/"
+  },
+  "Meta": {
+    "TotalPages": 1
+  }
+}

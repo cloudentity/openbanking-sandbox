@@ -13,6 +13,8 @@ import Hidden from "@material-ui/core/Hidden";
 import Tabs from "@material-ui/core/Tabs";
 import {Button} from "@material-ui/core";
 import {logout} from "./AuthPage";
+import PageContent from "./PageContent";
+import PageContainer from "./PageContainer";
 
 export default ({authorizationServerURL, authorizationServerId, tenantId}) => {
   const [connectAccountOpen, setConnectAccountOpen] = useState(false);
@@ -64,11 +66,18 @@ export default ({authorizationServerURL, authorizationServerId, tenantId}) => {
 
       {!isProgress && (
         <>
-          {data && data.accounts.length === 0 && <Welcome onConnectClick={() => setConnectAccountOpen(true)}/>}
-          {data && data.accounts.length > 0 && <Connected accounts={data.accounts} onConnectClick={() => setConnectAccountOpen(true)}/>}
+          {data && data.Data.Account.length === 0 && (
+            <PageContainer withBackground>
+              <Welcome onConnectClick={() => setConnectAccountOpen(true)}/>
+            </PageContainer>
+          )}
+          {data && data.Data.Account.length > 0 && (
+            <PageContent>
+              <Connected accounts={data.Data.Account} onConnectClick={() => setConnectAccountOpen(true)}/>
+            </PageContent>
+          )}
         </>
       )}
-
 
       {connectAccountOpen && <ConnectAccount onAllowAccess={handleAllowAccess} onClose={() => setConnectAccountOpen(false)}/>}
     </div>

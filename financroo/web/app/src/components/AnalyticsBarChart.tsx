@@ -1,48 +1,7 @@
-import React, {useState} from 'react';
-import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Cell} from 'recharts';
+import React from 'react';
+import {Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, XAxis, YAxis} from 'recharts';
 
-const data = [
-  {
-    name: 'JAN', uv: 4000, pv: 2400, amt: 2400,
-  },
-  {
-    name: 'FEB', uv: 3000, pv: 1398, amt: 2210,
-  },
-  {
-    name: 'MAR', uv: 2000, pv: 9800, amt: 2290,
-  },
-  {
-    name: 'APR', uv: 2780, pv: 3908, amt: 2000,
-  },
-  {
-    name: 'MAY', uv: 1890, pv: 4800, amt: 2181,
-  },
-  {
-    name: 'JUN', uv: 2390, pv: 3800, amt: 2500,
-  },
-  {
-    name: 'JUL', uv: 3490, pv: 4300, amt: 2100,
-  },
-  {
-    name: 'AUG', uv: 2000, pv: 9800, amt: 2290,
-  },
-  {
-    name: 'SEP', uv: 2780, pv: 3908, amt: 2000,
-  },
-  {
-    name: 'OCT', uv: 1890, pv: 4800, amt: 2181,
-  },
-  {
-    name: 'NOV', uv: 2390, pv: 3800, amt: 2500,
-  },
-  {
-    name: 'DEC', uv: 3490, pv: 4300, amt: 2100,
-  }
-];
-
-export default function AnalyticsBarChart() {
-  const jsfiddleUrl = 'https://jsfiddle.net/alidingling/q4eonc12/';
-  const [selected, setSelected] = useState<any>(null);
+export default function AnalyticsBarChart({data, filtering, onChangeFiltering}) {
 
   return (
     <ResponsiveContainer width={'100%'} height={300}>
@@ -55,17 +14,16 @@ export default function AnalyticsBarChart() {
         <CartesianGrid strokeDasharray="3 3"/>
         <XAxis dataKey="name" axisLine={false} tickLine={false}/>
         <YAxis axisLine={false} tickLine={false}/>
-        {/*<Tooltip/>*/}
-        {/*<Legend/>*/}
         <Bar
-          dataKey="pv"
+          dataKey="value"
           background={{fill: '#eee'}}
-          onClick={e => e.name !== selected?.name
-            ? setSelected(e)
-            : setSelected(null)}
+          onClick={e => !filtering?.months.includes(e.name)
+            ? onChangeFiltering({months: [e.name], categories: []})
+            : onChangeFiltering({months: [], categories: []})
+          }
         >
           {data.map((entry, index) => (
-            <Cell cursor="pointer" fill={selected && (entry.name === selected?.name) ? '#36C6AF' : '#1F2D48'} key={`cell-${index}`}/>
+            <Cell cursor="pointer" fill={filtering?.months.includes(entry.name) ? '#36C6AF' : '#1F2D48'} key={`cell-${index}`}/>
           ))}
         </Bar>
       </BarChart>

@@ -5,18 +5,35 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import BankCard from "./BankCard";
 import mainClasses from "./main.module.css"
+import {groupBy, keys, pipe} from "ramda";
+import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-export default ({accounts, onConnectClick}) => {
+export default ({accounts, filtering, onChangeFiltering, onConnectClick}) => {
   const classes = useStyles();
+
+  const banks = pipe(groupBy((a: any) => a.BankID), keys)(accounts);
 
   return (
     <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-      <Typography className={mainClasses.sectionTitle}>All accounts</Typography>
+      <Card style={{padding: '32px 20px'}}>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+          <Typography className={mainClasses.sectionTitle}>All accounts</Typography>
+          <Typography><strong>GBP 9999.00</strong></Typography>
+        </div>
+        <Typography
+          style={{display: 'inline-block', background: 'rgba(54, 198, 175, 0.08)', color: '#36C6AF', fontSize: 14, padding: 2, marginTop: 4}}
+        >{accounts.length} accounts synced</Typography>
+      </Card>
 
-      {accounts.map(account => (
-        <BankCard account={account} selected={true} onToggleSelect={() => {}} style={{marginBottom: 32}}/>
+      {banks.map(bankId => (
+        <BankCard
+          bankId={bankId}
+          accounts={accounts.filter(a => a.BankID === bankId)}
+          filtering={filtering}
+          onChangeFiltering={onChangeFiltering}
+          style={{marginTop: 32}}/>
       ))}
 
       <div style={{flex: 1}}/>

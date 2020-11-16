@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import {stringToHex} from "./analytics.utils";
 
 interface Data {
   id: number;
@@ -25,6 +26,15 @@ interface Data {
   category: string;
   amount: string;
 }
+
+export const mapTransactionToData = t => createData(
+  t.TransactionId,
+  t.BookingDateTime,
+  t.ValueDateTime,
+  t.TransactionInformation,
+  t.BankTransactionCode.Code,
+  t.Amount.Amount
+);
 
 function createData(
   id: number,
@@ -36,18 +46,6 @@ function createData(
 ): Data {
   return {id, transaction_date, effective_date, description, category, amount};
 }
-
-const rows = [
-  createData(1, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(2, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(3, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(4, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(5, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(6, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(7, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(8, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-  createData(9, '24/10/2020', '24/10/2020', 'Mc Donalds drive thru', 'Entertainment', '€ 340.00'),
-];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -243,7 +241,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function AnalyticsTable({style = {}}) {
+type AnalyticsTableProps = {
+  data: Data[]
+  style: any
+}
+
+export default function AnalyticsTable({data, style = {}}: AnalyticsTableProps) {
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('transaction_date');
@@ -271,7 +274,7 @@ export default function AnalyticsTable({style = {}}) {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.id);
+      const newSelecteds = data.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -313,7 +316,7 @@ export default function AnalyticsTable({style = {}}) {
 
   const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
   return (
     <div className={classes.root} id="analytics-table-root" style={style}>
@@ -333,10 +336,10 @@ export default function AnalyticsTable({style = {}}) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={data.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
@@ -346,11 +349,11 @@ export default function AnalyticsTable({style = {}}) {
                     <TableRow
                       hover
                       className={'analytics-table-row'}
-                      onClick={(event) => handleClick(event, row.id)}
+                      // onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={row.id + index}
                       selected={isItemSelected}
                     >
                       {/*<TableCell padding="checkbox">*/}
@@ -368,7 +371,16 @@ export default function AnalyticsTable({style = {}}) {
                       <TableCell align="left">{row.description}</TableCell>
                       <TableCell align="left">
                         <div>
-                          <div style={{display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: '#3098D6', position: 'relative', top: 1, marginRight: 4}}/>
+                          <div style={{
+                            display: 'inline-block',
+                            width: 12,
+                            height: 12,
+                            borderRadius: '50%',
+                            background: `${stringToHex(row.category)}`,
+                            position: 'relative',
+                            top: 1,
+                            marginRight: 4
+                          }}/>
                           {row.category}
                         </div>
                       </TableCell>
@@ -388,7 +400,7 @@ export default function AnalyticsTable({style = {}}) {
           className={clsx(['analytics-table-pagination', classes.tablePagination])}
           rowsPerPageOptions={[]}
           component="div"
-          count={rows.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
