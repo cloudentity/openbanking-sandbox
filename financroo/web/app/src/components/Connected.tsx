@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({accounts, onConnectClick}) => {
+export default ({accounts, balances, onConnectClick}) => {
   const classes = useStyles();
   const [filtering, setFiltering] = useState({
     accounts: accounts.map(a => a.AccountId),
@@ -34,7 +34,7 @@ export default ({accounts, onConnectClick}) => {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={4} style={{background: '#F7FAFF', padding: '16px 32px', borderRight: '1px solid #EAECF1'}}>
-        <Accounts accounts={accounts} filtering={filtering} onChangeFiltering={f => setFiltering({...filtering, ...f})} onConnectClick={onConnectClick}/>
+        <Accounts accounts={accounts} balances={balances} filtering={filtering} onChangeFiltering={f => setFiltering({...filtering, ...f})} onConnectClick={onConnectClick}/>
       </Grid>
       <Grid item xs={8} style={{background: '#FCFCFF', padding: '32px 32px 16px 32px'}}>
         <Analytics transactions={transactions} filtering={filtering} onChangeFiltering={f => setFiltering({...filtering, ...f})}/>

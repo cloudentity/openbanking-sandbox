@@ -49,6 +49,8 @@ func (s *Server) Start() error {
 
 	r.GET("/api/transactions", s.GetTransactions())
 
+	r.GET("/api/balances", s.GetBalances())
+
 	r.NoRoute(func(c *gin.Context) {
 		c.File("web/app/build/index.html")
 	})

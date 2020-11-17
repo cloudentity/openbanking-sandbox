@@ -20,23 +20,26 @@ export default ({authorizationServerURL, authorizationServerId, tenantId}) => {
   const [connectAccountOpen, setConnectAccountOpen] = useState(false);
 
   const queryCache = useQueryCache();
-  const {isLoading: fetchProgress, data} = useQuery('fetchAccounts', api.fetchAccounts)
+
+  const {isLoading: fetchProgress, data: accountsRes} = useQuery('fetchAccounts', api.fetchAccounts);
   const [updateAccounts, {isLoading: updateProgress}] = useMutation(api.updateAccounts, {
     onSuccess: (data, variables) => {
       queryCache.setQueryData('fetchAccounts', data);
     }
   })
 
+  const {isLoading: fetchBalances, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances);
+
   const handleAllowAccess = async (bank) => {
     try {
       setConnectAccountOpen(false);
-      await updateAccounts({accounts: [...data.accounts, bank]});
+      await updateAccounts({accounts: [...accountsRes.accounts, bank]});
     } catch {
       //
     }
   };
 
-  const isProgress = fetchProgress || updateProgress;
+  const isProgress = fetchProgress || fetchBalances || updateProgress;
 
   return (
     <div style={{position: 'relative'}}>
@@ -66,14 +69,14 @@ export default ({authorizationServerURL, authorizationServerId, tenantId}) => {
 
       {!isProgress && (
         <>
-          {data && data.Data.Account.length === 0 && (
+          {accountsRes && accountsRes.Data.Account.length === 0 && (
             <PageContainer withBackground>
               <Welcome onConnectClick={() => setConnectAccountOpen(true)}/>
             </PageContainer>
           )}
-          {data && data.Data.Account.length > 0 && (
+          {accountsRes && accountsRes.Data.Account.length > 0 && (
             <PageContent>
-              <Connected accounts={data.Data.Account} onConnectClick={() => setConnectAccountOpen(true)}/>
+              <Connected accounts={accountsRes.Data.Account} balances={balancesRes.Data.Balance} onConnectClick={() => setConnectAccountOpen(true)}/>
             </PageContent>
           )}
         </>

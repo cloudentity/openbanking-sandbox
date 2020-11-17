@@ -10,17 +10,18 @@ import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles((theme: Theme) => ({}));
 
-export default ({accounts, filtering, onChangeFiltering, onConnectClick}) => {
+export default ({accounts, balances, filtering, onChangeFiltering, onConnectClick}) => {
   const classes = useStyles();
 
   const banks = pipe(groupBy((a: any) => a.BankID), keys)(accounts);
+  const totalBalance = balances.reduce((total, b) => total + parseFloat(b.Amount.Amount), 0).toFixed(2);
 
   return (
     <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
       <Card style={{padding: '32px 20px'}}>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           <Typography className={mainClasses.sectionTitle}>All accounts</Typography>
-          <Typography><strong>GBP 9999.00</strong></Typography>
+          <Typography><strong>GBP {totalBalance}</strong></Typography>
         </div>
         <Typography
           style={{display: 'inline-block', background: 'rgba(54, 198, 175, 0.08)', color: '#36C6AF', fontSize: 14, padding: 2, marginTop: 4}}
@@ -31,6 +32,7 @@ export default ({accounts, filtering, onChangeFiltering, onConnectClick}) => {
         <BankCard
           bankId={bankId}
           accounts={accounts.filter(a => a.BankID === bankId)}
+          balances={balances}
           filtering={filtering}
           onChangeFiltering={onChangeFiltering}
           style={{marginTop: 32}}/>

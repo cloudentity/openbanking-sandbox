@@ -7,7 +7,7 @@ import {Plus} from "react-feather";
 import Card from "@material-ui/core/Card";
 import Checkbox from "@material-ui/core/Checkbox";
 import {banks} from "./banks";
-import {filter} from "ramda";
+import {filter, lensPath, over, path, pathOr, pipe} from "ramda";
 
 const useStyles = makeStyles((theme: Theme) => ({
   accountRoot: {
@@ -19,10 +19,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default ({
-                  bankId, accounts, filtering, style = {}, onChangeFiltering
+                  bankId, accounts, balances, filtering, style = {}, onChangeFiltering
                 }) => {
   const classes = useStyles();
 
+  const getAccountBalance = (accountId, balances) => balances.find(b => b.AccountId === accountId);
+  const getAccountAmountAsString = (accountId, balances) => {
+    const accountBalance = getAccountBalance(accountId, balances);
+    return accountBalance
+      ? `GBP ${pathOr(0, ['Amount', 'Amount'], accountBalance)}`
+      : 'N/A'
+
+  }
   const isAccountChecked = id => filtering?.accounts?.includes(id);
 
   return (
@@ -87,11 +95,11 @@ export default ({
             />
             <div style={{marginLeft: 12}}>
               <Typography>{account.Nickname}</Typography>
-              <Typography>{account.AccountId}</Typography>
+              <Typography>**** ***** **** {account.AccountId}</Typography>
             </div>
           </div>
           <div>
-            <Typography>€ 99920.20</Typography>
+            <Typography>{getAccountAmountAsString(account.AccountId, balances)}</Typography>
           </div>
         </div>
       ))}
