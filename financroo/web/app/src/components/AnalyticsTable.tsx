@@ -20,8 +20,9 @@ import {stringToHex} from "./analytics.utils";
 
 interface Data {
   id: number;
+  bank_id: string,
+  account_id: string,
   transaction_date: string;
-  effective_date: string;
   description: string;
   category: string;
   amount: string;
@@ -29,8 +30,9 @@ interface Data {
 
 export const mapTransactionToData = t => createData(
   t.TransactionId,
+  t.BankId,
+  t.AccountId,
   t.BookingDateTime,
-  t.ValueDateTime,
   t.TransactionInformation,
   t.BankTransactionCode.Code,
   t.Amount.Amount
@@ -38,13 +40,14 @@ export const mapTransactionToData = t => createData(
 
 function createData(
   id: number,
+  bank_id: string,
+  account_id: string,
   transaction_date: string,
-  effective_date: string,
   description: string,
   category: string,
   amount: string,
 ): Data {
-  return {id, transaction_date, effective_date, description, category, amount};
+  return {id, bank_id, account_id, transaction_date, description, category, amount};
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -87,8 +90,8 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   {id: 'transaction_date', numeric: true, disablePadding: false, label: 'Transaction Date'},
-  {id: 'effective_date', numeric: true, disablePadding: false, label: 'Effective Date'},
-  {id: 'description', numeric: true, disablePadding: false, label: 'Description)'},
+  {id: 'account_id', numeric: true, disablePadding: false, label: 'Account information'},
+  {id: 'description', numeric: true, disablePadding: false, label: 'Payee'},
   {id: 'category', numeric: true, disablePadding: false, label: 'Category'},
   {id: 'amount', numeric: true, disablePadding: false, label: 'Amount'},
 ];
@@ -366,7 +369,15 @@ export default function AnalyticsTable({data, style = {}}: AnalyticsTableProps) 
                         <span style={{background: '#ECECEC', padding: 4}}>{row.transaction_date}</span>
                       </TableCell>
                       <TableCell align="left">
-                        <span style={{background: '#ECECEC', padding: 4}}>{row.effective_date}</span>
+                        <div style={{display: 'flex', alignItems: 'center', fontSize: 12}}>
+                          <Typography variant={'caption'} style={{marginRight: 8}}>Bank ID</Typography>
+                          <Typography style={{marginRight: 16}}>{row.bank_id}</Typography>
+                          <Typography variant={'caption'} style={{marginRight: 8}}>Account ID</Typography>
+                          <Typography>{row.account_id}</Typography>
+                        </div>
+                        <div>
+                          <Typography>**** ***** **** {row.account_id}</Typography>
+                        </div>
                       </TableCell>
                       <TableCell align="left">{row.description}</TableCell>
                       <TableCell align="left">
@@ -388,11 +399,16 @@ export default function AnalyticsTable({data, style = {}}: AnalyticsTableProps) 
                     </TableRow>
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow style={{height: (dense ? 33 : 53) * emptyRows}}>
-                  <TableCell colSpan={6}/>
+              {data.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={6}>No transaction records found</TableCell>
                 </TableRow>
               )}
+              {/*{emptyRows > 0 && (*/}
+              {/*  <TableRow style={{height: (dense ? 33 : 53) * emptyRows}}>*/}
+              {/*    <TableCell colSpan={6}/>*/}
+              {/*  </TableRow>*/}
+              {/*)}*/}
             </TableBody>
           </Table>
         </TableContainer>
