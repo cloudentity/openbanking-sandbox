@@ -19,6 +19,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import financrooIcon from "../assets/banks/financroo-icon.svg";
+import requestAccessPermissions from './request-access-permissions.json';
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardRoot: {
@@ -96,25 +97,27 @@ export default ({onAllowAccess, onClose}) => {
                 </div>
                 <Paper style={{marginTop: 32, padding: 16, textAlign: 'left'}}>
                   <Typography variant={'h4'} style={{fontSize: 16, marginBottom: 24}}>What we need you to share</Typography>
-                  {[1, 2, 3, 4, 5].map(scope => (
+                  {requestAccessPermissions.permissions.map(permission => (
                       <Accordion elevation={0}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon/>}
                           aria-controls="panel1a-content"
                           id="panel1a-header"
                         >
-                          <Typography>Accordion {scope}</Typography>
+                          <Typography>{permission.title}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                           <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            {permission.description}
                           </Typography>
                         </AccordionDetails>
                       </Accordion>
                     )
                   )}
                 </Paper>
+                <Typography style={{marginTop: 32, display: 'block'}} variant={'caption'}>
+                  Adding your accounts provides <strong>Financroo</strong> with read-only access for 90 days. You can manage access at any time. Authorizing will redirect to <a href={`https://${selected?.value}.com`}>https://{selected?.value}.com</a>
+                </Typography>
               </Grid>
             </Grid>
           </div>

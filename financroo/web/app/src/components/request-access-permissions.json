@@ -1,0 +1,29 @@
+{
+  "permissions": [
+    {
+      "value": "",
+      "title": "Your account details",
+      "description": "The AISP must provide the PSU with a description of the data being requested"
+    },
+    {
+      "value": "",
+      "title": "Your regular payments",
+      "description": "description"
+    },
+    {
+      "value": "",
+      "title": "Your transactions",
+      "description": "description"
+    },
+    {
+      "value": "",
+      "title": "Your statements",
+      "description": "description"
+    },
+    {
+      "value": "",
+      "title": "Your account feature and benefits",
+      "description": "description"
+    }
+  ]
+}
