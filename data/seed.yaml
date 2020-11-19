@@ -965,6 +965,198 @@ claims:
   name: openbanking_intent_id
   tenant_id: default
   type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tse0
+  mapping: address.formatted
+  name: address.formatted
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tseg
+  mapping: address.street_address
+  name: address.street_address
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsf0
+  mapping: address.locality
+  name: address.locality
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsfg
+  mapping: address.region
+  name: address.region
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsg0
+  mapping: address.country
+  name: address.country
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsgg
+  mapping: address.postal_code
+  name: address.postal_code
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsh0
+  mapping: phone_number
+  name: phone_number
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tshg
+  mapping: phone_number_verified
+  name: phone_number_verified
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsi0
+  mapping: name
+  name: name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsig
+  mapping: family_name
+  name: family_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsj0
+  mapping: given_name
+  name: given_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsjg
+  mapping: middle_name
+  name: middle_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsk0
+  mapping: nickname
+  name: nickname
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tskg
+  mapping: preferred_username
+  name: preferred_username
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsl0
+  mapping: profile
+  name: profile
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tslg
+  mapping: picture
+  name: picture
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsm0
+  mapping: website
+  name: website
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsmg
+  mapping: gender
+  name: gender
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsn0
+  mapping: birthdate
+  name: birthdate
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsng
+  mapping: zoneinfo
+  name: zoneinfo
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tso0
+  mapping: locale
+  name: locale
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsog
+  mapping: updated_at
+  name: updated_at
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tsp0
+  mapping: email
+  name: email
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: financroo
+  id: bupqli0be92fmng2tspg
+  mapping: email_verified
+  name: email_verified
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
 clients:
 - audience:
   - admin
@@ -1048,6 +1240,7 @@ clients:
   privacy: {}
   redirect_uris:
   - http://localhost:8090/callback
+  - http://localhost:8091/api/callback
   registration_token: {}
   request_object_signing_alg: RS256
   response_types:
@@ -1094,6 +1287,37 @@ clients:
   token_endpoint_signing_alg: none
   userinfo_signed_response_alg: none
 - audience:
+  - bupqlm0be92fmng2tt40
+  authorization_server_id: financroo
+  client_id: bupqlm0be92fmng2tt40
+  client_id_issued_at: 1605610200
+  client_name: Financroo App
+  client_secret: L_oMnmZoPP-uWENSKi9xXxVc5K4398-HL--TORVdRRY
+  grant_types:
+  - authorization_code
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - http://localhost:3001/callback
+  - http://localhost:3001/silent
+  - http://localhost:8091/callback
+  - http://localhost:8091/silent
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - introspect_tokens
+  - revoke_tokens
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: none
+  token_endpoint_signing_alg: none
+  userinfo_signed_response_alg: none
+- audience:
   - developer-developer
   authorization_server_id: developer
   client_id: developer-developer
@@ -1118,6 +1342,44 @@ clients:
   - offline_access
   - openid
   - profile
+  subject_type: public
+  system: true
+  tenant_id: default
+  token_endpoint_auth_method: none
+  token_endpoint_signing_alg: none
+  trusted: true
+  userinfo_signed_response_alg: none
+- audience:
+  - financroo
+  authorization_server_id: financroo
+  client_id: financroo
+  client_id_issued_at: 1605610184
+  client_name: User Portal
+  client_secret: 7F_74fbODycOEtrbvbfFgFjhCCYEBmcG97rvefnFvsE
+  grant_types:
+  - authorization_code
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - https://localhost:8443/app/default/financroo/callback
+  - https://localhost:8443/app/default/financroo/silent
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - introspect_tokens
+  - list_clients_with_access
+  - manage_consents
+  - offline_access
+  - openid
+  - profile
+  - revoke_client_access
+  - revoke_tokens
+  - view_consents
   subject_type: public
   system: true
   tenant_id: default
@@ -1249,6 +1511,44 @@ idps:
     type: any
   method: static
   name: test
+  settings:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta: {}
+    saml: {}
+    static: {}
+  tenant_id: default
+  transformer: {}
+- authorization_server_id: financroo
+  credentials:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta:
+      supervisor_client: {}
+    saml: {}
+    static:
+      users:
+      - authentication_context:
+          name: user
+        password: user
+        username: user
+  id: bupqljgbe92fmng2tt20
+  mappings:
+  - source: .
+    target: .
+    type: any
+  method: static
+  name: xxx
   settings:
     azure: {}
     azureb2c: {}
@@ -1419,6 +1719,46 @@ policies:
   type: user
   validators:
   - name: "false"
+- id: block_financroo_api
+  language: cloudentity
+  policy_name: Block API
+  server_id: financroo
+  tenant_id: default
+  type: api
+  validators:
+  - name: "false"
+- id: block_financroo_dcr
+  language: cloudentity
+  policy_name: Block DCR
+  server_id: financroo
+  tenant_id: default
+  type: dcr
+  validators:
+  - name: "false"
+- id: block_financroo_developer
+  language: cloudentity
+  policy_name: Block Developer
+  server_id: financroo
+  tenant_id: default
+  type: developer
+  validators:
+  - name: "false"
+- id: block_financroo_machine
+  language: cloudentity
+  policy_name: Block Machine
+  server_id: financroo
+  tenant_id: default
+  type: machine
+  validators:
+  - name: "false"
+- id: block_financroo_user
+  language: cloudentity
+  policy_name: Block User
+  server_id: financroo
+  tenant_id: default
+  type: user
+  validators:
+  - name: "false"
 - id: block_openbanking_api
   language: cloudentity
   policy_name: Block API
@@ -1479,7 +1819,7 @@ policies:
   language: cloudentity
   policy_name: Block DCR
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: dcr
   validators:
   - name: "false"
@@ -1487,7 +1827,7 @@ policies:
   language: cloudentity
   policy_name: Block DCR
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: dcr
   validators:
   - name: "false"
@@ -1495,7 +1835,7 @@ policies:
   language: cloudentity
   policy_name: Block Developer
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: developer
   validators:
   - name: "false"
@@ -1503,7 +1843,7 @@ policies:
   language: cloudentity
   policy_name: Block Developer
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: developer
   validators:
   - name: "false"
@@ -1527,7 +1867,7 @@ policies:
   language: cloudentity
   policy_name: Block User
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: user
   validators:
   - name: "false"
@@ -1535,7 +1875,7 @@ policies:
   language: cloudentity
   policy_name: Block User
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: user
   validators:
   - name: "false"
@@ -1595,6 +1935,34 @@ policies:
         value:
         - pwd
     name: identity-context
+- id: nist-aal-1_financroo_api
+  language: cloudentity
+  policy_name: NIST-AAL-1 API
+  server_id: financroo
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_financroo_user
+  language: cloudentity
+  policy_name: NIST-AAL-1 User
+  server_id: financroo
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
 - id: nist-aal-1_openbanking_api
   language: cloudentity
   policy_name: NIST-AAL-1 API
@@ -1627,7 +1995,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-1 API
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: api
   validators:
   - conf:
@@ -1641,7 +2009,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-1 API
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: api
   validators:
   - conf:
@@ -1739,6 +2107,36 @@ policies:
         - mfa
         - pwd
     name: identity-context
+- id: nist-aal-2_financroo_api
+  language: cloudentity
+  policy_name: NIST-AAL-2 API
+  server_id: financroo
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_financroo_user
+  language: cloudentity
+  policy_name: NIST-AAL-2 User
+  server_id: financroo
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
 - id: nist-aal-2_openbanking_api
   language: cloudentity
   policy_name: NIST-AAL-2 API
@@ -1803,7 +2201,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-2 User
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: user
   validators:
   - conf:
@@ -1818,7 +2216,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-2 User
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: user
   validators:
   - conf:
@@ -1899,6 +2297,50 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-3 User
   server_id: developer
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_financroo_api
+  language: cloudentity
+  policy_name: NIST-AAL-3 API
+  server_id: financroo
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_financroo_user
+  language: cloudentity
+  policy_name: NIST-AAL-3 User
+  server_id: financroo
   tenant_id: default
   type: user
   validators:
@@ -2190,6 +2632,84 @@ policy_execution_points:
   target_fk: bube15t8739jub0p4h0g
   tenant_id: default
   type: scope_dynamic_client_registration
+- policy_id: block_financroo_developer
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tsu0
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_financroo_dcr
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tsu0
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_financroo_developer
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tsug
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_financroo_dcr
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tsug
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_financroo_developer
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tsvg
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_financroo_dcr
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tsvg
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_financroo_developer
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt00
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_financroo_dcr
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt00
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_financroo_developer
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt0g
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_financroo_dcr
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt0g
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_financroo_developer
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt10
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_financroo_dcr
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt10
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_financroo_developer
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt1g
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_financroo_dcr
+  server_id: financroo
+  target_fk: bupqli0be92fmng2tt1g
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- server_id: financroo
+  target_fk: bupqlm0be92fmng2tt40
+  tenant_id: default
+  type: client_machine_token
+- server_id: financroo
+  target_fk: bupqlm0be92fmng2tt40
+  tenant_id: default
+  type: client_user_token
 - policy_id: block_openbanking_developer
   server_id: openbanking
   target_fk: bugkg8q3g9kregtu04p0
@@ -2537,6 +3057,22 @@ scope_grants:
   server_id: admin
   subject: admin
   tenant_id: default
+- client_id: bupqlm0be92fmng2tt40
+  given_at: "2020-11-17T10:51:55.389Z"
+  granted_scope_name: introspect_tokens
+  language: en
+  scope_name: introspect_tokens
+  server_id: financroo
+  subject: user
+  tenant_id: default
+- client_id: bupqlm0be92fmng2tt40
+  given_at: "2020-11-17T10:51:55.389019Z"
+  granted_scope_name: revoke_tokens
+  language: en
+  scope_name: revoke_tokens
+  server_id: financroo
+  subject: user
+  tenant_id: default
 - client_id: bugkgm23g9kregtu051g
   given_at: "2020-11-05T10:06:18.801269Z"
   granted_scope_name: accounts
@@ -2658,6 +3194,61 @@ servers:
   - tls_client_auth
   - none
   type: developer
+- access_token_strategy: jwt
+  access_token_ttl: 1h0m0s
+  authorization_code_ttl: 10m0s
+  color: '#EC5348'
+  cookie_max_age: 1h0m0s
+  dynamic_client_registration:
+    initial_access_token: {}
+    software_statement:
+      jwks:
+        keys: null
+  grant_types:
+  - authorization_code
+  - implicit
+  - client_credentials
+  - refresh_token
+  id: financroo
+  id_token_ttl: 1h0m0s
+  issuer_url: https://localhost:8443/default/financroo
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: cIzbxEbRMjn8OxJnwGYGPq9RAKzXeFeS3a7APkAKLZo
+      kid: "79907558720380720809177757824407945515"
+      kty: EC
+      use: sig
+      x: ihTSRYIb-2cwsB4hmEWW1hOQS-YT8PtZyVCyXJKfNmk
+      x5c:
+      - MIIBwjCCAWmgAwIBAgIQPB2i0bLVjYvidLMHxOXBKzAKBggqhkjOPQQDAjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwHhcNMjAxMTE3MTA0OTQ0WhcNMjAxMjE4MTA0OTQ0WjAsMRQwEgYDVQQKEwtDbG91ZGVudGl0eTEUMBIGA1UEAxMLQ2xvdWRlbnRpdHkwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASKFNJFghv7ZzCwHiGYRZbWE5BL5hPw+1nJULJckp82aYcMTT6rj/Ndz1C5R58hr4WV3sxL/f1vhb4FME1/tGpeo20wazAOBgNVHQ8BAf8EBAMCAqQwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUclDTvC5RhTWxB4snJB6OuXpa+C4wFAYDVR0RBA0wC4IJbG9jYWxob3N0MAoGCCqGSM49BAMCA0cAMEQCIEGwyxQjzYKVIL1302R/FSuNfQjjbpDG0HQsr9o2bo1KAiAFpajNTExkBOAgRlwPY3kiQVeKjZKjdj1ZvbvJrz31Mg==
+      x5t: DC4AC7MyjmCxqUTtAbfk6SaSLg4
+      x5t#S256: 1Xxp_qCVYNGUwJpv5obYP3dLxrPsMQT96sRGqtMfvVk
+      "y": hwxNPquP813PULlHnyGvhZXezEv9_W-FvgUwTX-0al4
+  key_type: ecdsa
+  name: financroo
+  profile: default
+  refresh_token_ttl: 720h0m0s
+  scope_grant_method:
+    OIDC: {}
+    custom: {}
+    method: oidc
+  secret: NycS099CgSzfZOuF3uLpZUQtfJnlofWCbdFdF6hWBHM
+  subject_identifier_algorithm_salt: uHizDs6v73F3PFHLgmIhrUrqpcnjUxjefK4UP9Z9eyY
+  subject_identifier_types:
+  - public
+  - pairwise
+  tenant_id: default
+  token_endpoint_authn_methods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - self_signed_tls_client_auth
+  - tls_client_auth
+  - none
+  type: regular
 - access_token_strategy: opaque
   access_token_ttl: 1h0m0s
   authorization_code_ttl: 10m0s
@@ -3390,6 +3981,105 @@ services:
     id: bui20p1jkpv9e38d5jlg
     name: manage_openbanking_consents
     tenant_id: default
+  tenant_id: default
+- audience: spiffe://localhost/default/financroo/bupqli0be92fmng2tsq0
+  authorization_server_id: financroo
+  id: bupqli0be92fmng2tsq0
+  name: Profile
+  scopes:
+  - authorization_server_id: financroo
+    description: This scope value requests access to the email and email_verified claims.
+    display_name: Email
+    id: bupqli0be92fmng2tsqg
+    name: email
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    display_name: Phone
+    id: bupqli0be92fmng2tsr0
+    name: phone
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: This scope value requests access to the address claim.
+    display_name: Address
+    id: bupqli0be92fmng2tsrg
+    name: address
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    display_name: Profile
+    id: bupqli0be92fmng2tss0
+    name: profile
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    display_name: OpenID
+    id: bupqli0be92fmng2tssg
+    name: openid
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: This scope value requests offline access using refresh token.
+    display_name: Offline access
+    id: bupqli0be92fmng2tst0
+    name: offline_access
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/financroo/bupqli0be92fmng2tstg
+  authorization_server_id: financroo
+  id: bupqli0be92fmng2tstg
+  name: User Privacy & Consent
+  scopes:
+  - authorization_server_id: financroo
+    description: Allows to view user consents
+    display_name: View consents
+    id: bupqli0be92fmng2tsu0
+    name: view_consents
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: Allows to grant and revoke user consents
+    display_name: Manage consents
+    id: bupqli0be92fmng2tsug
+    name: manage_consents
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/financroo/bupqli0be92fmng2tsv0
+  authorization_server_id: financroo
+  id: bupqli0be92fmng2tsv0
+  name: OAuth2
+  scopes:
+  - authorization_server_id: financroo
+    description: Allows to introspect tokens
+    display_name: Introspect tokens
+    id: bupqli0be92fmng2tsvg
+    name: introspect_tokens
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: Allows to revoke tokens
+    display_name: Revoke tokens
+    id: bupqli0be92fmng2tt00
+    name: revoke_tokens
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: Allows to list clients that user granted access
+    display_name: List clients with access
+    id: bupqli0be92fmng2tt0g
+    name: list_clients_with_access
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: Allows to revoke client access granted by user and remove all tokens
+    display_name: Revoke client access
+    id: bupqli0be92fmng2tt10
+    name: revoke_client_access
+    tenant_id: default
+  - authorization_server_id: financroo
+    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    display_name: Use Dynamic Client Registration
+    id: bupqli0be92fmng2tt1g
+    name: dcr_register
+    tenant_id: default
+  system: true
   tenant_id: default
 tenants:
 - authentication_context_settings:
