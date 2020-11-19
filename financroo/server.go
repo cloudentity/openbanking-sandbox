@@ -53,10 +53,10 @@ func (s *Server) Start() error {
 
 	r.GET("/config.json", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": os.Getenv("OAUTH_CLIENT_AUTHORIZATION_SERVER_URL"),
-			"clientId":               os.Getenv("OAUTH_CLIENT_ID"),
-			"authorizationServerId":  os.Getenv("OAUTH_CLIENT_AUTHORIZATION_SERVER_ID"),
-			"tenantId":               os.Getenv("OAUTH_CLIENT_TENANT_ID"),
+			"authorizationServerURL": os.Getenv("FINANCROO_AUTHORIZATION_SERVER_URL"),
+			"clientId":               os.Getenv("FINANCROO_CLIENT_ID"),
+			"authorizationServerId":  os.Getenv("FINANCROO_AUTHORIZATION_SERVER_ID"),
+			"tenantId":               os.Getenv("FINANCROO_TENANT_ID"),
 		})
 	})
 

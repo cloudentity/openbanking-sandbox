@@ -52,10 +52,10 @@ services:
       - KEY_FILE=/tpp_key.pem
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
-      - OAUTH_CLIENT_AUTHORIZATION_SERVER_URL=https://localhost:8443
-      - OAUTH_CLIENT_AUTHORIZATION_SERVER_ID=financroo
-      - OAUTH_CLIENT_TENANT_ID=default
-      - OAUTH_CLIENT_ID=bupqlm0be92fmng2tt40
+      - FINANCROO_AUTHORIZATION_SERVER_URL=https://localhost:8443
+      - FINANCROO_AUTHORIZATION_SERVER_ID=financroo
+      - FINANCROO_TENANT_ID=default
+      - FINANCROO_CLIENT_ID=bupqlm0be92fmng2tt40
 
   consent-page:
     build:
