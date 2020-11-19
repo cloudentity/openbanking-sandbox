@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({form, name, label, title, subtitle, icon: Icon, ...props}) => {
+export default function ComplexToggle ({form, name, label, title, subtitle, icon: Icon, ...props}) {
   const classes = useStyles();
 
   useEffect(() => {

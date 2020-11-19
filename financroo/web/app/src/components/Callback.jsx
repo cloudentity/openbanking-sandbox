@@ -1,6 +1,5 @@
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ErrorIcon from '@material-ui/icons/ErrorOutline';
 import {pathOr} from 'ramda';
@@ -9,8 +8,6 @@ import {Redirect, useHistory} from 'react-router';
 import authApi from './authApi';
 import {SILENT_AUTH_ERROR_MESSAGE, SILENT_AUTH_SUCCESS_MESSAGE} from './AuthPage';
 import Progress from './Progress';
-
-const useStyles = makeStyles(theme => ({}));
 
 const getParamFromUrl = param => {
   const match = RegExp(`${param}=([^&]*)`, 'g').exec(window.location.href);
@@ -24,7 +21,6 @@ const capitalizeFirstLetter = (string = '') => {
 const errorCodeToDisplay = error => capitalizeFirstLetter((error || '').replace(/(\+|_)/g, ' '));
 
 export default function Callback ({authorizationServerURL, tenantId, authorizationServerId, clientId, login, silent = false}) {
-  const classes = useStyles();
   const history = useHistory();
 
   let [exchangeCompleted, setExchangeCompleted] = useState(false);
@@ -82,7 +78,7 @@ export default function Callback ({authorizationServerURL, tenantId, authorizati
       const error = errorCodeToDisplay(errorParam);
       setError({error, errorDescription});
     }
-  }, [tenantId, authorizationServerId, login, silent]);
+  }, [tenantId, authorizationServerId, authorizationServerURL, clientId, login, silent]);
 
   if (error) {
     return (

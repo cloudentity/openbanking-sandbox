@@ -21,10 +21,14 @@ RUN npm run build
 
 WORKDIR /app
 
+COPY financroo/main.go .
+COPY financroo/accounts.go .
+COPY financroo/balances.go .
+COPY financroo/clients.go .
 COPY financroo/config.go .
 COPY financroo/handler.go .
 COPY financroo/server.go .
-COPY financroo/main.go .
+COPY financroo/transactions.go .
 COPY vendor vendor
 COPY go.mod .
 COPY go.sum .

@@ -1,16 +1,12 @@
 import React from "react";
-import {Card, Theme} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import {Card} from "@material-ui/core";
 import AnalyticsTable, {mapTransactionToData} from "./AnalyticsTable";
 import AnalyticsBarChart from "./AnalyticsBarChart";
 import AnalyticsPieChart from "./AnalyticsPieChart";
 import {applyFiltering, mapTransactionsToBarChartData} from "./analytics.utils";
 import {pick} from "ramda";
 
-const useStyles = makeStyles((theme: Theme) => ({}));
-
-export default ({transactions, filtering, onChangeFiltering}) => {
-  const classes = useStyles();
+export default function Analytics ({transactions, filtering, onChangeFiltering}) {
 
   const barChartData = mapTransactionsToBarChartData(applyFiltering(pick(['accounts'], filtering), transactions));
   const pieChartData = applyFiltering(pick(['accounts', 'months'], filtering), transactions);

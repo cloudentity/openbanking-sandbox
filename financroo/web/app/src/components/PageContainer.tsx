@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import PageContent from "./PageContent";
 
-export default ({children, fixed = true, withBackground = false, style = {}}) => {
+export default function PageContainer ({children, fixed = true, withBackground = false, style = {}}) {
 
   return (
     <PageContent withBackground={withBackground} style={style}>

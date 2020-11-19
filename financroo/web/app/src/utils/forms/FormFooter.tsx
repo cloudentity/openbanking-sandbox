@@ -15,24 +15,26 @@ interface CreateFormFooterProps {
   style?: any
 }
 
-export default ({id, form, cancelText, submitText, submitButtonColor = 'primary', disabled, onCancel, onSubmit, align = 'left', buttonWidth = 192, style = {}}: CreateFormFooterProps) => (
-  <div style={{textAlign: align, ...style}}>
-    {onCancel && (
-      <Button id={`${id}-cancel-button`}
-              variant={'outlined'}
-              color='primary'
-              size="large"
-              onClick={onCancel}
-              style={{width: buttonWidth, marginRight: 14}}>{cancelText || 'Cancel'}</Button>
-    )}
-    {onSubmit && (
-      <Button id={`${id}-confirm-button`}
-              variant={'contained'}
-              color={submitButtonColor}
-              size="large"
-              disabled={disabled}
-              onClick={form.handleSubmit(onSubmit)}
-              style={{width: buttonWidth}}>{submitText || 'Next'}</Button>
-    )}
-  </div>
-);
+export default function FormFooter({id, form, cancelText, submitText, submitButtonColor = 'primary', disabled, onCancel, onSubmit, align = 'left', buttonWidth = 192, style = {}}: CreateFormFooterProps) {
+  return (
+    <div style={{textAlign: align, ...style}}>
+      {onCancel && (
+        <Button id={`${id}-cancel-button`}
+                variant={'outlined'}
+                color='primary'
+                size="large"
+                onClick={onCancel}
+                style={{width: buttonWidth, marginRight: 14}}>{cancelText || 'Cancel'}</Button>
+      )}
+      {onSubmit && (
+        <Button id={`${id}-confirm-button`}
+                variant={'contained'}
+                color={submitButtonColor}
+                size="large"
+                disabled={disabled}
+                onClick={form.handleSubmit(onSubmit)}
+                style={{width: buttonWidth}}>{submitText || 'Next'}</Button>
+      )}
+    </div>
+  );
+}

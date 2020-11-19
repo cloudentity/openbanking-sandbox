@@ -27,7 +27,7 @@ const useStyles = withBackground => makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({children, withBackground = false, style = {}}) => {
+export default function PageContent ({children, withBackground = false, style = {}}) {
   const classes = useStyles(withBackground)();
 
   return (

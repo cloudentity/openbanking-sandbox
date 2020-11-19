@@ -7,7 +7,7 @@ import {Plus} from "react-feather";
 import Card from "@material-ui/core/Card";
 import Checkbox from "@material-ui/core/Checkbox";
 import {banks} from "./banks";
-import {filter, lensPath, over, path, pathOr, pipe} from "ramda";
+import {filter, pathOr} from "ramda";
 
 const useStyles = makeStyles((theme: Theme) => ({
   accountRoot: {
@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({
-                  bankId, accounts, balances, filtering, style = {}, onChangeFiltering
-                }) => {
+export default function BankCard({bankId, accounts, balances, filtering, style = {}, onChangeFiltering}) {
   const classes = useStyles();
 
   const getAccountBalance = (accountId, balances) => balances.find(b => b.AccountId === accountId);
@@ -46,7 +44,7 @@ export default ({
           justifyContent: 'center',
           boxShadow: '0px 0.574468px 0.574468px rgba(0, 0, 0, 0.08), 0px 0px 0.574468px rgba(0, 0, 0, 0.31)'
         }}>
-          <img src={banks.find(b => b.value === bankId)?.icon} style={{width: 24, height: 24}}/>
+          <img src={banks.find(b => b.value === bankId)?.icon} style={{width: 24, height: 24}} alt={'bank icon'}/>
         </div>
         <div style={{marginLeft: 24}}>
           <Typography>{banks.find(b => b.value === bankId)?.name}</Typography>
@@ -57,6 +55,7 @@ export default ({
       </div>
       {accounts.map(account => (
         <div
+          key={account.AccountId}
           onClick={() => onChangeFiltering(
             {
               accounts:

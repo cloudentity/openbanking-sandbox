@@ -2,7 +2,7 @@ import {FormControl, Switch} from "@material-ui/core";
 import React, {useEffect} from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-export default ({form, id, name, label, style = {}, onChange}) => {
+export default function SwitchBlock({form, id, name, label, style = {}, onChange}) {
   useEffect(() => {
     form.register({name});
     // eslint-disable-next-line react-hooks/exhaustive-deps

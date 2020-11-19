@@ -1,58 +1,43 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
+	"github.com/cloudentity/acp/pkg/openbanking/models"
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
-	"os"
-	"time"
+	"net/http"
 )
 
-type AccountsRes struct {
-	Data struct {
-		Account []struct {
-			BankID               string    `json:"BankID"`
-			AccountID            string    `json:"AccountId"`
-			Status               string    `json:"Status"`
-			StatusUpdateDateTime time.Time `json:"StatusUpdateDateTime"`
-			Currency             string    `json:"Currency"`
-			AccountType          string    `json:"AccountType"`
-			AccountSubType       string    `json:"AccountSubType"`
-			Nickname             string    `json:"Nickname"`
-		} `json:"Account"`
-	} `json:"Data"`
-	Links struct {
-		Self string `json:"Self"`
-	} `json:"Links"`
-	Meta struct {
-		TotalPages int `json:"TotalPages"`
-	} `json:"Meta"`
+type BankAccount struct {
+	*models.OBAccount6
+	BankId string
 }
-
-// accounts
-
-var accounts = AccountsRes{}
 
 func (s *Server) GetAccounts() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
-		jsonFile, err := os.Open("accounts.json")
-		if err != nil {
-			fmt.Println(err)
+		var (
+			accountsData []BankAccount
+			err          error
+		)
+
+		var resp *accounts.GetAccountsOK
+
+		token, _ := c.Cookie("token")
+		if resp, err = s.BankClient.Accounts.GetAccounts(accounts.NewGetAccountsParams().WithAuthorization(token), nil); err != nil {
+			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to call bank get accounts: %+v", err))
+			return
 		}
-		defer jsonFile.Close()
 
-		byteValue, _ := ioutil.ReadAll(jsonFile)
+		accountsData = make([]BankAccount, len(resp.Payload.Data.Account))
+		for i, a := range resp.Payload.Data.Account {
+			accountsData[i] = BankAccount{
+				OBAccount6: a,
+				BankId:     "gobank",
+			}
+		}
 
-		var accounts AccountsRes
-		json.Unmarshal(byteValue, &accounts)
-		c.JSON(200, accounts)
-	}
-}
-
-func (s *Server) UpdateAccounts() func(ctx *gin.Context) {
-	return func(c *gin.Context) {
-		json.NewDecoder(c.Request.Body).Decode(&accounts)
-		c.JSON(200, accounts)
+		c.JSON(200, gin.H{
+			"accounts": accountsData,
+		})
 	}
 }

@@ -8,7 +8,7 @@ import {useQuery} from "react-query";
 import {api} from "../api/api";
 import Progress from "./Progress";
 import {applyFiltering} from "./analytics.utils";
-import {filter, pick} from "ramda";
+import {pick} from "ramda";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({accounts, balances, onConnectClick}) => {
+export default function Connected ({accounts, balances, onConnectClick}) {
   const classes = useStyles();
   const [filtering, setFiltering] = useState({
     accounts: accounts.map(a => a.AccountId),
@@ -29,7 +29,7 @@ export default ({accounts, balances, onConnectClick}) => {
     return <Progress/>;
   }
 
-  const transactions = applyFiltering(pick(['accounts'], filtering), data.Data.Transaction);
+  const transactions = applyFiltering(pick(['accounts'], filtering), data.transactions);
 
   return (
     <Grid container className={classes.root}>

@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({onAllowAccess, onClose}) => {
+export default function ConnectAccount ({onAllowAccess, onClose}) {
   const classes = useStyles();
   const [selected, setSelected] = useState<any | null>(null);
 
@@ -56,7 +56,7 @@ export default ({onAllowAccess, onClose}) => {
           </IconButton>
         )}
         {selected && (
-          <img src={selected.logo}/>
+          <img alt="icon" src={selected.logo}/>
         )}
       </PageToolbar>
       <PageContainer style={{marginBottom: 112}} withBackground>
@@ -69,9 +69,9 @@ export default ({onAllowAccess, onClose}) => {
                 insights that can improve your financial well being</Typography>
               <Grid container style={{marginTop: 48}} spacing={3}>
                 {banks.map((bank) => (
-                  <Grid item xs={6} sm={4}>
+                  <Grid item xs={6} sm={4} key={bank.value}>
                     <Card className={classes.cardRoot} onClick={() => setSelected(bank)}>
-                      <img src={bank.logo} style={{width: '100%'}}/>
+                      <img alt="icon" src={bank.logo} style={{width: '100%'}}/>
                     </Card>
                   </Grid>
                 ))}
@@ -79,7 +79,7 @@ export default ({onAllowAccess, onClose}) => {
             </Grid>
           </Grid>
         )}
-        <Slide direction="left" in={selected} mountOnEnter unmountOnExit exit={false}>
+        <Slide direction="left" in={!!selected} mountOnEnter unmountOnExit exit={false}>
           <div>
             <Grid container justify={'center'} style={{marginTop: 64}}>
               <Grid item xs={12} sm={8} md={6} style={{textAlign: 'center'}}>
@@ -88,17 +88,17 @@ export default ({onAllowAccess, onClose}) => {
                   information from your account service provider.</Typography>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 32}}>
                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FCFCFF', width: 80, height: 80, borderRadius: '50%', border: '1px solid rgb(236 236 236)', marginRight: 16}}>
-                    <img src={financrooIcon} style={{width: '60%'}}/>
+                    <img alt="icon" src={financrooIcon} style={{width: '60%'}}/>
                   </div>
-                  <img src={connectArrows} style={{marginRight: 16}}/>
+                  <img alt="icon" src={connectArrows} style={{marginRight: 16}}/>
                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FCFCFF', width: 80, height: 80, borderRadius: '50%', border: '1px solid rgb(236 236 236)'}}>
-                    <img src={selected?.icon || selected?.logo} style={{width: '60%'}}/>
+                    <img alt="icon" src={selected?.icon || selected?.logo} style={{width: '60%'}}/>
                   </div>
                 </div>
                 <Paper style={{marginTop: 32, padding: 16, textAlign: 'left'}}>
                   <Typography variant={'h4'} style={{fontSize: 16, marginBottom: 24}}>What we need you to share</Typography>
-                  {requestAccessPermissions.permissions.map(permission => (
-                      <Accordion elevation={0}>
+                  {requestAccessPermissions.permissions.map((permission, index) => (
+                      <Accordion elevation={0} key={permission.value + index}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon/>}
                           aria-controls="panel1a-content"
@@ -127,7 +127,7 @@ export default ({onAllowAccess, onClose}) => {
         <div className={classes.footer}>
           <div>
             <Button size={'large'} variant={'outlined'} onClick={() => setSelected(null)}>Cancel</Button>
-            <Button size={'large'} variant={'contained'} color={'secondary'} style={{marginLeft: 16}} onClick={() => onAllowAccess({"account_id":"newElooAccountId","description":"newElooDescription","identification":"newElooIdentification","name":"newElooName"})}>Allow access</Button>
+            <Button size={'large'} variant={'contained'} color={'secondary'} style={{marginLeft: 16}} onClick={() => onAllowAccess({permissions: requestAccessPermissions.permissions.map(p => p.value).filter(p => p)})}>Allow access</Button>
           </div>
         </div>
       )}

@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormInputLabel from "./FormInputLabel";
 
-export default ({id, form, name, label, helperText, ...props}) => {
+export default function AutocompleteField({id, form, name, label, helperText, ...props}) {
 
   useEffect(() => {
     form.register({name}, props.validate);

@@ -5,7 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Connected from "./Connected";
 import Welcome from "./Welcome";
 import ConnectAccount from "./ConnectAccount";
-import {useMutation, useQuery, useQueryCache} from "react-query";
+import {useQuery} from "react-query";
 import {api} from "../api/api";
 import Progress from "./Progress";
 import Tab from "@material-ui/core/Tab";
@@ -15,31 +15,36 @@ import {Button} from "@material-ui/core";
 import {logout} from "./AuthPage";
 import PageContent from "./PageContent";
 import PageContainer from "./PageContainer";
+import {pathOr} from "ramda";
 
-export default ({authorizationServerURL, authorizationServerId, tenantId}) => {
+export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
   const [connectAccountOpen, setConnectAccountOpen] = useState(false);
+  const [connectProgress, setConnectProgress] = useState(false);
 
-  const queryCache = useQueryCache();
+  const {
+    isLoading: fetchAccountsProgress,
+    isError: fetchAccountsError,
+    data: accountsRes
+  } = useQuery('fetchAccounts', api.fetchAccounts, {refetchOnWindowFocus: false, retry: false});
 
-  const {isLoading: fetchProgress, data: accountsRes} = useQuery('fetchAccounts', api.fetchAccounts);
-  const [updateAccounts, {isLoading: updateProgress}] = useMutation(api.updateAccounts, {
-    onSuccess: (data, variables) => {
-      queryCache.setQueryData('fetchAccounts', data);
-    }
-  })
+  if (fetchAccountsError) {
+    //
+  }
 
-  const {isLoading: fetchBalances, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances);
+  const accounts = accountsRes ? pathOr([], ['accounts'], accountsRes) : []
 
-  const handleAllowAccess = async (bank) => {
-    try {
-      setConnectAccountOpen(false);
-      await updateAccounts({accounts: [...accountsRes.accounts, bank]});
-    } catch {
-      //
-    }
+  const {isLoading: fetchBalancesProgress, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances);
+
+  const handleAllowAccess = ({permissions}) => {
+    setConnectProgress(true);
+    api.connectBank({permissions})
+      .then(res => {
+        window.location.href = res.login_url;
+      })
+      .catch(() => setConnectProgress(false));
   };
 
-  const isProgress = fetchProgress || fetchBalances || updateProgress;
+  const isProgress = fetchAccountsProgress || fetchBalancesProgress || connectProgress;
 
   return (
     <div style={{position: 'relative'}}>
@@ -69,14 +74,15 @@ export default ({authorizationServerURL, authorizationServerId, tenantId}) => {
 
       {!isProgress && (
         <>
-          {accountsRes && accountsRes.Data.Account.length === 0 && (
+          {accounts.length === 0 && (
             <PageContainer withBackground>
               <Welcome onConnectClick={() => setConnectAccountOpen(true)}/>
             </PageContainer>
           )}
-          {accountsRes && accountsRes.Data.Account.length > 0 && (
+          {accounts.length > 0 && (
             <PageContent>
-              <Connected accounts={accountsRes.Data.Account} balances={balancesRes.Data.Balance} onConnectClick={() => setConnectAccountOpen(true)}/>
+              <Connected accounts={accounts} balances={balancesRes.balances}
+                         onConnectClick={() => setConnectAccountOpen(true)}/>
             </PageContent>
           )}
         </>

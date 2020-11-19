@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default ({onLogin}) => {
+export default function Register ({onLogin}) {
   const classes = useStyles();
   const formFactory = useFormFactory({id: 'login-view'})
 
@@ -46,7 +46,7 @@ export default ({onLogin}) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={5}>
           <div className={classes.formContainerRoot}>
-            <img src={financrooLogo} style={{marginBottom: 24}}/>
+            <img alt="financroo logo" src={financrooLogo} style={{marginBottom: 24}}/>
             <Typography variant={'h4'} style={{marginBottom: 24}}>Create your Financroo account</Typography>
             {formFactory.createRequiredField({name: 'username', label: 'Username'})}
             {formFactory.createRequiredField({name: 'password', label: 'Password'})}

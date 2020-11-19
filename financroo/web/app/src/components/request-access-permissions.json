@@ -1,9 +1,14 @@
 {
   "permissions": [
     {
-      "value": "",
+      "value": "ReadAccountsDetail",
       "title": "Your account details",
       "description": "The AISP must provide the PSU with a description of the data being requested"
+    },
+    {
+      "value": "ReadAccountsBasic",
+      "title": "Your account basic",
+      "description": "description"
     },
     {
       "value": "",

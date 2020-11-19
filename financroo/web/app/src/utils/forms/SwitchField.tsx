@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import FormInputLabel from "./FormInputLabel";
 import {Switch} from "@material-ui/core";
 
-export default ({form, id, name, label, ...props}) => {
+export default function SwitchField({form, id, name, label, ...props}) {
 
   useEffect(() => {
     form.register({name});

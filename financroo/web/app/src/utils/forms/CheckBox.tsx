@@ -3,7 +3,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-export default ({form, id, name, label, style = {}, helperText, ...props}) => {
+export default function CheckBox ({form, id, name, label, style = {}, helperText, ...props}) {
 
   useEffect(() => {
     form.register({name});

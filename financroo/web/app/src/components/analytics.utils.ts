@@ -53,8 +53,8 @@ export const stringToHex = str => {
     hash = hash & hash;
   }
   var color = '#';
-  for (var i = 0; i < 3; i++) {
-    var value = (hash >> (i * 8)) & 255;
+  for (var j = 0; j < 3; j++) {
+    var value = (hash >> (j * 8)) & 255;
     color += ('00' + value.toString(16)).substr(-2);
   }
   return color;

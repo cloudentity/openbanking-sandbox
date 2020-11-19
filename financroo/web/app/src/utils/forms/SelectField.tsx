@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-export default ({validate, id, form, name, label, options, defaultValue = '', helperText = '', ...props}) => {
+export default function SelectField({validate, id, form, name, label, options, defaultValue = '', helperText = '', ...props}) {
 
   useEffect(() => {
     form.register({name});

@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default ({label, getValue, disabled, toggleVisibility, defaultVisibility = true, withLink, withCopy, ...props}) => {
+export default function AdornmentTextField ({label, getValue, disabled, toggleVisibility, defaultVisibility = true, withLink, withCopy, ...props}) {
   const classes = useStyles();
 
   const [visibility, setVisibility] = useState(defaultVisibility);
