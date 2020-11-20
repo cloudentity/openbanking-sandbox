@@ -57,7 +57,7 @@ export default function Register ({onLogin}) {
               Terms of service and have read and acknowledge our Privacy Statement</Typography>
             <Typography style={{marginTop: 32, textAlign: 'center'}}>
               <strong>Already have an account? </strong>
-              <Button onClick={onLogin}>Login</Button>
+              <Button onClick={onLogin} color={'primary'}>Login</Button>
             </Typography>
           </div>
         </Grid>
