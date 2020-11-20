@@ -52,6 +52,7 @@ services:
       - KEY_FILE=/tpp_key.pem
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
+      - FINANCROO_UI_URL=http://localhost:8091
       - FINANCROO_AUTHORIZATION_SERVER_URL=https://localhost:8443
       - FINANCROO_AUTHORIZATION_SERVER_ID=financroo
       - FINANCROO_TENANT_ID=default

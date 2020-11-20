@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
+	"os"
 )
 
 const (
@@ -129,14 +130,8 @@ func (s *Server) Callback() func(*gin.Context) {
 			return
 		}
 
-		//if encodedCookieValue, err = s.SecureCookie.Encode("token", token.AccessToken); err != nil {
-		//	c.String(http.StatusInternalServerError, fmt.Sprintf("error while encoding cookie: %+v", err))
-		//	return
-		//}
-
 		c.SetCookie("token", token.AccessToken, 0, "/", "", false, true)
 
-		//TODO financroo url from env
-		c.Redirect(http.StatusFound, "http://localhost:8091")
+		c.Redirect(http.StatusFound, os.Getenv("FINANCROO_UI_URL"))
 	}
 }
