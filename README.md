@@ -43,7 +43,7 @@ make run
 Once everything is up, open TPP app:
 
 ```
-http://localhost:8090
+https://localhost:8090
 ```
 
 Use `user / user` credentials to login in as a sample user.

@@ -97,7 +97,7 @@ func (s *Server) Start() error {
 	r.POST("/login", s.Login())
 	r.GET("/callback", s.Callback())
 
-	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
+	return r.RunTLS(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)), s.Config.CertFile, s.Config.KeyFile)
 }
 
 func main() {
