@@ -1047,7 +1047,7 @@ clients:
       use: sig
   privacy: {}
   redirect_uris:
-  - http://localhost:8090/callback
+  - https://localhost:8090/callback
   registration_token: {}
   request_object_signing_alg: RS256
   response_types:
