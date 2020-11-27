@@ -15,14 +15,15 @@ import (
 	"strings"
 	"time"
 
-	obc "github.com/cloudentity/acp/pkg/openbanking/client"
-	"github.com/cloudentity/acp/pkg/openbanking/client/account_access"
-	"github.com/cloudentity/acp/pkg/openbanking/models"
 	"github.com/dgrijalva/jwt-go"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
+
+	obc "github.com/cloudentity/acp/pkg/openbanking/client"
+	"github.com/cloudentity/acp/pkg/openbanking/client/account_access"
+	"github.com/cloudentity/acp/pkg/openbanking/models"
 )
 
 type AcpAccountAccessClient struct {
@@ -36,7 +37,7 @@ func NewAcpAccountAccessClient(config Config) (AcpAccountAccessClient, error) {
 		hc  *http.Client
 	)
 
-	if hc, err = newHttpClient(config); err != nil {
+	if hc, err = newHTTPClient(config); err != nil {
 		return c, err
 	}
 
@@ -90,7 +91,7 @@ type AcpWebClient struct {
 }
 
 func NewAcpWebClient(config Config) (client AcpWebClient, err error) {
-	if client.httpClient, err = newHttpClient(config); err != nil {
+	if client.httpClient, err = newHTTPClient(config); err != nil {
 		return client, err
 	}
 
@@ -122,7 +123,7 @@ type Claim struct {
 }
 
 type Claims struct {
-	IdToken  map[string]Claim `json:"id_token"`
+	IDToken  map[string]Claim `json:"id_token"`
 	Userinfo map[string]Claim `json:"userinfo"`
 }
 
@@ -151,7 +152,7 @@ func (a *AcpWebClient) LoginURL(intentID string, challenge string, scopes []stri
 					Value:     intentID,
 				},
 			},
-			IdToken: map[string]Claim{
+			IDToken: map[string]Claim{
 				"openbanking_intent_id": {
 					Essential: true,
 					Value:     intentID,
@@ -264,7 +265,7 @@ func (a *AcpWebClient) Userinfo(token string) (body map[string]interface{}, err 
 	return body, nil
 }
 
-func newHttpClient(config Config) (*http.Client, error) {
+func newHTTPClient(config Config) (*http.Client, error) {
 	var (
 		pool *x509.CertPool
 		cert tls.Certificate
@@ -282,7 +283,7 @@ func newHttpClient(config Config) (*http.Client, error) {
 
 	if config.RootCA != "" {
 		if data, err = ioutil.ReadFile(config.RootCA); err != nil {
-			return nil, fmt.Errorf("failed to read http client root ca: %+v", err)
+			return nil, fmt.Errorf("failed to read http client root ca: %w", err)
 		}
 
 		pool.AppendCertsFromPEM(data)
@@ -305,6 +306,7 @@ func newHttpClient(config Config) (*http.Client, error) {
 			MaxIdleConnsPerHost:   runtime.GOMAXPROCS(0) + 1,
 			TLSClientConfig: &tls.Config{
 				RootCAs:      pool,
+				MinVersion:   tls.VersionTLS12,
 				Certificates: []tls.Certificate{cert},
 			},
 		},

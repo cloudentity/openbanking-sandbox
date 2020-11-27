@@ -10,11 +10,11 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
-	"github.com/cloudentity/acp/pkg/openbanking/models"
-
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+
+	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
+	"github.com/cloudentity/acp/pkg/openbanking/models"
 )
 
 const (
@@ -105,8 +105,8 @@ func (s *Server) Login() func(*gin.Context) {
 		if len(rp) > 0 {
 			parser := jwt.Parser{}
 			claims := jwt.MapClaims{}
-			idToken, _, _ := parser.ParseUnverified(rp[0], &claims)
-			header, _ := json.MarshalIndent(idToken.Header, "", "  ")
+			IDToken, _, _ := parser.ParseUnverified(rp[0], &claims)
+			header, _ := json.MarshalIndent(IDToken.Header, "", "  ")
 			payload, _ := json.MarshalIndent(claims, "", "  ")
 
 			data["request_raw"] = rp[0]
@@ -167,11 +167,11 @@ func (s *Server) Callback() func(*gin.Context) {
 		if token.IDToken != nil {
 			parser := jwt.Parser{}
 			claims := jwt.MapClaims{}
-			idToken, _, _ := parser.ParseUnverified(*token.IDToken, &claims)
-			header, _ := json.MarshalIndent(idToken.Header, "", "  ")
+			IDToken, _, _ := parser.ParseUnverified(*token.IDToken, &claims)
+			header, _ := json.MarshalIndent(IDToken.Header, "", "  ")
 			payload, _ := json.MarshalIndent(claims, "", "  ")
 
-			data["id_token_raw"] = idToken
+			data["id_token_raw"] = IDToken
 			data["id_token_header"] = string(header)
 			data["id_token_payload"] = string(payload)
 		}

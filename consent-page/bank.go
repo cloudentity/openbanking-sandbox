@@ -13,7 +13,7 @@ type BankClient struct {
 }
 
 func NewBankClient(config Config) BankClient {
-	var c = BankClient{}
+	c := BankClient{}
 
 	c.Client = &http.Client{}
 	c.baseURL = config.BankURL.String()

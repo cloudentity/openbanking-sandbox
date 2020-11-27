@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/cloudentity/acp/pkg/swagger/models"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+
+	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
 func (s *Server) Get() func(*gin.Context) {
