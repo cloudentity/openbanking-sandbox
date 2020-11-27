@@ -1103,40 +1103,6 @@ clients:
   userinfo_signed_response_alg: none
 - application_type: web
   audience:
-  - bv0mdbpoijljvunhtlv0
-  authorization_server_id: openbanking
-  client_id: bv0mdbpoijljvunhtlv0
-  client_id_issued_at: 1606510255
-  client_name: Consent self service
-  client_secret: sJ6qk9QiK7brKtoDlz-ivn7pccBjPsTjCYgp-g64xZM
-  grant_types:
-  - authorization_code
-  id_token_signed_response_alg: RS256
-  jwks:
-    keys: []
-  privacy: {}
-  redirect_uris:
-  - http://localhost:8085/callback
-  registration_token: {}
-  request_object_signing_alg: none
-  response_types:
-  - code
-  - token
-  scopes:
-  - email
-  - introspect_tokens
-  - openid
-  - profile
-  - revoke_tokens
-  subject_type: pairwise
-  tenant_id: default
-  tls_client_auth_subject_dn: CN=cid2.authorization.cloudentity.com,OU=Authorization,O=Cloudentity,L=Seattle,ST=Washinghton,C=US
-  tls_client_certificate_bound_access_tokens: true
-  token_endpoint_auth_method: tls_client_auth
-  token_endpoint_auth_signing_alg: none
-  userinfo_signed_response_alg: none
-- application_type: web
-  audience:
   - developer-developer
   authorization_server_id: developer
   client_id: developer-developer
@@ -2347,14 +2313,6 @@ policy_execution_points:
   type: client_machine_token
 - server_id: openbanking
   target_fk: bukj5p6k7qdmm5ppbi4g
-  tenant_id: default
-  type: client_user_token
-- server_id: openbanking
-  target_fk: bv0mdbpoijljvunhtlv0
-  tenant_id: default
-  type: client_machine_token
-- server_id: openbanking
-  target_fk: bv0mdbpoijljvunhtlv0
   tenant_id: default
   type: client_user_token
 - server_id: openbanking
