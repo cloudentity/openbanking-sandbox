@@ -966,7 +966,8 @@ claims:
   tenant_id: default
   type: id_token
 clients:
-- audience:
+- application_type: web
+  audience:
   - admin
   authorization_server_id: admin
   client_id: admin
@@ -975,6 +976,7 @@ clients:
   client_secret: ztCswN8vggHx22_mKE3kwRlvOs-0ILQfxG5T4zZC3MU
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -997,10 +999,11 @@ clients:
   system: true
   tenant_id: default
   token_endpoint_auth_method: none
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   trusted: true
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - buc3b1hhuc714r78env0
   authorization_server_id: system
   client_id: buc3b1hhuc714r78env0
@@ -1009,6 +1012,7 @@ clients:
   client_secret: PBV7q0akoP603rZbU0EFdxbhZ-djxF7FIVwyKaLnBYU
   grant_types:
   - client_credentials
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1026,9 +1030,10 @@ clients:
   tls_client_auth_subject_dn: CN=cid2.authorization.cloudentity.com,OU=Authorization,O=Cloudentity,L=Seattle,ST=Washinghton,C=US
   tls_client_certificate_bound_access_tokens: true
   token_endpoint_auth_method: tls_client_auth
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - bugkgm23g9kregtu051g
   authorization_server_id: openbanking
   client_id: bugkgm23g9kregtu051g
@@ -1038,6 +1043,7 @@ clients:
   grant_types:
   - client_credentials
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys:
     - e: AQAB
@@ -1063,9 +1069,10 @@ clients:
   tls_client_auth_subject_dn: CN=cid1.authorization.cloudentity.com,OU=Authorization,O=Cloudentity,L=Seattle,ST=Washinghton,C=US
   tls_client_certificate_bound_access_tokens: true
   token_endpoint_auth_method: tls_client_auth
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - bukj5p6k7qdmm5ppbi4g
   authorization_server_id: openbanking
   client_id: bukj5p6k7qdmm5ppbi4g
@@ -1075,6 +1082,7 @@ clients:
   description: bank resource server app used in to introspect tokens
   grant_types:
   - client_credentials
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1091,9 +1099,10 @@ clients:
   tls_client_auth_subject_dn: CN=cid2.authorization.cloudentity.com,OU=Authorization,O=Cloudentity,L=Seattle,ST=Washinghton,C=US
   tls_client_certificate_bound_access_tokens: true
   token_endpoint_auth_method: tls_client_auth
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - developer-developer
   authorization_server_id: developer
   client_id: developer-developer
@@ -1102,6 +1111,7 @@ clients:
   client_secret: flux99MKFQR4jz651JMv28HC68XpAgFvFV7eM2hkqMs
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1122,10 +1132,11 @@ clients:
   system: true
   tenant_id: default
   token_endpoint_auth_method: none
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   trusted: true
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - openbanking
   authorization_server_id: openbanking
   client_id: openbanking
@@ -1134,6 +1145,7 @@ clients:
   client_secret: YRd2pnXhuaXvGznhRRlN1C1zOxJESNT4kQyMNfMo6fM
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1162,10 +1174,11 @@ clients:
   system: true
   tenant_id: default
   token_endpoint_auth_method: none
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   trusted: true
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - openbanking-demo
   authorization_server_id: openbanking
   client_id: openbanking-demo
@@ -1174,6 +1187,7 @@ clients:
   client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1199,9 +1213,10 @@ clients:
   subject_type: pairwise
   tenant_id: default
   token_endpoint_auth_method: client_secret_basic
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - system
   authorization_server_id: system
   client_id: system
@@ -1210,6 +1225,7 @@ clients:
   client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
   grant_types:
   - client_credentials
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1221,7 +1237,7 @@ clients:
   system: true
   tenant_id: system
   token_endpoint_auth_method: client_secret_basic
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
 idps:
 - authorization_server_id: openbanking
@@ -2587,10 +2603,6 @@ servers:
   name: Admin
   profile: default
   refresh_token_ttl: 720h0m0s
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: uNbJLd3sREiOAnM2UOJD34HY85OFT5K7RQN3_v4p-qo
   subject_identifier_algorithm_salt: bTreL3Qxj4ZHI6i5Sx7bXvbeSSiNwqlhpdZ1YBCgQqU
   subject_identifier_types:
@@ -2639,10 +2651,6 @@ servers:
   name: Developer
   profile: default
   refresh_token_ttl: 720h0m0s
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: qr3vYt3lVNHw42wkuYAK2PYRou_k60tVsN2NMmOlBAI
   subject_identifier_algorithm_salt: QopSJQZe1-PuUPrHCiRr0g6sIzjXQgrh6QwC8RGQovY
   subject_identifier_types:
@@ -2717,11 +2725,6 @@ servers:
     dmYY2gZKjhM/+6d07eCfhHvCdSTyqP8/5s8z8YTlyMM6tQs2nUZKIS8UmAw919QH
     uPvsY1RKD0+ullEX65YLpfdEfTb6klv424GtRMFyP0omRQ==
     -----END CERTIFICATE-----
-  scope_grant_method:
-    OIDC: {}
-    custom:
-      scope_grant_url: http://localhost:8080
-    method: custom
   secret: mEPU_dqAKxKZ3Yt4kdEjFe2HEBcdFHc2majkvPgq-50
   subject_identifier_algorithm_salt: NCb8R3X-LM8ICq_QXtgbroDoBbomb6T1YqZ2HWuhw7c
   subject_identifier_types:
@@ -2785,10 +2788,6 @@ servers:
     dmYY2gZKjhM/+6d07eCfhHvCdSTyqP8/5s8z8YTlyMM6tQs2nUZKIS8UmAw919QH
     uPvsY1RKD0+ullEX65YLpfdEfTb6klv424GtRMFyP0omRQ==
     -----END CERTIFICATE-----
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: 6Kz4iMgGQLCcKK9p30AbIPsZl5QX_Dh_f8syrceLp6I
   subject_identifier_algorithm_salt: TXrrBgQgAk2exlQs-wHLIuRaIzWqjJDLjGuNItH60B8
   subject_identifier_types:
@@ -2837,10 +2836,6 @@ servers:
   name: System
   profile: default
   refresh_token_ttl: 720h0m0s
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: TkDsdkrxV_oIFfP-MXAitsyxyL5_gPLSWuJjW4qQOHU
   subject_identifier_algorithm_salt: pje-WVsdzxIafWIA5ru20RbYrUu4trzS6UlEJrUHr98
   subject_identifier_types:
