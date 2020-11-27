@@ -40,3 +40,14 @@ func (s *Server) ListConsents() func(*gin.Context) {
 		c.JSON(http.StatusOK, &consentsByAccounts)
 	}
 }
+
+func (s *Server) RevokeConsent() func(*gin.Context) {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+		logrus.Infof("revoke consent: %s", id)
+
+		// todo implement
+
+		c.Status(http.StatusNoContent)
+	}
+}

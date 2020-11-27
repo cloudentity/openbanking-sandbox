@@ -59,7 +59,7 @@ func (s *Server) Start() error {
 	r.Static("/assets", "./assets")
 
 	r.GET("/consents", s.ListConsents())
-	// r.DELETE("/consents/{id}", s.RevokeConsent())
+	r.DELETE("/consents/*id", s.RevokeConsent())
 
 	return r.Run()
 }
