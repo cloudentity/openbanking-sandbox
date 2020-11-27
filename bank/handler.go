@@ -120,6 +120,18 @@ func (s *Server) InternalGetAccounts() func(*gin.Context) {
 	}
 }
 
+func (s *Server) GetBalances() func(ctx *gin.Context) {
+	return func(c *gin.Context) {
+		c.File("balances.json")
+	}
+}
+
+func (s *Server) GetTransactions() func(ctx *gin.Context) {
+	return func(c *gin.Context) {
+		c.File("transactions.json")
+	}
+}
+
 func has(list []string, a string) bool {
 	for _, b := range list {
 		if b == a {
