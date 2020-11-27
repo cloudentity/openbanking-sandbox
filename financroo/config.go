@@ -10,17 +10,21 @@ import (
 )
 
 type Config struct {
-	Port         int           `env:"PORT" envDefault:"8091"`
-	ClientID     string        `env:"CLIENT_ID,required"`
-	AuthorizeURL *url.URL      `env:"AUTHORIZE_URL,required"`
-	TokenURL     *url.URL      `env:"TOKEN_URL,required"`
-	UserinfoURL  *url.URL      `env:"USERINFO_URL,required"`
-	RedirectURL  *url.URL      `env:"REDIRECT_URL,required"`
-	Timeout      time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA       string        `env:"ROOT_CA,required"`
-	CertFile     string        `env:"CERT_FILE,required"`
-	KeyFile      string        `env:"KEY_FILE,required"`
-	BankURL      *url.URL      `env:"BANK_URL,required"`
+	Port                            int           `env:"PORT" envDefault:"8091"`
+	ClientID                        string        `env:"CLIENT_ID,required"`
+	AuthorizeURL                    *url.URL      `env:"AUTHORIZE_URL,required"`
+	TokenURL                        *url.URL      `env:"TOKEN_URL,required"`
+	UserinfoURL                     *url.URL      `env:"USERINFO_URL,required"`
+	RedirectURL                     *url.URL      `env:"REDIRECT_URL,required"`
+	Timeout                         time.Duration `env:"TIMEOUT" envDefault:"5s"`
+	RootCA                          string        `env:"ROOT_CA,required"`
+	CertFile                        string        `env:"CERT_FILE,required"`
+	KeyFile                         string        `env:"KEY_FILE,required"`
+	BankURL                         *url.URL      `env:"BANK_URL,required"`
+	FinancrooAuthorizationServerUrl *url.URL      `env:"FINANCROO_AUTHORIZATION_SERVER_URL,required"`
+	FinancrooClientId               string        `env:"FINANCROO_CLIENT_ID,required"`
+	FinancrooAuthorizationServerId  string        `env:"FINANCROO_AUTHORIZATION_SERVER_ID,required"`
+	FinancrooTenantId               string        `env:"FINANCROO_TENANT_ID,required"`
 }
 
 func (c *Config) GetSigningKey() (signingKey interface{}, err error) {

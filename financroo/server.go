@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
-	"os"
 	"strconv"
 )
 
@@ -53,10 +52,10 @@ func (s *Server) Start() error {
 
 	r.GET("/config.json", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": os.Getenv("FINANCROO_AUTHORIZATION_SERVER_URL"),
-			"clientId":               os.Getenv("FINANCROO_CLIENT_ID"),
-			"authorizationServerId":  os.Getenv("FINANCROO_AUTHORIZATION_SERVER_ID"),
-			"tenantId":               os.Getenv("FINANCROO_TENANT_ID"),
+			"authorizationServerURL": s.Config.FinancrooAuthorizationServerUrl,
+			"clientId":               s.Config.FinancrooClientId,
+			"authorizationServerId":  s.Config.FinancrooAuthorizationServerId,
+			"tenantId":               s.Config.FinancrooTenantId,
 		})
 	})
 
