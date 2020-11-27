@@ -1365,6 +1365,7 @@ clients:
   tenant_id: default
   token_endpoint_auth_method: none
   token_endpoint_auth_signing_alg: none
+  trusted: true
   userinfo_signed_response_alg: none
 - application_type: web
   audience:
@@ -3118,6 +3119,11 @@ scope_grants:
   subject: user
   tenant_id: default
 server_consents:
+- custom: {}
+  oidc: {}
+  server_id: bank-customers
+  tenant_id: default
+  type: oidc
 - client_id: bv0ocudfotn6edhsiu7g
   custom:
     server_consent_url: http://localhost:8080
