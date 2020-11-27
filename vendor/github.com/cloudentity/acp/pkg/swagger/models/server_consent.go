@@ -11,23 +11,32 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ScopeGrantMethod scope grant method
+// ServerConsent server consent
 //
-// swagger:model ScopeGrantMethod
-type ScopeGrantMethod struct {
+// swagger:model ServerConsent
+type ServerConsent struct {
 
-	// method
-	Method string `json:"method,omitempty"`
+	// client ID
+	ClientID string `json:"client_id,omitempty"`
 
-	// o ID c
-	OIDC OIDCScopeGrantMethod `json:"OIDC,omitempty"`
+	// server ID
+	ServerID string `json:"server_id,omitempty"`
+
+	// tenant ID
+	TenantID string `json:"tenant_id,omitempty"`
+
+	// type
+	Type string `json:"type,omitempty"`
 
 	// custom
-	Custom *CustomScopeGrantMethod `json:"custom,omitempty"`
+	Custom *CustomServerConsent `json:"custom,omitempty"`
+
+	// oidc
+	Oidc OIDCServerConsent `json:"oidc,omitempty"`
 }
 
-// Validate validates this scope grant method
-func (m *ScopeGrantMethod) Validate(formats strfmt.Registry) error {
+// Validate validates this server consent
+func (m *ServerConsent) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCustom(formats); err != nil {
@@ -40,7 +49,7 @@ func (m *ScopeGrantMethod) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ScopeGrantMethod) validateCustom(formats strfmt.Registry) error {
+func (m *ServerConsent) validateCustom(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Custom) { // not required
 		return nil
@@ -59,7 +68,7 @@ func (m *ScopeGrantMethod) validateCustom(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *ScopeGrantMethod) MarshalBinary() ([]byte, error) {
+func (m *ServerConsent) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -67,8 +76,8 @@ func (m *ScopeGrantMethod) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ScopeGrantMethod) UnmarshalBinary(b []byte) error {
-	var res ScopeGrantMethod
+func (m *ServerConsent) UnmarshalBinary(b []byte) error {
+	var res ServerConsent
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

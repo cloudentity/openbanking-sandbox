@@ -110,9 +110,6 @@ type Server struct {
 
 	// jwks
 	Jwks *JWKs `json:"jwks,omitempty"`
-
-	// scope grant method
-	ScopeGrantMethod *ScopeGrantMethod `json:"scope_grant_method,omitempty"`
 }
 
 // Validate validates this server
@@ -144,10 +141,6 @@ func (m *Server) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateJwks(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateScopeGrantMethod(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -250,24 +243,6 @@ func (m *Server) validateJwks(formats strfmt.Registry) error {
 		if err := m.Jwks.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("jwks")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Server) validateScopeGrantMethod(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ScopeGrantMethod) { // not required
-		return nil
-	}
-
-	if m.ScopeGrantMethod != nil {
-		if err := m.ScopeGrantMethod.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("scope_grant_method")
 			}
 			return err
 		}

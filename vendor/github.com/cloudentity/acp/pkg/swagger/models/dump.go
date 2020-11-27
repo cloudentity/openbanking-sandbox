@@ -63,6 +63,9 @@ type Dump struct {
 	// scopes without service
 	ScopesWithoutService []*Scope `json:"scopes_without_service"`
 
+	// server consents
+	ServerConsents []*ServerConsent `json:"server_consents"`
+
 	// servers
 	Servers []*Server `json:"servers"`
 
@@ -140,6 +143,10 @@ func (m *Dump) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateScopesWithoutService(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateServerConsents(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -534,6 +541,31 @@ func (m *Dump) validateScopesWithoutService(formats strfmt.Registry) error {
 			if err := m.ScopesWithoutService[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("scopes_without_service" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Dump) validateServerConsents(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ServerConsents) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.ServerConsents); i++ {
+		if swag.IsZero(m.ServerConsents[i]) { // not required
+			continue
+		}
+
+		if m.ServerConsents[i] != nil {
+			if err := m.ServerConsents[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("server_consents" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

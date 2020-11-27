@@ -17,6 +17,9 @@ type CustomSettings struct {
 
 	// URL to custom login page
 	LoginURL string `json:"login_url,omitempty"`
+
+	// type metadata, allowed values: generic, cloudentity. If not provided, it is set to generic
+	Type string `json:"type,omitempty"`
 }
 
 // Validate validates this custom settings

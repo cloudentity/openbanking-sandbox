@@ -16,6 +16,9 @@ import (
 // swagger:model GithubIDP
 type GithubIDP struct {
 
+	// client ID
+	ClientID string `json:"client_id,omitempty"`
+
 	// disabled
 	Disabled bool `json:"disabled,omitempty"`
 
