@@ -1385,7 +1385,7 @@ clients:
   response_types:
   - code
   scopes:
-  - manage_scope_grants
+  - manage_openbanking_consents
   subject_type: public
   tenant_id: default
   token_endpoint_auth_method: client_secret_basic
