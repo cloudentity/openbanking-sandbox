@@ -10,6 +10,12 @@ import (
 	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
+func (s *Server) Index() func(*gin.Context) {
+	return func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{})
+	}
+}
+
 func (s *Server) ListConsents() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
