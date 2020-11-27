@@ -34,7 +34,7 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		err       error
 	)
 
-	if hc, err = newHttpClient(config); err != nil {
+	if hc, err = newHTTPClient(config); err != nil {
 		return acpClient, err
 	}
 	parts := strings.Split(config.TokenURL.Path, "/")
@@ -75,7 +75,7 @@ func (a *AcpClient) Introspect(token string) (*models.IntrospectOpenbankingAccou
 	return resp.Payload, nil
 }
 
-func newHttpClient(config Config) (*http.Client, error) {
+func newHTTPClient(config Config) (*http.Client, error) {
 	var (
 		pool *x509.CertPool
 		cert tls.Certificate
@@ -93,7 +93,7 @@ func newHttpClient(config Config) (*http.Client, error) {
 
 	if config.RootCA != "" {
 		if data, err = ioutil.ReadFile(config.RootCA); err != nil {
-			return nil, fmt.Errorf("failed to read http client root ca: %+v", err)
+			return nil, fmt.Errorf("failed to read http client root ca: %w", err)
 		}
 
 		pool.AppendCertsFromPEM(data)
@@ -116,6 +116,7 @@ func newHttpClient(config Config) (*http.Client, error) {
 			MaxIdleConnsPerHost:   runtime.GOMAXPROCS(0) + 1,
 			TLSClientConfig: &tls.Config{
 				RootCAs:      pool,
+				MinVersion:   tls.VersionTLS12,
 				Certificates: []tls.Certificate{cert},
 			},
 		},

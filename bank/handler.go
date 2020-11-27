@@ -6,9 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cloudentity/acp/pkg/swagger/models"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+
+	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
 var mockAccounts = []Account{

@@ -13,7 +13,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
-
 	"github.com/sirupsen/logrus"
 )
 
@@ -48,7 +47,7 @@ func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
 }
 
 func LoadConfig() (config Config, err error) {
-	if err := env.Parse(&config); err != nil {
+	if err = env.Parse(&config); err != nil {
 		return config, err
 	}
 
