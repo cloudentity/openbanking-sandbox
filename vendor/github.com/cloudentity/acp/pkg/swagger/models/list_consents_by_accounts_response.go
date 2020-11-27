@@ -19,7 +19,7 @@ import (
 type ListConsentsByAccountsResponse struct {
 
 	// consents
-	Consents []*OpenbankingAccountAccessConsent `json:"consents"`
+	Consents []*OpenbankingAccountAccessConsentWithClient `json:"consents"`
 }
 
 // Validate validates this list consents by accounts response
