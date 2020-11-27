@@ -21,7 +21,7 @@ type Config struct {
 	CertFile                        string        `env:"CERT_FILE,required"`
 	KeyFile                         string        `env:"KEY_FILE,required"`
 	BankURL                         *url.URL      `env:"BANK_URL,required"`
-	FinancrooAuthorizationServerUrl *url.URL      `env:"FINANCROO_AUTHORIZATION_SERVER_URL,required"`
+	FinancrooAuthorizationServerUrl string        `env:"FINANCROO_AUTHORIZATION_SERVER_URL,required"`
 	FinancrooClientId               string        `env:"FINANCROO_CLIENT_ID,required"`
 	FinancrooAuthorizationServerId  string        `env:"FINANCROO_AUTHORIZATION_SERVER_ID,required"`
 	FinancrooTenantId               string        `env:"FINANCROO_TENANT_ID,required"`
