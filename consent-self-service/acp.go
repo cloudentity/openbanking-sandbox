@@ -79,6 +79,17 @@ func (a *AcpClient) GetAccountAccessConsent(accountIDs []string) (*models.ListCo
 	return response.Payload, nil
 }
 
+func (a *AcpClient) RevokeAccountAccessConsent(id string) error {
+	var err error
+
+	if _, err = a.client.Openbanking.RevokeOpenbankingConsent(openbanking.NewRevokeOpenbankingConsentParams().
+		WithTid(a.tenant).WithConsentID(id), nil); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func newHTTPClient(config Config) (*http.Client, error) {
 	var (
 		pool *x509.CertPool

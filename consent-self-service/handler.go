@@ -49,10 +49,17 @@ func (s *Server) ListConsents() func(*gin.Context) {
 
 func (s *Server) RevokeConsent() func(*gin.Context) {
 	return func(c *gin.Context) {
-		id := c.Param("id")
+		var (
+			id  = c.Param("id")
+			err error
+		)
 		logrus.Infof("revoke consent: %s", id)
 
-		// todo implement
+		// todo authz
+		if err = s.Client.RevokeAccountAccessConsent(id); err != nil {
+			c.String(http.StatusBadRequest, fmt.Sprintf("failed to revoke account access consent: %+v", err))
+			return
+		}
 
 		c.Status(http.StatusNoContent)
 	}

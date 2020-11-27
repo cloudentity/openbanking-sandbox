@@ -1,15 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"net/url"
+	"strconv"
 	"time"
 
-	"fmt"
 	"github.com/caarlos0/env/v6"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-	"strconv"
 )
 
 type Config struct {
