@@ -3,7 +3,6 @@ import {Redirect} from 'react-router';
 
 import {getTokenFromStore, isTokenInStore, removeAllAuthDataFromStore} from './auth.utils';
 import {generateRandomString, pkceChallengeFromVerifier} from './pkce.utils';
-import Register from './Register';
 
 const calcAuthorizationUrl = async (authorizationServerURL, tenantId, authorizationServerId, clientId, scopes = [], silent = false, idTokenHint = "") => {
   const authorizationUri = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/oauth2/authorize`;
@@ -76,7 +75,9 @@ const AuthPage = ({login, authorizationServerURL, tenantId, authorizationServerI
     return (<Redirect to={'/'}/>)
   }
 
-  return <Register onLogin={handleLogin}/>
+  handleLogin();
+
+  return null;
 };
 
 
