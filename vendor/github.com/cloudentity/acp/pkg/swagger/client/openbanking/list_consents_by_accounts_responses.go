@@ -67,7 +67,7 @@ type ListConsentsByAccountsOK struct {
 }
 
 func (o *ListConsentsByAccountsOK) Error() string {
-	return fmt.Sprintf("[GET /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsOK  %+v", 200, o.Payload)
 }
 
 func (o *ListConsentsByAccountsOK) GetPayload() *models.ListConsentsByAccountsResponse {
@@ -100,7 +100,7 @@ type ListConsentsByAccountsUnauthorized struct {
 }
 
 func (o *ListConsentsByAccountsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *ListConsentsByAccountsUnauthorized) GetPayload() *models.Error {
@@ -133,7 +133,7 @@ type ListConsentsByAccountsForbidden struct {
 }
 
 func (o *ListConsentsByAccountsForbidden) Error() string {
-	return fmt.Sprintf("[GET /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[POST /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsForbidden  %+v", 403, o.Payload)
 }
 
 func (o *ListConsentsByAccountsForbidden) GetPayload() *models.Error {
@@ -166,7 +166,7 @@ type ListConsentsByAccountsNotFound struct {
 }
 
 func (o *ListConsentsByAccountsNotFound) Error() string {
-	return fmt.Sprintf("[GET /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[POST /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsNotFound  %+v", 404, o.Payload)
 }
 
 func (o *ListConsentsByAccountsNotFound) GetPayload() *models.Error {

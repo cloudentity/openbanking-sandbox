@@ -6,13 +6,16 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+
+	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
 func (s *Server) Get() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			accounts InternalAccounts
-			err      error
+			accounts           InternalAccounts
+			consentsByAccounts *models.ListConsentsByAccountsResponse
+			err                error
 		)
 
 		subject := "subject" // todo
@@ -21,9 +24,18 @@ func (s *Server) Get() func(*gin.Context) {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to get accounts from bank: %+v", err))
 			return
 		}
-
 		logrus.Infof("accounts: %+v", accounts)
-		// Fetch the consents from the new ACP API (listConsentsByAccounts)
+
+		accountIDs := make([]string, len(accounts.Accounts))
+		for i, a := range accounts.Accounts {
+			accountIDs[i] = a.ID
+		}
+
+		if consentsByAccounts, err = s.Client.GetAccountAccessConsent(accountIDs); err != nil {
+			c.String(http.StatusBadRequest, fmt.Sprintf("failed to get account access consent from acp: %+v", err))
+			return
+		}
+		logrus.Infof("consentsByAccounts: %+v", consentsByAccounts)
 
 		c.HTML(http.StatusOK, "app.tmpl", gin.H{})
 	}

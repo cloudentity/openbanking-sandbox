@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/url"
+	"time"
 
 	"github.com/caarlos0/env/v6"
 	"github.com/gin-gonic/gin"
@@ -10,7 +11,13 @@ import (
 )
 
 type Config struct {
-	BankURL *url.URL `env:"BANK_URL,required"`
+	ClientID string        `env:"CLIENT_ID,required"`
+	TokenURL *url.URL      `env:"TOKEN_URL,required"`
+	Timeout  time.Duration `env:"TIMEOUT" envDefault:"5s"`
+	RootCA   string        `env:"ROOT_CA"`
+	CertFile string        `env:"CERT_FILE,required"`
+	KeyFile  string        `env:"KEY_FILE,required"`
+	BankURL  *url.URL      `env:"BANK_URL,required"`
 }
 
 func LoadConfig() (config Config, err error) {
@@ -22,6 +29,7 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
+	Client     AcpClient
 	BankClient BankClient
 }
 
@@ -34,6 +42,10 @@ func NewServer() (Server, error) {
 
 	if config, err = LoadConfig(); err != nil {
 		return server, errors.Wrapf(err, "failed to load config")
+	}
+
+	if server.Client, err = NewAcpClient(config); err != nil {
+		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
 	server.BankClient = NewBankClient(config)

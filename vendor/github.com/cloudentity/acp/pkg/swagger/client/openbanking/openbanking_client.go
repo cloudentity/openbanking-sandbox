@@ -260,7 +260,7 @@ func (a *Client) ListConsentsByAccounts(params *ListConsentsByAccountsParams, au
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "listConsentsByAccounts",
-		Method:             "GET",
+		Method:             "POST",
 		PathPattern:        "/api/system/{tid}/open-banking/consents",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},

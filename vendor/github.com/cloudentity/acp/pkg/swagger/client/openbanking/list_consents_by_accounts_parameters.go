@@ -14,7 +14,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
+
+	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
 // NewListConsentsByAccountsParams creates a new ListConsentsByAccountsParams object
@@ -73,8 +74,8 @@ for the list consents by accounts operation typically these are written to a htt
 */
 type ListConsentsByAccountsParams struct {
 
-	/*Accounts*/
-	AccountIDs []string
+	/*ListConsentsByAccountsRequest*/
+	ListConsentsByAccountsRequest *models.ListConsentsByAccountsRequest
 	/*Tid
 	  Tenant id
 
@@ -119,15 +120,15 @@ func (o *ListConsentsByAccountsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithAccountIDs adds the accounts to the list consents by accounts params
-func (o *ListConsentsByAccountsParams) WithAccountIDs(accounts []string) *ListConsentsByAccountsParams {
-	o.SetAccountIDs(accounts)
+// WithListConsentsByAccountsRequest adds the listConsentsByAccountsRequest to the list consents by accounts params
+func (o *ListConsentsByAccountsParams) WithListConsentsByAccountsRequest(listConsentsByAccountsRequest *models.ListConsentsByAccountsRequest) *ListConsentsByAccountsParams {
+	o.SetListConsentsByAccountsRequest(listConsentsByAccountsRequest)
 	return o
 }
 
-// SetAccountIDs adds the accounts to the list consents by accounts params
-func (o *ListConsentsByAccountsParams) SetAccountIDs(accounts []string) {
-	o.AccountIDs = accounts
+// SetListConsentsByAccountsRequest adds the listConsentsByAccountsRequest to the list consents by accounts params
+func (o *ListConsentsByAccountsParams) SetListConsentsByAccountsRequest(listConsentsByAccountsRequest *models.ListConsentsByAccountsRequest) {
+	o.ListConsentsByAccountsRequest = listConsentsByAccountsRequest
 }
 
 // WithTid adds the tid to the list consents by accounts params
@@ -149,12 +150,10 @@ func (o *ListConsentsByAccountsParams) WriteToRequest(r runtime.ClientRequest, r
 	}
 	var res []error
 
-	valuesAccounts := o.AccountIDs
-
-	joinedAccounts := swag.JoinByFormat(valuesAccounts, "")
-	// query array param accounts
-	if err := r.SetQueryParam("accounts", joinedAccounts...); err != nil {
-		return err
+	if o.ListConsentsByAccountsRequest != nil {
+		if err := r.SetBodyParam(o.ListConsentsByAccountsRequest); err != nil {
+			return err
+		}
 	}
 
 	// path param tid
