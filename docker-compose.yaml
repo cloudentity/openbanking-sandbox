@@ -51,6 +51,16 @@ services:
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
 
+  consent-self-service:
+    build:
+      context: .
+      dockerfile: consent-self-service/Dockerfile
+    container_name: consent-self-service
+    networks:
+      - system
+    ports:
+      - "8085:8080"
+      
   bank:
     build:
       context: .
