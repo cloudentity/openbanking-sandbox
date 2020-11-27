@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
+export default function Dashboard() {
     const [isProgress, setProgress] = useState(true);
     const [consents, setConsents] = useState<any>([]);
     const classes = useStyles();
@@ -82,9 +82,6 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                     </Tabs>
                 </Hidden>
                 <div style={{flex: 1}}/>
-                <Button
-                    style={{color: '#fff'}}
-                    onClick={() => logout(authorizationServerURL, tenantId, authorizationServerId)}>Logout</Button>
             </PageToolbar>
             <div style={{marginTop: 64, position: "relative"}}>
                 {isProgress && <Progress/>}

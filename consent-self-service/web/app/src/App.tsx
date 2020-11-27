@@ -44,11 +44,8 @@ const theme = createMuiTheme({
 });
 
 export type Config = {
-  authorizationServerURL: string
-  authorizationServerId: string
+  authorizeURL: string
   clientId: string
-  tenantId: string
-
 }
 
 const queryCache = new QueryCache();
@@ -88,51 +85,22 @@ function App() {
                 <Suspense fallback={<Progress/>}>
                   <Switch>
                     <Route
-                      path="/callback"
-                      render={() =>
-                        <Callback
-                          authorizationServerURL={config?.authorizationServerURL}
-                          authorizationServerId={config?.authorizationServerId}
-                          tenantId={config?.tenantId}
-                          clientId={config?.clientId}
-                          login={login}
-                        />}
-                    />
-                    <Route
-                      path="/silent"
-                      render={() =>
-                        <Callback
-                          silent
-                          authorizationServerURL={config?.authorizationServerURL}
-                          authorizationServerId={config?.authorizationServerId}
-                          tenantId={config?.tenantId}
-                          clientId={config?.clientId}
-                          login={login}
-                        />}
-                    />
-                    <Route
                       path={'/auth'}
                       render={() =>
                         <AuthPage
                           login={login}
-                          authorizationServerURL={config?.authorizationServerURL}
-                          authorizationServerId={config?.authorizationServerId}
-                          tenantId={config?.tenantId}
+                          authorizeURL={config?.authorizeURL}
                           clientId={config?.clientId}
                           scopes={scopes}
                         />}
                     />
                     <PrivateRoute
                       path="/"
-                      authorizationServerURL={config?.authorizationServerURL}
-                      authorizationServerId={config?.authorizationServerId}
-                      tenantId={config?.tenantId}
+                      authorizeURL={config?.authorizeURL}
                       login={login}
                       component={() =>
                         <AuthenticatedAppBase
-                          authorizationServerURL={config?.authorizationServerURL}
-                          authorizationServerId={config?.authorizationServerId}
-                          tenantId={config?.tenantId}
+                          authorizeURL={config?.authorizeURL}
                           clientId={config?.clientId}
                           scopes={scopes}
                         />}

@@ -4,14 +4,8 @@ import {api} from '../api/api';
 import {isTokenInStore, removeAllAuthDataFromStore} from './auth.utils';
 import Progress from './Progress';
 
-export default function PrivateRoute ({component: Component, login, authorizationServerURL, tenantId, authorizationServerId, ...rest}) {
+export default function PrivateRoute ({component: Component, login, ...rest}) {
   const [progress, setProgress] = useState(true);
-
-  useEffect(() => {
-    api.userinfo(authorizationServerURL, tenantId, authorizationServerId)
-      .catch(() => removeAllAuthDataFromStore())
-      .finally(() => setProgress(false));
-  }, [authorizationServerURL, tenantId, authorizationServerId]);
 
   return (
     <Fragment>

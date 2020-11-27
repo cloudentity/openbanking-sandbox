@@ -4,9 +4,7 @@ import {Redirect} from 'react-router';
 import {getTokenFromStore, isTokenInStore, removeAllAuthDataFromStore} from './auth.utils';
 import {generateRandomString, pkceChallengeFromVerifier} from './pkce.utils';
 
-const calcAuthorizationUrl = async (authorizationServerURL, tenantId, authorizationServerId, clientId, scopes = [], silent = false, idTokenHint = "") => {
-  const authorizationUri = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/oauth2/authorize`;
-
+const calcAuthorizationUrl = async (authorizeURL, clientId, scopes = [], silent = false, idTokenHint = "") => {
   // Create and store a random "state" value
   const state = generateRandomString();
   localStorage.setItem(`pkce_state`, state);
@@ -18,7 +16,7 @@ const calcAuthorizationUrl = async (authorizationServerURL, tenantId, authorizat
   // Hash and base64-urlencode the secret to use as the challenge
   const code_challenge = await pkceChallengeFromVerifier(code_verifier);
 
-  return authorizationUri
+  return authorizeURL
     + "?response_type=code"
     + "&client_id=" + encodeURIComponent(clientId)
     + "&state=" + encodeURIComponent(state)
@@ -29,19 +27,19 @@ const calcAuthorizationUrl = async (authorizationServerURL, tenantId, authorizat
     + `${silent ? `&prompt=none&id_token_hint=${idTokenHint}` : ''}`
 }
 
-export const authorize = async (authorizationServerURL, tenantId, authorizationServerId, clientId, scopes = []) => {
+export const authorize = async (authorizeURL, clientId, scopes = []) => {
 
   // Authorization URL
-  window.location.href = await calcAuthorizationUrl(authorizationServerURL, tenantId, authorizationServerId, clientId, scopes)
+  window.location.href = await calcAuthorizationUrl(authorizeURL, clientId, scopes)
 };
 
 const IFRAME_ID = 'silent-auth-iframe';
 export const SILENT_AUTH_SUCCESS_MESSAGE = 'silentAuthSuccess';
 export const SILENT_AUTH_ERROR_MESSAGE = 'silentAuthFailure';
 
-export const silentAuthentication = async (authorizationServerURL, tenantId, authorizationServerId, clientId, scopes, idTokenHint) => {
+export const silentAuthentication = async (authorizeURL, tenantId, authorizationServerId, clientId, scopes, idTokenHint) => {
   const iframe = document.createElement("iframe");
-  const src = await calcAuthorizationUrl(authorizationServerURL, tenantId, authorizationServerId, clientId, scopes, true, idTokenHint);
+  const src = await calcAuthorizationUrl(authorizeURL, tenantId, authorizationServerId, clientId, scopes, true, idTokenHint);
   iframe.setAttribute("src", src)
   iframe.setAttribute("id", IFRAME_ID)
   iframe.style.display = 'none';
@@ -59,15 +57,15 @@ export const silentAuthentication = async (authorizationServerURL, tenantId, aut
   document.body.appendChild(iframe);
 }
 
-export const logout = (authorizationServerURL, tenantId, authorizationServerId) => {
+export const logout = (authorizeURL, tenantId, authorizationServerId) => {
   removeAllAuthDataFromStore();
-  window.location.href = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/logout?redirect_to=${window.location.origin}`
+  window.location.href = `${authorizeURL}/${tenantId}/${authorizationServerId}/logout?redirect_to=${window.location.origin}`
 };
 
 
-const AuthPage = ({login, authorizationServerURL, tenantId, authorizationServerId, clientId, scopes}) => {
+const AuthPage = ({login, authorizeURL, clientId, scopes}) => {
   const handleLogin = () => {
-    authorize(authorizationServerURL, tenantId, authorizationServerId, clientId, scopes);
+    authorize(authorizeURL, clientId, scopes);
   }
 
   if (isTokenInStore()) {
