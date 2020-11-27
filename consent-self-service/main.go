@@ -61,6 +61,11 @@ func NewServer() (Server, error) {
 }
 
 func (s *Server) Start() error {
+	var (
+		config Config
+		err    error
+	)
+
 	r := gin.Default()
 
 	r.LoadHTMLGlob("web/app/build/index.html")
@@ -71,12 +76,16 @@ func (s *Server) Start() error {
 	r.GET("/consents", s.ListConsents())
 	r.DELETE("/consents/*id", s.RevokeConsent())
 
+	if config, err = LoadConfig(); err != nil {
+		return errors.Wrapf(err, "failed to load config")
+	}
+
 	r.GET("/config.json", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": s.Config.ConsentSelfServiceAuthorizationServerUrl,
-			"clientId":               s.Config.ConsentSelfServiceClientId,
-			"authorizationServerId":  s.Config.ConsentSelfServiceAuthorizationServerId,
-			"tenantId":               s.Config.ConsentSelfServiceTenantId,
+			"authorizationServerURL": config.ConsentSelfServiceAuthorizationServerUrl,
+			"clientId":               config.ConsentSelfServiceClientId,
+			"authorizationServerId":  config.ConsentSelfServiceAuthorizationServerId,
+			"tenantId":               config.ConsentSelfServiceTenantId,
 		})
 	})
 
@@ -84,7 +93,7 @@ func (s *Server) Start() error {
 		c.File("web/app/build/index.html")
 	})
 
-	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
+	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(config.Port)))
 }
 
 func main() {
