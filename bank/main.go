@@ -9,7 +9,6 @@ import (
 	"github.com/caarlos0/env/v6"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	log "github.com/sirupsen/logrus"
 	logrus "github.com/sirupsen/logrus"
 )
 
@@ -68,7 +67,7 @@ func main() {
 		err    error
 	)
 
-	log.SetFormatter(&log.JSONFormatter{})
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 
 	if server, err = NewServer(); err != nil {
 		logrus.WithError(err).Fatalf("failed to init server")
