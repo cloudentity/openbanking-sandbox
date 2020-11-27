@@ -36,7 +36,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
     useEffect(() => {
         setProgress(true);
         api.getConsents()
-            .then(res => setConsents(res))
+            .then(res => setConsents(res.consents))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }, []);

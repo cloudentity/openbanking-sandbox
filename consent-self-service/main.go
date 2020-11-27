@@ -21,10 +21,10 @@ type Config struct {
 	KeyFile                                  string        `env:"KEY_FILE,required"`
 	BankURL                                  *url.URL      `env:"BANK_URL,required"`
 	Port                                     int           `env:"PORT" envDefault:"8085"`
-	ConsentSelfServiceAuthorizationServerUrl string        `env:"CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_URL,required"`
-	ConsentSelfServiceClientId               string        `env:"CONSENT_SELF_SERVICE_CLIENT_ID,required"`
-	ConsentSelfServiceAuthorizationServerId  string        `env:"CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_ID,required"`
-	ConsentSelfServiceTenantId               string        `env:"CONSENT_SELF_SERVICE_TENANT_ID,required"`
+	ConsentSelfServiceAuthorizationServerURL string        `env:"CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_URL,required"`
+	ConsentSelfServiceClientID               string        `env:"CONSENT_SELF_SERVICE_CLIENT_ID,required"`
+	ConsentSelfServiceAuthorizationServerID  string        `env:"CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_ID,required"`
+	ConsentSelfServiceTenantID               string        `env:"CONSENT_SELF_SERVICE_TENANT_ID,required"`
 }
 
 func LoadConfig() (config Config, err error) {
@@ -82,10 +82,10 @@ func (s *Server) Start() error {
 
 	r.GET("/config.json", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": config.ConsentSelfServiceAuthorizationServerUrl,
-			"clientId":               config.ConsentSelfServiceClientId,
-			"authorizationServerId":  config.ConsentSelfServiceAuthorizationServerId,
-			"tenantId":               config.ConsentSelfServiceTenantId,
+			"authorizationServerURL": config.ConsentSelfServiceAuthorizationServerURL,
+			"clientId":               config.ConsentSelfServiceClientID,
+			"authorizationServerId":  config.ConsentSelfServiceAuthorizationServerID,
+			"tenantId":               config.ConsentSelfServiceTenantID,
 		})
 	})
 
