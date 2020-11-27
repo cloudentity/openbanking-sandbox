@@ -1,7 +1,0 @@
-**
-!build
-!nginx.conf.tmpl
-!config.json.tmpl
-!entrypoint.sh
-!Dockerfile
-!.env
