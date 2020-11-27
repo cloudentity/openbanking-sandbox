@@ -10,10 +10,9 @@ import (
 func (s *Server) GetBalances() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			err error
+			resp *balances.GetBalancesOK
+			err  error
 		)
-
-		var resp *balances.GetBalancesOK
 
 		token, _ := c.Cookie("token")
 		if resp, err = s.BankClient.Balances.GetBalances(balances.NewGetBalancesParams().WithAuthorization(token), nil); err != nil {
