@@ -12,13 +12,16 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// OpenbankingAccountAccessConsent openbanking account access consent
+// OpenbankingAccountAccessConsentWithClient openbanking account access consent with client
 //
-// swagger:model OpenbankingAccountAccessConsent
-type OpenbankingAccountAccessConsent struct {
+// swagger:model OpenbankingAccountAccessConsentWithClient
+type OpenbankingAccountAccessConsentWithClient struct {
 
 	// The unique AccountId(s) that are valid for the account-access-consent
 	AccountIDs []string `json:"account_ids"`
+
+	// url to a client website
+	ClientURI string `json:"client_uri,omitempty"`
 
 	// Unique identification as assigned to identify the account access consent resource.
 	ConsentID string `json:"consent_id,omitempty"`
@@ -31,6 +34,15 @@ type OpenbankingAccountAccessConsent struct {
 	// the permissions will be open ended.
 	// Format: date-time
 	ExpirationDateTime strfmt.DateTime `json:"expiration_date_time,omitempty"`
+
+	// client id
+	ID string `json:"id,omitempty"`
+
+	// url to a page where client logo is served
+	LogoURI string `json:"logo_uri,omitempty"`
+
+	// client name
+	Name string `json:"name,omitempty"`
 
 	// Specifies the Open Banking account access data types. This is a list of the data clusters
 	// being consented by the PSU, and requested for authorisation with the ASPSP.
@@ -54,8 +66,8 @@ type OpenbankingAccountAccessConsent struct {
 	TransactionToDateTime strfmt.DateTime `json:"transaction_to_date_time,omitempty"`
 }
 
-// Validate validates this openbanking account access consent
-func (m *OpenbankingAccountAccessConsent) Validate(formats strfmt.Registry) error {
+// Validate validates this openbanking account access consent with client
+func (m *OpenbankingAccountAccessConsentWithClient) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCreationDateTime(formats); err != nil {
@@ -84,7 +96,7 @@ func (m *OpenbankingAccountAccessConsent) Validate(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *OpenbankingAccountAccessConsent) validateCreationDateTime(formats strfmt.Registry) error {
+func (m *OpenbankingAccountAccessConsentWithClient) validateCreationDateTime(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.CreationDateTime) { // not required
 		return nil
@@ -97,7 +109,7 @@ func (m *OpenbankingAccountAccessConsent) validateCreationDateTime(formats strfm
 	return nil
 }
 
-func (m *OpenbankingAccountAccessConsent) validateExpirationDateTime(formats strfmt.Registry) error {
+func (m *OpenbankingAccountAccessConsentWithClient) validateExpirationDateTime(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ExpirationDateTime) { // not required
 		return nil
@@ -110,7 +122,7 @@ func (m *OpenbankingAccountAccessConsent) validateExpirationDateTime(formats str
 	return nil
 }
 
-func (m *OpenbankingAccountAccessConsent) validateStatusUpdateDateTime(formats strfmt.Registry) error {
+func (m *OpenbankingAccountAccessConsentWithClient) validateStatusUpdateDateTime(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.StatusUpdateDateTime) { // not required
 		return nil
@@ -123,7 +135,7 @@ func (m *OpenbankingAccountAccessConsent) validateStatusUpdateDateTime(formats s
 	return nil
 }
 
-func (m *OpenbankingAccountAccessConsent) validateTransactionFromDateTime(formats strfmt.Registry) error {
+func (m *OpenbankingAccountAccessConsentWithClient) validateTransactionFromDateTime(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.TransactionFromDateTime) { // not required
 		return nil
@@ -136,7 +148,7 @@ func (m *OpenbankingAccountAccessConsent) validateTransactionFromDateTime(format
 	return nil
 }
 
-func (m *OpenbankingAccountAccessConsent) validateTransactionToDateTime(formats strfmt.Registry) error {
+func (m *OpenbankingAccountAccessConsentWithClient) validateTransactionToDateTime(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.TransactionToDateTime) { // not required
 		return nil
@@ -150,7 +162,7 @@ func (m *OpenbankingAccountAccessConsent) validateTransactionToDateTime(formats 
 }
 
 // MarshalBinary interface implementation
-func (m *OpenbankingAccountAccessConsent) MarshalBinary() ([]byte, error) {
+func (m *OpenbankingAccountAccessConsentWithClient) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -158,8 +170,8 @@ func (m *OpenbankingAccountAccessConsent) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *OpenbankingAccountAccessConsent) UnmarshalBinary(b []byte) error {
-	var res OpenbankingAccountAccessConsent
+func (m *OpenbankingAccountAccessConsentWithClient) UnmarshalBinary(b []byte) error {
+	var res OpenbankingAccountAccessConsentWithClient
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

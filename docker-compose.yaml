@@ -59,7 +59,7 @@ services:
     networks:
       - system
     ports:
-      - "8085:8080"
+      - "8085:8085"
     volumes:
       - ./data/ca.pem:/ca.pem
       - ./data/bank_cert.pem:/bank_cert.pem
@@ -73,9 +73,9 @@ services:
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
       - CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_URL=https://localhost:8443
-      - CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_ID=consent-self-service
+      - CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_ID=bank-customers
       - CONSENT_SELF_SERVICE_TENANT_ID=default
-      - CONSENT_SELF_SERVICE_CLIENT_ID=bv0hbq03gdssagdku41g
+      - CONSENT_SELF_SERVICE_CLIENT_ID=bv0nab0mekk67nekvq7g
 
   bank:
     build:
@@ -100,7 +100,7 @@ services:
   acp:
     container_name: acp
     #image: docker-public.artifactory.cloudentity.com/authorization:6132257
-    image: docker.artifactory.syntegrity.com/authorization:1d68a38
+    image: docker.artifactory.syntegrity.com/authorization:549ed9e
     networks:
       system:
     ports:
