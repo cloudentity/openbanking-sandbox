@@ -1368,6 +1368,31 @@ clients:
   userinfo_signed_response_alg: none
 - application_type: web
   audience:
+  - bv0ocudfotn6edhsiu7g
+  authorization_server_id: system
+  client_id: bv0ocudfotn6edhsiu7g
+  client_id_issued_at: 1606518393
+  client_name: custom server consent
+  client_secret: pMPBmv62z3Jt1S4sWl2qRhOhEGPVZ9EcujGL7Xy0-E0
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - code
+  scopes:
+  - manage_scope_grants
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
   - developer-developer
   authorization_server_id: developer
   client_id: developer-developer
@@ -3093,11 +3118,13 @@ scope_grants:
   subject: user
   tenant_id: default
 server_consents:
-- custom: {}
+- client_id: bv0ocudfotn6edhsiu7g
+  custom:
+    server_consent_url: http://localhost:8080
   oidc: {}
-  server_id: bank-customers
+  server_id: openbanking
   tenant_id: default
-  type: oidc
+  type: custom
 servers:
 - access_token_strategy: jwt
   access_token_ttl: 1h0m0s
