@@ -60,6 +60,8 @@ services:
       - system
     ports:
       - "8085:8080"
+    environment:
+      - BANK_URL=http://bank:8070
       
   bank:
     build:

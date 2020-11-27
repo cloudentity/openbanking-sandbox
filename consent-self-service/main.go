@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/url"
+
 	"github.com/caarlos0/env/v6"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
@@ -8,6 +10,7 @@ import (
 )
 
 type Config struct {
+	BankURL *url.URL `env:"BANK_URL,required"`
 }
 
 func LoadConfig() (config Config, err error) {
@@ -19,18 +22,21 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
-	Config Config
+	BankClient BankClient
 }
 
 func NewServer() (Server, error) {
 	var (
+		config Config
 		server = Server{}
 		err    error
 	)
 
-	if server.Config, err = LoadConfig(); err != nil {
+	if config, err = LoadConfig(); err != nil {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
+
+	server.BankClient = NewBankClient(config)
 
 	return server, nil
 }
