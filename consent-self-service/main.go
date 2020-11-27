@@ -58,7 +58,8 @@ func (s *Server) Start() error {
 	r.LoadHTMLGlob("templates/*")
 	r.Static("/assets", "./assets")
 
-	r.GET("/", s.Get())
+	r.GET("/consents", s.ListConsents())
+	// r.DELETE("/consents/{id}", s.RevokeConsent())
 
 	return r.Run()
 }

@@ -10,7 +10,7 @@ import (
 	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
-func (s *Server) Get() func(*gin.Context) {
+func (s *Server) ListConsents() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
 			accounts           InternalAccounts
@@ -37,6 +37,6 @@ func (s *Server) Get() func(*gin.Context) {
 		}
 		logrus.Infof("consentsByAccounts: %+v", consentsByAccounts)
 
-		c.HTML(http.StatusOK, "app.tmpl", gin.H{})
+		c.JSON(http.StatusOK, &consentsByAccounts)
 	}
 }
