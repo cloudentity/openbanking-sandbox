@@ -13,6 +13,7 @@ import {
     Avatar,
     Button,
     Container,
+    Divider,
     Grid,
     Theme,
     Typography
@@ -21,16 +22,23 @@ import {logout} from "./AuthPage";
 import {makeStyles} from "@material-ui/core/styles";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {api} from "../api/api";
+import noAccountEmptyState from "./no-accounts-empty-state.svg";
+import {permissionNameDescriptionMap} from "./permissionNameDescriptionMap";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 const useStyles = makeStyles((theme: Theme) => ({
     indicator: {
         backgroundColor: '#fff',
+    },
+    expandIcon: {
+        position: 'absolute', right: 32, top: 24, color: "#006580"
     }
 }));
 
 export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
     const [isProgress, setProgress] = useState(true);
     const [consents, setConsents] = useState<any>([]);
+    const [revokeDialog, setRevokeDialog] = useState<any>(null);
     const classes = useStyles();
 
     useEffect(() => {
@@ -41,7 +49,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
             .finally(() => setProgress(false));
     }, []);
 
-    const handleRemove = id => {
+    const handleRevoke = id => {
         setProgress(true);
         api.deleteConsent({id})
             .then(api.getConsents)
@@ -91,80 +99,162 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
 
                 {!isProgress && (
                     <>
-                        <div style={{
-                            background: "#F7F7F7",
-                            height: 148,
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}>
-                            <Container>
-                                <Typography variant={"h3"} color={"primary"}>Connected Applications</Typography>
-                            </Container>
-                        </div>
+                        {consents.length > 0 && (
+                            <div style={{
+                                background: "#F7F7F7",
+                                height: 148,
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}>
+                                <Container>
+                                    <Typography variant={"h3"} color={"primary"}>Connected Applications</Typography>
+                                </Container>
+                            </div>
+                        )}
                         <Container style={{marginTop: 64}}>
                             <Grid container justify={"center"}>
                                 <Grid item xs={8}>
                                     {consents.length === 0 && (
-                                        <Typography>No connected applications</Typography>
+                                        <div style={{textAlign: "center", marginTop: 64}}>
+                                            <Typography variant={"h3"} style={{color: "#626576"}}>No connected
+                                                accounts</Typography>
+                                            <Typography style={{marginTop: 12, color: "#A0A3B5"}}>You haven’t connected
+                                                any accounts yet
+                                                to manage
+                                                access</Typography>
+                                            <img src={noAccountEmptyState} style={{marginTop: 64}} alt={"empty state"}/>
+                                        </div>
                                     )}
                                     {consents.map(consent => (
-                                        <Accordion>
+                                        <Accordion key={consent.id}>
                                             <AccordionSummary
-                                                expandIcon={<ExpandMoreIcon/>}
+                                                classes={{expandIcon: classes.expandIcon}}
+                                                expandIcon={<Avatar><ExpandMoreIcon/></Avatar>}
                                                 aria-controls="panel1a-content"
                                                 id="panel1a-header"
+                                                style={{padding: "24px 32px"}}
                                             >
-                                                <div style={{
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
-                                                    width: '100%'
-                                                }}>
+                                                <div>
+                                                    <Avatar variant={"square"} style={{
+                                                        background: "#D5E2E5",
+                                                        color: "#006580"
+                                                    }}>{consent?.name[0]?.toUpperCase()}</Avatar>
+                                                </div>
+                                                <div style={{width: "100%"}}>
                                                     <div style={{display: "flex", alignItems: "center"}}>
-                                                        <Avatar>{consent.name[0]}</Avatar>
-                                                        <Typography style={{marginLeft: 16}}>{consent.name}</Typography>
+                                                        <Typography variant="h4"
+                                                                    style={{marginLeft: 24}}>{consent.name}</Typography>
                                                     </div>
-                                                    <div style={{flex: 1}}/>
-                                                    <Button variant={"contained"} color={"primary"} onClick={e => {
-                                                        e.stopPropagation();
-                                                        handleRemove(consent.consent_id);
-                                                    }}>Revoke</Button>
+                                                    <Divider style={{margin: "24px 0 24px 24px"}}/>
+                                                    <div style={{
+                                                        display: "flex",
+                                                        justifyContent: "space-between",
+                                                        marginLeft: 24
+                                                    }}>
+                                                        <div>
+                                                            <Typography
+                                                                style={{color: "#626576", fontSize: 16}}><strong>Consent
+                                                                validation</strong></Typography>
+                                                            <div style={{display: "flex", marginTop: 16}}>
+                                                                <Typography>Granted on</Typography>
+                                                                <div style={{
+                                                                    background: "#D5E2E5",
+                                                                    color: "#006580",
+                                                                    fontSize: 12,
+                                                                    padding: 4,
+                                                                    fontWeight: 500,
+                                                                    marginLeft: 8
+                                                                }}
+                                                                >{consent.creation_date_time.split('T')[0]}
+                                                                </div>
+                                                                <Typography style={{marginLeft: 36}}>Valid
+                                                                    until</Typography>
+                                                                <div style={{
+                                                                    background: "#D5E2E5",
+                                                                    color: "#006580",
+                                                                    fontSize: 12,
+                                                                    padding: 4,
+                                                                    fontWeight: 500,
+                                                                    marginLeft: 8
+                                                                }}
+                                                                >{consent.expiration_date_time.split('T')[0]}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <Button
+                                                            style={{color: "#DC1B37", textTransform: 'none'}}
+                                                            onClick={e => {
+                                                                e.stopPropagation();
+                                                                setRevokeDialog(consent);
+                                                            }}
+                                                        >Revoke Access
+                                                        </Button>
+                                                    </div>
+                                                    <div style={{marginLeft: 24, marginTop: 32}}>
+                                                        <Button
+                                                            variant={"outlined"}
+                                                            color={"primary"}
+                                                            style={{textTransform: 'none'}}
+                                                            onClick={e => {
+                                                                e.stopPropagation()
+                                                            }
+                                                            }>View
+                                                            information</Button>
+                                                    </div>
                                                 </div>
                                             </AccordionSummary>
-                                            <AccordionDetails style={{flexDirection: "column", background: "#fcfcfc"}}>
-                                                {consent.account_ids.map(account => (
-                                                    <div style={{marginBottom: 32}}>
-                                                        <Typography>
-                                                            <strong>Account ID: {account}</strong>
-                                                        </Typography>
-                                                        <Typography style={{
-                                                            marginTop: 16,
-                                                            borderBottom: "1px solid #ccc",
-                                                            paddingBottom: 8,
-                                                            marginBottom: 16
-                                                        }}>Granted permissions:</Typography>
-                                                        <Grid container spacing={2}>
-                                                            {consent.permissions.map(permission => (
-                                                                <>
-                                                                    <Grid item xs={4}
-                                                                          wrap={"wrap"}
-                                                                          style={{
-                                                                              textAlign: "right",
-                                                                              wordWrap: "break-word"
-                                                                          }}>
-                                                                        <Typography><strong>{permission}</strong></Typography>
-                                                                    </Grid>
-                                                                    <Grid item xs={8}
-                                                                          style={{
-                                                                              textAlign: "left",
-                                                                              wordWrap: "break-word"
-                                                                          }}>
-                                                                        <Typography>{permission}</Typography>
-                                                                    </Grid>
-                                                                </>
-                                                            ))}
-
-                                                        </Grid>
+                                            <AccordionDetails style={{
+                                                flexDirection: "column",
+                                                background: "#F4F7F8",
+                                                padding: 0
+                                                // paddingLeft: 88
+                                            }}>
+                                                {consent.account_ids.map(accountId => (
+                                                    <div style={{paddingBottom: 32, borderLeft: "6px solid #006580",}}
+                                                         key={accountId}>
+                                                        <div style={{
+                                                            background: "#D3E5EA",
+                                                            height: 72,
+                                                            color: "#006580",
+                                                            paddingLeft: 88,
+                                                            display: "flex",
+                                                            alignItems: "center",
+                                                            textTransform: 'uppercase'
+                                                        }}>
+                                                            <Typography>
+                                                                <strong>Account ID: {accountId}</strong>
+                                                            </Typography>
+                                                        </div>
+                                                        <div style={{paddingLeft: 88, color: "#006580"}}>
+                                                            <Typography style={{
+                                                                marginTop: 24,
+                                                                borderBottom: "1px solid #ECECEC",
+                                                                paddingBottom: 16,
+                                                                marginBottom: 24,
+                                                                textTransform: 'uppercase'
+                                                            }}><strong>Granted permissions:</strong></Typography>
+                                                            <Grid container spacing={3}>
+                                                                {consent.permissions.map(permission => (
+                                                                    <>
+                                                                        <Grid item xs={4}
+                                                                              style={{
+                                                                                  textAlign: "left",
+                                                                                  wordWrap: "break-word"
+                                                                              }}>
+                                                                            <Typography><strong>{permission}</strong></Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={8}
+                                                                              style={{
+                                                                                  textAlign: "left",
+                                                                                  wordWrap: "break-word"
+                                                                              }}>
+                                                                            <Typography
+                                                                                variant={"caption"}>{permissionNameDescriptionMap[permission]}</Typography>
+                                                                        </Grid>
+                                                                    </>
+                                                                ))}
+                                                            </Grid>
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </AccordionDetails>
@@ -177,6 +267,22 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                     </>
                 )}
             </div>
+            {revokeDialog && (
+                <ConfirmationDialog
+                    title="Revoke application access"
+                    content="Are you sure you want to revoke access to your accounts for this application?"
+                    confirmText="Yes, Revoke Access"
+                    warningItems={[
+                        'Your connected application will not be able to access your bank accounts.',
+                        'You will have to authorize the application again if you would like to use it with your bank in the future.'
+                    ]}
+                    onCancel={() => setRevokeDialog(null)}
+                    onConfirm={() => {
+                        handleRevoke(revokeDialog.id);
+                        setRevokeDialog(null);
+                    }}
+                />
+            )}
         </div>
     )
 };

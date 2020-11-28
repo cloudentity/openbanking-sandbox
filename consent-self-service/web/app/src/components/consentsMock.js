@@ -1,86 +1,42 @@
-export const consentsMock = [
-    {
-        name: "Financroo",
-        id: "1234567",
-        granted: "1 jan 2001",
-        valid: "2 jan 2002",
-        accounts: [
-            {
-                accountId: "233q432423",
-                permissions: [
-                    {
-                        name: "permissionNamePermissionNamePermissionnanamam",
-                        description: "descdescdescdescdescdesc descdesc descdescdescdescdesc descdesc descdescdesc descdesc descdesc"
-                    },
-                    {
-                        name: "permission 1",
-                        description: "desc"
-                    },
-                    {
-                        name: "permission 1",
-                        description: "desc"
-                    }
-                ]
-            },
-            {
-                accountId: "233q43223",
-                permissions: [
-                    {
-                        name: "permission 2",
-                        description: "desc"
-                    },
-                    {
-                        name: "permission 2",
-                        description: "desc"
-                    },
-                    {
-                        name: "permission 1",
-                        description: "desc"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        name: "Financroo2",
-        id: "1234567",
-        granted: "1 jan 2001",
-        valid: "2 jan 2002",
-        accounts: [
-            {
-                accountId: "233q432423",
-                permissions: [
-                    {
-                        name: "permission 1",
-                        description: "desc"
-                    },
-                    {
-                        name: "permission 1",
-                        description: "desc"
-                    },
-                    {
-                        name: "permission 1",
-                        description: "desc"
-                    }
-                ]
-            },
-            {
-                accountId: "233q43223",
-                permissions: [
-                    {
-                        name: "permission 2",
-                        description: "desc"
-                    },
-                    {
-                        name: "permission 2",
-                        description: "desc"
-                    },
-                    {
-                        name: "permission 1",
-                        description: "desc"
-                    }
-                ]
-            }
-        ]
-    }
-]
+export const consentsResMock = {
+    "consents": [
+        {
+            "account_ids": [
+                "22289",
+                "31820"
+            ],
+            "consent_id": "bv0onril54hmk5ekcv1g",
+            "creation_date_time": "2020-11-27T23:29:50.040Z",
+            "expiration_date_time": "0001-01-01T00:00:00.000Z",
+            "id": "bugkgm23g9kregtu051g",
+            "name": "tpp",
+            "permissions": [
+                "ReadAccountsBasic",
+                "ReadTransactionsBasic",
+                "ReadTransactionsDebits",
+            ],
+            "status": "Authorized",
+            "status_update_date_time": "2020-11-27T23:29:54.501Z",
+            "transaction_from_date_time": "0001-01-01T00:00:00.000Z",
+            "transaction_to_date_time": "0001-01-01T00:00:00.000Z"
+        },
+        {
+            "account_ids": [
+                "22289",
+                "31820"
+            ],
+            "consent_id": "bv0onril54hmk5ekcv1g",
+            "creation_date_time": "2020-11-27T23:29:50.040Z",
+            "expiration_date_time": "0001-01-01T00:00:00.000Z",
+            "id": "bugkgm23g9kregtu051g",
+            "name": "tpp",
+            "permissions": [
+                "ReadAccountsBasic"
+            ],
+            "status": "Authorized",
+            "status_update_date_time": "2020-11-27T23:29:54.501Z",
+            "transaction_from_date_time": "0001-01-01T00:00:00.000Z",
+            "transaction_to_date_time": "0001-01-01T00:00:00.000Z"
+        }
+    ]
+}
