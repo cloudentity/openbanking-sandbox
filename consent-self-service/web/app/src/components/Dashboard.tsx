@@ -45,7 +45,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
         setProgress(true);
         api.deleteConsent({id})
             .then(api.getConsents)
-            .then(res => setConsents(res))
+            .then(res => setConsents(res.consents))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }
@@ -127,15 +127,15 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                                                     <div style={{flex: 1}}/>
                                                     <Button variant={"contained"} color={"primary"} onClick={e => {
                                                         e.stopPropagation();
-                                                        handleRemove(consent.id);
+                                                        handleRemove(consent.consent_id);
                                                     }}>Revoke</Button>
                                                 </div>
                                             </AccordionSummary>
                                             <AccordionDetails style={{flexDirection: "column", background: "#fcfcfc"}}>
-                                                {consent.accounts.map(account => (
+                                                {consent.account_ids.map(account => (
                                                     <div style={{marginBottom: 32}}>
                                                         <Typography>
-                                                            <strong>Account ID: {account.accountId}</strong>
+                                                            <strong>Account ID: {account}</strong>
                                                         </Typography>
                                                         <Typography style={{
                                                             marginTop: 16,
@@ -144,7 +144,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                                                             marginBottom: 16
                                                         }}>Granted permissions:</Typography>
                                                         <Grid container spacing={2}>
-                                                            {account.permissions.map(permission => (
+                                                            {consent.permissions.map(permission => (
                                                                 <>
                                                                     <Grid item xs={4}
                                                                           wrap={"wrap"}
@@ -152,14 +152,14 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                                                                               textAlign: "right",
                                                                               wordWrap: "break-word"
                                                                           }}>
-                                                                        <Typography><strong>{permission.name}</strong></Typography>
+                                                                        <Typography><strong>{permission}</strong></Typography>
                                                                     </Grid>
                                                                     <Grid item xs={8}
                                                                           style={{
                                                                               textAlign: "left",
                                                                               wordWrap: "break-word"
                                                                           }}>
-                                                                        <Typography>{permission.description}</Typography>
+                                                                        <Typography>{permission}</Typography>
                                                                     </Grid>
                                                                 </>
                                                             ))}
