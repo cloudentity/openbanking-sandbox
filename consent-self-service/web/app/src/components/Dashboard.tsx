@@ -134,7 +134,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                     ]}
                     onCancel={() => setRevokeDialog(null)}
                     onConfirm={() => {
-                        handleRevoke(revokeDialog.id);
+                        handleRevoke(revokeDialog.consent_id);
                         setRevokeDialog(null);
                     }}
                 />
