@@ -22,7 +22,6 @@ import (
 	o2 "github.com/cloudentity/acp/pkg/swagger/client/oauth2"
 	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/models"
-	// "github.com/sirupsen/logrus"
 )
 
 type AcpClient struct {
@@ -122,6 +121,7 @@ func NewAcpIntrospectClient(config Config) (AcpIntrospectClient, error) {
 		return acpClient, errors.New("can't get tenant/server from token url")
 	}
 	acpClient.tenant = parts[1]
+	acpClient.server = parts[2]
 
 	if hc, err = newHTTPClient(config); err != nil {
 		return acpClient, err

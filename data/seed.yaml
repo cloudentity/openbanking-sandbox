@@ -1700,7 +1700,6 @@ clients:
   request_object_signing_alg: none
   response_types:
   - token
-  scope: introspect_tokens revoke_tokens
   scopes:
   - introspect_tokens
   - revoke_tokens
@@ -1727,9 +1726,9 @@ clients:
   request_object_signing_alg: none
   response_types:
   - token
-  scope: introspect_tokens revoke_tokens
   scopes:
   - introspect_tokens
+  - manage_openbanking_consents
   - revoke_tokens
   subject_type: public
   tenant_id: default
