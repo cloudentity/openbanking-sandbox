@@ -18,14 +18,15 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 
 	"github.com/cloudentity/acp/pkg/swagger/client"
+	"github.com/cloudentity/acp/pkg/swagger/client/clients"
 	o2 "github.com/cloudentity/acp/pkg/swagger/client/oauth2"
-	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
 type AcpClient struct {
 	client *client.Web
 	tenant string
+	server string
 }
 
 func NewAcpClient(config Config) (AcpClient, error) {
@@ -36,10 +37,11 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	)
 
 	parts := strings.Split(config.TokenURL.Path, "/")
-	if len(parts) == 0 {
-		return acpClient, errors.New("can't get tenant from issuer url")
+	if len(parts) < 2 {
+		return acpClient, errors.New("can't get tenant / server from token url")
 	}
 	acpClient.tenant = parts[1]
+	acpClient.server = parts[2]
 
 	if hc, err = newHTTPClient(config); err != nil {
 		return acpClient, err
@@ -47,7 +49,7 @@ func NewAcpClient(config Config) (AcpClient, error) {
 
 	cc := clientcredentials.Config{
 		ClientID:  config.ClientID,
-		Scopes:    []string{"manage_openbanking_consents"},
+		Scopes:    []string{}, // todo
 		TokenURL:  config.TokenURL.String(),
 		AuthStyle: oauth2.AuthStyleInParams,
 	}
@@ -62,33 +64,19 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	return acpClient, nil
 }
 
-func (a *AcpClient) GetAccountAccessConsent(accountIDs []string) (*models.ListConsentsByAccountsResponse, error) {
+func (a *AcpClient) ListClients() (*models.Clients, error) {
 	var (
-		response *openbanking.ListConsentsByAccountsOK
-		err      error
+		resp *clients.ListClientsSystemOK
+		err  error
 	)
 
-	request := &models.ListConsentsByAccountsRequest{
-		AccountIDs: accountIDs,
-	}
-
-	if response, err = a.client.Openbanking.ListConsentsByAccounts(openbanking.NewListConsentsByAccountsParams().
-		WithTid(a.tenant).WithListConsentsByAccountsRequest(request), nil); err != nil {
+	if resp, err = a.client.Clients.ListClientsSystem(clients.NewListClientsSystemParams().
+		WithTid(a.tenant).
+		WithAid(a.server)); err != nil {
 		return nil, err
 	}
 
-	return response.Payload, nil
-}
-
-func (a *AcpClient) RevokeAccountAccessConsent(id string) error {
-	var err error
-
-	if _, err = a.client.Openbanking.RevokeOpenbankingConsent(openbanking.NewRevokeOpenbankingConsentParams().
-		WithTid(a.tenant).WithConsentID(id), nil); err != nil {
-		return err
-	}
-
-	return nil
+	return resp.Payload, nil
 }
 
 type AcpIntrospectClient struct {

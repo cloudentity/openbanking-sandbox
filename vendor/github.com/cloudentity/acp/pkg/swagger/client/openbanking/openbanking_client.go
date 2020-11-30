@@ -39,6 +39,8 @@ type ClientService interface {
 
 	ListConsentsByAccounts(params *ListConsentsByAccountsParams, authInfo runtime.ClientAuthInfoWriter) (*ListConsentsByAccountsOK, error)
 
+	ListConsentsByClientID(params *ListConsentsByClientIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConsentsByClientIDOK, error)
+
 	OpenbankingAccountAccessConsentIntrospect(params *OpenbankingAccountAccessConsentIntrospectParams, authInfo runtime.ClientAuthInfoWriter) (*OpenbankingAccountAccessConsentIntrospectOK, error)
 
 	RejectAccountAccessConsentSystem(params *RejectAccountAccessConsentSystemParams, authInfo runtime.ClientAuthInfoWriter) (*RejectAccountAccessConsentSystemOK, error)
@@ -281,6 +283,44 @@ func (a *Client) ListConsentsByAccounts(params *ListConsentsByAccountsParams, au
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for listConsentsByAccounts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ListConsentsByClientID gets openbanking consents given to a client t p p
+
+  This API returns the list of openbanking consents given to a specified TPP.
+It includes all consents from all users.
+*/
+func (a *Client) ListConsentsByClientID(params *ListConsentsByClientIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConsentsByClientIDOK, error) {
+	// : Validate the params before sending
+	if params == nil {
+		params = NewListConsentsByClientIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listConsentsByClientID",
+		Method:             "GET",
+		PathPattern:        "/api/system/{tid}/open-banking/consents/by-client/{clientID}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ListConsentsByClientIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListConsentsByClientIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for listConsentsByClientID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
