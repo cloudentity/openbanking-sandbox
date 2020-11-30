@@ -12,8 +12,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import {api} from "../api/api";
 import ConfirmationDialog from "./ConfirmationDialog";
 import {Route} from "react-router-dom";
-import AccountsContainer from "./AccountsContainer";
+import ClientsContainer from "./ClientsContainer";
 import AccountsDetailsContainer from "./AccountsDetailsContainer";
+import {clientMockRes} from "./clientsMockRes";
 
 const useStyles = makeStyles((theme: Theme) => ({
     indicator: {
@@ -23,23 +24,32 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
     const [isProgress, setProgress] = useState(true);
-    const [data, setData] = useState<any>([]);
+    const [clients, setClients] = useState<any>([]);
     const [revokeDialog, setRevokeDialog] = useState<any>(null);
     const classes = useStyles();
 
     useEffect(() => {
         setProgress(true);
-        api.getConsents()
-            .then(res => setData(res.consents))
+        api.getClients()
+            .then(res => setClients(res.clients || []))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }, []);
 
-    const handleRevoke = id => {
+    const handleRevokeConsent = id => () => {
         setProgress(true);
         api.deleteConsent({id})
-            .then(api.getConsents)
-            .then(res => setData(res.consents))
+            .then(api.getClients)
+            .then(res => setClients(res.clients || []))
+            .catch(err => console.log(err))
+            .finally(() => setProgress(false));
+    }
+
+    const handleRevokeClient = id => () => {
+        setProgress(true);
+        api.deleteClient({id})
+            .then(api.getClients)
+            .then(res => setClients(res.clients || []))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }
@@ -54,24 +64,16 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                 </Hidden>
                 <Hidden smDown>
                     <Tabs
-                        value={'connected-applications'}
+                        value={'clients'}
                         onChange={() => {
                         }}
                         classes={{
                             indicator: classes.indicator
                         }}
                         aria-label="menu tabs"
-                        style={{height: 64}}
+                        style={{height: 64, marginLeft: 32}}
                     >
-                        <Tab label="Get started" value={'get-started'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
-                        <Tab label="APIs" value={'apis'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
-                        <Tab label="Help Center" value={'help-center'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
-                        <Tab label="Connected Applications" value={'connected-applications'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
-                        <Tab label="Monitoring" value={'monitoring'}
+                        <Tab label="Clients" value={'clients'}
                              style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
                     </Tabs>
                 </Hidden>
@@ -85,7 +87,11 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
 
                 {!isProgress && (
                     <div>
-                        <Route exact path="/" render={() => <AccountsContainer/>}/>
+                        <Route exact path="/" render={() => <ClientsContainer clients={clients}
+                                                                              onRevokeClient={handleRevokeClient}
+                                                                              onRevokeConsent={handleRevokeConsent}
+                        />}
+                        />
                         <Route exact path="/:id" render={() => <AccountsDetailsContainer/>}/>
                     </div>
                 )}
@@ -102,7 +108,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                     ]}
                     onCancel={() => setRevokeDialog(null)}
                     onConfirm={() => {
-                        handleRevoke(revokeDialog.consent_id);
+                        handleRevokeConsent(revokeDialog.consent_id);
                         setRevokeDialog(null);
                     }}
                 />
