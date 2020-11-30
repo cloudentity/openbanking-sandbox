@@ -6,17 +6,17 @@ export const clientMockRes = {
             "consents": [
                 {
                     "consent_id": "123",
-                    "accounts": ["aaaa", "bbbb", "cccc"],
+                    "account_ids": ["aaaa", "bbbb", "cccc"],
                     "permissions": ["aaaa11111", "bbbb22222", "cccc3333"]
                 },
                 {
                     "consent_id": "345",
-                    "accounts": ["aaaa", "bbbb", "cccc"],
+                    "account_ids": ["aaaa", "bbbb", "cccc"],
                     "permissions": ["aaaa11111", "bbbb22222", "cccc3333"]
                 },
                 {
                     "consent_id": "678",
-                    "accounts": ["aaaa", "bbbb", "cccc"],
+                    "account_ids": ["aaaa", "bbbb", "cccc"],
                     "permissions": ["aaaa11111", "bbbb22222", "cccc3333"]
                 }
             ]

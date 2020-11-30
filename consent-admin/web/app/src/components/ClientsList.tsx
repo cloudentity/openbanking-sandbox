@@ -63,11 +63,11 @@ export default ({clients, onRevokeClient, onRevokeConsent}) => {
                                     </div>
                                     <div style={{display: 'flex', marginTop: 16}}>
                                         <Typography>Permissions: </Typography>
-                                        <Typography><strong>{consent.permissions.join(', ')}</strong></Typography>
+                                        <Typography> <strong>{consent.permissions?.join(', ')}</strong></Typography>
                                     </div>
                                     <div style={{display: 'flex', marginTop: 8}}>
-                                        <Typography>Accounts: </Typography>
-                                        <Typography><strong>{consent.accounts.join(', ')}</strong></Typography>
+                                        <Typography>Accounts ID: </Typography>
+                                        <Typography> <strong>{consent.account_ids?.join(', ')}</strong></Typography>
                                     </div>
                                 </div>
                             ))}
