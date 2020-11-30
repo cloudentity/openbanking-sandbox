@@ -1272,6 +1272,7 @@ clients:
   client_id_issued_at: 1604405336
   client_name: tpp
   client_secret: -TlfoycUiE0qNi-XUBFDfTxMlhHTCjVxOF6pLrWZbQA
+  client_uri: https://localhost:8090
   grant_types:
   - client_credentials
   - authorization_code
