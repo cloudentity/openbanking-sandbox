@@ -5,6 +5,7 @@ export const consentsResMock = {
                 "22289",
                 "31820"
             ],
+            "client_uri":"https://localhost:8090",
             "consent_id": "bv0onril54hmk5ekcv1g",
             "creation_date_time": "2020-11-27T23:29:50.040Z",
             "expiration_date_time": "0001-01-01T00:00:00.000Z",
@@ -25,6 +26,7 @@ export const consentsResMock = {
                 "22289",
                 "31820"
             ],
+            "client_uri":"https://localhost:8090",
             "consent_id": "bv0onril54hmk5ekcv1h",
             "creation_date_time": "2020-11-27T23:29:50.040Z",
             "expiration_date_time": "0001-01-01T00:00:00.000Z",
