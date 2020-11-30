@@ -24,9 +24,8 @@ import (
 )
 
 type AcpClient struct {
-	client           *client.Web
-	tenant           string
-	introspectServer string
+	client *client.Web
+	tenant string
 }
 
 func NewAcpClient(config Config) (AcpClient, error) {
@@ -41,8 +40,6 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		return acpClient, errors.New("can't get tenant from issuer url")
 	}
 	acpClient.tenant = parts[1]
-
-	acpClient.introspectServer = config.ConsentSelfServiceAuthorizationServerID
 
 	if hc, err = newHTTPClient(config); err != nil {
 		return acpClient, err
