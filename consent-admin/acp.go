@@ -20,13 +20,15 @@ import (
 	"github.com/cloudentity/acp/pkg/swagger/client"
 	"github.com/cloudentity/acp/pkg/swagger/client/clients"
 	o2 "github.com/cloudentity/acp/pkg/swagger/client/oauth2"
+	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/models"
+	// "github.com/sirupsen/logrus"
 )
 
 type AcpClient struct {
-	client *client.Web
-	tenant string
-	server string
+	client        *client.Web
+	tenant        string
+	clientsServer string
 }
 
 func NewAcpClient(config Config) (AcpClient, error) {
@@ -36,28 +38,29 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		err       error
 	)
 
-	parts := strings.Split(config.TokenURL.Path, "/")
-	if len(parts) < 2 {
-		return acpClient, errors.New("can't get tenant / server from token url")
+	parts := strings.Split(config.SystemTokenURL.Path, "/")
+	if len(parts) == 0 {
+		return acpClient, errors.New("can't get tenant from token url")
 	}
 	acpClient.tenant = parts[1]
-	acpClient.server = parts[2]
+	acpClient.clientsServer = config.SystemClientsServerID
 
 	if hc, err = newHTTPClient(config); err != nil {
 		return acpClient, err
 	}
 
 	cc := clientcredentials.Config{
-		ClientID:  config.ClientID,
-		Scopes:    []string{}, // todo
-		TokenURL:  config.TokenURL.String(),
-		AuthStyle: oauth2.AuthStyleInParams,
+		ClientID:     config.SystemClientID,
+		ClientSecret: config.SystemClientSecret,
+		Scopes:       []string{"manage_openbanking_consents"}, // todo get??
+		TokenURL:     config.SystemTokenURL.String(),
+		AuthStyle:    oauth2.AuthStyleInParams,
 	}
 
 	acpClient.client = client.New(httptransport.NewWithClient(
-		config.TokenURL.Host,
+		config.SystemTokenURL.Host,
 		"/",
-		[]string{config.TokenURL.Scheme},
+		[]string{config.SystemTokenURL.Scheme},
 		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
 	), nil)
 
@@ -72,11 +75,33 @@ func (a *AcpClient) ListClients() (*models.Clients, error) {
 
 	if resp, err = a.client.Clients.ListClientsSystem(clients.NewListClientsSystemParams().
 		WithTid(a.tenant).
-		WithAid(a.server)); err != nil {
+		WithAid(a.clientsServer)); err != nil {
 		return nil, err
 	}
 
 	return resp.Payload, nil
+}
+
+func (a *AcpClient) RevokeConsent(id string) error {
+	var err error
+
+	if _, err = a.client.Openbanking.RevokeOpenbankingConsent(openbanking.NewRevokeOpenbankingConsentParams().
+		WithTid(a.tenant).WithConsentID(id), nil); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (a *AcpClient) RevokeConsentsForClient(id string) error {
+	var err error
+
+	if _, err = a.client.Openbanking.RevokeOpenbankingConsents(openbanking.NewRevokeOpenbankingConsentsParams().
+		WithTid(a.tenant).WithClientID(&id), nil); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 type AcpIntrospectClient struct {
@@ -97,7 +122,6 @@ func NewAcpIntrospectClient(config Config) (AcpIntrospectClient, error) {
 		return acpClient, errors.New("can't get tenant/server from token url")
 	}
 	acpClient.tenant = parts[1]
-	acpClient.server = parts[2]
 
 	if hc, err = newHTTPClient(config); err != nil {
 		return acpClient, err
@@ -113,7 +137,7 @@ func NewAcpIntrospectClient(config Config) (AcpIntrospectClient, error) {
 	acpClient.client = client.New(httptransport.NewWithClient(
 		config.IntrospectTokenURL.Host,
 		"/",
-		[]string{config.TokenURL.Scheme},
+		[]string{config.IntrospectTokenURL.Scheme},
 		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
 	), nil)
 
