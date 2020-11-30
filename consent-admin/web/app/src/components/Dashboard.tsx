@@ -6,33 +6,31 @@ import Progress from "./Progress";
 import Tab from "@material-ui/core/Tab";
 import Hidden from "@material-ui/core/Hidden";
 import Tabs from "@material-ui/core/Tabs";
-import {Button, Container, Grid, Theme, Typography} from "@material-ui/core";
+import {Button, Theme} from "@material-ui/core";
 import {logout} from "./AuthPage";
 import {makeStyles} from "@material-ui/core/styles";
 import {api} from "../api/api";
-import noAccountEmptyState from "./no-accounts-empty-state.svg";
 import ConfirmationDialog from "./ConfirmationDialog";
-import ApplicationCard from "./ApplicationCard";
+import {Route} from "react-router-dom";
+import AccountsContainer from "./AccountsContainer";
+import AccountsDetailsContainer from "./AccountsDetailsContainer";
 
 const useStyles = makeStyles((theme: Theme) => ({
     indicator: {
         backgroundColor: '#fff',
-    },
-    expandIcon: {
-        position: 'absolute', right: 32, top: 24, color: "#006580"
     }
 }));
 
 export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
     const [isProgress, setProgress] = useState(true);
-    const [consents, setConsents] = useState<any>([]);
+    const [data, setData] = useState<any>([]);
     const [revokeDialog, setRevokeDialog] = useState<any>(null);
     const classes = useStyles();
 
     useEffect(() => {
         setProgress(true);
         api.getConsents()
-            .then(res => setConsents(res.consents))
+            .then(res => setData(res.consents))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }, []);
@@ -41,7 +39,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
         setProgress(true);
         api.deleteConsent({id})
             .then(api.getConsents)
-            .then(res => setConsents(res.consents))
+            .then(res => setData(res.consents))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }
@@ -82,46 +80,16 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                     style={{color: '#fff'}}
                     onClick={() => logout(authorizationServerURL, tenantId, authorizationServerId)}>Logout</Button>
             </PageToolbar>
-            <div style={{marginTop: 64, position: "relative"}}>
+            <div style={{marginTop: 128, position: "relative"}}>
                 {isProgress && <Progress/>}
 
                 {!isProgress && (
-                    <>
-                        {consents.length > 0 && (
-                            <div style={{
-                                background: "#F7F7F7",
-                                height: 148,
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}>
-                                <Container>
-                                    <Typography variant={"h3"} color={"primary"}>Connected Applications</Typography>
-                                </Container>
-                            </div>
-                        )}
-                        <Container style={{marginTop: 64}}>
-                            <Grid container justify={"center"}>
-                                <Grid item xs={8}>
-                                    {consents.length === 0 && (
-                                        <div style={{textAlign: "center", marginTop: 64}}>
-                                            <Typography variant={"h3"} style={{color: "#626576"}}>No connected
-                                                accounts</Typography>
-                                            <Typography style={{marginTop: 12, color: "#A0A3B5"}}>You haven’t connected
-                                                any accounts yet
-                                                to manage
-                                                access</Typography>
-                                            <img src={noAccountEmptyState} style={{marginTop: 64}} alt={"empty state"}/>
-                                        </div>
-                                    )}
-                                    {consents.map(consent => (
-                                        <ApplicationCard consent={consent} onRevokeClick={() => setRevokeDialog(consent)} key={consent.id}/>
-                                    ))}
-                                </Grid>
-                            </Grid>
-
-                        </Container>
-                    </>
+                    <div>
+                        <Route exact path="/" render={() => <AccountsContainer/>}/>
+                        <Route exact path="/:id" render={() => <AccountsDetailsContainer/>}/>
+                    </div>
                 )}
+
             </div>
             {revokeDialog && (
                 <ConfirmationDialog
