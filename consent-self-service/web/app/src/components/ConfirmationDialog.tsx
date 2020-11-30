@@ -38,10 +38,10 @@ const ConfirmationDialog = ({
       maxWidth={"sm"}
       fullWidth
     >
-      <DialogTitle disableTypography id="confirmation-dialog-title" style={{ color: "#BD271E" }}>
+      <DialogTitle disableTypography id="confirmation-dialog-title" style={{ color: "#BD271E", background: "#F7FAFF", padding: "24px 32px"}}>
         <strong>{title}</strong>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent style={{padding: "24px 32px"}}>
         <Typography id="confirmation-dialog-content" component={"div"} variant="body1">
           <strong>{content}</strong>
         </Typography>

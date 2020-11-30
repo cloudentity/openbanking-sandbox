@@ -13,21 +13,21 @@ import (
 )
 
 type Config struct {
-	ClientID                                 string        `env:"CLIENT_ID,required"`
-	TokenURL                                 *url.URL      `env:"TOKEN_URL,required"`
-	Timeout                                  time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA                                   string        `env:"ROOT_CA"`
-	CertFile                                 string        `env:"CERT_FILE,required"`
-	KeyFile                                  string        `env:"KEY_FILE,required"`
-	BankURL                                  *url.URL      `env:"BANK_URL,required"`
-	Port                                     int           `env:"PORT" envDefault:"8085"`
-	ConsentSelfServiceAuthorizationServerURL string        `env:"CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_URL,required"`
-	ConsentSelfServiceClientID               string        `env:"CONSENT_SELF_SERVICE_CLIENT_ID,required"`
-	ConsentSelfServiceAuthorizationServerID  string        `env:"CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_ID,required"`
-	ConsentSelfServiceTenantID               string        `env:"CONSENT_SELF_SERVICE_TENANT_ID,required"`
-	IntrospectClientID                       string        `env:"INTROSPECT_CLIENT_ID,required"`
-	IntrospectClientSecret                   string        `env:"INTROSPECT_CLIENT_SECRET,required"`
-	IntrospectTokenURL                       *url.URL      `env:"INTROSPECT_TOKEN_URL,required"`
+	ClientID                    string        `env:"CLIENT_ID,required"`
+	TokenURL                    *url.URL      `env:"TOKEN_URL,required"`
+	Timeout                     time.Duration `env:"TIMEOUT" envDefault:"5s"`
+	RootCA                      string        `env:"ROOT_CA"`
+	CertFile                    string        `env:"CERT_FILE,required"`
+	KeyFile                     string        `env:"KEY_FILE,required"`
+	BankURL                     *url.URL      `env:"BANK_URL,required"`
+	Port                        int           `env:"PORT" envDefault:"8085"`
+	LoginAuthorizationServerURL string        `env:"LOGIN_AUTHORIZATION_SERVER_URL,required"`
+	LoginClientID               string        `env:"LOGIN_CLIENT_ID,required"`
+	LoginAuthorizationServerID  string        `env:"LOGIN_AUTHORIZATION_SERVER_ID,required"`
+	LoginTenantID               string        `env:"LOGIN_TENANT_ID,required"`
+	IntrospectClientID          string        `env:"INTROSPECT_CLIENT_ID,required"`
+	IntrospectClientSecret      string        `env:"INTROSPECT_CLIENT_SECRET,required"`
+	IntrospectTokenURL          *url.URL      `env:"INTROSPECT_TOKEN_URL,required"`
 }
 
 func LoadConfig() (config Config, err error) {
@@ -90,10 +90,10 @@ func (s *Server) Start() error {
 
 	r.GET("/config.json", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": config.ConsentSelfServiceAuthorizationServerURL,
-			"clientId":               config.ConsentSelfServiceClientID,
-			"authorizationServerId":  config.ConsentSelfServiceAuthorizationServerID,
-			"tenantId":               config.ConsentSelfServiceTenantID,
+			"authorizationServerURL": config.LoginAuthorizationServerURL,
+			"clientId":               config.LoginClientID,
+			"authorizationServerId":  config.LoginAuthorizationServerID,
+			"tenantId":               config.LoginTenantID,
 		})
 	})
 

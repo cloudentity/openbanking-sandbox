@@ -94,7 +94,8 @@ export default function ApplicationCard({consent, onRevokeClick}) {
                             color={"primary"}
                             style={{textTransform: 'none'}}
                             onClick={e => {
-                                e.stopPropagation()
+                                e.stopPropagation();
+                                window.open(consent.client_uri, "_blank")
                             }
                             }>View
                             information</Button>
