@@ -72,10 +72,10 @@ services:
       - KEY_FILE=/bank_key.pem
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
-      - CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_URL=https://localhost:8443
-      - CONSENT_SELF_SERVICE_AUTHORIZATION_SERVER_ID=bank-customers
-      - CONSENT_SELF_SERVICE_TENANT_ID=default
-      - CONSENT_SELF_SERVICE_CLIENT_ID=bv0nab0mekk67nekvq7g
+      - LOGIN_AUTHORIZATION_SERVER_URL=https://localhost:8443
+      - LOGIN_AUTHORIZATION_SERVER_ID=bank-customers
+      - LOGIN_TENANT_ID=default
+      - LOGIN_CLIENT_ID=bv0nab0mekk67nekvq7g
 
   bank:
     build:
