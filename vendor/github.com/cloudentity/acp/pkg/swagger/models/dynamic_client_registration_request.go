@@ -16,6 +16,9 @@ import (
 // swagger:model DynamicClientRegistrationRequest
 type DynamicClientRegistrationRequest struct {
 
+	// Kind of the application. The default, if omitted, is web. The defined values are native or web.
+	ApplicationType string `json:"application_type,omitempty"`
+
 	// oauth client allowed audience
 	Audience []string `json:"audience"`
 
@@ -37,6 +40,10 @@ type DynamicClientRegistrationRequest struct {
 
 	// oauth client grant types, allowed values: password, refresh_token, client_credentials, implicit, authorization_code
 	GrantTypes []string `json:"grant_types"`
+
+	// Algorithm for signing the ID Token issued to this Client.
+	// The default value depends on authorization server configuration.
+	IDTokenSignedResponseAlg string `json:"id_token_signed_response_alg,omitempty"`
 
 	// URL of JSON Web Key Set containing the public keys used by the client to authenticate
 	JSONWebKeysURI string `json:"jwks_uri,omitempty"`
@@ -107,11 +114,11 @@ type DynamicClientRegistrationRequest struct {
 	// Subject identifier type
 	SubjectType string `json:"subject_type,omitempty"`
 
+	// Signing algorithm for a token endpoint
+	TokenEndpointAuthSigningAlg string `json:"token_endpoint_auth_signing_alg,omitempty"`
+
 	// Token endpoint authentication method
 	TokenEndpointAuthnMethod string `json:"token_endpoint_auth_method,omitempty"`
-
-	// Signing algorithm for a token endpoint
-	TokenEndpointSigningAlg string `json:"token_endpoint_signing_alg,omitempty"`
 
 	// terms of service url
 	TosURI string `json:"tos_uri,omitempty"`

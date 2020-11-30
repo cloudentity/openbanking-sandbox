@@ -16,6 +16,9 @@ import (
 // swagger:model CustomIDP
 type CustomIDP struct {
 
+	// client ID
+	ClientID string `json:"client_id,omitempty"`
+
 	// disabled
 	Disabled bool `json:"disabled,omitempty"`
 

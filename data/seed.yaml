@@ -965,8 +965,201 @@ claims:
   name: openbanking_intent_id
   tenant_id: default
   type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvphg
+  mapping: phone_number
+  name: phone_number
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpi0
+  mapping: phone_number_verified
+  name: phone_number_verified
+  scopes:
+  - phone
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpig
+  mapping: name
+  name: name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpj0
+  mapping: family_name
+  name: family_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpjg
+  mapping: given_name
+  name: given_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpk0
+  mapping: middle_name
+  name: middle_name
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpkg
+  mapping: nickname
+  name: nickname
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpl0
+  mapping: preferred_username
+  name: preferred_username
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvplg
+  mapping: profile
+  name: profile
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpm0
+  mapping: picture
+  name: picture
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpmg
+  mapping: website
+  name: website
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpn0
+  mapping: gender
+  name: gender
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpng
+  mapping: birthdate
+  name: birthdate
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpo0
+  mapping: zoneinfo
+  name: zoneinfo
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpog
+  mapping: locale
+  name: locale
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpp0
+  mapping: updated_at
+  name: updated_at
+  scopes:
+  - profile
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvppg
+  mapping: email
+  name: email
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpq0
+  mapping: email_verified
+  name: email_verified
+  scopes:
+  - email
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpqg
+  mapping: address.formatted
+  name: address.formatted
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpr0
+  mapping: address.street_address
+  name: address.street_address
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvprg
+  mapping: address.locality
+  name: address.locality
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvps0
+  mapping: address.region
+  name: address.region
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpsg
+  mapping: address.country
+  name: address.country
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
+- authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvpt0
+  mapping: address.postal_code
+  name: address.postal_code
+  scopes:
+  - address
+  tenant_id: default
+  type: id_token
 clients:
-- audience:
+- application_type: web
+  audience:
   - admin
   authorization_server_id: admin
   client_id: admin
@@ -975,6 +1168,7 @@ clients:
   client_secret: ztCswN8vggHx22_mKE3kwRlvOs-0ILQfxG5T4zZC3MU
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -997,10 +1191,51 @@ clients:
   system: true
   tenant_id: default
   token_endpoint_auth_method: none
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   trusted: true
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
+  - bank-customers
+  authorization_server_id: bank-customers
+  client_id: bank-customers
+  client_id_issued_at: 1606513945
+  client_name: User Portal
+  client_secret: NFvmoDo9O1W5opLiODD3OExVt0I4NLJNz6A2k4Nu69g
+  grant_types:
+  - authorization_code
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - https://localhost:8443/app/default/bank-customers/callback
+  - https://localhost:8443/app/default/bank-customers/silent
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - introspect_tokens
+  - list_clients_with_access
+  - manage_consents
+  - offline_access
+  - openid
+  - profile
+  - revoke_client_access
+  - revoke_tokens
+  - view_consents
+  subject_type: public
+  system: true
+  tenant_id: default
+  token_endpoint_auth_method: none
+  token_endpoint_auth_signing_alg: none
+  trusted: true
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
   - buc3b1hhuc714r78env0
   authorization_server_id: system
   client_id: buc3b1hhuc714r78env0
@@ -1009,6 +1244,7 @@ clients:
   client_secret: PBV7q0akoP603rZbU0EFdxbhZ-djxF7FIVwyKaLnBYU
   grant_types:
   - client_credentials
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1023,21 +1259,24 @@ clients:
   - revoke_tokens
   subject_type: public
   tenant_id: default
-  tls_client_auth_subject_dn: cid2.authorization.cloudentity.com
+  tls_client_auth_subject_dn: CN=cid2.authorization.cloudentity.com,OU=Authorization,O=Cloudentity,L=Seattle,ST=Washinghton,C=US
   tls_client_certificate_bound_access_tokens: true
   token_endpoint_auth_method: tls_client_auth
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - bugkgm23g9kregtu051g
   authorization_server_id: openbanking
   client_id: bugkgm23g9kregtu051g
   client_id_issued_at: 1604405336
   client_name: tpp
   client_secret: -TlfoycUiE0qNi-XUBFDfTxMlhHTCjVxOF6pLrWZbQA
+  client_uri: https://localhost:8090
   grant_types:
   - client_credentials
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys:
     - e: AQAB
@@ -1060,12 +1299,13 @@ clients:
   - revoke_tokens
   subject_type: pairwise
   tenant_id: default
-  tls_client_auth_subject_dn: cid1.authorization.cloudentity.com
+  tls_client_auth_subject_dn: CN=cid1.authorization.cloudentity.com,OU=Authorization,O=Cloudentity,L=Seattle,ST=Washinghton,C=US
   tls_client_certificate_bound_access_tokens: true
   token_endpoint_auth_method: tls_client_auth
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - bukj5p6k7qdmm5ppbi4g
   authorization_server_id: openbanking
   client_id: bukj5p6k7qdmm5ppbi4g
@@ -1075,6 +1315,7 @@ clients:
   description: bank resource server app used in to introspect tokens
   grant_types:
   - client_credentials
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1088,12 +1329,98 @@ clients:
   - revoke_tokens
   subject_type: pairwise
   tenant_id: default
-  tls_client_auth_subject_dn: cid2.authorization.cloudentity.com
+  tls_client_auth_subject_dn: CN=cid2.authorization.cloudentity.com,OU=Authorization,O=Cloudentity,L=Seattle,ST=Washinghton,C=US
   tls_client_certificate_bound_access_tokens: true
   token_endpoint_auth_method: tls_client_auth
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
+  - bv0nab0mekk67nekvq7g
+  authorization_server_id: bank-customers
+  client_id: bv0nab0mekk67nekvq7g
+  client_id_issued_at: 1606513964
+  client_name: Consent self service
+  client_secret: 5j1RFwfeLQRci7jaouPr-O5qejBWql7waFkfR_x7H6A
+  grant_types:
+  - authorization_code
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  redirect_uris:
+  - http://localhost:8085/callback
+  - http://localhost:3000/callback
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - code
+  - token
+  scopes:
+  - email
+  - introspect_tokens
+  - openid
+  - profile
+  - revoke_tokens
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: none
+  token_endpoint_auth_signing_alg: none
+  trusted: true
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
+  - bv0ocudfotn6edhsiu7g
+  authorization_server_id: system
+  client_id: bv0ocudfotn6edhsiu7g
+  client_id_issued_at: 1606518393
+  client_name: custom server consent
+  client_secret: pMPBmv62z3Jt1S4sWl2qRhOhEGPVZ9EcujGL7Xy0-E0
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - code
+  scopes:
+  - manage_openbanking_consents
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
+  - bv2dkff8mll9cf6pvd6g
+  authorization_server_id: bank-customers
+  client_id: bv2dkff8mll9cf6pvd6g
+  client_id_issued_at: 1606736445
+  client_name: Consent self service backend
+  client_secret: KThGH68f-gMC4cscGLFeOpIU4EYriYhKspOV9IwHbnw
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - token
+  scopes:
+  - introspect_tokens
+  - revoke_tokens
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_post
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
   - developer-developer
   authorization_server_id: developer
   client_id: developer-developer
@@ -1102,6 +1429,7 @@ clients:
   client_secret: flux99MKFQR4jz651JMv28HC68XpAgFvFV7eM2hkqMs
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1122,10 +1450,11 @@ clients:
   system: true
   tenant_id: default
   token_endpoint_auth_method: none
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   trusted: true
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - openbanking
   authorization_server_id: openbanking
   client_id: openbanking
@@ -1134,6 +1463,7 @@ clients:
   client_secret: YRd2pnXhuaXvGznhRRlN1C1zOxJESNT4kQyMNfMo6fM
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1162,10 +1492,11 @@ clients:
   system: true
   tenant_id: default
   token_endpoint_auth_method: none
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   trusted: true
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - openbanking-demo
   authorization_server_id: openbanking
   client_id: openbanking-demo
@@ -1174,6 +1505,7 @@ clients:
   client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
   grant_types:
   - authorization_code
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1199,9 +1531,10 @@ clients:
   subject_type: pairwise
   tenant_id: default
   token_endpoint_auth_method: client_secret_basic
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
-- audience:
+- application_type: web
+  audience:
   - system
   authorization_server_id: system
   client_id: system
@@ -1210,6 +1543,7 @@ clients:
   client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
   grant_types:
   - client_credentials
+  id_token_signed_response_alg: RS256
   jwks:
     keys: []
   privacy: {}
@@ -1221,7 +1555,7 @@ clients:
   system: true
   tenant_id: system
   token_endpoint_auth_method: client_secret_basic
-  token_endpoint_signing_alg: none
+  token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
 idps:
 - authorization_server_id: openbanking
@@ -1243,6 +1577,44 @@ idps:
         password: user
         username: user
   id: bugkgai3g9kregtu04u0
+  mappings:
+  - source: .
+    target: .
+    type: any
+  method: static
+  name: test
+  settings:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta: {}
+    saml: {}
+    static: {}
+  tenant_id: default
+  transformer: {}
+- authorization_server_id: bank-customers
+  credentials:
+    azure: {}
+    azureb2c: {}
+    cognito: {}
+    custom: {}
+    github: {}
+    intelli_trust: {}
+    oidc: {}
+    okta:
+      supervisor_client: {}
+    saml: {}
+    static:
+      users:
+      - authentication_context:
+          name: user
+        password: user
+        username: user
+  id: bv0na7omekk67nekvq5g
   mappings:
   - source: .
     target: .
@@ -1379,6 +1751,46 @@ policies:
   type: user
   validators:
   - name: "false"
+- id: block_bank-customers_api
+  language: cloudentity
+  policy_name: Block API
+  server_id: bank-customers
+  tenant_id: default
+  type: api
+  validators:
+  - name: "false"
+- id: block_bank-customers_dcr
+  language: cloudentity
+  policy_name: Block DCR
+  server_id: bank-customers
+  tenant_id: default
+  type: dcr
+  validators:
+  - name: "false"
+- id: block_bank-customers_developer
+  language: cloudentity
+  policy_name: Block Developer
+  server_id: bank-customers
+  tenant_id: default
+  type: developer
+  validators:
+  - name: "false"
+- id: block_bank-customers_machine
+  language: cloudentity
+  policy_name: Block Machine
+  server_id: bank-customers
+  tenant_id: default
+  type: machine
+  validators:
+  - name: "false"
+- id: block_bank-customers_user
+  language: cloudentity
+  policy_name: Block User
+  server_id: bank-customers
+  tenant_id: default
+  type: user
+  validators:
+  - name: "false"
 - id: block_developer_api
   language: cloudentity
   policy_name: Block API
@@ -1479,7 +1891,7 @@ policies:
   language: cloudentity
   policy_name: Block DCR
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: dcr
   validators:
   - name: "false"
@@ -1487,7 +1899,7 @@ policies:
   language: cloudentity
   policy_name: Block DCR
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: dcr
   validators:
   - name: "false"
@@ -1495,7 +1907,7 @@ policies:
   language: cloudentity
   policy_name: Block Developer
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: developer
   validators:
   - name: "false"
@@ -1503,7 +1915,7 @@ policies:
   language: cloudentity
   policy_name: Block Developer
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: developer
   validators:
   - name: "false"
@@ -1527,7 +1939,7 @@ policies:
   language: cloudentity
   policy_name: Block User
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: user
   validators:
   - name: "false"
@@ -1535,7 +1947,7 @@ policies:
   language: cloudentity
   policy_name: Block User
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: user
   validators:
   - name: "false"
@@ -1557,6 +1969,34 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-1 User
   server_id: admin
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_bank-customers_api
+  language: cloudentity
+  policy_name: NIST-AAL-1 API
+  server_id: bank-customers
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - pwd
+    name: identity-context
+- id: nist-aal-1_bank-customers_user
+  language: cloudentity
+  policy_name: NIST-AAL-1 User
+  server_id: bank-customers
   tenant_id: default
   type: user
   validators:
@@ -1627,7 +2067,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-1 API
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: api
   validators:
   - conf:
@@ -1641,7 +2081,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-1 API
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: api
   validators:
   - conf:
@@ -1698,6 +2138,36 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-2 User
   server_id: admin
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_bank-customers_api
+  language: cloudentity
+  policy_name: NIST-AAL-2 API
+  server_id: bank-customers
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+    name: identity-context
+- id: nist-aal-2_bank-customers_user
+  language: cloudentity
+  policy_name: NIST-AAL-2 User
+  server_id: bank-customers
   tenant_id: default
   type: user
   validators:
@@ -1803,7 +2273,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-2 User
   server_id: system
-  tenant_id: default
+  tenant_id: system
   type: user
   validators:
   - conf:
@@ -1818,7 +2288,7 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-2 User
   server_id: system
-  tenant_id: system
+  tenant_id: default
   type: user
   validators:
   - conf:
@@ -1855,6 +2325,50 @@ policies:
   language: cloudentity
   policy_name: NIST-AAL-3 User
   server_id: admin
+  tenant_id: default
+  type: user
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_bank-customers_api
+  language: cloudentity
+  policy_name: NIST-AAL-3 API
+  server_id: bank-customers
+  tenant_id: default
+  type: api
+  validators:
+  - conf:
+      fields:
+      - comparator: contains_all
+        field: amr
+        value:
+        - mfa
+        - pwd
+      - comparator: contains_any
+        field: amr
+        value:
+        - face
+        - retina
+        - sc
+        - vbm
+    name: identity-context
+- id: nist-aal-3_bank-customers_user
+  language: cloudentity
+  policy_name: NIST-AAL-3 User
+  server_id: bank-customers
   tenant_id: default
   type: user
   validators:
@@ -2120,6 +2634,84 @@ policy_execution_points:
   target_fk: bube15t8739jub0p4gcg
   tenant_id: default
   type: scope_dynamic_client_registration
+- policy_id: block_bank-customers_developer
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq1g
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_bank-customers_dcr
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq1g
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_bank-customers_developer
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq20
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_bank-customers_dcr
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq20
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_bank-customers_developer
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq30
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_bank-customers_dcr
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq30
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_bank-customers_developer
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq3g
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_bank-customers_dcr
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq3g
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_bank-customers_developer
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq40
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_bank-customers_dcr
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq40
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_bank-customers_developer
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq4g
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_bank-customers_dcr
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq4g
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- policy_id: block_bank-customers_developer
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq50
+  tenant_id: default
+  type: scope_client_assignment
+- policy_id: block_bank-customers_dcr
+  server_id: bank-customers
+  target_fk: bv0na68mekk67nekvq50
+  tenant_id: default
+  type: scope_dynamic_client_registration
+- server_id: bank-customers
+  target_fk: bv0nab0mekk67nekvq7g
+  tenant_id: default
+  type: client_machine_token
+- server_id: bank-customers
+  target_fk: bv0nab0mekk67nekvq7g
+  tenant_id: default
+  type: client_user_token
 - policy_id: block_developer_developer
   server_id: developer
   target_fk: bube15t8739jub0p4gt0
@@ -2553,6 +3145,19 @@ scope_grants:
   server_id: openbanking
   subject: user
   tenant_id: default
+server_consents:
+- custom: {}
+  oidc: {}
+  server_id: bank-customers
+  tenant_id: default
+  type: oidc
+- client_id: bv0ocudfotn6edhsiu7g
+  custom:
+    server_consent_url: http://localhost:8080
+  oidc: {}
+  server_id: openbanking
+  tenant_id: default
+  type: custom
 servers:
 - access_token_strategy: jwt
   access_token_ttl: 1h0m0s
@@ -2587,10 +3192,6 @@ servers:
   name: Admin
   profile: default
   refresh_token_ttl: 720h0m0s
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: uNbJLd3sREiOAnM2UOJD34HY85OFT5K7RQN3_v4p-qo
   subject_identifier_algorithm_salt: bTreL3Qxj4ZHI6i5Sx7bXvbeSSiNwqlhpdZ1YBCgQqU
   subject_identifier_types:
@@ -2606,6 +3207,57 @@ servers:
   - tls_client_auth
   - none
   type: admin
+- access_token_strategy: jwt
+  access_token_ttl: 1h0m0s
+  authorization_code_ttl: 10m0s
+  color: '#C4C4C4'
+  cookie_max_age: 1h0m0s
+  dynamic_client_registration:
+    initial_access_token: {}
+    software_statement:
+      jwks:
+        keys: null
+  grant_types:
+  - authorization_code
+  - implicit
+  - client_credentials
+  - refresh_token
+  id: bank-customers
+  id_token_ttl: 1h0m0s
+  issuer_url: https://localhost:8443/default/bank-customers
+  jwks:
+    keys:
+    - alg: ES256
+      crv: P-256
+      d: r7o6NAEZirX6f-bKU_vAYctKV7i2iKhFVPVpxpeuws8
+      kid: "245473820095557679938505935102608207053"
+      kty: EC
+      use: sig
+      x: A_u5jPEON7J9IBPgRULfC0GY6gW1s1gVjDgM_bThWgA
+      x5c:
+      - MIIBxDCCAWqgAwIBAgIRALisib7btx27fMzBIMok7M0wCgYIKoZIzj0EAwIwLDEUMBIGA1UEChMLQ2xvdWRlbnRpdHkxFDASBgNVBAMTC0Nsb3VkZW50aXR5MB4XDTIwMTEyNzIxNTIyNVoXDTIwMTIyODIxNTIyNVowLDEUMBIGA1UEChMLQ2xvdWRlbnRpdHkxFDASBgNVBAMTC0Nsb3VkZW50aXR5MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEA/u5jPEON7J9IBPgRULfC0GY6gW1s1gVjDgM/bThWgALRSr3ejuuW7nh7XJ1N6vJFS49m2i1D2ogfgs2/Mc9BaNtMGswDgYDVR0PAQH/BAQDAgKkMBMGA1UdJQQMMAoGCCsGAQUFBwMBMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFLjB7aHNOeaqH9vncw4ZSfOhOYYBMBQGA1UdEQQNMAuCCWxvY2FsaG9zdDAKBggqhkjOPQQDAgNIADBFAiEA2EstoDVXqH8w9yYcfLF9Knpi4D8SnkwhwePS5lOrMAkCICpQ7xzV80xsfxy2FOvsGcGw/FsI5ys+VEoBaC6QBHXc
+      x5t: 4HeWfUFn4DRFH0JGsLAfOUH5Jjc
+      x5t#S256: -QMI8kqGYOFW_SKrpWQLl7p0LYpd41O9UXMA5T3dLAk
+      "y": C0Uq93o7rlu54e1ydTeryRUuPZtotQ9qIH4LNvzHPQU
+  key_type: ecdsa
+  name: bank-customers
+  profile: default
+  refresh_token_ttl: 720h0m0s
+  secret: MX2sNhfVkASo7RsIkGEe4el6xDohYU4vSs_t9jckCnk
+  subject_identifier_algorithm_salt: 9TGAp9QL-s6es_nXwK3nvEY9Csjj1DRkiSh3hkyUNKk
+  subject_identifier_types:
+  - public
+  - pairwise
+  tenant_id: default
+  token_endpoint_authn_methods:
+  - client_secret_basic
+  - client_secret_post
+  - client_secret_jwt
+  - private_key_jwt
+  - self_signed_tls_client_auth
+  - tls_client_auth
+  - none
+  type: regular
 - access_token_strategy: jwt
   access_token_ttl: 1h0m0s
   authorization_code_ttl: 10m0s
@@ -2639,10 +3291,6 @@ servers:
   name: Developer
   profile: default
   refresh_token_ttl: 720h0m0s
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: qr3vYt3lVNHw42wkuYAK2PYRou_k60tVsN2NMmOlBAI
   subject_identifier_algorithm_salt: QopSJQZe1-PuUPrHCiRr0g6sIzjXQgrh6QwC8RGQovY
   subject_identifier_types:
@@ -2717,11 +3365,6 @@ servers:
     dmYY2gZKjhM/+6d07eCfhHvCdSTyqP8/5s8z8YTlyMM6tQs2nUZKIS8UmAw919QH
     uPvsY1RKD0+ullEX65YLpfdEfTb6klv424GtRMFyP0omRQ==
     -----END CERTIFICATE-----
-  scope_grant_method:
-    OIDC: {}
-    custom:
-      scope_grant_url: http://localhost:8080
-    method: custom
   secret: mEPU_dqAKxKZ3Yt4kdEjFe2HEBcdFHc2majkvPgq-50
   subject_identifier_algorithm_salt: NCb8R3X-LM8ICq_QXtgbroDoBbomb6T1YqZ2HWuhw7c
   subject_identifier_types:
@@ -2785,10 +3428,6 @@ servers:
     dmYY2gZKjhM/+6d07eCfhHvCdSTyqP8/5s8z8YTlyMM6tQs2nUZKIS8UmAw919QH
     uPvsY1RKD0+ullEX65YLpfdEfTb6klv424GtRMFyP0omRQ==
     -----END CERTIFICATE-----
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: 6Kz4iMgGQLCcKK9p30AbIPsZl5QX_Dh_f8syrceLp6I
   subject_identifier_algorithm_salt: TXrrBgQgAk2exlQs-wHLIuRaIzWqjJDLjGuNItH60B8
   subject_identifier_types:
@@ -2837,10 +3476,6 @@ servers:
   name: System
   profile: default
   refresh_token_ttl: 720h0m0s
-  scope_grant_method:
-    OIDC: {}
-    custom: {}
-    method: oidc
   secret: TkDsdkrxV_oIFfP-MXAitsyxyL5_gPLSWuJjW4qQOHU
   subject_identifier_algorithm_salt: pje-WVsdzxIafWIA5ru20RbYrUu4trzS6UlEJrUHr98
   subject_identifier_types:
@@ -3390,6 +4025,105 @@ services:
     id: bui20p1jkpv9e38d5jlg
     name: manage_openbanking_consents
     tenant_id: default
+  tenant_id: default
+- audience: spiffe://localhost/default/bank-customers/bv0na68mekk67nekvptg
+  authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvptg
+  name: Profile
+  scopes:
+  - authorization_server_id: bank-customers
+    description: This scope value requests access to the email and email_verified claims.
+    display_name: Email
+    id: bv0na68mekk67nekvpu0
+    name: email
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    display_name: Phone
+    id: bv0na68mekk67nekvpug
+    name: phone
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: This scope value requests access to the address claim.
+    display_name: Address
+    id: bv0na68mekk67nekvpv0
+    name: address
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    display_name: Profile
+    id: bv0na68mekk67nekvpvg
+    name: profile
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    display_name: OpenID
+    id: bv0na68mekk67nekvq00
+    name: openid
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: This scope value requests offline access using refresh token.
+    display_name: Offline access
+    id: bv0na68mekk67nekvq0g
+    name: offline_access
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/bank-customers/bv0na68mekk67nekvq10
+  authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvq10
+  name: User Privacy & Consent
+  scopes:
+  - authorization_server_id: bank-customers
+    description: Allows to view user consents
+    display_name: View consents
+    id: bv0na68mekk67nekvq1g
+    name: view_consents
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: Allows to grant and revoke user consents
+    display_name: Manage consents
+    id: bv0na68mekk67nekvq20
+    name: manage_consents
+    tenant_id: default
+  system: true
+  tenant_id: default
+- audience: spiffe://localhost/default/bank-customers/bv0na68mekk67nekvq2g
+  authorization_server_id: bank-customers
+  id: bv0na68mekk67nekvq2g
+  name: OAuth2
+  scopes:
+  - authorization_server_id: bank-customers
+    description: Allows to introspect tokens
+    display_name: Introspect tokens
+    id: bv0na68mekk67nekvq30
+    name: introspect_tokens
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: Allows to revoke tokens
+    display_name: Revoke tokens
+    id: bv0na68mekk67nekvq3g
+    name: revoke_tokens
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: Allows to list clients that user granted access
+    display_name: List clients with access
+    id: bv0na68mekk67nekvq40
+    name: list_clients_with_access
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: Allows to revoke client access granted by user and remove all tokens
+    display_name: Revoke client access
+    id: bv0na68mekk67nekvq4g
+    name: revoke_client_access
+    tenant_id: default
+  - authorization_server_id: bank-customers
+    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    display_name: Use Dynamic Client Registration
+    id: bv0na68mekk67nekvq50
+    name: dcr_register
+    tenant_id: default
+  system: true
   tenant_id: default
 tenants:
 - authentication_context_settings:

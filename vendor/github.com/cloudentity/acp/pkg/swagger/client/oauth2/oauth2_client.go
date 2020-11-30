@@ -39,8 +39,6 @@ type ClientService interface {
 
 	GatewayIntrospect(params *GatewayIntrospectParams, authInfo runtime.ClientAuthInfoWriter) (*GatewayIntrospectOK, error)
 
-	GlobalIntrospect(params *GlobalIntrospectParams, authInfo runtime.ClientAuthInfoWriter) (*GlobalIntrospectOK, error)
-
 	Introspect(params *IntrospectParams, authInfo runtime.ClientAuthInfoWriter) (*IntrospectOK, error)
 
 	Jwks(params *JwksParams) (*JwksOK, error)
@@ -258,43 +256,6 @@ func (a *Client) GatewayIntrospect(params *GatewayIntrospectParams, authInfo run
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for gatewayIntrospect: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GlobalIntrospect introspects access token endpoint
-
-  This can be used to introspect token for any server.
-*/
-func (a *Client) GlobalIntrospect(params *GlobalIntrospectParams, authInfo runtime.ClientAuthInfoWriter) (*GlobalIntrospectOK, error) {
-	// : Validate the params before sending
-	if params == nil {
-		params = NewGlobalIntrospectParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "globalIntrospect",
-		Method:             "POST",
-		PathPattern:        "/api/system/introspect",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GlobalIntrospectReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GlobalIntrospectOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for globalIntrospect: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
