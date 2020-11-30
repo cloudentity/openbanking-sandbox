@@ -126,7 +126,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                                         </div>
                                     )}
                                     {consents.map(consent => (
-                                        <Accordion key={consent.id}>
+                                        <Accordion key={consent.id} elevation={3}>
                                             <AccordionSummary
                                                 classes={{expandIcon: classes.expandIcon}}
                                                 expandIcon={<Avatar><ExpandMoreIcon/></Avatar>}
