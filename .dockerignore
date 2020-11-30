@@ -1,2 +1,2 @@
-consent-self-service/web/app/build
-consent-self-service/web/app/node_modules
+**/node_modules
+**/build
