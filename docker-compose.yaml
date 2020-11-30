@@ -102,9 +102,9 @@ services:
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
       - LOGIN_AUTHORIZATION_SERVER_URL=https://localhost:8443
-      - LOGIN_AUTHORIZATION_SERVER_ID=bank-customers
+      - LOGIN_AUTHORIZATION_SERVER_ID=bank-admins
       - LOGIN_TENANT_ID=default
-      - LOGIN_CLIENT_ID=bv0nab0mekk67nekvq7g
+      - LOGIN_CLIENT_ID=bv2f80aed9c9is80f2d0
       - INTROSPECT_CLIENT_ID=bv2dkff8mll9cf6pvd6g
       - INTROSPECT_CLIENT_SECRET=KThGH68f-gMC4cscGLFeOpIU4EYriYhKspOV9IwHbnw
       - INTROSPECT_TOKEN_URL=https://acp:8443/default/bank-customers/oauth2/token
