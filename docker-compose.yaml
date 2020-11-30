@@ -76,8 +76,8 @@ services:
       - LOGIN_AUTHORIZATION_SERVER_ID=bank-customers
       - LOGIN_TENANT_ID=default
       - LOGIN_CLIENT_ID=bv0nab0mekk67nekvq7g
-      - INTROSPECT_CLIENT_ID=bv2d5pch914vii8nm8ng
-      - INTROSPECT_CLIENT_SECRET=PS5mdxJ8p9gEcpL67nIyXwZXRjXMrvluVW7SOv7lc4o
+      - INTROSPECT_CLIENT_ID=bv2dkff8mll9cf6pvd6g
+      - INTROSPECT_CLIENT_SECRET=KThGH68f-gMC4cscGLFeOpIU4EYriYhKspOV9IwHbnw
       - INTROSPECT_TOKEN_URL=https://acp:8443/default/bank-customers/oauth2/token
 
   bank:

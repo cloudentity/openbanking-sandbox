@@ -1395,6 +1395,32 @@ clients:
   userinfo_signed_response_alg: none
 - application_type: web
   audience:
+  - bv2dkff8mll9cf6pvd6g
+  authorization_server_id: bank-customers
+  client_id: bv2dkff8mll9cf6pvd6g
+  client_id_issued_at: 1606736445
+  client_name: Consent self service backend
+  client_secret: KThGH68f-gMC4cscGLFeOpIU4EYriYhKspOV9IwHbnw
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - token
+  scopes:
+  - introspect_tokens
+  - revoke_tokens
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_post
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
   - developer-developer
   authorization_server_id: developer
   client_id: developer-developer
