@@ -13,8 +13,10 @@ import (
 )
 
 type Config struct {
-	ClientID                    string        `env:"CLIENT_ID,required"`
-	TokenURL                    *url.URL      `env:"TOKEN_URL,required"`
+	SystemClientID              string        `env:"SYSTEM_CLIENT_ID,required"`
+	SystemClientSecret          string        `env:"SYSTEM_CLIENT_SECRET,required"`
+	SystemTokenURL              *url.URL      `env:"SYSTEM_TOKEN_URL,required"`
+	SystemClientsServerID       string        `env:"SYSTEM_CLIENTS_SERVER_ID,required"`
 	Timeout                     time.Duration `env:"TIMEOUT" envDefault:"5s"`
 	RootCA                      string        `env:"ROOT_CA"`
 	CertFile                    string        `env:"CERT_FILE,required"`
@@ -82,7 +84,7 @@ func (s *Server) Start() error {
 	r.GET("/", s.Index())
 
 	r.GET("/clients", s.ListClients())
-	// r.DELETE("/consents/:id", s.RevokeConsent())
+	r.DELETE("/consents/:id", s.RevokeConsent())
 
 	if config, err = LoadConfig(); err != nil {
 		return errors.Wrapf(err, "failed to load config")

@@ -1657,7 +1657,7 @@ clients:
   authorization_server_id: bank-admins
   client_id: bv2f80aed9c9is80f2d0
   client_id_issued_at: 1606743041
-  client_name: Bank admin
+  client_name: Consent admin web app
   client_secret: zE8acaD6__5VACBk8PUk-QU6_kBKSZGAXHgNfrzubOk
   grant_types:
   - authorization_code
@@ -1680,6 +1680,59 @@ clients:
   subject_type: public
   tenant_id: default
   token_endpoint_auth_method: none
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
+  - bv2fddlpfc67lmeti32g
+  authorization_server_id: bank-admins
+  client_id: bv2fddlpfc67lmeti32g
+  client_id_issued_at: 1606743734
+  client_name: Consent admin backend
+  client_secret: RkAIOVRlP6ZLhDvYixT1wBb8DG3bVkXAouoIrX7cwzA
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - token
+  scopes:
+  - introspect_tokens
+  - revoke_tokens
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_post
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
+  - bv2fe0tpfc67lmeti340
+  authorization_server_id: system
+  client_id: bv2fe0tpfc67lmeti340
+  client_id_issued_at: 1606743811
+  client_name: consent admin
+  client_secret: v6yYaApda9juR_DrlI5mpdsdm9u2-D0rQIG9ynakyDE
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: RS256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: none
+  response_types:
+  - token
+  scopes:
+  - introspect_tokens
+  - manage_openbanking_consents
+  - revoke_tokens
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_post
   token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
 - application_type: web

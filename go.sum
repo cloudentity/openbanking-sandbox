@@ -119,6 +119,10 @@ github.com/clbanning/x2j v0.0.0-20191024224557-825249438eec/go.mod h1:jMjuTZXRI4
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cloudentity/acp v1.4.1-0.20201130124905-79384bdca109 h1:mYavruThXy+Sg7K/eIZ+JgUIPV9S8gQ78W78qE45y/M=
 github.com/cloudentity/acp v1.4.1-0.20201130124905-79384bdca109/go.mod h1:mVi/++7yMsirNg0R4E6cq8QBtrh5ouhLTK6z61I1juk=
+github.com/cloudentity/acp v1.4.1-0.20201130141654-31b2526133dc h1:ZqRKcTzWy3BVQYDWvXoAXH7kjaSLdRZ/ARYsz+n/uxE=
+github.com/cloudentity/acp v1.4.1-0.20201130141654-31b2526133dc/go.mod h1:mVi/++7yMsirNg0R4E6cq8QBtrh5ouhLTK6z61I1juk=
+github.com/cloudentity/acp v1.4.1-0.20201130142953-a3aacb0f1a13 h1:r/qkuadKdivE+SFkQMtDXlVEnnvrBTMxy1tlyNYMJpo=
+github.com/cloudentity/acp v1.4.1-0.20201130142953-a3aacb0f1a13/go.mod h1:mVi/++7yMsirNg0R4E6cq8QBtrh5ouhLTK6z61I1juk=
 github.com/cloudentity/authorization-engine v0.0.0-20201124123519-c9edeabb82c2/go.mod h1:+qCc0ySCB+VyyuudEjbP+S34FAl86zvCIS06ABeV16w=
 github.com/cloudentity/encoding v0.1.16-0.20200908094608-4338b021f9ee/go.mod h1:kxyj1UkczV6nsq6zxZQbqf0rKtH1r2CNyfaMqI+GmQ0=
 github.com/cloudentity/go-tools v1.2.1-0.20201124123510-68fcb5a7ac3e/go.mod h1:cka1ILBCIWSuEPg/NtfO/CrSOQPjHe7XUX4iDUP1kXQ=
