@@ -50,7 +50,7 @@ export default ({clients, onRevokeClient, onRevokeConsent}) => {
                                             display={'block'}>Client
                                     ID: <strong>{client.client_id}</strong></Typography>
                             </div>
-                            <Button onClick={onRevokeClient(client.client_id)} variant={'outlined'}>Revoke all client consents</Button>
+                            {client.consents.length > 0 && <Button onClick={onRevokeClient(client.client_id)} variant={'outlined'}>Revoke all client consents</Button>}
                         </div>
                         <div style={{}}>
                             {client.consents.map(consent => (

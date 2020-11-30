@@ -20,6 +20,11 @@ export const clientMockRes = {
                     "permissions": ["aaaa11111", "bbbb22222", "cccc3333"]
                 }
             ]
+        },
+        {
+            "client_id": "456",
+            "client_name": "dupa",
+            "consents": []
         }
     ]
 }
