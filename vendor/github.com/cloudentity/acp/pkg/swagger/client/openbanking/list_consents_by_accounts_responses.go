@@ -60,23 +60,23 @@ func NewListConsentsByAccountsOK() *ListConsentsByAccountsOK {
 
 /*ListConsentsByAccountsOK handles this case with default header values.
 
-ListConsentsByAccountsResponse
+ListAccountAccessConsentsWithClient
 */
 type ListConsentsByAccountsOK struct {
-	Payload *models.ListConsentsByAccountsResponse
+	Payload *models.ListAccountAccessConsentsWithClient
 }
 
 func (o *ListConsentsByAccountsOK) Error() string {
 	return fmt.Sprintf("[POST /api/system/{tid}/open-banking/consents][%d] listConsentsByAccountsOK  %+v", 200, o.Payload)
 }
 
-func (o *ListConsentsByAccountsOK) GetPayload() *models.ListConsentsByAccountsResponse {
+func (o *ListConsentsByAccountsOK) GetPayload() *models.ListAccountAccessConsentsWithClient {
 	return o.Payload
 }
 
 func (o *ListConsentsByAccountsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.ListConsentsByAccountsResponse)
+	o.Payload = new(models.ListAccountAccessConsentsWithClient)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

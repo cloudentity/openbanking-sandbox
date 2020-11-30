@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/cloudentity/acp/pkg/swagger/models"
+	"github.com/sirupsen/logrus"
 )
 
 func (s *Server) Index() func(*gin.Context) {
@@ -16,53 +17,44 @@ func (s *Server) Index() func(*gin.Context) {
 	}
 }
 
-func (s *Server) ListConsents() func(*gin.Context) {
+func (s *Server) ListClients() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			consentsByAccounts *models.ListConsentsByAccountsResponse
-			err                error
+			clients *models.Clients
+			err     error
 		)
 
-		if consentsByAccounts, err = s.FetchAccounts(c); err != nil {
+		if clients, err = s.FetchClients(c); err != nil {
 			c.String(http.StatusBadRequest, err.Error())
 			return
 		}
 
-		c.JSON(http.StatusOK, &consentsByAccounts)
+		c.JSON(http.StatusOK, &clients)
 	}
 }
 
-func (s *Server) FetchAccounts(c *gin.Context) (*models.ListConsentsByAccountsResponse, error) {
+func (s *Server) FetchClients(c *gin.Context) (*models.Clients, error) {
 	var (
-		accounts           InternalAccounts
-		consentsByAccounts *models.ListConsentsByAccountsResponse
-		at                 *models.IntrospectResponse
-		err                error
+		clients *models.Clients
+		err     error
 	)
 
 	token := c.GetHeader("Authorization")
 	token = strings.ReplaceAll(token, "Bearer ", "")
 
-	if at, err = s.IntrospectClient.IntrospectToken(token); err != nil {
+	if _, err = s.IntrospectClient.IntrospectToken(token); err != nil {
 		return nil, fmt.Errorf("failed to introspect client: %w", err)
 	}
 
-	if accounts, err = s.BankClient.GetInternalAccounts(at.Subject); err != nil {
-		return nil, fmt.Errorf("failed to get accounts from bank: %w", err)
+	if clients, err = s.Client.ListClients(); err != nil {
+		return nil, fmt.Errorf("failed to get clients from acp: %wv", err)
 	}
+	logrus.Infof("XXX clients: %+v", clients)
 
-	accountIDs := make([]string, len(accounts.Accounts))
-	for i, a := range accounts.Accounts {
-		accountIDs[i] = a.ID
-	}
-
-	if consentsByAccounts, err = s.Client.GetAccountAccessConsent(accountIDs); err != nil {
-		return nil, fmt.Errorf("failed to get account access consent from acp: %wv", err)
-	}
-
-	return consentsByAccounts, nil
+	return clients, nil
 }
 
+/*
 func (s *Server) RevokeConsent() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
@@ -96,3 +88,4 @@ func (s *Server) RevokeConsent() func(*gin.Context) {
 		c.Status(http.StatusNoContent)
 	}
 }
+*/
