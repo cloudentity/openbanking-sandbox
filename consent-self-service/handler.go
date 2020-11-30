@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 
@@ -35,12 +36,18 @@ func (s *Server) FetchAccounts(c *gin.Context) (*models.ListConsentsByAccountsRe
 	var (
 		accounts           InternalAccounts
 		consentsByAccounts *models.ListConsentsByAccountsResponse
+		at                 *models.IntrospectResponse
 		err                error
 	)
 
-	subject := "subject" // todo introspect token
+	token := c.GetHeader("Authorization")
+	token = strings.ReplaceAll(token, "Bearer ", "")
 
-	if accounts, err = s.BankClient.GetInternalAccounts(subject); err != nil {
+	if at, err = s.IntrospectClient.IntrospectToken(token); err != nil {
+		return nil, fmt.Errorf("failed to introspect client: %w", err)
+	}
+
+	if accounts, err = s.BankClient.GetInternalAccounts(at.Subject); err != nil {
 		return nil, fmt.Errorf("failed to get accounts from bank: %w", err)
 	}
 

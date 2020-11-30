@@ -18,13 +18,15 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 
 	"github.com/cloudentity/acp/pkg/swagger/client"
+	o2 "github.com/cloudentity/acp/pkg/swagger/client/oauth2"
 	"github.com/cloudentity/acp/pkg/swagger/client/openbanking"
 	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
 type AcpClient struct {
-	client *client.Web
-	tenant string
+	client           *client.Web
+	tenant           string
+	introspectServer string
 }
 
 func NewAcpClient(config Config) (AcpClient, error) {
@@ -39,6 +41,8 @@ func NewAcpClient(config Config) (AcpClient, error) {
 		return acpClient, errors.New("can't get tenant from issuer url")
 	}
 	acpClient.tenant = parts[1]
+
+	acpClient.introspectServer = config.ConsentSelfServiceAuthorizationServerID
 
 	if hc, err = newHTTPClient(config); err != nil {
 		return acpClient, err
@@ -88,6 +92,63 @@ func (a *AcpClient) RevokeAccountAccessConsent(id string) error {
 	}
 
 	return nil
+}
+
+type AcpIntrospectClient struct {
+	client *client.Web
+	tenant string
+	server string
+}
+
+func NewAcpIntrospectClient(config Config) (AcpIntrospectClient, error) {
+	var (
+		acpClient = AcpIntrospectClient{}
+		hc        *http.Client
+		err       error
+	)
+
+	parts := strings.Split(config.IntrospectTokenURL.Path, "/")
+	if len(parts) < 2 {
+		return acpClient, errors.New("can't get tenant/server from token url")
+	}
+	acpClient.tenant = parts[1]
+	acpClient.server = parts[2]
+
+	if hc, err = newHTTPClient(config); err != nil {
+		return acpClient, err
+	}
+
+	cc := clientcredentials.Config{
+		ClientID:     config.IntrospectClientID,
+		ClientSecret: config.IntrospectClientSecret,
+		Scopes:       []string{"introspect_tokens"},
+		TokenURL:     config.IntrospectTokenURL.String(),
+	}
+
+	acpClient.client = client.New(httptransport.NewWithClient(
+		config.IntrospectTokenURL.Host,
+		"/",
+		[]string{config.TokenURL.Scheme},
+		cc.Client(context.WithValue(context.Background(), oauth2.HTTPClient, hc)),
+	), nil)
+
+	return acpClient, nil
+}
+
+func (i *AcpIntrospectClient) IntrospectToken(token string) (*models.IntrospectResponse, error) {
+	var (
+		resp *o2.IntrospectOK
+		err  error
+	)
+
+	if resp, err = i.client.Oauth2.Introspect(o2.NewIntrospectParams().
+		WithTid(i.tenant).
+		WithAid(i.server).
+		WithToken(&token), nil); err != nil {
+		return nil, err
+	}
+
+	return resp.Payload, nil
 }
 
 func newHTTPClient(config Config) (*http.Client, error) {

@@ -108,6 +108,7 @@ type InternalAccount struct {
 // this API is bank specific. It should return all users's account.
 func (s *Server) InternalGetAccounts() func(*gin.Context) {
 	return func(c *gin.Context) {
+		// todo return accounts based on sub from path param
 		accounts := make([]InternalAccount, len(mockAccounts))
 
 		for i, a := range mockAccounts {
