@@ -92,6 +92,21 @@ func (a *AcpClient) RevokeConsent(id string) error {
 	return nil
 }
 
+func (a *AcpClient) ListConsentsForClient(id string) (*models.ListAccountAccessConsents, error) {
+	var (
+		resp *openbanking.ListConsentsByClientIDOK
+		err  error
+	)
+
+	if resp, err = a.client.Openbanking.ListConsentsByClientID(openbanking.NewListConsentsByClientIDParams().
+		WithTid(a.tenant).
+		WithClientID(id), nil); err != nil {
+		return nil, err
+	}
+
+	return resp.Payload, nil
+}
+
 func (a *AcpClient) RevokeConsentsForClient(id string) error {
 	var err error
 
