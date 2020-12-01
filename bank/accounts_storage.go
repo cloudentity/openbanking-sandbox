@@ -1,6 +1,13 @@
 package main
 
-import "time"
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"time"
+
+	"github.com/pkg/errors"
+)
 
 type GetAccounts struct {
 	Data  Data  `json:"Data"`
@@ -48,4 +55,51 @@ type AccountDetails struct {
 	Name string `json:"Name"`
 	// example 00021
 	SecondaryIdentification string `json:"SecondaryIdentification"`
+}
+
+type AccountsStorage struct {
+	userToAccounts map[string][]Account
+}
+
+func InitAccountsStorage() (*AccountsStorage, error) {
+	var (
+		as  = AccountsStorage{}
+		err error
+	)
+
+	if err = as.Load(); err != nil {
+		return nil, err
+	}
+
+	return &as, nil
+}
+
+func (a *AccountsStorage) Load() error {
+	var (
+		bs  []byte
+		err error
+	)
+
+	if bs, err = ioutil.ReadFile("./data/accounts.json"); err != nil {
+		return errors.Wrapf(err, "failed to read file")
+	}
+
+	if err = json.Unmarshal(bs, &a.userToAccounts); err != nil {
+		return errors.Wrapf(err, "failed to unmarshal accounts")
+	}
+
+	return nil
+}
+
+func (a *AccountsStorage) GetAccount(sub string) ([]Account, error) {
+	var (
+		accounts []Account
+		ok       bool
+	)
+
+	if accounts, ok = a.userToAccounts[sub]; !ok {
+		return accounts, fmt.Errorf("no accounts found for user: %s", sub)
+	}
+
+	return accounts, nil
 }

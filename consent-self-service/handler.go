@@ -19,7 +19,7 @@ func (s *Server) Index() func(*gin.Context) {
 func (s *Server) ListConsents() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			consentsByAccounts *models.ListConsentsByAccountsResponse
+			consentsByAccounts *models.ListAccountAccessConsentsWithClient
 			err                error
 		)
 
@@ -32,10 +32,10 @@ func (s *Server) ListConsents() func(*gin.Context) {
 	}
 }
 
-func (s *Server) FetchAccounts(c *gin.Context) (*models.ListConsentsByAccountsResponse, error) {
+func (s *Server) FetchAccounts(c *gin.Context) (*models.ListAccountAccessConsentsWithClient, error) {
 	var (
 		accounts           InternalAccounts
-		consentsByAccounts *models.ListConsentsByAccountsResponse
+		consentsByAccounts *models.ListAccountAccessConsentsWithClient
 		at                 *models.IntrospectResponse
 		err                error
 	)
@@ -67,7 +67,7 @@ func (s *Server) RevokeConsent() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
 			id                 = c.Param("id")
-			consentsByAccounts *models.ListConsentsByAccountsResponse
+			consentsByAccounts *models.ListAccountAccessConsentsWithClient
 			canBeRevoked       bool
 			err                error
 		)

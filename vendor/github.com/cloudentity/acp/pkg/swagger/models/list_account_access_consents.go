@@ -13,17 +13,17 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ListConsentsByAccountsResponse list consents by accounts response
+// ListAccountAccessConsents list account access consents
 //
-// swagger:model ListConsentsByAccountsResponse
-type ListConsentsByAccountsResponse struct {
+// swagger:model ListAccountAccessConsents
+type ListAccountAccessConsents struct {
 
 	// consents
-	Consents []*OpenbankingAccountAccessConsentWithClient `json:"consents"`
+	Consents []*OpenbankingAccountAccessConsent `json:"consents"`
 }
 
-// Validate validates this list consents by accounts response
-func (m *ListConsentsByAccountsResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this list account access consents
+func (m *ListAccountAccessConsents) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateConsents(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *ListConsentsByAccountsResponse) Validate(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *ListConsentsByAccountsResponse) validateConsents(formats strfmt.Registry) error {
+func (m *ListAccountAccessConsents) validateConsents(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Consents) { // not required
 		return nil
@@ -62,7 +62,7 @@ func (m *ListConsentsByAccountsResponse) validateConsents(formats strfmt.Registr
 }
 
 // MarshalBinary interface implementation
-func (m *ListConsentsByAccountsResponse) MarshalBinary() ([]byte, error) {
+func (m *ListAccountAccessConsents) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -70,8 +70,8 @@ func (m *ListConsentsByAccountsResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ListConsentsByAccountsResponse) UnmarshalBinary(b []byte) error {
-	var res ListConsentsByAccountsResponse
+func (m *ListAccountAccessConsents) UnmarshalBinary(b []byte) error {
+	var res ListAccountAccessConsents
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

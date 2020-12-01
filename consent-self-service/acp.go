@@ -62,7 +62,7 @@ func NewAcpClient(config Config) (AcpClient, error) {
 	return acpClient, nil
 }
 
-func (a *AcpClient) GetAccountAccessConsent(accountIDs []string) (*models.ListConsentsByAccountsResponse, error) {
+func (a *AcpClient) GetAccountAccessConsent(accountIDs []string) (*models.ListAccountAccessConsentsWithClient, error) {
 	var (
 		response *openbanking.ListConsentsByAccountsOK
 		err      error
