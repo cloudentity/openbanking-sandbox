@@ -58,6 +58,9 @@ func (s *Server) Start() error {
 	r.GET("/accounts", s.GetAccounts())
 	r.GET("/internal/accounts", s.InternalGetAccounts())
 
+	r.GET("/transactions", s.GetTransactions())
+	r.GET("/balances", s.GetBalances())
+
 	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
 }
 
