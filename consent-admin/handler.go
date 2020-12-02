@@ -3,11 +3,10 @@ package main
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"strings"
 
 	"github.com/cloudentity/acp/pkg/swagger/models"
-	"strings"
+	"github.com/gin-gonic/gin"
 )
 
 func (s *Server) Index() func(*gin.Context) {

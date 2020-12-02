@@ -1582,7 +1582,7 @@ clients:
     keys: []
   privacy: {}
   redirect_uris:
-  - http://localhost:8085/callback
+  - https://localhost:8085/callback
   - http://localhost:3000/callback
   registration_token: {}
   request_object_signing_alg: none
@@ -1668,7 +1668,7 @@ clients:
   privacy: {}
   redirect_uris:
   - http://localhost:3000/callback
-  - http://localhost:8086/callback
+  - https://localhost:8086/callback
   registration_token: {}
   request_object_signing_alg: none
   response_types:
