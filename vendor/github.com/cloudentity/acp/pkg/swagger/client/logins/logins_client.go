@@ -27,61 +27,19 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AcceptGlobalLoginRequest(params *AcceptGlobalLoginRequestParams) (*AcceptGlobalLoginRequestOK, error)
-
 	AcceptLoginRequest(params *AcceptLoginRequestParams, authInfo runtime.ClientAuthInfoWriter) (*AcceptLoginRequestOK, error)
 
 	AcceptScopeGrantRequest(params *AcceptScopeGrantRequestParams, authInfo runtime.ClientAuthInfoWriter) (*AcceptScopeGrantRequestOK, error)
 
-	GetGlobalLoginRequest(params *GetGlobalLoginRequestParams) (*GetGlobalLoginRequestOK, error)
-
 	GetLoginRequest(params *GetLoginRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetLoginRequestOK, error)
 
 	GetScopeGrantRequest(params *GetScopeGrantRequestParams, authInfo runtime.ClientAuthInfoWriter) (*GetScopeGrantRequestOK, error)
-
-	RejectGlobalLoginRequest(params *RejectGlobalLoginRequestParams) (*RejectGlobalLoginRequestOK, error)
 
 	RejectLoginRequest(params *RejectLoginRequestParams, authInfo runtime.ClientAuthInfoWriter) (*RejectLoginRequestOK, error)
 
 	RejectScopeGrantRequest(params *RejectScopeGrantRequestParams, authInfo runtime.ClientAuthInfoWriter) (*RejectScopeGrantRequestOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
-}
-
-/*
-  AcceptGlobalLoginRequest accepts login request for any server
-
-  This API can be globally used to notify ACP that user has successfully authenticated.
-*/
-func (a *Client) AcceptGlobalLoginRequest(params *AcceptGlobalLoginRequestParams) (*AcceptGlobalLoginRequestOK, error) {
-	// : Validate the params before sending
-	if params == nil {
-		params = NewAcceptGlobalLoginRequestParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "acceptGlobalLoginRequest",
-		Method:             "POST",
-		PathPattern:        "/api/system/logins/{login}/accept",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &AcceptGlobalLoginRequestReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*AcceptGlobalLoginRequestOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for acceptGlobalLoginRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
 }
 
 /*
@@ -159,42 +117,6 @@ func (a *Client) AcceptScopeGrantRequest(params *AcceptScopeGrantRequestParams, 
 }
 
 /*
-  GetGlobalLoginRequest gets login request for any server
-
-  This API can be globally used to make a decision if user should authenticate.
-*/
-func (a *Client) GetGlobalLoginRequest(params *GetGlobalLoginRequestParams) (*GetGlobalLoginRequestOK, error) {
-	// : Validate the params before sending
-	if params == nil {
-		params = NewGetGlobalLoginRequestParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "getGlobalLoginRequest",
-		Method:             "GET",
-		PathPattern:        "/api/system/logins/{login}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetGlobalLoginRequestReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetGlobalLoginRequestOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for getGlobalLoginRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   GetLoginRequest gets login request
 
   This API is used by a login page to make a decision if user should authenticate.
@@ -265,42 +187,6 @@ func (a *Client) GetScopeGrantRequest(params *GetScopeGrantRequestParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getScopeGrantRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  RejectGlobalLoginRequest rejects login request for any server
-
-  This API can be globally used to notify ACP that login has been rejected.
-*/
-func (a *Client) RejectGlobalLoginRequest(params *RejectGlobalLoginRequestParams) (*RejectGlobalLoginRequestOK, error) {
-	// : Validate the params before sending
-	if params == nil {
-		params = NewRejectGlobalLoginRequestParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "rejectGlobalLoginRequest",
-		Method:             "POST",
-		PathPattern:        "/api/system/logins/{login}/reject",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &RejectGlobalLoginRequestReader{formats: a.formats},
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*RejectGlobalLoginRequestOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for rejectGlobalLoginRequest: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

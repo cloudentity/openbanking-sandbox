@@ -5,6 +5,7 @@ build:
 .PHONY: download-deps
 download-deps:
 	go mod vendor
+	go mod tidy
 
 .PHONY: run
 run:

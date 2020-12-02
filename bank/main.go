@@ -31,8 +31,9 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
-	Config    Config
-	AcpClient AcpClient
+	Config          Config
+	AcpClient       AcpClient
+	AccountsStorage *AccountsStorage
 }
 
 func NewServer() (Server, error) {
@@ -49,14 +50,17 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
+	if server.AccountsStorage, err = InitAccountsStorage(); err != nil {
+		return server, errors.Wrapf(err, "failed to init accounts storage")
+	}
+
 	return server, nil
 }
 
 func (s *Server) Start() error {
 	r := gin.Default()
-
 	r.GET("/accounts", s.GetAccounts())
-	r.GET("/internal/accounts", s.InternalGetAccounts())
+	r.GET("/internal/accounts/:sub", s.InternalGetAccounts())
 
 	r.GET("/transactions", s.GetTransactions())
 	r.GET("/balances", s.GetBalances())

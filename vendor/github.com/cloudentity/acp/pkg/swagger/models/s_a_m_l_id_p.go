@@ -16,6 +16,9 @@ import (
 // swagger:model SAMLIDP
 type SAMLIDP struct {
 
+	// client ID
+	ClientID string `json:"client_id,omitempty"`
+
 	// disabled
 	Disabled bool `json:"disabled,omitempty"`
 
