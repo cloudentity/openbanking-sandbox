@@ -1638,45 +1638,6 @@ idps:
     static: {}
   tenant_id: default
   transformer: {}
-openbanking_consents:
-- account_access_consent:
-    AccountIDs:
-    - "22289"
-    - "31820"
-    ConsentId: bv0aem17f34eua4lhq4g
-    CreationDateTime: "2020-11-27T07:14:32.037Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsDetail
-    - ReadAccountsBasic
-    Status: Authorized
-    StatusUpdateDateTime: "2020-11-27T07:14:32.037Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: bv0aem17f34eua4lhq4g
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
-- account_access_consent:
-    AccountIDs:
-    - "22289"
-    - "31820"
-    ConsentId: bv0ag8p7f34eua4lhqa0
-    CreationDateTime: "2020-11-27T07:17:55.276Z"
-    ExpirationDateTime: "0001-01-01T00:00:00.000Z"
-    Permissions:
-    - ReadAccountsDetail
-    - ReadAccountsBasic
-    Status: Authorized
-    StatusUpdateDateTime: "2020-11-27T07:17:55.276Z"
-    TransactionFromDateTime: "0001-01-01T00:00:00.000Z"
-    TransactionToDateTime: "0001-01-01T00:00:00.000Z"
-  client_id: bugkgm23g9kregtu051g
-  consent_id: bv0ag8p7f34eua4lhqa0
-  server_id: openbanking
-  tenant_id: default
-  type: account_access
 policies:
 - id: block_admin_api
   language: cloudentity
