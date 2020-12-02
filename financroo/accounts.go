@@ -16,13 +16,17 @@ type BankAccount struct {
 func (s *Server) GetAccounts() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
 		var (
+			token        string
+			resp         *accounts.GetAccountsOK
 			accountsData []BankAccount
 			err          error
 		)
 
-		var resp *accounts.GetAccountsOK
+		if token, err = c.Cookie("token"); err != nil {
+			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to call bank get accounts: %+v", err))
+			return
+		}
 
-		token, _ := c.Cookie("token")
 		if resp, err = s.BankClient.Accounts.GetAccounts(accounts.NewGetAccountsParams().WithAuthorization(token), nil); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to call bank get accounts: %+v", err))
 			return

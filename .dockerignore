@@ -1,2 +1,2 @@
-financroo/web/app/node_modules
-financroo/web/app/build
+**/node_modules
+**/build
