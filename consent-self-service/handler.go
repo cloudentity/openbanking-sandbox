@@ -16,10 +16,29 @@ func (s *Server) Index() func(*gin.Context) {
 	}
 }
 
+type Client struct {
+	ID        string `json:"id"`
+	Name      string `json:"name"`
+	LogoURI   string `json:"logo_uri"`
+	ClientURI string `json:"client_uri"`
+}
+
+type ClientConsents struct {
+	Client
+	Consents []models.OpenbankingAccountAccessConsentWithClient `json:"consents"`
+}
+
+type ConsentsResponse struct {
+	ClientConsents []ClientConsents `json:"client_consents"`
+}
+
 func (s *Server) ListConsents() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
 			consentsByAccounts *models.ListAccountAccessConsentsWithClient
+			clientToConsents   = map[string][]models.OpenbankingAccountAccessConsentWithClient{}
+			clients            = map[string]Client{}
+			res                = []ClientConsents{}
 			err                error
 		)
 
@@ -28,7 +47,27 @@ func (s *Server) ListConsents() func(*gin.Context) {
 			return
 		}
 
-		c.JSON(http.StatusOK, &consentsByAccounts)
+		for _, c := range consentsByAccounts.Consents {
+			if _, ok := clients[c.ID]; !ok {
+				clients[c.ID] = Client{
+					ID:        c.ID,
+					Name:      c.Name,
+					LogoURI:   c.LogoURI,
+					ClientURI: c.ClientURI,
+				}
+			}
+
+			clientToConsents[c.ID] = append(clientToConsents[c.ID], *c)
+		}
+
+		for _, x := range clients {
+			res = append(res, ClientConsents{
+				Client:   x,
+				Consents: clientToConsents[x.ID],
+			})
+		}
+
+		c.JSON(http.StatusOK, &ConsentsResponse{ClientConsents: res})
 	}
 }
 

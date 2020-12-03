@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
     const [isProgress, setProgress] = useState(true);
-    const [consents, setConsents] = useState<any>([]);
+    const [clientConsents, setClientConsents] = useState<any>([]);
     const [revokeDialog, setRevokeDialog] = useState<any>(null);
     const classes = useStyles();
 
     useEffect(() => {
         setProgress(true);
         api.getConsents()
-            .then(res => setConsents(res.consents))
+            .then(res => setClientConsents(res.client_consents))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }, []);
@@ -41,7 +41,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
         setProgress(true);
         api.deleteConsent({id})
             .then(api.getConsents)
-            .then(res => setConsents(res.consents))
+            .then(res => setClientConsents(res.client_consents))
             .catch(err => console.log(err))
             .finally(() => setProgress(false));
     }
@@ -65,15 +65,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                         aria-label="menu tabs"
                         style={{height: 64}}
                     >
-                        <Tab label="Get started" value={'get-started'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
-                        <Tab label="APIs" value={'apis'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
-                        <Tab label="Help Center" value={'help-center'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
                         <Tab label="Connected Applications" value={'connected-applications'}
-                             style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
-                        <Tab label="Monitoring" value={'monitoring'}
                              style={{height: 64, textTransform: "none", minWidth: "unset"}}/>
                     </Tabs>
                 </Hidden>
@@ -87,7 +79,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
 
                 {!isProgress && (
                     <>
-                        {consents.length > 0 && (
+                        {clientConsents.length > 0 && (
                             <div style={{
                                 background: "#F7F7F7",
                                 height: 148,
@@ -102,7 +94,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                         <Container style={{marginTop: 64}}>
                             <Grid container justify={"center"}>
                                 <Grid item xs={8}>
-                                    {consents.length === 0 && (
+                                    {clientConsents.length === 0 && (
                                         <div style={{textAlign: "center", marginTop: 64}}>
                                             <Typography variant={"h3"} style={{color: "#626576"}}>No connected
                                                 accounts</Typography>
@@ -113,8 +105,8 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                                             <img src={noAccountEmptyState} style={{marginTop: 64}} alt={"empty state"}/>
                                         </div>
                                     )}
-                                    {consents.map(consent => (
-                                        <ApplicationCard consent={consent} onRevokeClick={() => setRevokeDialog(consent)} key={consent.id}/>
+                                    {clientConsents.map(clientConsent => (
+                                        <ApplicationCard client={clientConsent} onRevokeConsent={consent => setRevokeDialog(consent)} key={clientConsent.id}/>
                                     ))}
                                 </Grid>
                             </Grid>

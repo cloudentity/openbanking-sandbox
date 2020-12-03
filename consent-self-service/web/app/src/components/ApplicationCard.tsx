@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-export default function ApplicationCard({consent, onRevokeClick}) {
+export default function ApplicationCard({client, onRevokeConsent}) {
     const classes = useStyles();
 
     return (
-        <Accordion elevation={3}>
+        <Accordion elevation={3} style={{marginBottom: 24}}>
             <AccordionSummary
                 classes={{expandIcon: classes.expandIcon}}
                 expandIcon={<Avatar><ExpandMoreIcon/></Avatar>}
@@ -35,58 +35,25 @@ export default function ApplicationCard({consent, onRevokeClick}) {
                 <div>
                     <Avatar variant={"square"} style={{
                         background: "#D5E2E5",
-                        color: "#006580"
-                    }}>{consent?.name[0]?.toUpperCase()}</Avatar>
+                        color: "#006580",
+                        width: 44,
+                        height: 44
+                    }}>{client?.name[0]?.toUpperCase()}</Avatar>
                 </div>
                 <div style={{width: "100%"}}>
                     <div style={{display: "flex", alignItems: "center"}}>
-                        <Typography variant="h4"
-                                    style={{marginLeft: 24}}>{consent.name}</Typography>
-                    </div>
-                    <Divider style={{margin: "24px 0 24px 24px"}}/>
-                    <div style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginLeft: 24
-                    }}>
-                        <div>
+                        <div style={{marginLeft: 24}}>
+                            <Typography style={{color: '#C2C3C6', textTransform: 'uppercase', fontSize: 12}}>Client
+                                Name</Typography>
                             <Typography
-                                style={{color: "#626576", fontSize: 16}}><strong>Consent
-                                validation</strong></Typography>
-                            <div style={{display: "flex", marginTop: 16}}>
-                                <Typography>Granted on</Typography>
-                                <div style={{
-                                    background: "#D5E2E5",
-                                    color: "#006580",
-                                    fontSize: 12,
-                                    padding: 4,
-                                    fontWeight: 500,
-                                    marginLeft: 8
-                                }}
-                                >{consent.creation_date_time.split('T')[0]}
-                                </div>
-                                <Typography style={{marginLeft: 36}}>Valid
-                                    until</Typography>
-                                <div style={{
-                                    background: "#D5E2E5",
-                                    color: "#006580",
-                                    fontSize: 12,
-                                    padding: 4,
-                                    fontWeight: 500,
-                                    marginLeft: 8
-                                }}
-                                >{consent.expiration_date_time.split('T')[0]}
-                                </div>
-                            </div>
+                                style={{fontSize: 16, marginTop: 4}}><strong>{client.name}</strong></Typography>
                         </div>
-                        <Button
-                            style={{color: "#DC1B37", textTransform: 'none'}}
-                            onClick={e => {
-                                e.stopPropagation();
-                                onRevokeClick(consent);
-                            }}
-                        >Revoke Access
-                        </Button>
+                    </div>
+                    <div style={{marginLeft: 24, marginTop: 24}}>
+                        <Typography style={{color: '#C2C3C6', textTransform: 'uppercase', fontSize: 12}}>Client
+                            ID</Typography>
+                        <Typography
+                            style={{fontSize: 16, marginTop: 4}}><strong>{client.id}</strong></Typography>
                     </div>
                     <div style={{marginLeft: 24, marginTop: 32}}>
                         <Button
@@ -95,7 +62,7 @@ export default function ApplicationCard({consent, onRevokeClick}) {
                             style={{textTransform: 'none'}}
                             onClick={e => {
                                 e.stopPropagation();
-                                window.open(consent.client_uri, "_blank")
+                                window.open(client?.client_uri, "_blank")
                             }
                             }>View
                             information</Button>
@@ -107,32 +74,32 @@ export default function ApplicationCard({consent, onRevokeClick}) {
                 background: "#F4F7F8",
                 padding: 0
             }}>
-                {consent.account_ids.map(accountId => (
+                {client.consents?.map(consent => (
                     <div style={{paddingBottom: 32, borderLeft: "6px solid #006580",}}
-                         key={accountId}>
+                         key={consent.consent_id}>
                         <div style={{
-                            background: "#D3E5EA",
-                            height: 72,
+                            background: "#E4EEF0",
                             color: "#006580",
-                            paddingLeft: 88,
-                            display: "flex",
-                            alignItems: "center",
-                            textTransform: 'uppercase'
+                            padding: '24px 0 24px 88px',
                         }}>
-                            <Typography>
-                                <strong>Account ID: {accountId}</strong>
+                            <Typography display={'block'}>
+                                Consent ID: <strong>{consent.consent_id}</strong>
+                            </Typography>
+                            <Typography display={'block'} style={{marginTop: 16}}>
+                                Granted on: <strong>{consent.creation_date_time?.split('T')[0]}</strong>
+                            </Typography>
+                            <Typography display={'block'} style={{marginTop: 16}}>
+                                Account ID: <strong>{consent.account_ids?.join(', ')}</strong>
                             </Typography>
                         </div>
                         <div style={{paddingLeft: 88, color: "#006580"}}>
                             <Typography style={{
                                 marginTop: 24,
-                                borderBottom: "1px solid #ECECEC",
-                                paddingBottom: 16,
-                                marginBottom: 24,
                                 textTransform: 'uppercase'
                             }}><strong>Granted permissions:</strong></Typography>
+                            <Divider style={{margin: "24px 0"}}/>
                             <Grid container spacing={3}>
-                                {consent.permissions.map(permission => (
+                                {consent.permissions?.map(permission => (
                                     <>
                                         <Grid item xs={4}
                                               style={{
@@ -152,6 +119,9 @@ export default function ApplicationCard({consent, onRevokeClick}) {
                                     </>
                                 ))}
                             </Grid>
+                            <Divider style={{margin: "24px 0"}}/>
+                            <Button variant={'outlined'} color={'primary'}
+                                    onClick={() => onRevokeConsent(consent)}>Revoke Access</Button>
                         </div>
                     </div>
                 ))}
