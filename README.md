@@ -56,13 +56,13 @@ Use one of the following users to log in:
 Consent self service (use the same credentials as for TPP):
 
 ```
-http://localhost:8085
+https://localhost:8085
 ```
 
 Consent admin (credentials: `admin / p@ssw0rd!`):
 
 ```
-http://localhost:8086
+https://localhost:8086
 ```
 
 If you would like to access ACP's admin portal (credentials: `admin / p@ssw0rd!`) use:

@@ -41,6 +41,7 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
+	Config           Config
 	Client           AcpClient
 	IntrospectClient AcpIntrospectClient
 	BankClient       BankClient
@@ -48,34 +49,28 @@ type Server struct {
 
 func NewServer() (Server, error) {
 	var (
-		config Config
 		server = Server{}
 		err    error
 	)
 
-	if config, err = LoadConfig(); err != nil {
+	if server.Config, err = LoadConfig(); err != nil {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
 
-	if server.Client, err = NewAcpClient(config); err != nil {
+	if server.Client, err = NewAcpClient(server.Config); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
-	if server.IntrospectClient, err = NewAcpIntrospectClient(config); err != nil {
+	if server.IntrospectClient, err = NewAcpIntrospectClient(server.Config); err != nil {
 		return server, errors.Wrapf(err, "failed to init introspect acp client")
 	}
 
-	server.BankClient = NewBankClient(config)
+	server.BankClient = NewBankClient(server.Config)
 
 	return server, nil
 }
 
 func (s *Server) Start() error {
-	var (
-		config Config
-		err    error
-	)
-
 	r := gin.Default()
 
 	r.LoadHTMLGlob("web/app/build/index.html")
@@ -87,16 +82,12 @@ func (s *Server) Start() error {
 	r.DELETE("/consents/:id", s.RevokeConsent())
 	r.DELETE("/clients/:id", s.RevokeConsentsForClient())
 
-	if config, err = LoadConfig(); err != nil {
-		return errors.Wrapf(err, "failed to load config")
-	}
-
 	r.GET("/config.json", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": config.LoginAuthorizationServerURL,
-			"clientId":               config.LoginClientID,
-			"authorizationServerId":  config.LoginAuthorizationServerID,
-			"tenantId":               config.LoginTenantID,
+			"authorizationServerURL": s.Config.LoginAuthorizationServerURL,
+			"clientId":               s.Config.LoginClientID,
+			"authorizationServerId":  s.Config.LoginAuthorizationServerID,
+			"tenantId":               s.Config.LoginTenantID,
 		})
 	})
 
@@ -104,7 +95,7 @@ func (s *Server) Start() error {
 		c.File("web/app/build/index.html")
 	})
 
-	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(config.Port)))
+	return r.RunTLS(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)), s.Config.CertFile, s.Config.KeyFile)
 }
 
 func main() {
