@@ -37,9 +37,17 @@ type ClientService interface {
 
 	GetAccountAccessConsentSystem(params *GetAccountAccessConsentSystemParams, authInfo runtime.ClientAuthInfoWriter) (*GetAccountAccessConsentSystemOK, error)
 
+	ListConsentsByAccounts(params *ListConsentsByAccountsParams, authInfo runtime.ClientAuthInfoWriter) (*ListConsentsByAccountsOK, error)
+
+	ListConsentsByClientID(params *ListConsentsByClientIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConsentsByClientIDOK, error)
+
 	OpenbankingAccountAccessConsentIntrospect(params *OpenbankingAccountAccessConsentIntrospectParams, authInfo runtime.ClientAuthInfoWriter) (*OpenbankingAccountAccessConsentIntrospectOK, error)
 
 	RejectAccountAccessConsentSystem(params *RejectAccountAccessConsentSystemParams, authInfo runtime.ClientAuthInfoWriter) (*RejectAccountAccessConsentSystemOK, error)
+
+	RevokeOpenbankingConsent(params *RevokeOpenbankingConsentParams, authInfo runtime.ClientAuthInfoWriter) (*RevokeOpenbankingConsentNoContent, error)
+
+	RevokeOpenbankingConsents(params *RevokeOpenbankingConsentsParams, authInfo runtime.ClientAuthInfoWriter) (*RevokeOpenbankingConsentsNoContent, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -244,6 +252,81 @@ func (a *Client) GetAccountAccessConsentSystem(params *GetAccountAccessConsentSy
 }
 
 /*
+  ListConsentsByAccounts gets openbanking consents given for provided accounts
+
+  This API returns the list of openbanking consents filtered by the providced account ids.
+*/
+func (a *Client) ListConsentsByAccounts(params *ListConsentsByAccountsParams, authInfo runtime.ClientAuthInfoWriter) (*ListConsentsByAccountsOK, error) {
+	// : Validate the params before sending
+	if params == nil {
+		params = NewListConsentsByAccountsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listConsentsByAccounts",
+		Method:             "POST",
+		PathPattern:        "/api/system/{tid}/open-banking/consents",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ListConsentsByAccountsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListConsentsByAccountsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for listConsentsByAccounts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ListConsentsByClientID gets openbanking consents given to a client t p p
+
+  This API returns the list of openbanking consents given to a specified TPP.
+It includes all consents from all users.
+*/
+func (a *Client) ListConsentsByClientID(params *ListConsentsByClientIDParams, authInfo runtime.ClientAuthInfoWriter) (*ListConsentsByClientIDOK, error) {
+	// : Validate the params before sending
+	if params == nil {
+		params = NewListConsentsByClientIDParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "listConsentsByClientID",
+		Method:             "GET",
+		PathPattern:        "/api/system/{tid}/open-banking/consents/by-client/{clientID}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ListConsentsByClientIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListConsentsByClientIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for listConsentsByClientID: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   OpenbankingAccountAccessConsentIntrospect introspects openbanking account access consent
 
   Introspect openbanking account access consent.
@@ -314,6 +397,83 @@ func (a *Client) RejectAccountAccessConsentSystem(params *RejectAccountAccessCon
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for rejectAccountAccessConsentSystem: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  RevokeOpenbankingConsent revokes openbanking consent by ID
+
+  This API revokes openbanking consent by consent id.
+*/
+func (a *Client) RevokeOpenbankingConsent(params *RevokeOpenbankingConsentParams, authInfo runtime.ClientAuthInfoWriter) (*RevokeOpenbankingConsentNoContent, error) {
+	// : Validate the params before sending
+	if params == nil {
+		params = NewRevokeOpenbankingConsentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "revokeOpenbankingConsent",
+		Method:             "DELETE",
+		PathPattern:        "/api/system/{tid}/open-banking/consents/{consentID}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RevokeOpenbankingConsentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RevokeOpenbankingConsentNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for revokeOpenbankingConsent: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  RevokeOpenbankingConsents revokes openbanking consents
+
+  This API revokes openbanking consents matching provided parameters.
+
+Currently supporting removal by client id.
+Use ?clientID={clientID} to remove all consents by a given client.
+*/
+func (a *Client) RevokeOpenbankingConsents(params *RevokeOpenbankingConsentsParams, authInfo runtime.ClientAuthInfoWriter) (*RevokeOpenbankingConsentsNoContent, error) {
+	// : Validate the params before sending
+	if params == nil {
+		params = NewRevokeOpenbankingConsentsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "revokeOpenbankingConsents",
+		Method:             "DELETE",
+		PathPattern:        "/api/system/{tid}/open-banking/consents",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RevokeOpenbankingConsentsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RevokeOpenbankingConsentsNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for revokeOpenbankingConsents: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

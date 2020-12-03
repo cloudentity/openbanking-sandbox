@@ -35,6 +35,8 @@ type ClientService interface {
 
 	GetAuthorizationServer(params *GetAuthorizationServerParams, authInfo runtime.ClientAuthInfoWriter) (*GetAuthorizationServerOK, error)
 
+	GetServerConsent(params *GetServerConsentParams, authInfo runtime.ClientAuthInfoWriter) (*GetServerConsentOK, error)
+
 	GetServerForDeveloper(params *GetServerForDeveloperParams, authInfo runtime.ClientAuthInfoWriter) (*GetServerForDeveloperOK, error)
 
 	ListAuthorizationServers(params *ListAuthorizationServersParams, authInfo runtime.ClientAuthInfoWriter) (*ListAuthorizationServersOK, error)
@@ -44,6 +46,8 @@ type ClientService interface {
 	ListServersBindings(params *ListServersBindingsParams, authInfo runtime.ClientAuthInfoWriter) (*ListServersBindingsOK, error)
 
 	ListServersForDeveloper(params *ListServersForDeveloperParams, authInfo runtime.ClientAuthInfoWriter) (*ListServersForDeveloperOK, error)
+
+	SetServerConsent(params *SetServerConsentParams, authInfo runtime.ClientAuthInfoWriter) (*SetServerConsentOK, error)
 
 	UnbindServer(params *UnbindServerParams, authInfo runtime.ClientAuthInfoWriter) (*UnbindServerOK, error)
 
@@ -217,6 +221,43 @@ func (a *Client) GetAuthorizationServer(params *GetAuthorizationServerParams, au
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for getAuthorizationServer: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetServerConsent gets server consent
+
+  Get server consent.
+*/
+func (a *Client) GetServerConsent(params *GetServerConsentParams, authInfo runtime.ClientAuthInfoWriter) (*GetServerConsentOK, error) {
+	// : Validate the params before sending
+	if params == nil {
+		params = NewGetServerConsentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getServerConsent",
+		Method:             "GET",
+		PathPattern:        "/api/admin/{tid}/servers/{aid}/server-consent",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetServerConsentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetServerConsentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for getServerConsent: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -402,6 +443,43 @@ func (a *Client) ListServersForDeveloper(params *ListServersForDeveloperParams, 
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for listServersForDeveloper: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetServerConsent sets server consent
+
+  Set server consent. For custom server consent a client in system server is created automatically.
+*/
+func (a *Client) SetServerConsent(params *SetServerConsentParams, authInfo runtime.ClientAuthInfoWriter) (*SetServerConsentOK, error) {
+	// : Validate the params before sending
+	if params == nil {
+		params = NewSetServerConsentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setServerConsent",
+		Method:             "PUT",
+		PathPattern:        "/api/admin/{tid}/servers/{aid}/server-consent",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetServerConsentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetServerConsentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for setServerConsent: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

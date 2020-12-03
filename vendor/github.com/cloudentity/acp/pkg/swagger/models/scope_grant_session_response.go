@@ -60,6 +60,9 @@ type ScopeGrantSessionResponse struct {
 	// original url requested by oauth client
 	RequestURL string `json:"request_url,omitempty"`
 
+	// requested acr
+	RequestedAcr []string `json:"requested_acr"`
+
 	// time when oauth client made a request
 	// Format: date-time
 	RequestedAt strfmt.DateTime `json:"requested_at,omitempty"`

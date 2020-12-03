@@ -54,7 +54,7 @@ services:
       - FINANCROO_AUTHORIZATION_SERVER_URL=https://localhost:8443
       - FINANCROO_AUTHORIZATION_SERVER_ID=financroo
       - FINANCROO_TENANT_ID=default
-      - FINANCROO_CLIENT_ID=bupqlm0be92fmng2tt40
+      - FINANCROO_CLIENT_ID=bv3p4uo557ouq8rha2bg
 
   consent-page:
     build:
@@ -70,14 +70,73 @@ services:
       - ./data/bank_cert.pem:/bank_cert.pem
       - ./data/bank_key.pem:/bank_key.pem
     environment:
-      - CLIENT_ID=buc3b1hhuc714r78env0
-      - CLIENT_SECRET=PBV7q0akoP603rZbU0EFdxbhZ-djxF7FIVwyKaLnBYU
+      - CLIENT_ID=bv0ocudfotn6edhsiu7g
+      - CLIENT_SECRET=pMPBmv62z3Jt1S4sWl2qRhOhEGPVZ9EcujGL7Xy0-E0
       - TOKEN_URL=https://acp:8443/default/system/oauth2/token
       - CERT_FILE=/bank_cert.pem
       - KEY_FILE=/bank_key.pem
       - ROOT_CA=/ca.pem
       - BANK_URL=http://bank:8070
 
+  consent-self-service:
+    build:
+      context: .
+      dockerfile: consent-self-service/Dockerfile
+    container_name: consent-self-service
+    networks:
+      - system
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./data/ca.pem:/ca.pem
+      - ./data/bank_cert.pem:/bank_cert.pem
+      - ./data/bank_key.pem:/bank_key.pem
+    environment:
+      - SYSTEM_CLIENT_ID=buc3b1hhuc714r78env0
+      - SYSTEM_CLIENT_SECRET=PBV7q0akoP603rZbU0EFdxbhZ-djxF7FIVwyKaLnBYU
+      - SYSTEM_TOKEN_URL=https://acp:8443/default/system/oauth2/token
+      - CERT_FILE=/bank_cert.pem
+      - KEY_FILE=/bank_key.pem
+      - ROOT_CA=/ca.pem
+      - BANK_URL=http://bank:8070
+      - LOGIN_AUTHORIZATION_SERVER_URL=https://localhost:8443
+      - LOGIN_AUTHORIZATION_SERVER_ID=bank-customers
+      - LOGIN_TENANT_ID=default
+      - LOGIN_CLIENT_ID=bv0nab0mekk67nekvq7g
+      - INTROSPECT_CLIENT_ID=bv2dkff8mll9cf6pvd6g
+      - INTROSPECT_CLIENT_SECRET=KThGH68f-gMC4cscGLFeOpIU4EYriYhKspOV9IwHbnw
+      - INTROSPECT_TOKEN_URL=https://acp:8443/default/bank-customers/oauth2/token
+
+  consent-admin:
+    build:
+      context: .
+      dockerfile: consent-admin/Dockerfile
+    container_name: consent-admin
+    networks:
+      - system
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./data/ca.pem:/ca.pem
+      - ./data/bank_cert.pem:/bank_cert.pem
+      - ./data/bank_key.pem:/bank_key.pem
+    environment:
+      - SYSTEM_CLIENT_ID=bv2fe0tpfc67lmeti340
+      - SYSTEM_CLIENT_SECRET=v6yYaApda9juR_DrlI5mpdsdm9u2-D0rQIG9ynakyDE
+      - SYSTEM_TOKEN_URL=https://acp:8443/default/system/oauth2/token
+      - SYSTEM_CLIENTS_SERVER_ID=openbanking
+      - CERT_FILE=/bank_cert.pem
+      - KEY_FILE=/bank_key.pem
+      - ROOT_CA=/ca.pem
+      - BANK_URL=http://bank:8070
+      - LOGIN_AUTHORIZATION_SERVER_URL=https://localhost:8443
+      - LOGIN_AUTHORIZATION_SERVER_ID=bank-admins
+      - LOGIN_TENANT_ID=default
+      - LOGIN_CLIENT_ID=bv2f80aed9c9is80f2d0
+      - INTROSPECT_CLIENT_ID=bv2fddlpfc67lmeti32g
+      - INTROSPECT_CLIENT_SECRET=RkAIOVRlP6ZLhDvYixT1wBb8DG3bVkXAouoIrX7cwzA
+      - INTROSPECT_TOKEN_URL=https://acp:8443/default/bank-admins/oauth2/token
+      
   bank:
     build:
       context: .
@@ -100,7 +159,7 @@ services:
 
   acp:
     container_name: acp
-    image: docker-public.artifactory.cloudentity.com/authorization:6132257
+    image: docker-public.artifactory.cloudentity.com/authorization:37c411d
     networks:
       system:
     ports:

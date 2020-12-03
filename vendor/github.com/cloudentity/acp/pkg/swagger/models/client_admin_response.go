@@ -16,6 +16,9 @@ import (
 // swagger:model ClientAdminResponse
 type ClientAdminResponse struct {
 
+	// Kind of the application. The default, if omitted, is web. The defined values are native or web.
+	ApplicationType string `json:"application_type,omitempty"`
+
 	// oauth client allowed audience
 	Audience []string `json:"audience"`
 
@@ -46,6 +49,10 @@ type ClientAdminResponse struct {
 
 	// oauth client id
 	ID string `json:"client_id,omitempty"`
+
+	// Algorithm for signing the ID Token issued to this Client.
+	// The default value depends on authorization server configuration.
+	IDTokenSignedResponseAlg string `json:"id_token_signed_response_alg,omitempty"`
 
 	// URL of JSON Web Key Set containing the public keys used by the client to authenticate
 	JSONWebKeysURI string `json:"jwks_uri,omitempty"`
@@ -128,11 +135,11 @@ type ClientAdminResponse struct {
 	// tenant ID
 	TenantID string `json:"tenant_id,omitempty"`
 
+	// Signing algorithm for a token endpoint
+	TokenEndpointAuthSigningAlg string `json:"token_endpoint_auth_signing_alg,omitempty"`
+
 	// Token endpoint authentication method
 	TokenEndpointAuthnMethod string `json:"token_endpoint_auth_method,omitempty"`
-
-	// Signing algorithm for a token endpoint
-	TokenEndpointSigningAlg string `json:"token_endpoint_signing_alg,omitempty"`
 
 	// terms of service url
 	TosURI string `json:"tos_uri,omitempty"`
