@@ -13,8 +13,9 @@ import (
 )
 
 type Config struct {
-	ClientID                    string        `env:"CLIENT_ID,required"`
-	TokenURL                    *url.URL      `env:"TOKEN_URL,required"`
+	SystemClientID              string        `env:"SYSTEM_CLIENT_ID,required"`
+	SystemClientSecret          string        `env:"SYSTEM_CLIENT_SECRET,required"`
+	SystemTokenURL              *url.URL      `env:"SYSTEM_TOKEN_URL,required"`
 	Timeout                     time.Duration `env:"TIMEOUT" envDefault:"5s"`
 	RootCA                      string        `env:"ROOT_CA"`
 	CertFile                    string        `env:"CERT_FILE,required"`
