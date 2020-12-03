@@ -1,5 +1,5 @@
 import {base, baseWithCustomBaseUrl} from './api-base';
-import {clientMockRes} from "../components/clientsMockRes";
+//import {clientMockRes} from "../components/clientsMockRes";
 
 export const api = {
     userinfo: (authorizationServerURL, tenantId, authorizationServerId) => baseWithCustomBaseUrl('/', authorizationServerURL).get({url: `/${tenantId}/${authorizationServerId}/userinfo`}),
