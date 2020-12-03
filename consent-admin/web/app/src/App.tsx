@@ -18,10 +18,10 @@ import {putExpiresInInStore, putIATInInStore, putIdTokenInStore, putTokenInStore
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#006580"
+      main: "#007FFF"
     },
     secondary: {
-      main: "#1F2D48"
+      main: "#434656"
     }
   },
   overrides: {
