@@ -45,12 +45,12 @@ services:
       - AUTHORIZE_URL=https://localhost:8443/default/openbanking/oauth2/authorize
       - TOKEN_URL=https://acp:8443/default/openbanking/oauth2/token
       - USERINFO_URL=https://acp:8443/default/openbanking/userinfo
-      - REDIRECT_URL=http://localhost:8091/api/callback
+      - REDIRECT_URL=https://localhost:8091/api/callback
       - CERT_FILE=/certs/tpp_cert.pem
       - KEY_FILE=/certs/tpp_key.pem
       - ROOT_CA=/certs/ca.pem
       - BANK_URL=http://bank:8070
-      - FINANCROO_UI_URL=http://localhost:8091
+      - FINANCROO_UI_URL=https://localhost:8091
       - FINANCROO_AUTHORIZATION_SERVER_URL=https://localhost:8443
       - FINANCROO_AUTHORIZATION_SERVER_ID=financroo
       - FINANCROO_TENANT_ID=default
