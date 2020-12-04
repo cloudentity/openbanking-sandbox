@@ -1711,7 +1711,7 @@ clients:
   privacy: {}
   redirect_uris:
   - https://localhost:8090/callback
-  - http://localhost:8091/api/callback
+  - https://localhost:8091/api/callback
   registration_token: {}
   request_object_signing_alg: RS256
   response_types:
@@ -1945,7 +1945,7 @@ clients:
     keys: []
   privacy: {}
   redirect_uris:
-  - http://localhost:8091/callback
+  - https://localhost:8091/callback
   registration_token: {}
   request_object_signing_alg: none
   response_types:

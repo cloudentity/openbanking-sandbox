@@ -4,9 +4,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import backgroundLogin from "../assets/background-login.png";
 import financrooLogo from "../assets/financroo-logo.svg";
 import Grid from "@material-ui/core/Grid";
-import {useFormFactory} from "../utils/forms/formFactory";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -36,7 +33,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function Register ({onLogin}) {
   const classes = useStyles();
-  const formFactory = useFormFactory({id: 'login-view'})
 
   return (
     <div className={classes.root}>
@@ -46,19 +42,8 @@ export default function Register ({onLogin}) {
         </Grid>
         <Grid item xs={12} sm={6} lg={5}>
           <div className={classes.formContainerRoot}>
-            <img alt="financroo logo" src={financrooLogo} style={{marginBottom: 24}}/>
-            <Typography variant={'h4'} style={{marginBottom: 24}}>Create your Financroo account</Typography>
-            {formFactory.createRequiredField({name: 'username', label: 'Username'})}
-            {formFactory.createRequiredField({name: 'password', label: 'Password'})}
-
-            {formFactory.createFormFooter({onSubmit: data => console.log(data), submitText: 'Create Account', submitButtonColor: 'secondary', buttonWidth: '100%'})}
-            <Divider style={{margin: '24px 0'}}/>
-            <Typography style={{textAlign: 'center'}}>By clicking Create account, you agree to our
-              Terms of service and have read and acknowledge our Privacy Statement</Typography>
-            <Typography style={{marginTop: 32, textAlign: 'center'}}>
-              <strong>Already have an account? </strong>
-              <Button onClick={onLogin} color={'primary'}>Login</Button>
-            </Typography>
+            <img alt="financroo logo" src={financrooLogo} style={{marginBottom: 44}}/>
+            <Button onClick={onLogin} color={'secondary'} style={{width: '100%', minHeight: 50}} variant={'contained'}>Login</Button>
           </div>
         </Grid>
       </Grid>

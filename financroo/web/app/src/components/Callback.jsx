@@ -33,6 +33,7 @@ export default function Callback ({authorizationServerURL, tenantId, authorizati
     const errorParam = getParamFromUrl('error');
 
     let authorizationUri = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/oauth2/authorize`;
+    let tokenUri = `${authorizationServerURL}/${tenantId}/${authorizationServerId}/oauth2/token`;
 
     let config = {
       client_id: authorizationServerId,
@@ -43,7 +44,7 @@ export default function Callback ({authorizationServerURL, tenantId, authorizati
     let body = `grant_type=authorization_code&client_id=${clientId}&redirect_uri=${config.redirect_uri}&code=${code}&code_verifier=${localStorage.getItem(PKCE_CODE_VERIFIER_KEY)}`
 
     if (code) {
-      authApi.exchangeCodeForToken({body})
+      authApi.exchangeCodeForToken({tokenUri, body})
         .then(res => {
           const currentInSec = new Date().getTime() / 1000;
           login({token: res.body.access_token, iat: currentInSec, expires_in: currentInSec + res.body.expires_in, idToken: res.body.id_token});

@@ -67,5 +67,5 @@ func (s *Server) Start() error {
 		c.File("web/app/build/index.html")
 	})
 
-	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
+	return r.RunTLS(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)), s.Config.CertFile, s.Config.KeyFile)
 }
