@@ -10,10 +10,19 @@ jobs:
     strategy:
       matrix:
         images:
-          - folder: "tpp"
-            suffix: "tpp-developer"
           - folder: "financroo"
             suffix: "tpp-financroo"
+          - folder: "tpp"
+            suffix: "tpp-developer"
+          - folder: "consent-admin"
+            suffix: "consent-admin"
+          - folder: "consent-self-service"
+            suffix: "consent-self-service"
+          - folder: "consent-page"
+            suffix: "consent-page"
+          - folder: "bank"
+            suffix: "bank"
+
     name: Build and push docker ${{ matrix.images.suffix }}
     steps:
       - name: Checkout
