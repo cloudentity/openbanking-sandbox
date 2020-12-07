@@ -2,24 +2,31 @@ package main
 
 import (
 	"fmt"
-	"github.com/cloudentity/acp/pkg/openbanking/client/transactions"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	"github.com/cloudentity/acp/pkg/openbanking/client/transactions"
 )
 
 func (s *Server) GetTransactions() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			err error
+			token string
+			resp  *transactions.GetTransactionsOK
+			err   error
 		)
 
-		var resp *transactions.GetTransactionsOK
+		if token, err = c.Cookie("token"); err != nil {
+			c.String(http.StatusUnauthorized, "failed to get token from cookie: %w", err)
+			return
+		}
 
-		token, _ := c.Cookie("token")
 		if resp, err = s.BankClient.Transactions.GetTransactions(transactions.NewGetTransactionsParams().WithAuthorization(token), nil); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to call bank get transactions: %+v", err))
 			return
 		}
+
 		c.JSON(200, gin.H{
 			"transactions": resp.Payload.Data.Transaction,
 		})

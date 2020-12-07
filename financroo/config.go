@@ -3,10 +3,11 @@ package main
 import (
 	"crypto/x509"
 	"encoding/pem"
-	"github.com/caarlos0/env/v6"
 	"io/ioutil"
 	"net/url"
 	"time"
+
+	"github.com/caarlos0/env/v6"
 )
 
 type Config struct {
@@ -21,10 +22,10 @@ type Config struct {
 	CertFile                        string        `env:"CERT_FILE,required"`
 	KeyFile                         string        `env:"KEY_FILE,required"`
 	BankURL                         *url.URL      `env:"BANK_URL,required"`
-	FinancrooAuthorizationServerUrl string        `env:"FINANCROO_AUTHORIZATION_SERVER_URL,required"`
-	FinancrooClientId               string        `env:"FINANCROO_CLIENT_ID,required"`
-	FinancrooAuthorizationServerId  string        `env:"FINANCROO_AUTHORIZATION_SERVER_ID,required"`
-	FinancrooTenantId               string        `env:"FINANCROO_TENANT_ID,required"`
+	FinancrooAuthorizationServerURL string        `env:"FINANCROO_AUTHORIZATION_SERVER_URL,required"`
+	FinancrooClientID               string        `env:"FINANCROO_CLIENT_ID,required"`
+	FinancrooAuthorizationServerID  string        `env:"FINANCROO_AUTHORIZATION_SERVER_ID,required"`
+	FinancrooTenantID               string        `env:"FINANCROO_TENANT_ID,required"`
 }
 
 func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
@@ -44,7 +45,7 @@ func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
 }
 
 func LoadConfig() (config Config, err error) {
-	if err := env.Parse(&config); err != nil {
+	if err = env.Parse(&config); err != nil {
 		return config, err
 	}
 

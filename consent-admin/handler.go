@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/cloudentity/acp/pkg/swagger/models"
 	"github.com/gin-gonic/gin"
+
+	"github.com/cloudentity/acp/pkg/swagger/models"
 )
 
 func (s *Server) Index() func(*gin.Context) {
