@@ -5,11 +5,13 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
-	"github.com/cloudentity/acp/pkg/openbanking/models"
-	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/gin-gonic/gin"
+
+	"github.com/cloudentity/acp/pkg/openbanking/models"
 )
 
 const (
@@ -43,11 +45,14 @@ func (s *Server) Connect() func(*gin.Context) {
 			challenge          string
 			loginURL           string
 			data               = gin.H{}
+			permissionsRes     = PermissionsRes{}
 			err                error
 		)
 
-		permissionsRes := PermissionsRes{}
-		c.BindJSON(&permissionsRes)
+		if err = c.BindJSON(&permissionsRes); err != nil {
+			c.String(http.StatusBadRequest, fmt.Sprintf("failed to parse request body: %+v", err))
+			return
+		}
 
 		if registerResponse, err = s.AccountAccessClient.RegisterAccountAccessConsent(permissionsRes.Permissions); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to register account access consent: %+v", err))

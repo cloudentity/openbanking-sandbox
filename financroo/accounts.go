@@ -2,15 +2,17 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+
 	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
 	"github.com/cloudentity/acp/pkg/openbanking/models"
-	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type BankAccount struct {
 	*models.OBAccount6
-	BankId string
+	BankID string `json:"BankId"`
 }
 
 func (s *Server) GetAccounts() func(ctx *gin.Context) {
@@ -23,7 +25,7 @@ func (s *Server) GetAccounts() func(ctx *gin.Context) {
 		)
 
 		if token, err = c.Cookie("token"); err != nil {
-			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to call bank get accounts: %+v", err))
+			c.String(http.StatusUnauthorized, "failed to get token from cookie: %w", err)
 			return
 		}
 
@@ -36,7 +38,7 @@ func (s *Server) GetAccounts() func(ctx *gin.Context) {
 		for i, a := range resp.Payload.Data.Account {
 			accountsData[i] = BankAccount{
 				OBAccount6: a,
-				BankId:     "gobank",
+				BankID:     "gobank",
 			}
 		}
 
