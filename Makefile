@@ -1,5 +1,10 @@
+.PHONY: replace-hosts
+replace-hosts:
+	./scripts/replace_hosts.sh
+
 .PHONY: build
 build:
+	make replace-hosts
 	docker-compose build
 
 .PHONY: download-deps
