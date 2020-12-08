@@ -7,8 +7,12 @@ download-deps:
 	go mod vendor
 	go mod tidy
 
+.PHONY: replace-hosts
+replace-hosts:
+	./scripts/replace_hosts.sh
+
 .PHONY: run
-run:
+run: replace-hosts
 	docker-compose up -d
 	./scripts/wait.sh
 	make seed

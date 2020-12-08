@@ -12,3 +12,5 @@
 *.out
 
 .idea
+
+data/seed.yaml.generated
