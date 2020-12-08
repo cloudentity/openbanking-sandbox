@@ -16,9 +16,9 @@ reverse link bank_admin_portal_A to bank_admin--><path d="M196,497.241 C196,520.
 link tpp to bank_OB_API_A--><path d="M475.0103,223.0811 C547.0731,232.0475 650.591,253.1924 727,303 C770.0802,331.082 804.4495,379.8934 825.1797,414.7301 " fill="none" id="tpp-&gt;bank_OB_API_A" style="stroke: #666666; stroke-width: 1.0;"/><polygon fill="#666666" points="829.3945,421.9392,827.9466,413.5188,822.7669,416.5471,829.3945,421.9392" style="stroke: #666666; stroke-width: 1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="56" x="712" y="292.1387">Consumes</text><!--MD5=[a85b1d2704e02b1c4f58b1fdee9deedf]
 link tpp to consent_page_A--><path d="M390,250.236 C390,290.4143 390,357.9312 390,404.4971 " fill="none" id="tpp-&gt;consent_page_A" style="stroke: #666666; stroke-width: 1.0;"/><polygon fill="#666666" points="390,412.6477,393,404.6477,387,404.6477,390,412.6477" style="stroke: #666666; stroke-width: 1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="91" x="391" y="292.1387">Asks for consent</text><!--MD5=[ecf4da634ad1e144e257267aad7c7528]
 link tpp to acp--><path d="M304.7475,234.309 C235.135,250.4836 144.1469,275.8963 118,303 C88.4912,333.5886 72.6657,380.2542 64.5931,413.9065 " fill="none" id="tpp-&gt;acp" style="stroke: #666666; stroke-width: 1.0;"/><polygon fill="#666666" points="62.7981,421.7342,67.5105,414.6072,61.6623,413.266,62.7981,421.7342" style="stroke: #666666; stroke-width: 1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="32" x="152" y="292.1387">token</text><!--MD5=[d49f51a5306dc6dcff7bf96365ef930b]
-reverse link acp to bank_A--><path d="M64.2717,413.8896 C71.9901,383.5234 87.4954,344.4138 118,325 C154.2765,301.9129 234.8183,287.7868 314.3951,286.4956 C354.1835,285.85 393.7306,288.4131 427.3827,294.6691 C435.7957,296.2331 443.8403,298.0279 451.4281,300.0611 C453.3251,300.5694 455.1935,301.0925 457.0319,301.6308 C457.9512,301.8999 458.8629,302.1727 459.767,302.4493 C460.2191,302.5877 460.6692,302.7269 461.1174,302.8671 " fill="none" id="acp&lt;-bank_A" style="stroke: #666666; stroke-width: 1.0;"/><polygon fill="#666666" points="62.3839,421.8006,67.159,414.7155,61.3229,413.3227,62.3839,421.8006" style="stroke: #666666; stroke-width: 1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="23" x="212.5" y="292.1387">uses</text><!--MD5=[6f91716455e4e1d83e586c6d2602444d]
+reverse link acp to bank_A--><path d="M64.2717,413.8896 C71.9901,383.5234 87.4954,344.4138 118,325 C154.2765,301.9129 234.8183,287.7868 314.3951,286.4956 C354.1835,285.85 393.7306,288.4131 427.3827,294.6691 C435.7957,296.2331 443.8403,298.0279 451.4281,300.0611 C453.3251,300.5694 455.1935,301.0925 457.0319,301.6308 C457.9512,301.8999 458.8629,302.1727 459.767,302.4493 C460.2191,302.5877 460.6692,302.7269 461.1174,302.8671 " fill="none" id="acp&lt;-bank_A" style="stroke: #666666; stroke-width: 1.0;"/><polygon fill="#666666" points="62.3839,421.8006,67.159,414.7155,61.3229,413.3227,62.3839,421.8006" style="stroke: #666666; stroke-width: 1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="23" x="212.5" y="292.1387">uses</text><!--MD5=[a6cbe284611a0048bd7bb7ffd4a26aeb]
 @startuml
-!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(tpp_user, "Fintech App User")
 
@@ -38,7 +38,6 @@ System_Boundary(bank_A, "Bank A") {
     Container(bank_admin_portal_A, "Admin Portal", "docker")
 }
 
-
 Rel(tpp_user, tpp, "Uses")
 
 Rel_U(bank_user, bank_consumer_portal_A, "Uses")
@@ -50,6 +49,7 @@ Rel(tpp, consent_page_A, "Asks for consent")
 
 Rel(tpp, acp, "token")
 Rel_L(bank_A, acp, "uses")
+
 @enduml
 
 @startuml
@@ -290,7 +290,6 @@ rectangle "==Bank A\n<size:12>[System]</size>" <<boundary>> as bank_A {
     rectangle "==Admin Portal\n//<size:12>[docker]</size>//" <<container>> as bank_admin_portal_A
 }
 
-
 tpp_user - ->> tpp : **Uses**
 
 bank_user -UP->> bank_consumer_portal_A : **Uses**
@@ -302,6 +301,7 @@ tpp - ->> consent_page_A : **Asks for consent**
 
 tpp - ->> acp : **token**
 bank_A -LEFT->> acp : **uses**
+
 @enduml
 
 PlantUML version 1.2020.14(Sat Jun 20 14:14:34 GMT 2020)
