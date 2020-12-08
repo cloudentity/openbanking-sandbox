@@ -12,3 +12,6 @@
 *.out
 
 .idea
+
+# Mac
+.DS_Store
