@@ -26,6 +26,7 @@ Rel_U(bank_user, bank_consumer_portal_A, "Uses")
 Rel_U(bank_admin, bank_admin_portal_A, "Uses")
 
 Rel(tpp, bank_OB_API_A, "Consumes")
+
 Rel(tpp, consent_page_A, "Asks for consent")
 
 Rel(tpp, acp, "token")
