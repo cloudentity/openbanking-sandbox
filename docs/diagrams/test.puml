@@ -2,38 +2,3 @@
 
 Bob->Alice : hello
 @enduml
-
-@startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
-
-Person(tpp_user, "Fintech App User")
-
-Person(bank_user, "Bank Client")
-Person(bank_admin, "Bank Admin")
-
-System_Boundary(acp_system, "ACP") {
-    Container(acp, "ACP", "docker")
-}
-
-Container(tpp, "Fintech application", "docker")
-
-System_Boundary(bank_A, "Bank A") {
-    Container(consent_page_A, "OpenBanking Consent Page", "docker")
-    Container(bank_consumer_portal_A, "Consumer Portal", "docker")
-    Container(bank_OB_API_A, "Bank OpenBanking APIs", "docker")
-    Container(bank_admin_portal_A, "Admin Portal", "docker")
-}
-
-
-Rel(tpp_user, tpp, "Uses")
-
-Rel_U(bank_user, bank_consumer_portal_A, "Uses")
-
-Rel_U(bank_admin, bank_admin_portal_A, "Uses")
-
-Rel(tpp, bank_OB_API_A, "Consumes")
-Rel(tpp, consent_page_A, "Asks for consent")
-
-Rel(tpp, acp, "token")
-Rel_L(bank_A, acp, "uses")
-@enduml

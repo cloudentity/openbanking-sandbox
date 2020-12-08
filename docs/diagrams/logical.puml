@@ -3,6 +3,7 @@
 
 Person(tpp_user, "Fintech App User")
 
+
 Person(bank_user, "Bank Client")
 Person(bank_admin, "Bank Admin")
 
