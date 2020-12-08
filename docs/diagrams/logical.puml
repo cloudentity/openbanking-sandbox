@@ -1,5 +1,5 @@
 @startuml
-!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 Person(tpp_user, "Fintech App User")
 
@@ -18,7 +18,6 @@ System_Boundary(bank_A, "Bank A") {
     Container(bank_OB_API_A, "Bank OpenBanking APIs", "docker")
     Container(bank_admin_portal_A, "Admin Portal", "docker")
 }
-
 
 Rel(tpp_user, tpp, "Uses")
 
