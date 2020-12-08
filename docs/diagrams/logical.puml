@@ -29,6 +29,7 @@ Rel(tpp, bank_OB_API_A, "Consumes")
 Rel(tpp, consent_page_A, "Asks for consent")
 
 Rel(tpp, acp, "token")
+
 Rel_L(bank_A, acp, "uses")
 
 @enduml
