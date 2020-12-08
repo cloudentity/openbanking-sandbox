@@ -22,12 +22,10 @@ jobs:
       - name: Generating diagrams for
         run: |
           echo ${{ steps.getfile.outputs.files }}
-      - name: Install deps
-        run: |
-          apt-get update -yq && apt-get -yq install plantuml graphviz git fonts-ipafont fonts-ipaexfont
       - name: Generate SVG Diagrams
-        run: |
-          plantuml -v -tsvg ${{steps.getfile.outputs.files}}
+        uses: cloudbees/plantuml-github-action@master
+        with:
+          args: -v -tsvg ${{steps.getfile.outputs.files}}
       - name: Push Local Changes
         uses: stefanzweifel/git-auto-commit-action@v4.1.2
         with:
