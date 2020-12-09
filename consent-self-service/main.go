@@ -91,8 +91,6 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to init introspect acp client")
 	}
 
-	logrus.WithFields(logrus.Fields{"a": server.IntrospectClient, "b": server.Config.IntrospectClientConfig()}).Warnf("KURWa")
-
 	server.BankClient = NewBankClient(server.Config)
 
 	return server, nil

@@ -109,7 +109,7 @@ services:
     environment:
       - SYSTEM_CLIENT_ID=bv2fe0tpfc67lmeti340
       - SYSTEM_CLIENT_SECRET=v6yYaApda9juR_DrlI5mpdsdm9u2-D0rQIG9ynakyDE
-      - SYSTEM_TOKEN_URL=https://${ACP_INTERNAL_HOST}:8443/default/system/oauth2/token
+      - SYSTEM_ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/system
       - SYSTEM_CLIENTS_SERVER_ID=openbanking
       - CERT_FILE=/bank_cert.pem
       - KEY_FILE=/bank_key.pem
@@ -121,7 +121,7 @@ services:
       - LOGIN_CLIENT_ID=bv2f80aed9c9is80f2d0
       - INTROSPECT_CLIENT_ID=bv2fddlpfc67lmeti32g
       - INTROSPECT_CLIENT_SECRET=RkAIOVRlP6ZLhDvYixT1wBb8DG3bVkXAouoIrX7cwzA
-      - INTROSPECT_TOKEN_URL=https://${ACP_INTERNAL_HOST}:8443/default/bank-admins/oauth2/token
+      - INTROSPECT_ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/bank-admins
       
   bank:
     build:
