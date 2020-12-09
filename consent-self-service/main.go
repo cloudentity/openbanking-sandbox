@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/caarlos0/env/v6"
+	"github.com/cloudentity/acp-client-go"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
@@ -15,7 +16,7 @@ import (
 type Config struct {
 	SystemClientID              string        `env:"SYSTEM_CLIENT_ID,required"`
 	SystemClientSecret          string        `env:"SYSTEM_CLIENT_SECRET,required"`
-	SystemTokenURL              *url.URL      `env:"SYSTEM_TOKEN_URL,required"`
+	SystemIssuerURL             *url.URL      `env:"SYSTEM_ISSUER_URL,required"`
 	Timeout                     time.Duration `env:"TIMEOUT" envDefault:"5s"`
 	RootCA                      string        `env:"ROOT_CA"`
 	CertFile                    string        `env:"CERT_FILE,required"`
@@ -28,7 +29,33 @@ type Config struct {
 	LoginTenantID               string        `env:"LOGIN_TENANT_ID,required"`
 	IntrospectClientID          string        `env:"INTROSPECT_CLIENT_ID,required"`
 	IntrospectClientSecret      string        `env:"INTROSPECT_CLIENT_SECRET,required"`
-	IntrospectTokenURL          *url.URL      `env:"INTROSPECT_TOKEN_URL,required"`
+	IntrospectIssuerURL         *url.URL      `env:"INTROSPECT_ISSUER_URL,required"`
+}
+
+func (c *Config) SystemClientConfig() acpclient.Config {
+	return acpclient.Config{
+		ClientID:     c.SystemClientID,
+		ClientSecret: c.SystemClientSecret,
+		IssuerURL:    c.SystemIssuerURL,
+		Scopes:       []string{"manage_openbanking_consents"},
+		Timeout:      c.Timeout,
+		CertFile:     c.CertFile,
+		KeyFile:      c.KeyFile,
+		RootCA:       c.RootCA,
+	}
+}
+
+func (c *Config) IntrospectClientConfig() acpclient.Config {
+	return acpclient.Config{
+		ClientID:     c.IntrospectClientID,
+		ClientSecret: c.IntrospectClientSecret,
+		IssuerURL:    c.IntrospectIssuerURL,
+		Scopes:       []string{"introspect_tokens"},
+		Timeout:      c.Timeout,
+		CertFile:     c.CertFile,
+		KeyFile:      c.KeyFile,
+		RootCA:       c.RootCA,
+	}
 }
 
 func LoadConfig() (config Config, err error) {
@@ -41,8 +68,8 @@ func LoadConfig() (config Config, err error) {
 
 type Server struct {
 	Config           Config
-	Client           AcpClient
-	IntrospectClient AcpIntrospectClient
+	Client           acpclient.Client
+	IntrospectClient acpclient.Client
 	BankClient       BankClient
 }
 
@@ -56,13 +83,15 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
 
-	if server.Client, err = NewAcpClient(server.Config); err != nil {
+	if server.Client, err = acpclient.New(server.Config.SystemClientConfig()); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
-	if server.IntrospectClient, err = NewAcpIntrospectClient(server.Config); err != nil {
+	if server.IntrospectClient, err = acpclient.New(server.Config.IntrospectClientConfig()); err != nil {
 		return server, errors.Wrapf(err, "failed to init introspect acp client")
 	}
+
+	logrus.WithFields(logrus.Fields{"a": server.IntrospectClient, "b": server.Config.IntrospectClientConfig()}).Warnf("KURWa")
 
 	server.BankClient = NewBankClient(server.Config)
 
