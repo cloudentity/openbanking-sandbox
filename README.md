@@ -1,5 +1,7 @@
 # openbanking-sandbox
 
+![alt Cool Sandbox diagram](https://raw.githubusercontent.com/cloudentity/openbanking-sandbox/master/docs/ob-sandbox-diagram.png)
+
 ## Overview
 
 This sandbox demonstrates Cloudentity's ACP capabilities for handling Openbanking scenarios.
