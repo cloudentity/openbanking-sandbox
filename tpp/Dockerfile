@@ -1,13 +1,14 @@
-FROM golang:1.15-alpine
+FROM golang:1.15
 
 WORKDIR /app
 
-COPY tpp .
-COPY client client
-COPY models models
-COPY vendor vendor
 COPY go.mod .
 COPY go.sum .
+RUN go mod download
+
+COPY client client
+COPY models models
+COPY tpp .
 RUN go build -o main .
 
 EXPOSE 8080

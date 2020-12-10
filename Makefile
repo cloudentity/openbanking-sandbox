@@ -2,11 +2,6 @@
 build:
 	docker-compose build --parallel
 
-.PHONY: download-deps
-download-deps:
-	go mod vendor
-	go mod tidy
-
 .PHONY: replace-hosts
 replace-hosts:
 	./scripts/replace_hosts.sh

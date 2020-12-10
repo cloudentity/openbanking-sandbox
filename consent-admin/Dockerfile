@@ -21,10 +21,11 @@ RUN npm run build
 
 WORKDIR /app
 
-COPY consent-admin .
-COPY vendor vendor
 COPY go.mod .
 COPY go.sum .
+RUN go mod download
+
+COPY consent-admin .
 RUN go build -o main .
 
 EXPOSE 8080
