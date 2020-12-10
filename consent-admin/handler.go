@@ -45,7 +45,7 @@ func (s *Server) ListClients() func(*gin.Context) {
 		if cs, err = s.Client.Clients.ListClientsSystem(
 			clients.NewListClientsSystemParams().
 				WithTid(s.Client.TenantID).
-				WithAid(s.Client.ServerID),
+				WithAid(s.Config.SystemClientsServerID),
 			nil,
 		); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to list clients from acp: %+v", err))

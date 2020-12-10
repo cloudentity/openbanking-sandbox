@@ -16,7 +16,7 @@ import (
 type Config struct {
 	SystemClientID              string        `env:"SYSTEM_CLIENT_ID,required"`
 	SystemClientSecret          string        `env:"SYSTEM_CLIENT_SECRET,required"`
-	SystemIssuerURL             *url.URL      `env:"SYSTEM_TOKEN_URL,required"`
+	SystemIssuerURL             *url.URL      `env:"SYSTEM_ISSUER_URL,required"`
 	SystemClientsServerID       string        `env:"SYSTEM_CLIENTS_SERVER_ID,required"`
 	Timeout                     time.Duration `env:"TIMEOUT" envDefault:"5s"`
 	RootCA                      string        `env:"ROOT_CA"`
@@ -30,7 +30,7 @@ type Config struct {
 	LoginTenantID               string        `env:"LOGIN_TENANT_ID,required"`
 	IntrospectClientID          string        `env:"INTROSPECT_CLIENT_ID,required"`
 	IntrospectClientSecret      string        `env:"INTROSPECT_CLIENT_SECRET,required"`
-	IntrospectIssuerURL         *url.URL      `env:"INTROSPECT_TOKEN_URL,required"`
+	IntrospectIssuerURL         *url.URL      `env:"INTROSPECT_ISSUER_URL,required"`
 }
 
 func (c *Config) SystemClientConfig() acpclient.Config {
@@ -38,7 +38,7 @@ func (c *Config) SystemClientConfig() acpclient.Config {
 		ClientID:     c.SystemClientID,
 		ClientSecret: c.SystemClientSecret,
 		IssuerURL:    c.SystemIssuerURL,
-		Scopes:       []string{"manage_openbanking_consents"},
+		Scopes:       []string{"manage_openbanking_consents", "view_clients"},
 		Timeout:      c.Timeout,
 		CertFile:     c.CertFile,
 		KeyFile:      c.KeyFile,

@@ -62,7 +62,7 @@ services:
     environment:
       - CLIENT_ID=bv0ocudfotn6edhsiu7g
       - CLIENT_SECRET=pMPBmv62z3Jt1S4sWl2qRhOhEGPVZ9EcujGL7Xy0-E0
-      - TOKEN_URL=https://${ACP_INTERNAL_HOST}:8443/default/system/oauth2/token
+      - ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/system
       - CERT_FILE=/bank_cert.pem
       - KEY_FILE=/bank_key.pem
       - ROOT_CA=/ca.pem
@@ -136,7 +136,7 @@ services:
       - ./data/bank_key.pem:/bank_key.pem
     environment:
       - CLIENT_ID=bukj5p6k7qdmm5ppbi4g
-      - TOKEN_URL=https://${ACP_INTERNAL_HOST}:8443/default/openbanking/oauth2/token
+      - ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/openbanking
       - CERT_FILE=/bank_cert.pem
       - KEY_FILE=/bank_key.pem
       - ROOT_CA=/ca.pem
