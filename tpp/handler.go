@@ -13,8 +13,9 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 
+	"github.com/cloudentity/acp-client-go/client/openbanking"
+	"github.com/cloudentity/acp-client-go/models"
 	"github.com/cloudentity/acp/pkg/openbanking/client/accounts"
-	"github.com/cloudentity/acp/pkg/openbanking/models"
 )
 
 const (
@@ -36,7 +37,7 @@ func (s *Server) Get() func(*gin.Context) {
 func (s *Server) Login() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			registerResponse   *models.OBReadConsentResponse1
+			registerResponse   *openbanking.CreateAccountAccessConsentRequestCreated
 			encodedVerifier    string
 			encodedNonce       string
 			encodedCookieValue string
@@ -47,9 +48,17 @@ func (s *Server) Login() func(*gin.Context) {
 			err                error
 		)
 
-		requestPermissions := c.PostFormArray("permissions")
-
-		if registerResponse, err = s.AccountAccessClient.RegisterAccountAccessConsent(requestPermissions); err != nil {
+		if registerResponse, err = s.Client.Openbanking.CreateAccountAccessConsentRequest(
+			openbanking.NewCreateAccountAccessConsentRequestParams().
+				WithTid(s.Client.TenantID).
+				WithAid(s.Client.ServerID).
+				WithRequest(&models.AccountAccessConsentRequest{
+					Data: &models.AccountAccessConsentRequestData{
+						Permissions: c.PostFormArray("permissions"),
+					},
+				}),
+			nil,
+		); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to register account access consent: %+v", err))
 			return
 		}
@@ -93,7 +102,7 @@ func (s *Server) Login() func(*gin.Context) {
 		}
 		challenge = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(hash.Sum([]byte{}))
 
-		if loginURL, err = s.WebClient.LoginURL(*registerResponse.Data.ConsentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
+		if loginURL, err = s.WebClient.LoginURL(registerResponse.Payload.Data.ConsentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
 			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
 		}
 
@@ -114,7 +123,7 @@ func (s *Server) Login() func(*gin.Context) {
 			data["request_payload"] = string(payload)
 		}
 
-		data["intent_id"] = registerResponse.Data.ConsentID
+		data["intent_id"] = registerResponse.Payload.Data.ConsentID
 		data["login_url"] = loginURL
 
 		c.HTML(http.StatusOK, "intent_registered.tmpl", data)

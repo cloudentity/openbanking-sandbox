@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/caarlos0/env/v6"
+	"github.com/cloudentity/acp-client-go"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
@@ -21,6 +22,7 @@ type Config struct {
 	ClientID     string        `env:"CLIENT_ID,required"`
 	AuthorizeURL *url.URL      `env:"AUTHORIZE_URL,required"`
 	TokenURL     *url.URL      `env:"TOKEN_URL,required"`
+	IssuerURL    *url.URL      `env:"ISSUER_URL,required"`
 	UserinfoURL  *url.URL      `env:"USERINFO_URL,required"`
 	RedirectURL  *url.URL      `env:"REDIRECT_URL,required"`
 	Timeout      time.Duration `env:"TIMEOUT" envDefault:"5s"`
@@ -28,6 +30,18 @@ type Config struct {
 	CertFile     string        `env:"CERT_FILE,required"`
 	KeyFile      string        `env:"KEY_FILE,required"`
 	BankURL      *url.URL      `env:"BANK_URL,required"`
+}
+
+func (c *Config) ClientConfig() acpclient.Config {
+	return acpclient.Config{
+		ClientID:  c.ClientID,
+		IssuerURL: c.IssuerURL,
+		Scopes:    []string{"accoounts"},
+		Timeout:   c.Timeout,
+		CertFile:  c.CertFile,
+		KeyFile:   c.KeyFile,
+		RootCA:    c.RootCA,
+	}
 }
 
 func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
@@ -55,11 +69,11 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
-	Config              Config
-	AccountAccessClient AcpAccountAccessClient
-	WebClient           AcpWebClient
-	BankClient          OpenbankingClient
-	SecureCookie        *securecookie.SecureCookie
+	Config       Config
+	Client       acpclient.Client
+	WebClient    AcpWebClient
+	BankClient   OpenbankingClient
+	SecureCookie *securecookie.SecureCookie
 }
 
 func NewServer() (Server, error) {
@@ -72,8 +86,8 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
 
-	if server.AccountAccessClient, err = NewAcpAccountAccessClient(server.Config); err != nil {
-		return server, errors.Wrapf(err, "failed to init acp mtls client")
+	if server.Client, err = acpclient.New(server.Config.ClientConfig()); err != nil {
+		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
 	if server.WebClient, err = NewAcpWebClient(server.Config); err != nil {

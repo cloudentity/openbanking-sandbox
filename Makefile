@@ -38,3 +38,12 @@ dump:
 		--sql.url 'postgres://root@crdb:26257/defaultdb?sslmode=disable' \
 		--secret.key KNEcLGdDqpwrXDubqPgDSUkMMsLPXaHh \
 		--format yaml > data/seed.yaml
+
+swagger = docker run --rm -it -e GOPATH=/go \
+			-u $(shell id -u ${USER}):$(shell id -g ${USER}) \
+			-v $(shell pwd):/go/src \
+			-w $(shell pwd)/src quay.io/goswagger/swagger
+
+generate:
+	rm -rf client models
+	${swagger} generate client -f /go/src/swagger.yaml -A acp -t /go/src -q
