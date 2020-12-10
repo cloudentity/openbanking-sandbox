@@ -16,6 +16,7 @@ services:
       - CLIENT_ID=bugkgm23g9kregtu051g
       - AUTHORIZE_URL=https://${ACP_HOST}:8443/default/openbanking/oauth2/authorize
       - TOKEN_URL=https://${ACP_INTERNAL_HOST}:8443/default/openbanking/oauth2/token
+      - ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/openbanking
       - USERINFO_URL=https://${ACP_INTERNAL_HOST}:8443/default/openbanking/userinfo
       - REDIRECT_URL=https://${APP_HOST}:8090/callback
       - CERT_FILE=/tpp_cert.pem

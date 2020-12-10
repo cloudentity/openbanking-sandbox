@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	docker-compose build
+	docker-compose build --parallel
 
 .PHONY: download-deps
 download-deps:
@@ -46,4 +46,4 @@ swagger = docker run --rm -it -e GOPATH=/go \
 
 generate:
 	rm -rf client models
-	${swagger} generate client -f /go/src/swagger.yaml -A acp -t /go/src -q
+	${swagger} generate client -f /go/src/swagger.yaml -A openbanking -t /go/src -q

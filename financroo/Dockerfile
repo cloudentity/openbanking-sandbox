@@ -23,6 +23,8 @@ WORKDIR /app
 
 COPY financroo .
 COPY vendor vendor
+COPY client client
+COPY models models
 COPY go.mod .
 COPY go.sum .
 RUN go build -o main .

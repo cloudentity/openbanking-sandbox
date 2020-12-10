@@ -36,7 +36,7 @@ func (c *Config) ClientConfig() acpclient.Config {
 	return acpclient.Config{
 		ClientID:  c.ClientID,
 		IssuerURL: c.IssuerURL,
-		Scopes:    []string{"accoounts"},
+		Scopes:    []string{"accounts"},
 		Timeout:   c.Timeout,
 		CertFile:  c.CertFile,
 		KeyFile:   c.KeyFile,

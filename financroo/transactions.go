@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/cloudentity/acp/pkg/openbanking/client/transactions"
+	"github.com/openbanking-sandbox/client/transactions"
 )
 
 func (s *Server) GetTransactions() func(ctx *gin.Context) {

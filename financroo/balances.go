@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/cloudentity/acp/pkg/openbanking/client/balances"
+	"github.com/openbanking-sandbox/client/balances"
 )
 
 func (s *Server) GetBalances() func(ctx *gin.Context) {
