@@ -119,14 +119,6 @@ github.com/clbanning/x2j v0.0.0-20191024224557-825249438eec/go.mod h1:jMjuTZXRI4
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cloudentity/acp v1.4.1-0.20201201125423-37c411d48070 h1:lHTq13cIYciJUX9jUp3tNfXTSoemJFvUHKNbu6S6LAw=
 github.com/cloudentity/acp v1.4.1-0.20201201125423-37c411d48070/go.mod h1:mVi/++7yMsirNg0R4E6cq8QBtrh5ouhLTK6z61I1juk=
-github.com/cloudentity/acp-client-go v0.0.0-20201209110234-81fe76775de5 h1:hynGMdYqkpCIeGYuGOGl71Y5YKYMzjM8sx4YuJhGRkA=
-github.com/cloudentity/acp-client-go v0.0.0-20201209110234-81fe76775de5/go.mod h1:cjcE7e9t42cywHPtaKPq7ORsaDU4btT1PKbStxj7Nxs=
-github.com/cloudentity/acp-client-go v0.0.0-20201209112134-a247ed40ecff h1:sKivuNULQBDvZVmKqrsjlB7xs2KIodJihc5zObh1968=
-github.com/cloudentity/acp-client-go v0.0.0-20201209112134-a247ed40ecff/go.mod h1:cjcE7e9t42cywHPtaKPq7ORsaDU4btT1PKbStxj7Nxs=
-github.com/cloudentity/acp-client-go v0.0.0-20201209112843-1158439b7d91 h1:xw+IuCc+ZfdCG3AN13lk/F1WqmLWXm24JnKL4QJzqYA=
-github.com/cloudentity/acp-client-go v0.0.0-20201209112843-1158439b7d91/go.mod h1:cjcE7e9t42cywHPtaKPq7ORsaDU4btT1PKbStxj7Nxs=
-github.com/cloudentity/acp-client-go v0.0.0-20201209114436-f0057d7c0fa3 h1:LBLZK4d/Bu3CdhDw1IShn8PLs4/r6skKQXh9FydYiXU=
-github.com/cloudentity/acp-client-go v0.0.0-20201209114436-f0057d7c0fa3/go.mod h1:cjcE7e9t42cywHPtaKPq7ORsaDU4btT1PKbStxj7Nxs=
 github.com/cloudentity/acp-client-go v0.0.0-20201209134214-5d74ca919e20 h1:7QgFkE2GL0ZcMwrrWTewcoTeRtcqsria6UmbOpVvo7c=
 github.com/cloudentity/acp-client-go v0.0.0-20201209134214-5d74ca919e20/go.mod h1:cjcE7e9t42cywHPtaKPq7ORsaDU4btT1PKbStxj7Nxs=
 github.com/cloudentity/authorization-engine v0.0.0-20201124123519-c9edeabb82c2/go.mod h1:+qCc0ySCB+VyyuudEjbP+S34FAl86zvCIS06ABeV16w=
