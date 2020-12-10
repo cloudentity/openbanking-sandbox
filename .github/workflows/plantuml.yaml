@@ -1,5 +1,8 @@
 name: Generate PlantUML Diagrams
-on: push
+on:
+  push:
+    paths:
+    - '**.puml'
 
 jobs:
   plantuml:
