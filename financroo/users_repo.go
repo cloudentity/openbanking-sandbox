@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/boltdb/bolt"
 	"github.com/pkg/errors"
@@ -32,7 +31,7 @@ func NewUserRepo(db *bolt.DB) (UserRepo, error) {
 
 	if err = db.Update(func(tx *bolt.Tx) error {
 		if _, err = tx.CreateBucketIfNotExists(bucket); err != nil {
-			return fmt.Errorf("failed to create bucket: %w", err)
+			return errors.Wrapf(err, "failed to create bucket")
 		}
 
 		return nil
