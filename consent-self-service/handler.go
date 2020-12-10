@@ -7,7 +7,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/cloudentity/acp/pkg/swagger/models"
+	"github.com/cloudentity/acp-client-go/client/openbanking"
+	"github.com/cloudentity/acp-client-go/models"
 )
 
 func (s *Server) Index() func(*gin.Context) {
@@ -73,10 +74,10 @@ func (s *Server) ListConsents() func(*gin.Context) {
 
 func (s *Server) FetchAccounts(c *gin.Context) (*models.ListAccountAccessConsentsWithClient, error) {
 	var (
-		accounts           InternalAccounts
-		consentsByAccounts *models.ListAccountAccessConsentsWithClient
-		at                 *models.IntrospectResponse
-		err                error
+		accounts InternalAccounts
+		response *openbanking.ListConsentsByAccountsOK
+		at       *models.IntrospectResponse
+		err      error
 	)
 
 	token := c.GetHeader("Authorization")
@@ -95,11 +96,20 @@ func (s *Server) FetchAccounts(c *gin.Context) (*models.ListAccountAccessConsent
 		accountIDs[i] = a.ID
 	}
 
-	if consentsByAccounts, err = s.Client.GetAccountAccessConsent(accountIDs); err != nil {
-		return nil, fmt.Errorf("failed to get account access consent from acp: %wv", err)
+	if response, err = s.Client.Openbanking.ListConsentsByAccounts(
+		openbanking.NewListConsentsByAccountsParams().
+			WithTid(s.Client.TenantID).
+			WithListConsentsByAccountsRequest(
+				&models.ListConsentsByAccountsRequest{
+					AccountIDs: accountIDs,
+				},
+			),
+		nil,
+	); err != nil {
+		return nil, err
 	}
 
-	return consentsByAccounts, nil
+	return response.Payload, nil
 }
 
 func (s *Server) RevokeConsent() func(*gin.Context) {
@@ -127,7 +137,12 @@ func (s *Server) RevokeConsent() func(*gin.Context) {
 			c.String(http.StatusBadRequest, "user is not authorized to revoke this consent")
 		}
 
-		if err = s.Client.RevokeAccountAccessConsent(id); err != nil {
+		if _, err = s.Client.Openbanking.RevokeOpenbankingConsent(
+			openbanking.NewRevokeOpenbankingConsentParams().
+				WithTid(s.Client.TenantID).
+				WithConsentID(id),
+			nil,
+		); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to revoke account access consent: %+v", err))
 			return
 		}

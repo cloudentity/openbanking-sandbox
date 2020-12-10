@@ -10,16 +10,30 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	logrus "github.com/sirupsen/logrus"
+
+	"github.com/cloudentity/acp-client-go"
 )
 
 type Config struct {
-	Port     int           `env:"PORT" envDefault:"8070"`
-	ClientID string        `env:"CLIENT_ID,required"`
-	TokenURL *url.URL      `env:"TOKEN_URL,required"`
-	Timeout  time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA   string        `env:"ROOT_CA,required"`
-	CertFile string        `env:"CERT_FILE,required"`
-	KeyFile  string        `env:"KEY_FILE,required"`
+	Port      int           `env:"PORT" envDefault:"8070"`
+	ClientID  string        `env:"CLIENT_ID,required"`
+	IssuerURL *url.URL      `env:"ISSUER_URL,required"`
+	Timeout   time.Duration `env:"TIMEOUT" envDefault:"5s"`
+	RootCA    string        `env:"ROOT_CA,required"`
+	CertFile  string        `env:"CERT_FILE,required"`
+	KeyFile   string        `env:"KEY_FILE,required"`
+}
+
+func (c *Config) ClientConfig() acpclient.Config {
+	return acpclient.Config{
+		ClientID:  c.ClientID,
+		IssuerURL: c.IssuerURL,
+		Scopes:    []string{"introspect_openbanking_tokens"},
+		Timeout:   c.Timeout,
+		CertFile:  c.CertFile,
+		KeyFile:   c.KeyFile,
+		RootCA:    c.RootCA,
+	}
 }
 
 func LoadConfig() (config Config, err error) {
@@ -32,7 +46,7 @@ func LoadConfig() (config Config, err error) {
 
 type Server struct {
 	Config          Config
-	AcpClient       AcpClient
+	Client          acpclient.Client
 	AccountsStorage *AccountsStorage
 }
 
@@ -46,7 +60,7 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
 
-	if server.AcpClient, err = NewAcpClient(server.Config); err != nil {
+	if server.Client, err = acpclient.New(server.Config.ClientConfig()); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 

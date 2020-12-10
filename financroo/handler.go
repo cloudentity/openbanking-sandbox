@@ -11,7 +11,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/cloudentity/acp/pkg/openbanking/models"
+	"github.com/openbanking-sandbox/models"
 )
 
 const (
