@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/cloudentity/openbanking-sandbox/models"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +16,7 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
 			introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
-			userAccounts          []Account
+			userAccounts          []models.OBAccount6
 			err                   error
 		)
 
@@ -49,26 +49,26 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 			return
 		}
 
-		if userAccounts, err = s.AccountsStorage.GetAccount(introspectionResponse.Payload.Subject); err != nil {
+		if userAccounts, err = s.Storage.GetAccount(introspectionResponse.Payload.Subject); err != nil {
 			c.String(http.StatusNotFound, err.Error())
 			return
 		}
 
-		accounts := []Account{}
+		accounts := []*models.OBAccount6{}
 
 		for _, a := range userAccounts {
-			if has(introspectionResponse.Payload.AccountIDs, a.AccountID) {
+			if has(introspectionResponse.Payload.AccountIDs, string(a.AccountID)) {
 				if !has(grantedPermissions, "ReadAccountsDetail") {
-					a.Account = []AccountDetails{}
+					a.Account = []*models.OBAccount6AccountItems0{}
 				}
 
-				accounts = append(accounts, a)
+				accounts = append(accounts, &a)
 			}
 		}
 
-		response := GetAccounts{Data: Data{Account: accounts}}
-		response.Meta.TotalPages = len(response.Data.Account)
-		response.Links.Self = fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port))
+		response := models.OBReadAccount6{Data: &models.OBReadAccount6Data{Account: accounts}}
+		//response.Meta.TotalPages = len(response.Data.Account)
+		//response.Links.Self = fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port))
 
 		logrus.WithFields(logrus.Fields{"response": response}).Infof("accounts response")
 
@@ -81,20 +81,20 @@ type InternalAccounts struct {
 }
 
 type InternalAccount struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID   models.AccountID `json:"id"`
+	Name models.Nickname  `json:"name"`
 }
 
 // this API is bank specific. It should return all users's account.
 func (s *Server) InternalGetAccounts() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			accounts []Account
+			accounts []models.OBAccount6
 			sub      = c.Param("sub")
 			err      error
 		)
 
-		if accounts, err = s.AccountsStorage.GetAccount(sub); err != nil {
+		if accounts, err = s.Storage.GetAccount(sub); err != nil {
 			c.String(http.StatusNotFound, err.Error())
 			return
 		}

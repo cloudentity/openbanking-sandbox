@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	docker-compose build --parallel
+	docker-compose build
 
 .PHONY: replace-hosts
 replace-hosts:
