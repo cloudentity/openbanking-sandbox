@@ -33,7 +33,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
 
   const accounts = accountsRes ? pathOr([], ['accounts'], accountsRes) : []
 
-  const {isLoading: fetchBalancesProgress, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances);
+  const {isLoading: fetchBalancesProgress, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances, {refetchOnWindowFocus: false, retry: false});
 
   const handleAllowAccess = ({permissions}) => {
     setConnectProgress(true);
