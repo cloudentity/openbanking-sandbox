@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/openbanking-sandbox/models"
+	"github.com/cloudentity/openbanking-sandbox/models"
 )
 
 // GetProductsReader is a Reader for the GetProducts structure.

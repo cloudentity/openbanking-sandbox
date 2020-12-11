@@ -1,4 +1,4 @@
-module github.com/openbanking-sandbox
+module github.com/cloudentity/openbanking-sandbox
 
 go 1.15
 
