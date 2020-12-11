@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/openbanking-sandbox/client/accounts"
-	"github.com/openbanking-sandbox/models"
+	"github.com/cloudentity/openbanking-sandbox/client/accounts"
+	"github.com/cloudentity/openbanking-sandbox/models"
 )
 
 type BankAccount struct {

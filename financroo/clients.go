@@ -21,9 +21,9 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 
-	obc "github.com/openbanking-sandbox/client"
-	"github.com/openbanking-sandbox/client/account_access"
-	"github.com/openbanking-sandbox/models"
+	obc "github.com/cloudentity/openbanking-sandbox/client"
+	"github.com/cloudentity/openbanking-sandbox/client/account_access"
+	"github.com/cloudentity/openbanking-sandbox/models"
 )
 
 type AcpAccountAccessClient struct {

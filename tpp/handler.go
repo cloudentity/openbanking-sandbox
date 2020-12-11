@@ -16,7 +16,7 @@ import (
 	"github.com/cloudentity/acp-client-go/client/openbanking"
 	"github.com/cloudentity/acp-client-go/models"
 
-	"github.com/openbanking-sandbox/client/accounts"
+	"github.com/cloudentity/openbanking-sandbox/client/accounts"
 )
 
 const (
