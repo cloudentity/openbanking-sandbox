@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/boltdb/bolt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
@@ -16,8 +15,6 @@ type Server struct {
 	WebClient           AcpWebClient
 	BankClient          OpenbankingClient
 	SecureCookie        *securecookie.SecureCookie
-	DB                  *bolt.DB
-	UserRepo            UserRepo
 }
 
 func NewServer() (Server, error) {
@@ -41,14 +38,6 @@ func NewServer() (Server, error) {
 	server.BankClient = NewOpenbankingClient(server.Config)
 
 	server.SecureCookie = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
-
-	if server.DB, err = InitDB(); err != nil {
-		return server, errors.Wrapf(err, "failed to init db")
-	}
-
-	if server.UserRepo, err = NewUserRepo(server.DB); err != nil {
-		return server, errors.Wrapf(err, "failed to init user repo")
-	}
 
 	return server, nil
 }
