@@ -23,7 +23,7 @@ func TestConfig(t *testing.T) {
 	require.NoError(t, err)
 
 	require.Equal(t, 8091, config.Port)
-	require.Equal(t, "https://localhost:8443", config.AcpURL())
+	require.Equal(t, "https://localhost:8443", config.ACPURL)
 
 	require.NotEmpty(t, config.Login.ClientID)
 	require.NotEmpty(t, config.Login.ServerID)

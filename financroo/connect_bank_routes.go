@@ -35,7 +35,7 @@ func (s *Server) Index() func(*gin.Context) {
 func (s *Server) WebConfig() func(*gin.Context) {
 	return func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": s.Config.AcpURL(),
+			"authorizationServerURL": s.Config.ACPURL,
 			"clientId":               s.Config.Login.ClientID,
 			"authorizationServerId":  s.Config.Login.ServerID,
 			"tenantId":               s.Config.Login.TenantID,

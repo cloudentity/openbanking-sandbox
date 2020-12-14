@@ -53,14 +53,14 @@ type YAMLConfig struct {
 
 type Config struct {
 	YAMLConfig
-	Port            int    `env:"PORT" envDefault:"8091"`
-	CertFile        string `env:"CERT_FILE,required"`
-	KeyFile         string `env:"KEY_FILE,required"`
-	ACPHost         string `env:"ACP_HOST,required"`
-	ACPInternalHost string `env:"ACP_INTERNAL_HOST,required"`
-	AppHost         string `env:"APP_HOST,required"`
-	YAMLConfigFile  string `env:"YAML_CONFIG_FILE" envDefault:"./config.yaml"`
-	DBFile          string `env:"DB_FILE" envDefault:"./my.db"`
+	Port           int    `env:"PORT" envDefault:"8091"`
+	CertFile       string `env:"CERT_FILE,required"`
+	KeyFile        string `env:"KEY_FILE,required"`
+	ACPURL         string `env:"ACP_URL,required"`
+	ACPInternalURL string `env:"ACP_INTERNAL_URL,required"`
+	AppHost        string `env:"APP_HOST,required"`
+	YAMLConfigFile string `env:"YAML_CONFIG_FILE" envDefault:"./config.yaml"`
+	DBFile         string `env:"DB_FILE" envDefault:"./my.db"`
 }
 
 func LoadConfig() (Config, error) {
@@ -87,15 +87,6 @@ func LoadConfig() (Config, error) {
 	return config, nil
 }
 
-// todo replace host with port
-func (c *Config) AcpURL() string {
-	return fmt.Sprintf("https://%s:8443", c.ACPHost)
-}
-
-func (c *Config) AcpInternalURL() string {
-	return fmt.Sprintf("https://%s:8443", c.ACPInternalHost)
-}
-
 type SystemClientConfig struct {
 	ClientConfig
 	HTTPClientConfig
@@ -106,7 +97,7 @@ func (c *Config) ToSystemClientConfig(cfg BankConfig) SystemClientConfig {
 	return SystemClientConfig{
 		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
 		ClientConfig:     cfg.AcpClient.ClientConfig,
-		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.AcpInternalURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
 	}
 }
 
@@ -138,9 +129,9 @@ func (c *Config) ToWebClientConfig(cfg BankConfig) WebClientConfig {
 	return WebClientConfig{
 		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
 		ClientConfig:     cfg.AcpClient.ClientConfig,
-		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.AcpInternalURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		AuthorizeURL:     fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.AcpURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		UserinfoURL:      fmt.Sprintf("%s/%s/%s/userinfo", c.AcpInternalURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		AuthorizeURL:     fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.ACPURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		UserinfoURL:      fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
 	}
 }
 
@@ -154,6 +145,6 @@ func (c *Config) ToLoginClientConfig() LoginClientConfig {
 	return LoginClientConfig{
 		RootCA:      c.Login.RootCA,
 		Timeout:     c.Login.Timeout,
-		UserinfoURL: fmt.Sprintf("%s/%s/%s/userinfo", c.AcpInternalURL(), c.Login.TenantID, c.Login.ServerID),
+		UserinfoURL: fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, c.Login.TenantID, c.Login.ServerID),
 	}
 }
