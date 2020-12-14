@@ -11,7 +11,6 @@ import (
 	"github.com/cloudentity/openbanking-sandbox/models"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 )
 
 func (s *Server) WithUser(c *gin.Context) (User, error) {
@@ -58,11 +57,9 @@ func (s *Server) GetClientWithToken(bank ConnectedBank) (OpenbankingClient, Toke
 		return client, token, fmt.Errorf("can't get client for a bank: %s", bank.BankID)
 	}
 
-	logrus.Infof("XXX renew token: %s", bank.RefreshToken)
 	if token, err = clients.AcpWebClient.RenewToken(bank.RefreshToken); err != nil {
 		return client, token, errors.Wrapf(err, "can't renew access token for a bank: %s", bank.BankID)
 	}
-	logrus.Infof("XXX new token: %s", token.AccessToken)
 
 	return clients.BankClient, token, nil
 }
