@@ -3,6 +3,7 @@ module github.com/cloudentity/openbanking-sandbox
 go 1.15
 
 require (
+	github.com/boltdb/bolt v1.3.1
 	github.com/caarlos0/env/v6 v6.4.0
 	github.com/cloudentity/acp-client-go v0.0.0-20201210114335-7fc8db0e0d9b
 	github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible
@@ -20,9 +21,11 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0
+	github.com/stretchr/testify v1.6.1
 	github.com/tidwall/pretty v1.0.2 // indirect
 	go.etcd.io/bbolt v1.3.5
 	golang.org/x/oauth2 v0.0.0-20201208152858-08078c50e5b5
 	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
+	gopkg.in/yaml.v2 v2.4.0
 )

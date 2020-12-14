@@ -3,35 +3,125 @@ package main
 import (
 	"crypto/x509"
 	"encoding/pem"
+	"fmt"
 	"io/ioutil"
-	"net/url"
+	"os"
 	"time"
 
 	"github.com/caarlos0/env/v6"
+	"gopkg.in/yaml.v2"
 )
 
-type Config struct {
-	Port                            int           `env:"PORT" envDefault:"8091"`
-	ClientID                        string        `env:"CLIENT_ID,required"`
-	AuthorizeURL                    *url.URL      `env:"AUTHORIZE_URL,required"`
-	TokenURL                        *url.URL      `env:"TOKEN_URL,required"`
-	UserinfoURL                     *url.URL      `env:"USERINFO_URL,required"`
-	RedirectURL                     *url.URL      `env:"REDIRECT_URL,required"`
-	Timeout                         time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA                          string        `env:"ROOT_CA,required"`
-	CertFile                        string        `env:"CERT_FILE,required"`
-	KeyFile                         string        `env:"KEY_FILE,required"`
-	BankURL                         *url.URL      `env:"BANK_URL,required"`
-	FinancrooAuthorizationServerURL string        `env:"FINANCROO_AUTHORIZATION_SERVER_URL,required"`
-	FinancrooClientID               string        `env:"FINANCROO_CLIENT_ID,required"`
-	FinancrooAuthorizationServerID  string        `env:"FINANCROO_AUTHORIZATION_SERVER_ID,required"`
-	FinancrooTenantID               string        `env:"FINANCROO_TENANT_ID,required"`
+type ClientConfig struct {
+	TenantID    string `yaml:"tenant_id"`
+	ServerID    string `yaml:"server_id"`
+	ClientID    string `yaml:"client_id"`
+	RedirectURL string `yaml:"redirect_url"`
 }
 
-func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
+type LoginConfig struct {
+	ClientConfig `yaml:",inline"`
+	UIURL        string        `yaml:"ui_url"`
+	RootCA       string        `yaml:"root_ca"`
+	Timeout      time.Duration `yaml:"timeout"`
+}
+
+type HTTPClientConfig struct {
+	RootCA   string        `yaml:"root_ca"`
+	CertFile string        `yaml:"cert_file"`
+	KeyFile  string        `yaml:"key_file"`
+	Timeout  time.Duration `yaml:"timeout"`
+}
+
+type AcpClient struct {
+	ClientConfig     `yaml:",inline"`
+	HTTPClientConfig `yaml:",inline"`
+}
+
+type BankID string
+
+type BankConfig struct {
+	ID        BankID    `yaml:"id"`
+	URL       string    `yaml:"url"`
+	AcpClient AcpClient `yaml:"acp_client"`
+}
+
+type YAMLConfig struct {
+	Login LoginConfig  `yaml:"login"`
+	Banks []BankConfig `yaml:"banks"`
+}
+
+type Config struct {
+	YAMLConfig
+	Port            int    `env:"PORT" envDefault:"8091"`
+	CertFile        string `env:"CERT_FILE,required"`
+	KeyFile         string `env:"KEY_FILE,required"`
+	ACPHost         string `env:"ACP_HOST,required"`
+	ACPInternalHost string `env:"ACP_INTERNAL_HOST,required"`
+	AppHost         string `env:"APP_HOST,required"`
+	YAMLConfigFile  string `env:"YAML_CONFIG_FILE" envDefault:"./config.yaml"`
+	DBFile          string `env:"DB_FILE" envDefault:"./my.db"`
+}
+
+func LoadConfig() (Config, error) {
+	var (
+		config = Config{}
+		bs     []byte
+		err    error
+	)
+
+	if err = env.Parse(&config); err != nil {
+		return config, err
+	}
+
+	if bs, err = ioutil.ReadFile(config.YAMLConfigFile); err != nil {
+		return config, err
+	}
+
+	resolvedConfig := os.ExpandEnv(string(bs))
+
+	if err = yaml.Unmarshal([]byte(resolvedConfig), &config.YAMLConfig); err != nil {
+		return config, err
+	}
+
+	return config, nil
+}
+
+// todo replace host with port
+func (c *Config) AcpURL() string {
+	return fmt.Sprintf("https://%s:8443", c.ACPHost)
+}
+
+func (c *Config) AcpInternalURL() string {
+	return fmt.Sprintf("https://%s:8443", c.ACPInternalHost)
+}
+
+type SystemClientConfig struct {
+	ClientConfig
+	HTTPClientConfig
+	TokenURL string
+}
+
+func (c *Config) ToSystemClientConfig(cfg BankConfig) SystemClientConfig {
+	return SystemClientConfig{
+		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
+		ClientConfig:     cfg.AcpClient.ClientConfig,
+		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.AcpInternalURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+	}
+}
+
+type WebClientConfig struct {
+	ClientConfig
+	HTTPClientConfig
+	AuthorizeURL string
+	TokenURL     string
+	UserinfoURL  string
+}
+
+func (w *WebClientConfig) GetSigningKey() (signingKey interface{}, err error) {
 	var bs []byte
 
-	if bs, err = ioutil.ReadFile(c.KeyFile); err != nil {
+	if bs, err = ioutil.ReadFile(w.KeyFile); err != nil {
 		return signingKey, err
 	}
 
@@ -44,10 +134,26 @@ func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
 	return signingKey, nil
 }
 
-func LoadConfig() (config Config, err error) {
-	if err = env.Parse(&config); err != nil {
-		return config, err
+func (c *Config) ToWebClientConfig(cfg BankConfig) WebClientConfig {
+	return WebClientConfig{
+		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
+		ClientConfig:     cfg.AcpClient.ClientConfig,
+		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.AcpInternalURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		AuthorizeURL:     fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.AcpURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		UserinfoURL:      fmt.Sprintf("%s/%s/%s/userinfo", c.AcpInternalURL(), cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
 	}
+}
 
-	return config, err
+type LoginClientConfig struct {
+	RootCA      string
+	Timeout     time.Duration
+	UserinfoURL string
+}
+
+func (c *Config) ToLoginClientConfig() LoginClientConfig {
+	return LoginClientConfig{
+		RootCA:      c.Login.RootCA,
+		Timeout:     c.Login.Timeout,
+		UserinfoURL: fmt.Sprintf("%s/%s/%s/userinfo", c.AcpInternalURL(), c.Login.TenantID, c.Login.ServerID),
+	}
 }

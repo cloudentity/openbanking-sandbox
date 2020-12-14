@@ -10,11 +10,12 @@ import (
 	"time"
 
 	"github.com/caarlos0/env/v6"
-	"github.com/cloudentity/acp-client-go"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+
+	"github.com/cloudentity/acp-client-go"
 )
 
 type Config struct {

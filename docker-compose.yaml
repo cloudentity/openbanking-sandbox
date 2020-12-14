@@ -35,21 +35,15 @@ services:
       - "8091:8091"
     volumes:
       - ./data:/certs
+      - ./financroo/config.yaml:/config.yaml
+      - ./financroo/my.db:/my.db
+    env_file:
+      - .env
     environment:
-      - CLIENT_ID=bugkgm23g9kregtu051g
-      - AUTHORIZE_URL=https://${ACP_HOST}:8443/default/openbanking/oauth2/authorize
-      - TOKEN_URL=https://${ACP_INTERNAL_HOST}:8443/default/openbanking/oauth2/token
-      - USERINFO_URL=https://${ACP_INTERNAL_HOST}:8443/default/openbanking/userinfo
-      - REDIRECT_URL=https://${APP_HOST}:8091/api/callback
       - CERT_FILE=/certs/tpp_cert.pem
       - KEY_FILE=/certs/tpp_key.pem
-      - ROOT_CA=/certs/ca.pem
-      - BANK_URL=http://bank:8070
-      - FINANCROO_UI_URL=https://${APP_HOST}:8091
-      - FINANCROO_AUTHORIZATION_SERVER_URL=https://${ACP_HOST}:8443
-      - FINANCROO_AUTHORIZATION_SERVER_ID=financroo
-      - FINANCROO_TENANT_ID=default
-      - FINANCROO_CLIENT_ID=bv3p4uo557ouq8rha2bg
+      - YAML_CONFIG_FILE=/config.yaml
+      - DB_FILE=/my.db
 
   consent-page:
     build:
@@ -161,6 +155,8 @@ services:
       - ./data/acp_key.pem:/acp_key.pem
     environment:
       - FEATURES_SWAGGERUI=true
+      - FEATURES_SYSTEMOPENBANKINGCONSENTSMANAGEMENT=true
+      - FEATURES_SYSTEMCLIENTSMANAGEMENT=true
     command:
      - server
      - start

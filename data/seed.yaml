@@ -1700,6 +1700,7 @@ clients:
   grant_types:
   - client_credentials
   - authorization_code
+  - refresh_token
   id_token_signed_response_alg: RS256
   jwks:
     keys:
@@ -1720,6 +1721,7 @@ clients:
   scopes:
   - accounts
   - introspect_tokens
+  - offline_access
   - openid
   - revoke_tokens
   subject_type: pairwise

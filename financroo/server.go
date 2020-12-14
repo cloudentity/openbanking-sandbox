@@ -2,22 +2,59 @@ package main
 
 import (
 	"fmt"
-	bolt "go.etcd.io/bbolt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
+	bolt "go.etcd.io/bbolt"
 )
 
+type Clients struct {
+	AcpSystemClient AcpAccountAccessClient
+	AcpWebClient    AcpWebClient
+	BankClient      OpenbankingClient
+}
+
+func InitClients(config Config) (map[BankID]Clients, error) {
+	var (
+		clients         = map[BankID]Clients{}
+		acpSystemClient AcpAccountAccessClient
+		acpWebClient    AcpWebClient
+		bankClient      OpenbankingClient
+		err             error
+	)
+
+	for _, bank := range config.Banks {
+		if acpSystemClient, err = NewAcpAccountAccessClient(config.ToSystemClientConfig(bank)); err != nil {
+			return clients, errors.Wrapf(err, "failed to init acp system client for bank: %s", bank.ID)
+		}
+
+		if acpWebClient, err = NewAcpWebClient(config.ToWebClientConfig(bank)); err != nil {
+			return clients, errors.Wrapf(err, "failed to init acp web client for bank: %s", bank.ID)
+		}
+
+		if bankClient, err = NewOpenbankingClient(bank); err != nil {
+			return clients, errors.Wrapf(err, "failed to init client for bank: %s", bank.ID)
+		}
+
+		clients[bank.ID] = Clients{
+			AcpSystemClient: acpSystemClient,
+			AcpWebClient:    acpWebClient,
+			BankClient:      bankClient,
+		}
+	}
+
+	return clients, nil
+}
+
 type Server struct {
-	Config              Config
-	AccountAccessClient AcpAccountAccessClient
-	WebClient           AcpWebClient
-	BankClient          OpenbankingClient
-	SecureCookie        *securecookie.SecureCookie
-	DB                  *bolt.DB
-	UserRepo            UserRepo
+	Config       Config
+	Clients      map[BankID]Clients
+	SecureCookie *securecookie.SecureCookie
+	DB           *bolt.DB
+	UserRepo     UserRepo
+	LoginClient  LoginClient
 }
 
 func NewServer() (Server, error) {
@@ -30,19 +67,17 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to load config")
 	}
 
-	if server.AccountAccessClient, err = NewAcpAccountAccessClient(server.Config); err != nil {
-		return server, errors.Wrapf(err, "failed to init acp mtls client")
+	if server.Clients, err = InitClients(server.Config); err != nil {
+		return server, errors.Wrapf(err, "failed to init clients")
 	}
 
-	if server.WebClient, err = NewAcpWebClient(server.Config); err != nil {
-		return server, errors.Wrapf(err, "failed to init acp web client")
+	if server.LoginClient, err = NewLoginClient(server.Config.ToLoginClientConfig()); err != nil {
+		return server, errors.Wrapf(err, "failed to init login client")
 	}
-
-	server.BankClient = NewOpenbankingClient(server.Config)
 
 	server.SecureCookie = securecookie.New(securecookie.GenerateRandomKey(64), securecookie.GenerateRandomKey(32))
 
-	if server.DB, err = InitDB(); err != nil {
+	if server.DB, err = InitDB(server.Config); err != nil {
 		return server, errors.Wrapf(err, "failed to init db")
 	}
 
@@ -59,21 +94,16 @@ func (s *Server) Start() error {
 	r.Static("/static", "./web/app/build/static")
 
 	r.GET("/", s.Index())
-	r.POST("/api/connect", s.Connect())
-	r.GET("/api/callback", s.Callback())
+	r.GET("/config.json", s.WebConfig())
 
-	r.GET("/config.json", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"authorizationServerURL": s.Config.FinancrooAuthorizationServerURL,
-			"clientId":               s.Config.FinancrooClientID,
-			"authorizationServerId":  s.Config.FinancrooAuthorizationServerID,
-			"tenantId":               s.Config.FinancrooTenantID,
-		})
-	})
+	r.POST("/api/connect/:bankId", s.ConnectBank())
+	r.GET("/api/callback", s.ConnectBankCallback())
+	r.DELETE("/api/disconnect/:bankId", s.DisconnectBank())
 
 	r.GET("/api/accounts", s.GetAccounts())
 	r.GET("/api/transactions", s.GetTransactions())
 	r.GET("/api/balances", s.GetBalances())
+	r.GET("/api/banks", s.ConnectedBanks())
 
 	r.NoRoute(func(c *gin.Context) {
 		c.File("web/app/build/index.html")

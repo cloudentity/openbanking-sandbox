@@ -35,9 +35,9 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
 
   const {isLoading: fetchBalancesProgress, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances, {refetchOnWindowFocus: false, retry: false});
 
-  const handleAllowAccess = ({permissions}) => {
+  const handleAllowAccess = ({bankId, permissions}) => {
     setConnectProgress(true);
-    api.connectBank({permissions})
+    api.connectBank(bankId, {permissions})
       .then(res => {
         window.location.href = res.login_url;
       })
