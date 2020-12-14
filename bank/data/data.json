@@ -81,7 +81,6 @@
     "transactions": [
       {
         "AccountId": "22289",
-        "BankId": "gobank",
         "TransactionId": "123",
         "TransactionReference": "Ref 123",
         "Amount": {
@@ -112,7 +111,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "567",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -144,7 +142,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5678",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -176,7 +173,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5679",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -208,7 +204,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5680",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -354,7 +349,6 @@
     "transactions": [
       {
         "AccountId": "22289",
-        "BankId": "gobank",
         "TransactionId": "123",
         "TransactionReference": "Ref 123",
         "Amount": {
@@ -385,7 +379,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "567",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -417,7 +410,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5678",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -449,7 +441,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5679",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -481,7 +472,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5680",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -627,7 +617,6 @@
     "transactions": [
       {
         "AccountId": "22289",
-        "BankId": "gobank",
         "TransactionId": "123",
         "TransactionReference": "Ref 123",
         "Amount": {
@@ -658,7 +647,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "567",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -690,7 +678,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5678",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -722,7 +709,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5679",
         "TransactionReference": "Ref 124",
         "Amount": {
@@ -754,7 +740,6 @@
       },
       {
         "AccountId": "31820",
-        "BankId": "gobank",
         "TransactionId": "5680",
         "TransactionReference": "Ref 124",
         "Amount": {

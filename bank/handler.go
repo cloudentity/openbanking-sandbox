@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/cloudentity/openbanking-sandbox/models"
+	"github.com/go-openapi/strfmt"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -67,11 +69,11 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 			}
 		}
 
-		response := models.OBReadAccount6{Data: &models.OBReadAccount6Data{Account: accounts}}
-		//response.Meta.TotalPages = int32(len(accounts))
+		response := models.OBReadAccount6{Data: &models.OBReadAccount6Data{Account: accounts}, Meta: &models.Meta{}, Links: &models.Links{}}
+		response.Meta.TotalPages = int32(len(accounts))
 
-		//self := strfmt.URI(fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port)))
-		//response.Links.Self = &self
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port)))
+		response.Links.Self = &self
 
 		logrus.WithFields(logrus.Fields{"response": response}).Infof("accounts response")
 
@@ -147,8 +149,8 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 			return
 		}
 
-		if !has(grantedPermissions, "ReadAccountsBasic") {
-			c.String(http.StatusForbidden, "ReadAccountsBasic permission has not been granted")
+		if !has(grantedPermissions, "ReadBalances") {
+			c.String(http.StatusForbidden, "ReadBalances permission has not been granted")
 			return
 		}
 
@@ -166,9 +168,12 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 			}
 		}
 
-		response := models.OBReadBalance1{Data: &models.OBReadBalance1Data{Balance: balances}}
-		//response.Meta.TotalPages = len(response.Data.Account)
-		//response.Links.Self = fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port))
+		response := models.OBReadBalance1{Data: &models.OBReadBalance1Data{Balance: balances}, Meta: &models.Meta{}, Links: &models.Links{}}
+
+		response.Meta.TotalPages = int32(len(balances))
+
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/balances", strconv.Itoa(s.Config.Port)))
+		response.Links.Self = &self
 
 		logrus.WithFields(logrus.Fields{"response": response}).Infof("balances response")
 
@@ -208,8 +213,8 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 			return
 		}
 
-		if !has(grantedPermissions, "ReadAccountsBasic") {
-			c.String(http.StatusForbidden, "ReadAccountsBasic permission has not been granted")
+		if !has(grantedPermissions, "ReadTransactionsBasic") {
+			c.String(http.StatusForbidden, "ReadTransactionsBasic permission has not been granted")
 			return
 		}
 
@@ -223,17 +228,26 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 		for _, transaction := range userTransactions {
 			t := transaction
 			if has(introspectionResponse.Payload.AccountIDs, string(t.AccountID)) {
-				//	if !has(grantedPermissions, "ReadAccountsDetail") {
-				//		a.Account = []*models.OBAccount6AccountItems0{}
+				if !has(grantedPermissions, "ReadTransactionsDetail") {
+					t.TransactionInformation = ""
+					t.Balance = &models.OBTransactionCashBalance{}
+					t.MerchantDetails = &models.OBMerchantDetails1{}
+					t.CreditorAgent = &models.OBBranchAndFinancialInstitutionIdentification61{}
+					t.CreditorAccount = &models.OBCashAccount60{}
+					t.DebtorAgent = &models.OBBranchAndFinancialInstitutionIdentification62{}
+					t.DebtorAccount = &models.OBCashAccount61{}
+				}
 
 				transactions = append(transactions, &t)
 			}
-			//}
 		}
 
-		response := models.OBReadTransaction6{Data: &models.OBReadDataTransaction6{Transaction: transactions}}
-		//response.Meta.TotalPages = len(response.Data.Account)
-		//response.Links.Self = fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port))
+		response := models.OBReadTransaction6{Data: &models.OBReadDataTransaction6{Transaction: transactions}, Meta: &models.Meta{}, Links: &models.Links{}}
+
+		response.Meta.TotalPages = int32(len(transactions))
+
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/transactions", strconv.Itoa(s.Config.Port)))
+		response.Links.Self = &self
 
 		logrus.WithFields(logrus.Fields{"response": response}).Infof("transactions response")
 

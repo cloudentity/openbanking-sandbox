@@ -55,7 +55,7 @@ func (s *Server) Connect() func(*gin.Context) {
 		}
 
 		if registerResponse, err = s.AccountAccessClient.RegisterAccountAccessConsent(permissionsRes.Permissions); err != nil {
-			c.String(http.StatusBadRequest, fmt.Sprintf("failed to register account access consent: %+v", err))
+			c.JSON(http.StatusUnauthorized, err)
 			return
 		}
 
