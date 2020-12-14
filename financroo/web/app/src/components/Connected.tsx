@@ -23,7 +23,7 @@ export default function Connected ({accounts, balances, onConnectClick}) {
     months: [],
     categories: []
   });
-  const {isLoading, data} = useQuery('fetchTransactions', api.fetchTransactions);
+  const {isLoading, data} = useQuery('fetchTransactions', api.fetchTransactions, {refetchOnWindowFocus: false, retry: false});
 
   if (isLoading) {
     return <Progress/>;

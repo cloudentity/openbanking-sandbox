@@ -18,7 +18,7 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
 
-	obc "github.com/openbanking-sandbox/client"
+	obc "github.com/cloudentity/openbanking-sandbox/client"
 )
 
 type AcpWebClient struct {

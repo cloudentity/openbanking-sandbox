@@ -17,6 +17,4 @@ func main() {
 	if err = server.Start(); err != nil {
 		logrus.WithError(err).Fatalf("failed to start server")
 	}
-
-	defer server.DB.Close()
 }
