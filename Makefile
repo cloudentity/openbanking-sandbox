@@ -1,3 +1,7 @@
+export COMPOSE_DOCKER_CLI_BUILD=1
+
+.EXPORT_ALL_VARIABLES: ;
+
 .PHONY: build
 build:
 	docker-compose build
