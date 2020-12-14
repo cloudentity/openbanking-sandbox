@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundSize: 'cover'
   },
   formContainerRoot: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+
     [theme.breakpoints.down('sm')]: {
       padding: 16
     },
@@ -31,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function Register ({onLogin}) {
+export default function Register({onLogin}) {
   const classes = useStyles();
 
   return (

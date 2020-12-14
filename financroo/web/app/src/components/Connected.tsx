@@ -29,7 +29,7 @@ export default function Connected ({accounts, balances, onConnectClick}) {
     return <Progress/>;
   }
 
-  const transactions = applyFiltering(pick(['accounts'], filtering), data.transactions);
+  const transactions = applyFiltering(pick(['accounts'], filtering), data?.transactions || []);
 
   return (
     <Grid container className={classes.root}>

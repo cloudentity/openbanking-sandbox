@@ -81,7 +81,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
           )}
           {accounts.length > 0 && (
             <PageContent>
-              <Connected accounts={accounts} balances={balancesRes.balances}
+              <Connected accounts={accounts} balances={balancesRes?.balances || []}
                          onConnectClick={() => setConnectAccountOpen(true)}/>
             </PageContent>
           )}
