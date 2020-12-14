@@ -1,8 +1,8 @@
 import superagent from 'superagent';
 
 const authApi = {
-  exchangeCodeForToken: ({body}) => superagent
-    .post(`https://localhost:8443/default/financroo/oauth2/token`)
+  exchangeCodeForToken: ({tokenUri, body}) => superagent
+    .post(tokenUri)
     .send(body)
     .then(res => res)
 };

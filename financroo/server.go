@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
-	"strconv"
 )
 
 type Server struct {
@@ -52,10 +53,10 @@ func (s *Server) Start() error {
 
 	r.GET("/config.json", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"authorizationServerURL": s.Config.FinancrooAuthorizationServerUrl,
-			"clientId":               s.Config.FinancrooClientId,
-			"authorizationServerId":  s.Config.FinancrooAuthorizationServerId,
-			"tenantId":               s.Config.FinancrooTenantId,
+			"authorizationServerURL": s.Config.FinancrooAuthorizationServerURL,
+			"clientId":               s.Config.FinancrooClientID,
+			"authorizationServerId":  s.Config.FinancrooAuthorizationServerID,
+			"tenantId":               s.Config.FinancrooTenantID,
 		})
 	})
 
@@ -67,5 +68,5 @@ func (s *Server) Start() error {
 		c.File("web/app/build/index.html")
 	})
 
-	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
+	return r.RunTLS(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)), s.Config.CertFile, s.Config.KeyFile)
 }

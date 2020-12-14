@@ -1,5 +1,7 @@
 # openbanking-sandbox
 
+![alt Cool Sandbox diagram](https://raw.githubusercontent.com/cloudentity/openbanking-sandbox/master/docs/ob-sandbox-diagram.png)
+
 ## Overview
 
 This sandbox demonstrates Cloudentity's ACP capabilities for handling Openbanking scenarios.
@@ -42,7 +44,7 @@ Than to run the sandbox, execute:
 make run
 ```
 
-Once everything is up, open TPP app:
+Once everything is up, open TPP technical app:
 
 ```
 https://localhost:8090
@@ -52,6 +54,12 @@ Use one of the following users to log in:
 - `user / p@ssw0rd! `
 - `user2 / p@ssw0rd! `
 - `user3 / p@ssw0rd! `
+
+You can also use a Financroo app (use `test / p@ssw0rd!` to log in):
+
+```
+https://localhost:8091
+```
 
 Consent self service (use the same credentials as for TPP):
 
