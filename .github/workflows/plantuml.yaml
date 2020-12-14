@@ -2,7 +2,7 @@ name: Generate PlantUML Diagrams
 on:
   push:
     paths:
-    - '**.puml'
+      - "**.puml"
 
 jobs:
   plantuml:
@@ -25,7 +25,7 @@ jobs:
           echo ${{ steps.getfile.outputs.files }}
 
       - name: Generate SVG Diagrams
-        uses: holowinski/plantuml-github-action@master
+        uses: holowinski/plantuml-github-action@main
         with:
           args: -v -tsvg ${{steps.getfile.outputs.files}}
 
