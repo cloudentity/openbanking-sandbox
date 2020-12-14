@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	bolt "go.etcd.io/bbolt"
 
-	"github.com/boltdb/bolt"
 	"github.com/pkg/errors"
 )
 

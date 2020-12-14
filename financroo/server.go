@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	bolt "go.etcd.io/bbolt"
 	"strconv"
 
-	"github.com/boltdb/bolt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
