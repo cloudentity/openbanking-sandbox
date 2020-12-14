@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: tpp/Dockerfile
     container_name: tpp
+    restart: always
     ports:
       - "8090:8090"
     volumes:
@@ -29,6 +30,7 @@ services:
       context: .
       dockerfile: financroo/Dockerfile
     container_name: financroo
+    restart: always
     ports:
       - "8091:8091"
     volumes:
@@ -54,6 +56,7 @@ services:
       context: .
       dockerfile: consent-page/Dockerfile
     container_name: consent-page
+    restart: always
     ports:
       - "8080:8080"
     volumes:
@@ -74,6 +77,7 @@ services:
       context: .
       dockerfile: consent-self-service/Dockerfile
     container_name: consent-self-service
+    restart: always
     ports:
       - "8085:8085"
     volumes:
@@ -101,6 +105,7 @@ services:
       context: .
       dockerfile: consent-admin/Dockerfile
     container_name: consent-admin
+    restart: always
     ports:
       - "8086:8086"
     volumes:
@@ -129,6 +134,7 @@ services:
       context: .
       dockerfile: bank/Dockerfile
     container_name: bank
+    restart: always
     ports:
       - "8070:8070"
     volumes:
@@ -144,6 +150,7 @@ services:
 
   acp:
     container_name: acp
+    restart: always
     image: ${ACP_DOCKER_IMAGE}:${ACP_VERSION}
     ports:
      - 8443:8443
@@ -172,7 +179,7 @@ services:
   crdb:
     container_name: crdb
     image: cockroachdb/cockroach:v20.1.7
-    #restart: on-failure
+    restart: on-failure
     ports:
      - 26257:26257
      - 8081:8080
@@ -181,5 +188,6 @@ services:
   hazelcast:
     container_name: hazelcast
     image: hazelcast/hazelcast:3.12
+    restart: on-failure
     ports:
       - 5701:5701
