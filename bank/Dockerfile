@@ -4,6 +4,9 @@ WORKDIR /app
 
 COPY go.mod .
 COPY go.sum .
+COPY client client
+COPY models models
+
 RUN go mod download
 
 COPY bank .
