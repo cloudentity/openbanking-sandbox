@@ -43,7 +43,7 @@ services:
       - CERT_FILE=/certs/tpp_cert.pem
       - KEY_FILE=/certs/tpp_key.pem
       - YAML_CONFIG_FILE=/config.yaml
-      - DB_FILE=/my.db
+      - DB_FILE=my.db
 
   consent-page:
     build:
