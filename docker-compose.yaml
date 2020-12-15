@@ -35,15 +35,14 @@ services:
       - "8091:8091"
     volumes:
       - ./data:/certs
-      - ./financroo/config.yaml:/config.yaml
-      - ./financroo/my.db:/my.db
+      - ./financroo/data:/data
     env_file:
       - .env
     environment:
       - CERT_FILE=/certs/tpp_cert.pem
       - KEY_FILE=/certs/tpp_key.pem
-      - YAML_CONFIG_FILE=/config.yaml
-      - DB_FILE=/my.db
+      - YAML_CONFIG_FILE=/data/config.yaml
+      - DB_FILE=/data/my.db
 
   consent-page:
     build:
