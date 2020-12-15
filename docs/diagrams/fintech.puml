@@ -22,4 +22,5 @@ Rel(tpp, consent_page, "Asks for consent")
 Rel(acp, tpp, "Issues token")
 
 Rel(bank, acp, "uses")
+
 @enduml

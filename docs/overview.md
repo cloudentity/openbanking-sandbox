@@ -28,10 +28,10 @@ Logical system diagram:
 This sandbox provides solutions for different use-cases for few different
 personas.
 
-### Fintech App User - Bob
+### Fintech App User
 
 Usecase: Fintech aggregator
-Bob has multiple banking accounts, he'd like to see all his finances in one place.
+User has multiple banking accounts, he'd like to see all his finances in one place.
 
 Solution: Thanks to the standards which Openbanking defines, fintech applications
 can connect to multiple financial institutions using the same secure APIs.
