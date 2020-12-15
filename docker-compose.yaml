@@ -2,6 +2,7 @@ version: "3.0"
 
 services:
   tpp:
+    image: cloudentity/openbanking-sandbox-tpp-developer:latest
     build:
       context: .
       dockerfile: tpp/Dockerfile
@@ -26,6 +27,7 @@ services:
       - BANK_URL=http://bank:8070
 
   financroo:
+    image: cloudentity/openbanking-sandbox-tpp-financroo:latest
     build:
       context: .
       dockerfile: financroo/Dockerfile
@@ -52,6 +54,7 @@ services:
       - FINANCROO_CLIENT_ID=bv3p4uo557ouq8rha2bg
 
   consent-page:
+    image: cloudentity/openbanking-sandbox-consent-page:latest
     build:
       context: .
       dockerfile: consent-page/Dockerfile
@@ -73,6 +76,7 @@ services:
       - BANK_URL=http://bank:8070
 
   consent-self-service:
+    image: cloudentity/openbanking-sandbox-consent-self-service:latest
     build:
       context: .
       dockerfile: consent-self-service/Dockerfile
@@ -101,6 +105,7 @@ services:
       - INTROSPECT_ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/bank-customers
 
   consent-admin:
+    image: cloudentity/openbanking-sandbox-consent-admin:latest
     build:
       context: .
       dockerfile: consent-admin/Dockerfile
@@ -130,6 +135,7 @@ services:
       - INTROSPECT_ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/bank-admins
       
   bank:
+    image: cloudentity/openbanking-sandbox-bank:latest
     build:
       context: .
       dockerfile: bank/Dockerfile

@@ -11,9 +11,15 @@ build:
 replace-hosts:
 	./scripts/replace_hosts.sh
 
+.PHONY: run-dev
+run-dev: replace-hosts
+	docker-compose up -d
+	./scripts/wait.sh
+	make seed
+
 .PHONY: run
 run: replace-hosts
-	docker-compose up -d
+	docker-compose up -d --no-build
 	./scripts/wait.sh
 	make seed
 
