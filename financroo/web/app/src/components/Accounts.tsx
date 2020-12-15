@@ -3,12 +3,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import BankCard from "./BankCard";
 import mainClasses from "./main.module.css"
-import {groupBy, keys, pipe} from "ramda";
 import Card from "@material-ui/core/Card";
 
-export default function Accounts ({accounts, balances, filtering, onChangeFiltering, onConnectClick}) {
+export default function Accounts ({banks, accounts, balances, filtering, onChangeFiltering, onConnectClick, onDisconnect}) {
 
-  const banks = pipe(groupBy((a: any) => a.BankId), keys)(accounts);
   const totalBalance = balances.reduce((total, b) => total + parseFloat(b.Amount.Amount), 0).toFixed(2);
 
   return (
@@ -31,6 +29,7 @@ export default function Accounts ({accounts, balances, filtering, onChangeFilter
           balances={balances}
           filtering={filtering}
           onChangeFiltering={onChangeFiltering}
+          onDisconnect={onDisconnect}
           style={{marginTop: 32}}/>
       ))}
 

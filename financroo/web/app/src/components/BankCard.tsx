@@ -1,5 +1,5 @@
 import React from "react";
-import {Theme} from "@material-ui/core";
+import {Button, Theme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function BankCard({bankId, accounts, balances, filtering, style = {}, onChangeFiltering}) {
+export default function BankCard({bankId, accounts, balances, filtering, style = {}, onChangeFiltering, onDisconnect}) {
   const classes = useStyles();
 
   const getAccountBalance = (accountId, balances) => balances.find(b => b.AccountId === accountId);
@@ -51,6 +51,10 @@ export default function BankCard({bankId, accounts, balances, filtering, style =
           <Typography
             style={{background: 'rgba(54, 198, 175, 0.08)', color: '#36C6AF', fontSize: 14, padding: 2, marginTop: 4}}
           >{accounts.length} accounts synced</Typography>
+        </div>
+        <div style={{flex: 1}}/>
+        <div>
+          <Button size={"small"} variant={'outlined'} onClick={onDisconnect(bankId)}>disconnect</Button>
         </div>
       </div>
       {accounts.map(account => (

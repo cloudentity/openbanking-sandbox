@@ -8,7 +8,7 @@ import {useQuery} from "react-query";
 import {api} from "../api/api";
 import Progress from "./Progress";
 import {applyFiltering} from "./analytics.utils";
-import {pick} from "ramda";
+import {pathOr, pick} from "ramda";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -16,14 +16,44 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function Connected ({accounts, balances, onConnectClick}) {
+export default function Connected({banks, onConnectClick, onDisconnect}) {
   const classes = useStyles();
   const [filtering, setFiltering] = useState({
-    accounts: accounts.map(a => a.AccountId),
+    accounts: [],
     months: [],
     categories: []
   });
-  const {isLoading, data} = useQuery('fetchTransactions', api.fetchTransactions, {refetchOnWindowFocus: false, retry: false});
+
+  const {
+    isLoading: fetchAccountsProgress,
+    isError: fetchAccountsError,
+    data: accountsRes
+  } = useQuery('fetchAccounts', api.fetchAccounts, {
+    refetchOnWindowFocus: false,
+    retry: false,
+    onSuccess: data => {
+      setFiltering(m => ({...m, accounts: (data.accounts || []).map(a => a.AccountId)}));
+    }
+  });
+
+  if (fetchAccountsError) {
+    //
+  }
+
+  const {isLoading: fetchBalancesProgress, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances, {
+    refetchOnWindowFocus: false,
+    retry: false
+  });
+
+  const accounts = accountsRes ? pathOr([], ['accounts'], accountsRes) : [];
+  const balances = balancesRes ? pathOr([], ['balances'], balancesRes) : [];
+
+  const {isLoading: fetchTransactionsProgress, data} = useQuery('fetchTransactions', api.fetchTransactions, {
+    refetchOnWindowFocus: false,
+    retry: false
+  });
+
+  const isLoading = fetchAccountsProgress || fetchBalancesProgress || fetchTransactionsProgress;
 
   if (isLoading) {
     return <Progress/>;
@@ -34,7 +64,15 @@ export default function Connected ({accounts, balances, onConnectClick}) {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={4} style={{background: '#F7FAFF', padding: '16px 32px', borderRight: '1px solid #EAECF1'}}>
-        <Accounts accounts={accounts} balances={balances} filtering={filtering} onChangeFiltering={f => setFiltering({...filtering, ...f})} onConnectClick={onConnectClick}/>
+        <Accounts
+          banks={banks}
+          accounts={accounts}
+          balances={balances}
+          filtering={filtering}
+          onChangeFiltering={f => setFiltering({...filtering, ...f})}
+          onConnectClick={onConnectClick}
+          onDisconnect={onDisconnect}
+        />
       </Grid>
       <Grid item xs={8} style={{background: '#FCFCFF', padding: '32px 32px 16px 32px'}}>
         <Analytics transactions={transactions} filtering={filtering} onChangeFiltering={f => setFiltering({...filtering, ...f})}/>
