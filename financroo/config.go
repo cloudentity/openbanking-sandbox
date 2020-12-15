@@ -60,7 +60,7 @@ type Config struct {
 	ACPInternalURL string `env:"ACP_INTERNAL_URL,required"`
 	AppHost        string `env:"APP_HOST,required"`
 	YAMLConfigFile string `env:"YAML_CONFIG_FILE" envDefault:"./config.yaml"`
-	DBFile         string `env:"DB_FILE" envDefault:"my.db"`
+	DBFile         string `env:"DB_FILE" envDefault:"./my.db"`
 }
 
 func LoadConfig() (Config, error) {
