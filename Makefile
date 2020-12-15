@@ -5,7 +5,7 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 
 .PHONY: build
 build:
-	docker-compose build
+	docker-compose -f docker-compose.yaml -f docker-compose.build.yaml build
 
 .PHONY: replace-hosts
 replace-hosts:
@@ -13,7 +13,7 @@ replace-hosts:
 
 .PHONY: run-dev
 run-dev: replace-hosts
-	docker-compose up -d
+	docker-compose -f docker-compose.yaml -f docker-compose.build.yaml up -d
 	./scripts/wait.sh
 	make seed
 

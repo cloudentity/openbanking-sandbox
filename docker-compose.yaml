@@ -3,9 +3,6 @@ version: "3.0"
 services:
   tpp:
     image: cloudentity/openbanking-sandbox-tpp-developer:latest
-    build:
-      context: .
-      dockerfile: tpp/Dockerfile
     container_name: tpp
     restart: always
     ports:
@@ -28,9 +25,6 @@ services:
 
   financroo:
     image: cloudentity/openbanking-sandbox-tpp-financroo:latest
-    build:
-      context: .
-      dockerfile: financroo/Dockerfile
     container_name: financroo
     restart: always
     ports:
@@ -55,9 +49,6 @@ services:
 
   consent-page:
     image: cloudentity/openbanking-sandbox-consent-page:latest
-    build:
-      context: .
-      dockerfile: consent-page/Dockerfile
     container_name: consent-page
     restart: always
     ports:
@@ -77,9 +68,6 @@ services:
 
   consent-self-service:
     image: cloudentity/openbanking-sandbox-consent-self-service:latest
-    build:
-      context: .
-      dockerfile: consent-self-service/Dockerfile
     container_name: consent-self-service
     restart: always
     ports:
@@ -106,9 +94,6 @@ services:
 
   consent-admin:
     image: cloudentity/openbanking-sandbox-consent-admin:latest
-    build:
-      context: .
-      dockerfile: consent-admin/Dockerfile
     container_name: consent-admin
     restart: always
     ports:
@@ -136,9 +121,6 @@ services:
       
   bank:
     image: cloudentity/openbanking-sandbox-bank:latest
-    build:
-      context: .
-      dockerfile: bank/Dockerfile
     container_name: bank
     restart: always
     ports:
