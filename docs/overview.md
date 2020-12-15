@@ -30,7 +30,8 @@ personas.
 
 ### Fintech App User
 
-Usecase: Fintech aggregator
+#### Usecase: Fintech aggregator
+
 User has multiple banking accounts, he'd like to see all his finances in one place.
 
 Solution: Thanks to the standards which Openbanking defines, fintech applications
@@ -43,13 +44,29 @@ Simplified flow
 
 ![](diagrams/fintech.svg)
 
+#### Usecase: Consent Self Service
+
+User wants to review what data is he sharing with Fintech Apps (TPPs).
+
+They want to revoke a specific consent they've given to one of the apps
+
+Solution: ACP allows banks to expose consent information in Bank's customer portal
+
+`consent-self-servicce` applications contains a sample bank customer portal.
+It lists all TPPs with access to Users data.
+It allows to revoke individual consents as well as all consents for a selected TPP.
+
+![](diagrams/consent-self-service.svg)
+
 ### Bank Administrator
 
 Usecase: Revoke TPP consents
 
 Admin wants to revoke all consents given to a TPP - due to the client being compromised.
 
-Solution: ACP stores information about all the consents given to the TPP.
+Solution: ACP allows to mange consents given to the TPP.
 
 `consent-admin` application contains a sample bank administration portal.
 It lists all TPPs and allows to revoke all consents given to a particular TPP.
+
+![](diagrams/consent-admin.svg)

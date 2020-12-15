@@ -1,0 +1,18 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+LAYOUT_LEFT_RIGHT()
+
+Person(bank_user, "Bank User")
+
+System_Boundary(bank, "Bank") {
+    Container(bank_portal, "Consumer Portal", "docker")
+}
+
+System_Boundary(acp_system, "ACP") {
+    Container(acp, "ACP", "docker")
+}
+
+Rel(bank_user, bank_portal, "Manage Consent")
+
+Rel(bank_portal, acp, "Gets User Consents")
+@enduml
