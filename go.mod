@@ -4,7 +4,7 @@ go 1.15
 
 require (
 	github.com/caarlos0/env/v6 v6.4.0
-	github.com/cloudentity/acp-client-go v0.0.0-20201215162900-99a853dae8b4
+	github.com/cloudentity/acp-client-go v0.0.0-20201215163422-90b86dd81381
 	github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-openapi/errors v0.19.9
