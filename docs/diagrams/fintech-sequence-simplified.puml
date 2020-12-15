@@ -11,4 +11,5 @@ Bank --> App : accounts
 App -> Bank  : get user transactions 
 Bank --> App : transactions
 App --> User : show transaction
+
 @enduml
