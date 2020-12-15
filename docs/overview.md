@@ -42,3 +42,14 @@ that only trusted, secure clients can access bank's APIs.
 Simplified flow
 
 ![](diagrams/fintech.svg)
+
+### Bank Administrator
+
+Usecase: Revoke TPP consents
+
+Admin wants to revoke all consents given to a TPP - due to the client being compromised.
+
+Solution: ACP stores information about all the consents given to the TPP.
+
+`consent-admin` application contains a sample bank administration portal.
+It lists all TPPs and allows to revoke all consents given to a particular TPP.
