@@ -8,10 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
-
 	"github.com/cloudentity/acp-client-go/client/openbanking"
+	"github.com/gin-gonic/gin"
 )
 
 func (s *Server) GetAccounts() func(*gin.Context) {
@@ -22,21 +20,10 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 			err                   error
 		)
 
-		token := c.GetHeader("Authorization")
-		token = strings.ReplaceAll(token, "Bearer ", "")
-
-		if introspectionResponse, err = s.Client.Openbanking.OpenbankingAccountAccessConsentIntrospect(
-			openbanking.NewOpenbankingAccountAccessConsentIntrospectParams().
-				WithTid(s.Client.TenantID).
-				WithAid(s.Client.ServerID).
-				WithToken(&token),
-			nil,
-		); err != nil {
+		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
 			return
 		}
-
-		logrus.WithFields(logrus.Fields{"introspection_response": introspectionResponse.Payload}).Infof("token introspected")
 
 		grantedPermissions := introspectionResponse.Payload.Permissions
 
@@ -51,7 +38,7 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 			return
 		}
 
-		if userAccounts, err = s.Storage.GetAccount(introspectionResponse.Payload.Subject); err != nil {
+		if userAccounts, err = s.Storage.GetAccounts(introspectionResponse.Payload.Subject); err != nil {
 			c.String(http.StatusNotFound, err.Error())
 			return
 		}
@@ -69,13 +56,18 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 			}
 		}
 
-		response := models.OBReadAccount6{Data: &models.OBReadAccount6Data{Account: accounts}, Meta: &models.Meta{}, Links: &models.Links{}}
-		response.Meta.TotalPages = int32(len(accounts))
-
 		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port)))
-		response.Links.Self = &self
-
-		logrus.WithFields(logrus.Fields{"response": response}).Infof("accounts response")
+		response := models.OBReadAccount6{
+			Data: &models.OBReadAccount6Data{
+				Account: accounts,
+			},
+			Meta: &models.Meta{
+				TotalPages: int32(len(accounts)),
+			},
+			Links: &models.Links{
+				Self: &self,
+			},
+		}
 
 		c.PureJSON(http.StatusOK, response)
 	}
@@ -99,7 +91,7 @@ func (s *Server) InternalGetAccounts() func(*gin.Context) {
 			err      error
 		)
 
-		if accounts, err = s.Storage.GetAccount(sub); err != nil {
+		if accounts, err = s.Storage.GetAccounts(sub); err != nil {
 			c.String(http.StatusNotFound, err.Error())
 			return
 		}
@@ -125,21 +117,10 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 			err                   error
 		)
 
-		token := c.GetHeader("Authorization")
-		token = strings.ReplaceAll(token, "Bearer ", "")
-
-		if introspectionResponse, err = s.Client.Openbanking.OpenbankingAccountAccessConsentIntrospect(
-			openbanking.NewOpenbankingAccountAccessConsentIntrospectParams().
-				WithTid(s.Client.TenantID).
-				WithAid(s.Client.ServerID).
-				WithToken(&token),
-			nil,
-		); err != nil {
+		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
 			return
 		}
-
-		logrus.WithFields(logrus.Fields{"introspection_response": introspectionResponse.Payload}).Infof("token introspected")
 
 		grantedPermissions := introspectionResponse.Payload.Permissions
 
@@ -154,7 +135,7 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 			return
 		}
 
-		if userBalances, err = s.Storage.GetBalance(introspectionResponse.Payload.Subject); err != nil {
+		if userBalances, err = s.Storage.GetBalances(introspectionResponse.Payload.Subject); err != nil {
 			c.String(http.StatusNotFound, err.Error())
 			return
 		}
@@ -168,14 +149,18 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 			}
 		}
 
-		response := models.OBReadBalance1{Data: &models.OBReadBalance1Data{Balance: balances}, Meta: &models.Meta{}, Links: &models.Links{}}
-
-		response.Meta.TotalPages = int32(len(balances))
-
 		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/balances", strconv.Itoa(s.Config.Port)))
-		response.Links.Self = &self
-
-		logrus.WithFields(logrus.Fields{"response": response}).Infof("balances response")
+		response := models.OBReadBalance1{
+			Data: &models.OBReadBalance1Data{
+				Balance: balances,
+			},
+			Meta: &models.Meta{
+				TotalPages: int32(len(balances)),
+			},
+			Links: &models.Links{
+				Self: &self,
+			},
+		}
 
 		c.PureJSON(http.StatusOK, response)
 	}
@@ -189,21 +174,10 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 			err                   error
 		)
 
-		token := c.GetHeader("Authorization")
-		token = strings.ReplaceAll(token, "Bearer ", "")
-
-		if introspectionResponse, err = s.Client.Openbanking.OpenbankingAccountAccessConsentIntrospect(
-			openbanking.NewOpenbankingAccountAccessConsentIntrospectParams().
-				WithTid(s.Client.TenantID).
-				WithAid(s.Client.ServerID).
-				WithToken(&token),
-			nil,
-		); err != nil {
+		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
 			return
 		}
-
-		logrus.WithFields(logrus.Fields{"introspection_response": introspectionResponse.Payload}).Infof("token introspected")
 
 		grantedPermissions := introspectionResponse.Payload.Permissions
 
@@ -218,7 +192,7 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 			return
 		}
 
-		if userTransactions, err = s.Storage.GetTransaction(introspectionResponse.Payload.Subject); err != nil {
+		if userTransactions, err = s.Storage.GetTransactions(introspectionResponse.Payload.Subject); err != nil {
 			c.String(http.StatusNotFound, err.Error())
 			return
 		}
@@ -242,17 +216,44 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 			}
 		}
 
-		response := models.OBReadTransaction6{Data: &models.OBReadDataTransaction6{Transaction: transactions}, Meta: &models.Meta{}, Links: &models.Links{}}
-
-		response.Meta.TotalPages = int32(len(transactions))
-
 		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/transactions", strconv.Itoa(s.Config.Port)))
-		response.Links.Self = &self
 
-		logrus.WithFields(logrus.Fields{"response": response}).Infof("transactions response")
+		response := models.OBReadTransaction6{
+			Data: &models.OBReadDataTransaction6{
+				Transaction: transactions,
+			},
+			Meta: &models.Meta{
+				TotalPages: int32(len(transactions)),
+			},
+			Links: &models.Links{
+				Self: &self,
+			},
+		}
 
 		c.PureJSON(http.StatusOK, response)
 	}
+}
+
+func (s *Server) IntrospectToken(c *gin.Context) (*openbanking.OpenbankingAccountAccessConsentIntrospectOK, error) {
+	var (
+		introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
+		err                   error
+	)
+
+	token := c.GetHeader("Authorization")
+	token = strings.ReplaceAll(token, "Bearer ", "")
+
+	if introspectionResponse, err = s.Client.Openbanking.OpenbankingAccountAccessConsentIntrospect(
+		openbanking.NewOpenbankingAccountAccessConsentIntrospectParams().
+			WithTid(s.Client.TenantID).
+			WithAid(s.Client.ServerID).
+			WithToken(&token),
+		nil,
+	); err != nil {
+		return nil, err
+	}
+
+	return introspectionResponse, nil
 }
 
 func has(list []string, a string) bool {

@@ -9,9 +9,9 @@ import (
 )
 
 type Data struct {
-	Account     []models.OBAccount6                      `json:"accounts"`
-	Balance     []models.OBReadBalance1DataBalanceItems0 `json:"balances"`
-	Transaction []models.OBTransaction6                  `json:"transactions"`
+	Accounts     []models.OBAccount6                      `json:"accounts"`
+	Balances     []models.OBReadBalance1DataBalanceItems0 `json:"balances"`
+	Transactions []models.OBTransaction6                  `json:"transactions"`
 }
 
 type Storage struct {
@@ -48,7 +48,7 @@ func (a *Storage) Load() error {
 	return nil
 }
 
-func (a *Storage) GetAccount(sub string) ([]models.OBAccount6, error) {
+func (a *Storage) GetAccounts(sub string) ([]models.OBAccount6, error) {
 	var (
 		accounts []models.OBAccount6
 		data     Data
@@ -59,10 +59,10 @@ func (a *Storage) GetAccount(sub string) ([]models.OBAccount6, error) {
 		return accounts, fmt.Errorf("no data found for user: %s", sub)
 	}
 
-	return data.Account, nil
+	return data.Accounts, nil
 }
 
-func (a *Storage) GetBalance(sub string) ([]models.OBReadBalance1DataBalanceItems0, error) {
+func (a *Storage) GetBalances(sub string) ([]models.OBReadBalance1DataBalanceItems0, error) {
 	var (
 		balances []models.OBReadBalance1DataBalanceItems0
 		data     Data
@@ -73,10 +73,10 @@ func (a *Storage) GetBalance(sub string) ([]models.OBReadBalance1DataBalanceItem
 		return balances, fmt.Errorf("no data found for user: %s", sub)
 	}
 
-	return data.Balance, nil
+	return data.Balances, nil
 }
 
-func (a *Storage) GetTransaction(sub string) ([]models.OBTransaction6, error) {
+func (a *Storage) GetTransactions(sub string) ([]models.OBTransaction6, error) {
 	var (
 		transactions []models.OBTransaction6
 		data         Data
@@ -87,5 +87,5 @@ func (a *Storage) GetTransaction(sub string) ([]models.OBTransaction6, error) {
 		return transactions, fmt.Errorf("no data found for user: %s", sub)
 	}
 
-	return data.Transaction, nil
+	return data.Transactions, nil
 }
