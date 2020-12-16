@@ -2,7 +2,6 @@ login:
   tenant_id: default
   server_id: financroo
   client_id: bv3p4uo557ouq8rha2bg
-  ui_url: https://${APP_HOST}:8091
   root_ca: "/certs/ca.pem"
   timeout: 5s
 banks:
@@ -12,7 +11,6 @@ banks:
     tenant_id: default
     server_id: openbanking
     client_id: bugkgm23g9kregtu051g
-    redirect_url: https://${APP_HOST}:8091/api/callback
     cert_file: "/certs/tpp_cert.pem"
     key_file: "/certs/tpp_key.pem"
     root_ca: "/certs/ca.pem"
