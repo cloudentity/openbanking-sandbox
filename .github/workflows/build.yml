@@ -1,0 +1,30 @@
+name: pipeline
+
+on:
+  push:
+  pull_request:
+    types: [opened]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-18.04
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: go setup
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15.2
+
+    - name: build
+      run: go build ./...
+
+    - name: lint
+      uses: golangci/golangci-lint-action@v2
+      with:
+        version: v1.32
+
+    - name: test
+      run: go test -v ./...
