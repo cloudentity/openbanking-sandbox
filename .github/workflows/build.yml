@@ -18,9 +18,6 @@ jobs:
       with:
         go-version: 1.15.2
 
-    - name: build
-      run: go build ./...
-
     - name: lint
       uses: golangci/golangci-lint-action@v2
       with:
