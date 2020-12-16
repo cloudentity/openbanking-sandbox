@@ -43,6 +43,15 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
       .finally(() => setProgress(false));
   }
 
+  const handleReconnectBank = (bankId, permissions) => () => {
+    setProgress(true);
+    api.connectBank(bankId, {permissions})
+      .then(res => {
+        window.location.href = res.login_url;
+      })
+      .catch(() => setProgress(false));
+  }
+
   const showProgress = isProgress || fetchBanksProgress;
 
   return (
@@ -84,6 +93,7 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
                 banks={banks}
                 onConnectClick={() => setConnectAccountOpen(true)}
                 onDisconnect={handleDisconnectBank}
+                onReconnect={handleReconnectBank}
               />
             </PageContent>
           )}

@@ -8,6 +8,7 @@ import Card from "@material-ui/core/Card";
 import Checkbox from "@material-ui/core/Checkbox";
 import {banks} from "./banks";
 import {filter, pathOr} from "ramda";
+import requestAccessPermissions from "./request-access-permissions.json";
 
 const useStyles = makeStyles((theme: Theme) => ({
   accountRoot: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function BankCard({bankId, accounts, balances, filtering, style = {}, onChangeFiltering, onDisconnect}) {
+export default function BankCard({bankId, reconnect, accounts, balances, filtering, style = {}, onChangeFiltering, onDisconnect, onReconnect}) {
   const classes = useStyles();
 
   const getAccountBalance = (accountId, balances) => balances.find(b => b.AccountId === accountId);
@@ -54,7 +55,16 @@ export default function BankCard({bankId, accounts, balances, filtering, style =
         </div>
         <div style={{flex: 1}}/>
         <div>
-          <Button size={"small"} variant={'outlined'} onClick={onDisconnect(bankId)}>disconnect</Button>
+          {reconnect && (
+            <Button size={"small"}
+                    variant={'contained'}
+                    color={'primary'}
+                    style={{color: '#fff'}}
+                    onClick={onReconnect(bankId, requestAccessPermissions.permissions.map(p => p.value).filter(p => p))}>reconnect</Button>
+          )}
+          {!reconnect && (
+            <Button size={"small"} variant={'outlined'} onClick={onDisconnect(bankId)}>disconnect</Button>
+          )}
         </div>
       </div>
       {accounts.map(account => (

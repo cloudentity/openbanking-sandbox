@@ -5,7 +5,7 @@ import BankCard from "./BankCard";
 import mainClasses from "./main.module.css"
 import Card from "@material-ui/core/Card";
 
-export default function Accounts ({banks, accounts, balances, filtering, onChangeFiltering, onConnectClick, onDisconnect}) {
+export default function Accounts ({banks, reconnectBank, accounts, balances, filtering, onChangeFiltering, onConnectClick, onDisconnect, onReconnect}) {
 
   const totalBalance = balances.reduce((total, b) => total + parseFloat(b.Amount.Amount), 0).toFixed(2);
 
@@ -25,11 +25,13 @@ export default function Accounts ({banks, accounts, balances, filtering, onChang
         <BankCard
           key={bankId}
           bankId={bankId}
+          reconnect={reconnectBank}
           accounts={accounts.filter(a => a.BankId === bankId)}
           balances={balances}
           filtering={filtering}
           onChangeFiltering={onChangeFiltering}
           onDisconnect={onDisconnect}
+          onReconnect={onReconnect}
           style={{marginTop: 32}}/>
       ))}
 
