@@ -20,6 +20,8 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import financrooIcon from "../assets/banks/financroo-icon.svg";
 import requestAccessPermissions from './request-access-permissions.json';
+import {includes} from "ramda";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardRoot: {
@@ -28,6 +30,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     '&:hover': {
       cursor: 'pointer'
+    }
+  },
+  disabled: {
+    opacity: 0.6,
+    '&:hover': {
+      cursor: 'initial'
     }
   },
   footer: {
@@ -43,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function ConnectAccount ({onAllowAccess, onClose}) {
+export default function ConnectAccount({connected, onAllowAccess, onClose}) {
   const classes = useStyles();
   const [selected, setSelected] = useState<any | null>(null);
 
@@ -68,13 +76,20 @@ export default function ConnectAccount ({onAllowAccess, onClose}) {
                 uncover
                 insights that can improve your financial well being</Typography>
               <Grid container style={{marginTop: 48}} spacing={3}>
-                {banks.map((bank) => (
-                  <Grid item xs={6} sm={4} key={bank.value}>
-                    <Card className={classes.cardRoot} onClick={() => setSelected(bank)}>
-                      <img alt="icon" src={bank.logo} style={{width: '100%'}}/>
-                    </Card>
-                  </Grid>
-                ))}
+                {banks
+                  .map((bank) => (
+                    <Grid item xs={6} sm={4} key={bank.value}>
+                      <Card
+                        className={clsx({[classes.cardRoot]: true, [classes.disabled]: (includes(bank.value, connected) || bank.disabled)})}
+                        onClick={() => {
+                          if (!(includes(bank.value, connected) || bank.disabled)) {
+                            setSelected(bank);
+                          }
+                        }}>
+                        <img alt="icon" src={bank.logo} style={{width: '100%'}}/>
+                      </Card>
+                    </Grid>
+                  ))}
               </Grid>
             </Grid>
           </Grid>
@@ -87,11 +102,30 @@ export default function ConnectAccount ({onAllowAccess, onClose}) {
                 <Typography variant={'body1'} style={{marginTop: 16}}>In order to use this service, Financroo needs to access the following
                   information from your account service provider.</Typography>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 32}}>
-                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FCFCFF', width: 80, height: 80, borderRadius: '50%', border: '1px solid rgb(236 236 236)', marginRight: 16}}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#FCFCFF',
+                    width: 80,
+                    height: 80,
+                    borderRadius: '50%',
+                    border: '1px solid rgb(236 236 236)',
+                    marginRight: 16
+                  }}>
                     <img alt="icon" src={financrooIcon} style={{width: '60%'}}/>
                   </div>
                   <img alt="icon" src={connectArrows} style={{marginRight: 16}}/>
-                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FCFCFF', width: 80, height: 80, borderRadius: '50%', border: '1px solid rgb(236 236 236)'}}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#FCFCFF',
+                    width: 80,
+                    height: 80,
+                    borderRadius: '50%',
+                    border: '1px solid rgb(236 236 236)'
+                  }}>
                     <img alt="icon" src={selected?.icon || selected?.logo} style={{width: '60%'}}/>
                   </div>
                 </div>
@@ -116,7 +150,8 @@ export default function ConnectAccount ({onAllowAccess, onClose}) {
                   )}
                 </Paper>
                 <Typography style={{marginTop: 32, display: 'block'}} variant={'caption'}>
-                  Adding your accounts provides <strong>Financroo</strong> with read-only access for 90 days. You can manage access at any time. Authorizing will redirect to <a href={`https://${selected?.value}.com`}>https://{selected?.value}.com</a>
+                  Adding your accounts provides <strong>Financroo</strong> with read-only access for 90 days. You can manage access at any time.
+                  Authorizing will redirect to <a href={`https://${selected?.value}.com`}>https://{selected?.value}.com</a>
                 </Typography>
               </Grid>
             </Grid>
@@ -127,7 +162,10 @@ export default function ConnectAccount ({onAllowAccess, onClose}) {
         <div className={classes.footer}>
           <div>
             <Button size={'large'} variant={'outlined'} onClick={() => setSelected(null)}>Cancel</Button>
-            <Button size={'large'} variant={'contained'} color={'secondary'} style={{marginLeft: 16}} onClick={() => onAllowAccess({permissions: requestAccessPermissions.permissions.map(p => p.value).filter(p => p)})}>Allow access</Button>
+            <Button size={'large'} variant={'contained'} color={'secondary'} style={{marginLeft: 16}} onClick={() => onAllowAccess({
+              bankId: selected.value,
+              permissions: requestAccessPermissions.permissions.map(p => p.value).filter(p => p)
+            })}>Allow access</Button>
           </div>
         </div>
       )}

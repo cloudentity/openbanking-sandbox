@@ -20,9 +20,11 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0
+	github.com/stretchr/testify v1.6.1
 	github.com/tidwall/pretty v1.0.2 // indirect
 	go.etcd.io/bbolt v1.3.5
 	golang.org/x/oauth2 v0.0.0-20201208152858-08078c50e5b5
 	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
+	gopkg.in/yaml.v2 v2.4.0
 )

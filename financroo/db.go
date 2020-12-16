@@ -1,18 +1,20 @@
 package main
 
 import (
+	"os"
+	"time"
+
 	"github.com/pkg/errors"
 	bolt "go.etcd.io/bbolt"
-	"time"
 )
 
-func InitDB() (*bolt.DB, error) {
+func InitDB(config Config) (*bolt.DB, error) {
 	var (
 		db  *bolt.DB
 		err error
 	)
 
-	if db, err = bolt.Open("./my.db", 0600, &bolt.Options{Timeout: 3 * time.Second}); err != nil {
+	if db, err = bolt.Open(config.DBFile, os.FileMode(0600), &bolt.Options{Timeout: 3 * time.Second}); err != nil {
 		return nil, errors.Wrapf(err, "failed to open db")
 	}
 

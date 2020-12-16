@@ -8,7 +8,7 @@ import {useQuery} from "react-query";
 import {api} from "../api/api";
 import Progress from "./Progress";
 import {applyFiltering} from "./analytics.utils";
-import {pick} from "ramda";
+import {path, pick} from "ramda";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -16,25 +16,62 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-export default function Connected ({accounts, balances, onConnectClick}) {
+export default function Connected({banks, onConnectClick, onDisconnect, onReconnect}) {
   const classes = useStyles();
   const [filtering, setFiltering] = useState({
-    accounts: accounts.map(a => a.AccountId),
+    accounts: [],
     months: [],
     categories: []
   });
-  const {isLoading, data} = useQuery('fetchTransactions', api.fetchTransactions, {refetchOnWindowFocus: false, retry: false});
+
+  const {
+    isLoading: fetchAccountsProgress,
+    error: fetchAccountsError,
+    data: accountsRes
+  } = useQuery('fetchAccounts', api.fetchAccounts, {
+    refetchOnWindowFocus: false,
+    retry: false,
+    onSuccess: data => {
+      setFiltering(m => ({...m, accounts: (data.accounts || []).map(a => a.AccountId)}));
+    }
+  });
+
+  const {isLoading: fetchBalancesProgress, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances, {
+    refetchOnWindowFocus: false,
+    retry: false
+  });
+
+  const {isLoading: fetchTransactionsProgress, data: transactionsRes} = useQuery('fetchTransactions', api.fetchTransactions, {
+    refetchOnWindowFocus: false,
+    retry: false
+  });
+
+  const accounts = accountsRes?.accounts || [];
+  const balances = balancesRes?.balances || [];
+  const transactions = applyFiltering(pick(['accounts'], filtering), transactionsRes?.transactions || []);
+
+  const isLoading = fetchAccountsProgress || fetchBalancesProgress || fetchTransactionsProgress;
+
+  const bankNeedsReconnect = path(['response', 'error', 'status'], fetchAccountsError) === 401;
 
   if (isLoading) {
     return <Progress/>;
   }
 
-  const transactions = applyFiltering(pick(['accounts'], filtering), data?.transactions || []);
-
   return (
     <Grid container className={classes.root}>
       <Grid item xs={4} style={{background: '#F7FAFF', padding: '16px 32px', borderRight: '1px solid #EAECF1'}}>
-        <Accounts accounts={accounts} balances={balances} filtering={filtering} onChangeFiltering={f => setFiltering({...filtering, ...f})} onConnectClick={onConnectClick}/>
+        <Accounts
+          banks={banks}
+          reconnectBank={bankNeedsReconnect}
+          accounts={accounts}
+          balances={balances}
+          filtering={filtering}
+          onChangeFiltering={f => setFiltering({...filtering, ...f})}
+          onConnectClick={onConnectClick}
+          onDisconnect={onDisconnect}
+          onReconnect={onReconnect}
+        />
       </Grid>
       <Grid item xs={8} style={{background: '#FCFCFF', padding: '32px 32px 16px 32px'}}>
         <Analytics transactions={transactions} filtering={filtering} onChangeFiltering={f => setFiltering({...filtering, ...f})}/>

@@ -11,31 +11,37 @@ import chaseIcon from "../assets/banks/chase-icon.svg";
 export const banks = [
   {
     value: 'gobank',
+    disabled: false,
     name: 'GO Bank',
     logo: gobank,
     icon: gobankIcon
   },
   {
     value: 'apexfinancial',
+    disabled: true,
     name: 'Apex Financial',
     logo: apexfinancial,
     icon: apexfinancialIcon
   },
   {
     value: 'chase',
+    disabled: true,
     logo: chase,
     icon: chaseIcon
   },
   {
     value: 'deutcshebank',
+    disabled: true,
     logo: deutcshebank,
   },
   {
     value: 'hsbc',
+    disabled: true,
     logo: hsbc,
   },
   {
     value: 'santander',
+    disabled: true,
     logo: santander,
   },
 ]

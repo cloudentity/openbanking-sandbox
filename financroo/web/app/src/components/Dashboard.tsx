@@ -19,32 +19,40 @@ import {pathOr} from "ramda";
 
 export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
   const [connectAccountOpen, setConnectAccountOpen] = useState(false);
-  const [connectProgress, setConnectProgress] = useState(false);
+  const [isProgress, setProgress] = useState(false);
 
   const {
-    isLoading: fetchAccountsProgress,
-    isError: fetchAccountsError,
-    data: accountsRes
-  } = useQuery('fetchAccounts', api.fetchAccounts, {refetchOnWindowFocus: false, retry: false});
+    isLoading: fetchBanksProgress, data: banksRes, refetch: refetchBanks
+  } = useQuery('fetchBanks', api.fetchBanks, {refetchOnWindowFocus: false, retry: false});
 
-  if (fetchAccountsError) {
-    //
-  }
+  const banks = banksRes ? pathOr([], ['connected_banks'], banksRes) : []
 
-  const accounts = accountsRes ? pathOr([], ['accounts'], accountsRes) : []
-
-  const {isLoading: fetchBalancesProgress, data: balancesRes} = useQuery('fetchBalances', api.fetchBalances, {refetchOnWindowFocus: false, retry: false});
-
-  const handleAllowAccess = ({permissions}) => {
-    setConnectProgress(true);
-    api.connectBank({permissions})
+  const handleAllowAccess = ({bankId, permissions}) => {
+    setProgress(true);
+    api.connectBank(bankId, {permissions})
       .then(res => {
         window.location.href = res.login_url;
       })
-      .catch(() => setConnectProgress(false));
+      .catch(() => setProgress(false));
   };
 
-  const isProgress = fetchAccountsProgress || fetchBalancesProgress || connectProgress;
+  const handleDisconnectBank = bankId => () => {
+    setProgress(true);
+    api.disconnectBank(bankId)
+      .then(refetchBanks)
+      .finally(() => setProgress(false));
+  }
+
+  const handleReconnectBank = (bankId, permissions) => () => {
+    setProgress(true);
+    api.connectBank(bankId, {permissions})
+      .then(res => {
+        window.location.href = res.login_url;
+      })
+      .catch(() => setProgress(false));
+  }
+
+  const showProgress = isProgress || fetchBanksProgress;
 
   return (
     <div style={{position: 'relative'}}>
@@ -70,25 +78,29 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
         </Hidden>
         <Button variant={"outlined"} onClick={() => logout(authorizationServerURL, tenantId, authorizationServerId)}>Logout</Button>
       </PageToolbar>
-      {isProgress && <Progress/>}
+      {showProgress && <Progress/>}
 
-      {!isProgress && (
+      {!showProgress && (
         <>
-          {accounts.length === 0 && (
+          {banks.length === 0 && (
             <PageContainer withBackground>
               <Welcome onConnectClick={() => setConnectAccountOpen(true)}/>
             </PageContainer>
           )}
-          {accounts.length > 0 && (
+          {banks.length > 0 && (
             <PageContent>
-              <Connected accounts={accounts} balances={balancesRes?.balances || []}
-                         onConnectClick={() => setConnectAccountOpen(true)}/>
+              <Connected
+                banks={banks}
+                onConnectClick={() => setConnectAccountOpen(true)}
+                onDisconnect={handleDisconnectBank}
+                onReconnect={handleReconnectBank}
+              />
             </PageContent>
           )}
         </>
       )}
 
-      {connectAccountOpen && <ConnectAccount onAllowAccess={handleAllowAccess} onClose={() => setConnectAccountOpen(false)}/>}
+      {connectAccountOpen && <ConnectAccount connected={banks} onAllowAccess={handleAllowAccess} onClose={() => setConnectAccountOpen(false)}/>}
     </div>
   )
 };
