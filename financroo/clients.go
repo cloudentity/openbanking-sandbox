@@ -15,15 +15,14 @@ import (
 	"strings"
 	"time"
 
+	obc "github.com/cloudentity/openbanking-sandbox/client"
+	"github.com/cloudentity/openbanking-sandbox/client/account_access"
+	"github.com/cloudentity/openbanking-sandbox/models"
 	"github.com/dgrijalva/jwt-go"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
-
-	obc "github.com/cloudentity/openbanking-sandbox/client"
-	"github.com/cloudentity/openbanking-sandbox/client/account_access"
-	"github.com/cloudentity/openbanking-sandbox/models"
 )
 
 type AcpAccountAccessClient struct {

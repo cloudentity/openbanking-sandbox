@@ -10,13 +10,12 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/cloudentity/openbanking-sandbox/client/accounts"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 
 	"github.com/cloudentity/acp-client-go/client/openbanking"
 	"github.com/cloudentity/acp-client-go/models"
-
-	"github.com/cloudentity/openbanking-sandbox/client/accounts"
 )
 
 const (

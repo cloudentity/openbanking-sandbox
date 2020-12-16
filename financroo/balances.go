@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
 	"github.com/cloudentity/openbanking-sandbox/client/balances"
+	"github.com/gin-gonic/gin"
 )
 
 func (s *Server) GetBalances() func(ctx *gin.Context) {
