@@ -39,7 +39,7 @@ make run
 
 It will download prebuild images from the docker hub.
 
-If you end up playing with the sandbox you can turn it off:
+If you finish playing with the sandbox you can turn it off:
 
 ``` sh
 make clean
