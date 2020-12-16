@@ -2,9 +2,7 @@ version: "3.0"
 
 services:
   tpp:
-    build:
-      context: .
-      dockerfile: tpp/Dockerfile
+    image: cloudentity/openbanking-sandbox-tpp-developer:latest
     container_name: tpp
     restart: always
     ports:
@@ -26,9 +24,7 @@ services:
       - BANK_URL=http://bank:8070
 
   financroo:
-    build:
-      context: .
-      dockerfile: financroo/Dockerfile
+    image: cloudentity/openbanking-sandbox-tpp-financroo:latest
     container_name: financroo
     restart: always
     ports:
@@ -52,9 +48,7 @@ services:
       - FINANCROO_CLIENT_ID=bv3p4uo557ouq8rha2bg
 
   consent-page:
-    build:
-      context: .
-      dockerfile: consent-page/Dockerfile
+    image: cloudentity/openbanking-sandbox-consent-page:latest
     container_name: consent-page
     restart: always
     ports:
@@ -73,9 +67,7 @@ services:
       - BANK_URL=http://bank:8070
 
   consent-self-service:
-    build:
-      context: .
-      dockerfile: consent-self-service/Dockerfile
+    image: cloudentity/openbanking-sandbox-consent-self-service:latest
     container_name: consent-self-service
     restart: always
     ports:
@@ -101,9 +93,7 @@ services:
       - INTROSPECT_ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/bank-customers
 
   consent-admin:
-    build:
-      context: .
-      dockerfile: consent-admin/Dockerfile
+    image: cloudentity/openbanking-sandbox-consent-admin:latest
     container_name: consent-admin
     restart: always
     ports:
@@ -130,9 +120,7 @@ services:
       - INTROSPECT_ISSUER_URL=https://${ACP_INTERNAL_HOST}:8443/default/bank-admins
       
   bank:
-    build:
-      context: .
-      dockerfile: bank/Dockerfile
+    image: cloudentity/openbanking-sandbox-bank:latest
     container_name: bank
     restart: always
     ports:
