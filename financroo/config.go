@@ -5,7 +5,6 @@ import (
 	"encoding/pem"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"time"
 
 	"github.com/caarlos0/env/v6"
@@ -77,9 +76,7 @@ func LoadConfig() (Config, error) {
 		return config, err
 	}
 
-	resolvedConfig := os.ExpandEnv(string(bs))
-
-	if err = yaml.Unmarshal([]byte(resolvedConfig), &config.YAMLConfig); err != nil {
+	if err = yaml.Unmarshal(bs, &config.YAMLConfig); err != nil {
 		return config, err
 	}
 
