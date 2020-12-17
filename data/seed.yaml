@@ -1552,7 +1552,7 @@ clients:
   client_secret: ztCswN8vggHx22_mKE3kwRlvOs-0ILQfxG5T4zZC3MU
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1588,7 +1588,7 @@ clients:
   client_secret: YsJ27vKEivDFXb42OKy-OO3_RlzOhwCZIvhAxCSwRkU
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1628,7 +1628,7 @@ clients:
   client_secret: NFvmoDo9O1W5opLiODD3OExVt0I4NLJNz6A2k4Nu69g
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1668,7 +1668,7 @@ clients:
   client_secret: PBV7q0akoP603rZbU0EFdxbhZ-djxF7FIVwyKaLnBYU
   grant_types:
   - client_credentials
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1701,7 +1701,7 @@ clients:
   - client_credentials
   - authorization_code
   - refresh_token
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys:
     - e: AQAB
@@ -1742,7 +1742,7 @@ clients:
   description: bank resource server app used to introspect tokens
   grant_types:
   - client_credentials
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1772,7 +1772,7 @@ clients:
   client_secret: 5j1RFwfeLQRci7jaouPr-O5qejBWql7waFkfR_x7H6A
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1806,7 +1806,7 @@ clients:
   client_secret: pMPBmv62z3Jt1S4sWl2qRhOhEGPVZ9EcujGL7Xy0-E0
   grant_types:
   - client_credentials
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1831,7 +1831,7 @@ clients:
   client_secret: KThGH68f-gMC4cscGLFeOpIU4EYriYhKspOV9IwHbnw
   grant_types:
   - client_credentials
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1857,7 +1857,7 @@ clients:
   client_secret: zE8acaD6__5VACBk8PUk-QU6_kBKSZGAXHgNfrzubOk
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1888,7 +1888,7 @@ clients:
   client_secret: RkAIOVRlP6ZLhDvYixT1wBb8DG3bVkXAouoIrX7cwzA
   grant_types:
   - client_credentials
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1914,7 +1914,7 @@ clients:
   client_secret: v6yYaApda9juR_DrlI5mpdsdm9u2-D0rQIG9ynakyDE
   grant_types:
   - client_credentials
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1942,7 +1942,7 @@ clients:
   client_secret: t4v9poj45-iFsIXzfSbQY8THZ3J5MP3iHzlLk6fKlr4
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -1971,7 +1971,7 @@ clients:
   client_secret: flux99MKFQR4jz651JMv28HC68XpAgFvFV7eM2hkqMs
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -2005,7 +2005,7 @@ clients:
   client_secret: mPt-s_qdGRSnnISwILkcw6uhau4Z9mot9nQYiyY7lVY
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -2045,7 +2045,7 @@ clients:
   client_secret: YRd2pnXhuaXvGznhRRlN1C1zOxJESNT4kQyMNfMo6fM
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -2087,7 +2087,7 @@ clients:
   client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
   grant_types:
   - authorization_code
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
@@ -2126,7 +2126,7 @@ clients:
   client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
   grant_types:
   - client_credentials
-  id_token_signed_response_alg: RS256
+  id_token_signed_response_alg: ES256
   jwks:
     keys: []
   privacy: {}
