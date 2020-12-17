@@ -9,9 +9,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/gin-gonic/gin"
-
 	"github.com/cloudentity/openbanking-sandbox/models"
+	"github.com/gin-gonic/gin"
 )
 
 const (

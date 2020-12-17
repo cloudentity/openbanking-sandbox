@@ -14,11 +14,10 @@ import (
 	"strings"
 	"time"
 
+	obc "github.com/cloudentity/openbanking-sandbox/client"
 	"github.com/dgrijalva/jwt-go"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/pkg/errors"
-
-	obc "github.com/cloudentity/openbanking-sandbox/client"
 )
 
 type AcpWebClient struct {

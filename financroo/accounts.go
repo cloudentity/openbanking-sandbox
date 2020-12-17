@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
 	"github.com/cloudentity/openbanking-sandbox/client/accounts"
 	"github.com/cloudentity/openbanking-sandbox/models"
+	"github.com/gin-gonic/gin"
 )
 
 type BankAccount struct {
