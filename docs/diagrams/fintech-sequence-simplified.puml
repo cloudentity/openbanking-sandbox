@@ -1,0 +1,14 @@
+@startuml
+actor "Fintech App User (Bob)" as User
+participant "Fintech App" as App
+participant Bank
+
+User -> App  : use
+App -> Bank  : get user consent 
+Bank --> App : user token
+App -> Bank  : get user accounts
+Bank --> App : accounts
+App -> Bank  : get user transactions 
+Bank --> App : transactions
+App --> User : show transaction
+@enduml

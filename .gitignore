@@ -11,6 +11,11 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# generated files
+data/seed.yaml.generated
+
+# IntelliJ
 .idea
 
-data/seed.yaml.generated
+# Mac
+.DS_Store

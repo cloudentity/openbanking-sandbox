@@ -1,0 +1,26 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+LAYOUT_LEFT_RIGHT()
+
+Person(tpp_user, "Fintech App User")
+Container(tpp, "Fintech application", "docker")
+
+System_Boundary(bank, "Bank") {
+    Container(consent_page, "OpenBanking Consent Page", "docker")
+    Container(bank_OB_API, "Bank OpenBanking APIs", "docker")
+}
+
+System_Boundary(acp_system, "ACP") {
+    Container(acp, "ACP", "docker")
+}
+
+Rel(tpp_user, tpp, "Uses")
+
+Rel(tpp, bank_OB_API, "Get User Transactions")
+Rel(tpp, consent_page, "Asks for consent")
+
+Rel(acp, tpp, "Issues token")
+
+Rel(bank, acp, "uses")
+
+@enduml

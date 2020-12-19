@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="386px" preserveAspectRatio="none" style="width:1032px;height:386px;" version="1.1" viewBox="0 0 1032 386" width="1032px" zoomAndPan="magnify"><defs/><g><!--MD5=[7baf7cb0c3154865aaca15588e5da547]
+cluster bank--><rect fill="#FFFFFF" height="306" style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;" width="253" x="592" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="73" x="682" y="21.9951">«boundary»</text><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="38" x="699.5" y="40.1484">Bank</text><text fill="#444444" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="48" x="694.5" y="55.0605">[System]</text><!--MD5=[ba5b0afe06c86e0afb7bf1d04c5a5d09]
+cluster acp_system--><rect fill="#FFFFFF" height="151" style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;" width="116" x="910" y="229"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="73" x="931.5" y="243.9951">«boundary»</text><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="31" x="952.5" y="262.1484">ACP</text><text fill="#444444" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="48" x="944" y="277.0605">[System]</text><!--MD5=[b8d6bc3e3461d7770a72cc636f23f84b]
+entity consent_page--><rect fill="#438DD5" height="85.1875" style="stroke:#3C7FC0;stroke-width:1.5;" width="195" x="621" y="82.5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="64" x="686.5" y="103.6387">«container»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="171" x="631" y="121.3203">OpenBanking Consent</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="37" x="700" y="139.9453">Page</text><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="45" x="696" y="154.8574">[docker]</text><!--MD5=[78a425dc4385f606dbb0d349a9e32993]
+entity bank_OB_API--><rect fill="#438DD5" height="66.5625" style="stroke:#3C7FC0;stroke-width:1.5;" width="205" x="616" y="202.5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="64" x="686.5" y="223.6387">«container»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="185" x="626" y="241.3203">Bank OpenBanking APIs</text><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="45" x="696" y="256.2324">[docker]</text><!--MD5=[d32990c5446ad764512dc8b0f19d476e]
+entity acp--><rect fill="#438DD5" height="66.5625" style="stroke:#3C7FC0;stroke-width:1.5;" width="84" x="926" y="296.5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="64" x="936" y="317.6387">«container»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="31" x="952.5" y="335.3203">ACP</text><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="45" x="945.5" y="350.2324">[docker]</text><!--MD5=[6bb2010bc844d606f393df8be3a41352]
+entity tpp_user--><rect fill="#08427B" height="100.5938" style="stroke:#073B6F;stroke-width:1.5;" width="153" x="7" y="185.5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="50" x="58.5" y="206.6387">«person»</text><image height="48" width="48" x="59.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAACD0lEQVR4Xu2YoU4EMRCGT+4j8Ai8AhaH4QHgAUjQuFMECUgMIUgwJAgMhgQsAYUiJCiQIBBY+EITsjfTdme6V24v4c8vyGbb+ZjOtN0bNcvjQXmkH83WvYBWto6PLm6v7p7uH1/w2fXD+PBycX1Pv2l3IdDm/vn7x+dXQiAubRzoURa7gRZWd0iGRIiJbOnhnfYBQZNJjNbuyY2eJG8fkDE3bbG4ep6MHUAsgYxmE3nVs6VsBWJSGccsOlFPmLIViMzLOB7pCVO2AtHJMohH7Fh6zqitQK7m0rJvAVYgGcEpe//PLdDz65sM4pF9N7ICcXDKIB5Nv6j7tD0NoSdM2QrU9Gg0ewE1LqBhHR3BBdvj2vapnidjHxD/q6vd7Pvhr31AwcY8eXMTXAKECZZJFXuEq27aLgQK5uLMohCenGGuGewOxSjBvYBqeG6B+Nqiblggdjnc+ZXDy+FNFpFzw76O3UBAROuXh6FoiAcf5g9eTvUgzy0nWg6I8cXHRUpg5bOVBCo+KDpFajOf23GgPme7RSQ+lacIENUgJ6gg1k6HjgOlqnLqip4tEuhv0hNEMXUD0clyXE3p6pZA0S2nnvTlXwLJEZWlb7cTQH1+USgTN4VhAenm/wea1OCAOmqo6fE1WCb9WSKBah+rbUWPWAmE2Rvk0ApiB45eOyNAzU8xcTvj8KvkKEoOaIYeHNA3ZuygAvFMUO0AAAAASUVORK5CYII=" y="209.4688"/><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="133" x="17" y="272.3203">Fintech App User</text><!--MD5=[0044b23c2e623f2ee5d2ec15252cb70a]
+entity tpp--><rect fill="#438DD5" height="66.5625" style="stroke:#3C7FC0;stroke-width:1.5;" width="170" x="247" y="202.5"/><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="64" x="300" y="223.6387">«container»</text><text fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="150" x="257" y="241.3203">Fintech application</text><text fill="#FFFFFF" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="45" x="309.5" y="256.2324">[docker]</text><!--MD5=[d3cb1c52f3691bb3cc1fad7f72705633]
+link tpp_user to tpp--><path d="M160.13,236 C184.91,236 212.72,236 238.59,236 " fill="none" id="tpp_user-to-tpp" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="246.91,236,238.91,233,238.91,239,246.91,236" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="25" x="191" y="233.1387">Uses</text><!--MD5=[6af355f7ad32b82da645ab2785d15da5]
+link tpp to bank_OB_API--><path d="M417.38,236 C473.34,236 547.32,236 607.83,236 " fill="none" id="tpp-to-bank_OB_API" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="615.9,236,607.9,233,607.9,239,615.9,236" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="119" x="448" y="233.1387">Get User Transactions</text><!--MD5=[7c784d6fa775ac41ecabfd3102c77495]
+link tpp to consent_page--><path d="M417.38,211.64 C474.94,195.02 551.57,172.9 612.99,155.17 " fill="none" id="tpp-to-consent_page" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="620.78,152.92,612.2621,152.252,613.9232,158.0175,620.78,152.92" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="91" x="462" y="168.1387">Asks for consent</text><!--MD5=[c004a823c8302239d5b20b79b88dd9c4]
+link acp to tpp--><path d="M925.97,336.21 C854.2,345.84 701.54,360.82 576,336 C515.04,323.95 450.16,296.41 402.78,273.28 " fill="none" id="acp-to-tpp" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="395.33,269.61,401.1837,275.8337,403.8326,270.4501,395.33,269.61" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="67" x="685" y="333.1387">Issues token</text><!--MD5=[701d7401d0c8b7011ec21282b2e37fa1]
+link bank to acp--><path d="M799.6435,313.097 C799.9653,313.1295 800.2876,313.1621 800.6103,313.1947 C803.192,313.4555 805.802,313.7192 808.4348,313.9852 C813.7005,314.5172 819.0578,315.0584 824.4641,315.6046 C835.2766,316.6969 846.285,317.809 857.1488,318.9064 C878.8763,321.1013 900.025,323.2375 917.87,325.04 " fill="none" id="bank-to-acp" style="stroke:#666666;stroke-width:1.0;"/><polygon fill="#666666" points="925.88,325.85,918.2202,322.0648,917.62,328.0347,925.88,325.85" style="stroke:#666666;stroke-width:1.0;"/><text fill="#666666" font-family="sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="23" x="870" y="318.1387">uses</text><!--MD5=[64235f3ff928baacb3b60377dea08ec2]
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+LAYOUT_LEFT_RIGHT()
+
+Person(tpp_user, "Fintech App User")
+Container(tpp, "Fintech application", "docker")
+
+System_Boundary(bank, "Bank") {
+    Container(consent_page, "OpenBanking Consent Page", "docker")
+    Container(bank_OB_API, "Bank OpenBanking APIs", "docker")
+}
+
+System_Boundary(acp_system, "ACP") {
+    Container(acp, "ACP", "docker")
+}
+
+Rel(tpp_user, tpp, "Uses")
+
+Rel(tpp, bank_OB_API, "Get User Transactions")
+Rel(tpp, consent_page, "Asks for consent")
+
+Rel(acp, tpp, "Issues token")
+
+Rel(bank, acp, "uses")
+
+@enduml
+
+@startuml
+
+
+
+
+
+skinparam defaultTextAlignment center
+
+skinparam wrapWidth 200
+skinparam maxMessageSize 150
+
+skinparam LegendBorderColor transparent
+skinparam LegendBackgroundColor transparent
+skinparam LegendFontColor #FFFFFF
+
+skinparam rectangle {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam database {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam queue {
+    StereotypeFontSize 12
+    shadowing false
+}
+
+skinparam Arrow {
+    Color #666666
+    FontColor #666666
+    FontSize 12
+}
+
+skinparam rectangle<<boundary>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam rectangle<<person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #08427B
+    BorderColor #073B6F
+}
+
+skinparam rectangle<<external_person>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #686868
+    BorderColor #8A8A8A
+}
+
+skinparam rectangle<<system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #1168BD
+    BorderColor #3C7FC0
+}
+
+skinparam rectangle<<external_system>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #999999
+    BorderColor #8A8A8A
+}
+
+sprite $person [48x48/16] {
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+0000000000000000000049BCCA7200000000000000000000
+0000000000000000006EFFFFFFFFB3000000000000000000
+00000000000000001CFFFFFFFFFFFF700000000000000000
+0000000000000001EFFFFFFFFFFFFFF80000000000000000
+000000000000000CFFFFFFFFFFFFFFFF6000000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+00000000000001FFFFFFFFFFFFFFFFFFF900000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFF00000000000000
+0000000000000BFFFFFFFFFFFFFFFFFFFF40000000000000
+0000000000000EFFFFFFFFFFFFFFFFFFFF70000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000FFFFFFFFFFFFFFFFFFFFF80000000000000
+0000000000000DFFFFFFFFFFFFFFFFFFFF60000000000000
+0000000000000AFFFFFFFFFFFFFFFFFFFF40000000000000
+00000000000006FFFFFFFFFFFFFFFFFFFE00000000000000
+00000000000000EFFFFFFFFFFFFFFFFFF800000000000000
+000000000000007FFFFFFFFFFFFFFFFFF100000000000000
+000000000000000BFFFFFFFFFFFFFFFF5000000000000000
+0000000000000001DFFFFFFFFFFFFFF70000000000000000
+00000000000000000BFFFFFFFFFFFF500000000000000000
+0000000000000000005DFFFFFFFFA1000000000000000000
+0000000000000000000037ABB96100000000000000000000
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+000000000000025788300000000005886410000000000000
+000000000007DFFFFFFD9643347BFFFFFFFB400000000000
+0000000004EFFFFFFFFFFFFFFFFFFFFFFFFFFB1000000000
+000000007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFD200000000
+00000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE10000000
+0000003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0000000
+000000BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5000000
+000003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD000000
+000009FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF200000
+00000DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF600000
+00000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF800000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB00000
+00001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA00000
+00000EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF700000
+000006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE100000
+0000008FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD3000000
+000000014555555555555555555555555555555300000000
+000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+skinparam rectangle<<container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+
+skinparam database<<container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+
+skinparam queue<<container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #438DD5
+    BorderColor #3C7FC0
+}
+
+skinparam rectangle<<external_container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+
+skinparam database<<external_container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+
+skinparam queue<<external_container>> {
+    StereotypeFontColor #FFFFFF
+    FontColor #FFFFFF
+    BackgroundColor #B3B3B3
+    BorderColor #A6A6A6
+}
+
+
+
+
+
+
+
+
+
+
+
+
+left to right direction
+
+rectangle "<$person>\n==Fintech App User" <<person>> as tpp_user
+rectangle "==Fintech application\n//<size:12>[docker]</size>//" <<container>> as tpp
+
+rectangle "==Bank\n<size:12>[System]</size>" <<boundary>> as bank {
+    rectangle "==OpenBanking Consent Page\n//<size:12>[docker]</size>//" <<container>> as consent_page
+    rectangle "==Bank OpenBanking APIs\n//<size:12>[docker]</size>//" <<container>> as bank_OB_API
+}
+
+rectangle "==ACP\n<size:12>[System]</size>" <<boundary>> as acp_system {
+    rectangle "==ACP\n//<size:12>[docker]</size>//" <<container>> as acp
+}
+
+tpp_user - ->> tpp : **Uses**
+
+tpp - ->> bank_OB_API : **Get User Transactions**
+tpp - ->> consent_page : **Asks for consent**
+
+acp - ->> tpp : **Issues token**
+
+bank - ->> acp : **uses**
+
+@enduml
+
+PlantUML version 1.2020.23(Sun Dec 13 19:14:58 GMT 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
