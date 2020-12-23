@@ -18,8 +18,9 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: docker-public.artifactory.cloudentity.com/authorization
+          username: ${{secrets.DOCKER_CLOUDENTITY_REPO_USERNAME}}
+          password: ${{secrets.DOCKER_CLOUDENTITY_REPO_PASSWORD}}
 
       - name: run-dev
         run: make run-dev
