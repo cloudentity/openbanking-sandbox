@@ -17,4 +17,8 @@ describe('Example tests', () => {
     consentPage.confirm();
     tppLoginPage.assertSuccess()
   })
+
+  it('Failing test', () => {
+    throw new Error('test fails here')
+  })
 })
