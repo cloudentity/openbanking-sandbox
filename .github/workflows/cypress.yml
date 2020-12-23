@@ -1,0 +1,23 @@
+name: cypress
+
+on:
+  push:
+  pull_request:
+    types: [ opened ]
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: build
+        run: make build
+
+      - name: run-dev
+        run: make run-dev
+
+      - uses: cypress-io/github-action@v2
+        with:
+          working-directory: tests
