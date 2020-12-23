@@ -16,5 +16,4 @@
 data/seed.yaml.generated
 /tests/node_modules/*
 /*.iml
-/tests/yarn.lock
 /tests/debug.log
