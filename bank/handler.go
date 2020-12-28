@@ -2,51 +2,65 @@ package main
 
 import (
 	"fmt"
-	"github.com/cloudentity/openbanking-sandbox/models"
-	"github.com/go-openapi/strfmt"
+	"github.com/cloudentity/acp-client-go/client/openbanking"
 	"net/http"
 	"strconv"
 	"strings"
 
-	"github.com/cloudentity/acp-client-go/client/openbanking"
+	acpClient "github.com/cloudentity/acp-client-go/models"
+	"github.com/cloudentity/openbanking-sandbox/models"
+	"github.com/go-openapi/strfmt"
+
 	"github.com/gin-gonic/gin"
 )
 
 func (s *Server) GetAccounts() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
+			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
 			userAccounts          []models.OBAccount6
 			err                   error
 		)
 
 		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
-			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
+			msg := fmt.Sprintf("failed to introspect token: %+v", err)
+			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		grantedPermissions := introspectionResponse.Payload.Permissions
+		grantedPermissions := introspectionResponse.Permissions
 
-		scopes := strings.Split(introspectionResponse.Payload.Scope, " ")
+		scopes := strings.Split(introspectionResponse.Scope, " ")
 		if !has(scopes, "accounts") {
-			c.String(http.StatusForbidden, "token has no accounts scope granted")
+			msg := "token has no accounts scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
 		if !has(grantedPermissions, "ReadAccountsBasic") {
-			c.String(http.StatusForbidden, "ReadAccountsBasic permission has not been granted")
+			msg := "ReadAccountsBasic permission has not been granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		if userAccounts, err = s.Storage.GetAccounts(introspectionResponse.Payload.Subject); err != nil {
-			c.String(http.StatusNotFound, err.Error())
+		if userAccounts, err = s.Storage.GetAccounts(introspectionResponse.Subject); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
 		accounts := []*models.OBAccount6{}
 
 		for _, a := range userAccounts {
-			if has(introspectionResponse.Payload.AccountIDs, string(a.AccountID)) {
+			if has(introspectionResponse.AccountIDs, string(a.AccountID)) {
 				account := a
 				if !has(grantedPermissions, "ReadAccountsDetail") {
 					account.Account = []*models.OBAccount6AccountItems0{}
@@ -92,7 +106,10 @@ func (s *Server) InternalGetAccounts() func(*gin.Context) {
 		)
 
 		if accounts, err = s.Storage.GetAccounts(sub); err != nil {
-			c.String(http.StatusNotFound, err.Error())
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
@@ -112,31 +129,43 @@ func (s *Server) InternalGetAccounts() func(*gin.Context) {
 func (s *Server) GetBalances() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
+			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
 			userBalances          []models.OBReadBalance1DataBalanceItems0
 			err                   error
 		)
 
 		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
-			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
+			msg := fmt.Sprintf("failed to introspect token: %+v", err)
+			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		grantedPermissions := introspectionResponse.Payload.Permissions
+		grantedPermissions := introspectionResponse.Permissions
 
-		scopes := strings.Split(introspectionResponse.Payload.Scope, " ")
+		scopes := strings.Split(introspectionResponse.Scope, " ")
 		if !has(scopes, "accounts") {
-			c.String(http.StatusForbidden, "token has no accounts scope granted")
+			msg := "token has no accounts scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
 		if !has(grantedPermissions, "ReadBalances") {
-			c.String(http.StatusForbidden, "ReadBalances permission has not been granted")
+			msg := "ReadBalances permission has not been granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		if userBalances, err = s.Storage.GetBalances(introspectionResponse.Payload.Subject); err != nil {
-			c.String(http.StatusNotFound, err.Error())
+		if userBalances, err = s.Storage.GetBalances(introspectionResponse.Subject); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
@@ -144,7 +173,7 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 
 		for _, balance := range userBalances {
 			b := balance
-			if has(introspectionResponse.Payload.AccountIDs, string(b.AccountID)) {
+			if has(introspectionResponse.AccountIDs, string(b.AccountID)) {
 				balances = append(balances, &b)
 			}
 		}
@@ -169,31 +198,43 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 func (s *Server) GetTransactions() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
+			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
 			userTransactions      []models.OBTransaction6
 			err                   error
 		)
 
 		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
-			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
+			msg := fmt.Sprintf("failed to introspect token: %+v", err)
+			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		grantedPermissions := introspectionResponse.Payload.Permissions
+		grantedPermissions := introspectionResponse.Permissions
 
-		scopes := strings.Split(introspectionResponse.Payload.Scope, " ")
+		scopes := strings.Split(introspectionResponse.Scope, " ")
 		if !has(scopes, "accounts") {
-			c.String(http.StatusForbidden, "token has no accounts scope granted")
+			msg := "token has no accounts scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
 		if !has(grantedPermissions, "ReadTransactionsBasic") {
-			c.String(http.StatusForbidden, "ReadTransactionsBasic permission has not been granted")
+			msg := "ReadTransactionsBasic permission has not been granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		if userTransactions, err = s.Storage.GetTransactions(introspectionResponse.Payload.Subject); err != nil {
-			c.String(http.StatusNotFound, err.Error())
+		if userTransactions, err = s.Storage.GetTransactions(introspectionResponse.Subject); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
@@ -201,7 +242,7 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 
 		for _, transaction := range userTransactions {
 			t := transaction
-			if has(introspectionResponse.Payload.AccountIDs, string(t.AccountID)) {
+			if has(introspectionResponse.AccountIDs, string(t.AccountID)) {
 				if !has(grantedPermissions, "ReadTransactionsDetail") {
 					t.TransactionInformation = ""
 					t.Balance = &models.OBTransactionCashBalance{}
@@ -234,7 +275,7 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 	}
 }
 
-func (s *Server) IntrospectToken(c *gin.Context) (*openbanking.OpenbankingAccountAccessConsentIntrospectOK, error) {
+func (s *Server) IntrospectToken(c *gin.Context) (*acpClient.IntrospectOpenbankingAccountAccessConsentResponse, error) {
 	var (
 		introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
 		err                   error
@@ -253,7 +294,7 @@ func (s *Server) IntrospectToken(c *gin.Context) (*openbanking.OpenbankingAccoun
 		return nil, err
 	}
 
-	return introspectionResponse, nil
+	return introspectionResponse.Payload, nil
 }
 
 func has(list []string, a string) bool {

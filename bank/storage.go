@@ -3,9 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+
 	"github.com/cloudentity/openbanking-sandbox/models"
 	"github.com/pkg/errors"
-	"io/ioutil"
 )
 
 type Data struct {
