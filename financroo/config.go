@@ -5,7 +5,6 @@ import (
 	"encoding/pem"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"time"
 
 	"github.com/caarlos0/env/v6"
@@ -13,15 +12,13 @@ import (
 )
 
 type ClientConfig struct {
-	TenantID    string `yaml:"tenant_id"`
-	ServerID    string `yaml:"server_id"`
-	ClientID    string `yaml:"client_id"`
-	RedirectURL string `yaml:"redirect_url"`
+	TenantID string `yaml:"tenant_id"`
+	ServerID string `yaml:"server_id"`
+	ClientID string `yaml:"client_id"`
 }
 
 type LoginConfig struct {
 	ClientConfig `yaml:",inline"`
-	UIURL        string        `yaml:"ui_url"`
 	RootCA       string        `yaml:"root_ca"`
 	Timeout      time.Duration `yaml:"timeout"`
 }
@@ -59,6 +56,7 @@ type Config struct {
 	ACPURL         string `env:"ACP_URL,required"`
 	ACPInternalURL string `env:"ACP_INTERNAL_URL,required"`
 	AppHost        string `env:"APP_HOST,required"`
+	UIURL          string `env:"UI_URL,required"`
 	YAMLConfigFile string `env:"YAML_CONFIG_FILE" envDefault:"./config.yaml"`
 	DBFile         string `env:"DB_FILE" envDefault:"./my.db"`
 }
@@ -78,9 +76,7 @@ func LoadConfig() (Config, error) {
 		return config, err
 	}
 
-	resolvedConfig := os.ExpandEnv(string(bs))
-
-	if err = yaml.Unmarshal([]byte(resolvedConfig), &config.YAMLConfig); err != nil {
+	if err = yaml.Unmarshal(bs, &config.YAMLConfig); err != nil {
 		return config, err
 	}
 
@@ -107,6 +103,7 @@ type WebClientConfig struct {
 	AuthorizeURL string
 	TokenURL     string
 	UserinfoURL  string
+	RedirectURL  string
 }
 
 func (w *WebClientConfig) GetSigningKey() (signingKey interface{}, err error) {
@@ -132,6 +129,7 @@ func (c *Config) ToWebClientConfig(cfg BankConfig) WebClientConfig {
 		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
 		AuthorizeURL:     fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.ACPURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
 		UserinfoURL:      fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		RedirectURL:      fmt.Sprintf("%s/api/callback", c.UIURL),
 	}
 }
 

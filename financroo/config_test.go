@@ -10,11 +10,13 @@ import (
 
 func TestConfig(t *testing.T) {
 	for k, v := range map[string]string{
-		"ACP_HOST":          "localhost",
-		"ACP_INTERNAL_HOST": "acp",
-		"APP_HOST":          "localhost",
-		"CERT_FILE":         "cert.pem",
-		"KEY_FILE":          "key.pem",
+		"ACP_URL":          "https://localhost:8443",
+		"ACP_INTERNAL_URL": "https://acp:8443",
+		"APP_HOST":         "localhost",
+		"UI_URL":           "https://localhost:8091",
+		"CERT_FILE":        "cert.pem",
+		"KEY_FILE":         "key.pem",
+		"YAML_CONFIG_FILE": "./data/config.yaml",
 	} {
 		os.Setenv(k, v)
 	}

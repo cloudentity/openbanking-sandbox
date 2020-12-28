@@ -82,6 +82,7 @@ func (s *Server) GetAccounts() func(ctx *gin.Context) {
 
 		if user, err = s.WithUser(c); err != nil {
 			c.String(http.StatusUnauthorized, err.Error())
+			return
 		}
 
 		// todo parallel
@@ -92,6 +93,7 @@ func (s *Server) GetAccounts() func(ctx *gin.Context) {
 			}
 			if err = s.UserRepo.Set(user); err != nil {
 				c.String(http.StatusInternalServerError, fmt.Sprintf("failed to update user: %+v", err))
+				return
 			}
 
 			if resp, err = client.Accounts.GetAccounts(accounts.NewGetAccountsParams().WithAuthorization(token.AccessToken), nil); err != nil {
@@ -185,6 +187,7 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 
 		if user, err = s.WithUser(c); err != nil {
 			c.String(http.StatusUnauthorized, err.Error())
+			return
 		}
 
 		// todo parallel

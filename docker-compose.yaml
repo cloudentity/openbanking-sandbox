@@ -35,6 +35,7 @@ services:
     env_file:
       - .env
     environment:
+      - UI_URL=https://${APP_HOST}:8091
       - CERT_FILE=/certs/tpp_cert.pem
       - KEY_FILE=/certs/tpp_key.pem
       - YAML_CONFIG_FILE=/data/config.yaml
