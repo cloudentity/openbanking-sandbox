@@ -2,16 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/cloudentity/acp-client-go/client/openbanking"
 	"net/http"
 	"strconv"
 	"strings"
 
-	acpClient "github.com/cloudentity/acp-client-go/models"
 	"github.com/cloudentity/openbanking-sandbox/models"
+	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/gin-gonic/gin"
+	"github.com/cloudentity/acp-client-go/client/openbanking"
+	acpClient "github.com/cloudentity/acp-client-go/models"
 )
 
 func (s *Server) GetAccounts() func(*gin.Context) {
