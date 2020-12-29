@@ -35,6 +35,7 @@ func (c *Config) ClientConfig() acpclient.Config {
 		IssuerURL:                   c.IssuerURL,
 		TokenURL:                    c.TokenURL,
 		AuthorizeURL:                c.AuthorizeURL,
+		UserinfoURL:                 c.UserinfoURL,
 		RedirectURL:                 c.RedirectURL,
 		RequestObjectSigningKeyFile: c.KeyFile,
 		Scopes:                      []string{"accounts", "openid"},

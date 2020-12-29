@@ -15,11 +15,6 @@ import (
 	"github.com/cloudentity/acp-client-go/models"
 )
 
-const (
-	challengeLength = 43
-	nonceLength     = 20
-)
-
 type AppStorage struct {
 	CSRF acpclient.CSRF
 }
@@ -105,13 +100,13 @@ func (s *Server) Login() func(*gin.Context) {
 func (s *Server) Callback() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			app        string
-			appStorage = AppStorage{}
-			//userinfoResponse map[string]interface{}
-			code  = c.Query("code")
-			token acpclient.Token
-			data  = gin.H{}
-			err   error
+			app              string
+			appStorage       = AppStorage{}
+			userinfoResponse map[string]interface{}
+			code             = c.Query("code")
+			token            acpclient.Token
+			data             = gin.H{}
+			err              error
 		)
 
 		if c.Query("error") != "" {
@@ -134,16 +129,14 @@ func (s *Server) Callback() func(*gin.Context) {
 			return
 		}
 
-		// todo validate id_token and compare nonces
-
-		// if userinfoResponse, err = s.WebClient.Userinfo(token.AccessToken); err != nil {
-		// 	c.String(http.StatusUnauthorized, fmt.Sprintf("failed to introspect access token: %+v", err))
-		// 	return
-		// }
+		if userinfoResponse, err = s.Client.Userinfo(token.AccessToken); err != nil {
+			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to introspect access token: %+v", err))
+			return
+		}
 
 		data["access_token"] = token.AccessToken
-		//userinfoResp, _ := json.MarshalIndent(userinfoResponse, "", "  ")
-		//	data["userinfo"] = string(userinfoResp)
+		userinfoResp, _ := json.MarshalIndent(userinfoResponse, "", "  ")
+		data["userinfo"] = string(userinfoResp)
 
 		if token.IDToken != "" {
 			parser := jwt.Parser{}
