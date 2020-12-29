@@ -12,7 +12,7 @@ import (
 
 func init() {
 	viper.SetDefault("PORT", "8091")
-	viper.SetDefault("DB_FILE", "./my.db")
+	viper.SetDefault("DB_FILE", "./data/my.db")
 	viper.SetDefault("ACP_URL", "")
 	viper.SetDefault("ACP_INTERNAL_URL", "")
 	viper.SetDefault("APP_HOST", "")
@@ -64,14 +64,6 @@ type Config struct {
 	KeyFile        string `mapstructure:"key_file" validate:"required"`
 	Login          LoginConfig
 	Banks          []BankConfig
-}
-
-func (c *Config) Validate() (err error) {
-	if err = Validator.Struct(c); err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func LoadConfig() (Config, error) {

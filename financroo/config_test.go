@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 func TestConfig(t *testing.T) {
@@ -25,7 +24,7 @@ func TestConfig(t *testing.T) {
 	require.NoError(t, err)
 
 	require.Equal(t, 8091, config.Port)
-	require.Equal(t, "./my.db", config.DBFile)
+	require.Equal(t, "./data/my.db", config.DBFile)
 	require.Equal(t, "https://localhost:8443", config.ACPURL)
 	require.Equal(t, "https://acp:8443", config.ACPInternalURL)
 	require.Equal(t, "localhost", config.AppHost)
@@ -48,8 +47,4 @@ func TestConfig(t *testing.T) {
 	require.NotEmpty(t, config.Banks[0].AcpClient.KeyFile)
 	require.NotEmpty(t, config.Banks[0].AcpClient.RootCA)
 	require.Equal(t, 5*time.Second, config.Banks[0].AcpClient.Timeout)
-
-	Validator = validator.New()
-
-	require.NoError(t, config.Validate())
 }
