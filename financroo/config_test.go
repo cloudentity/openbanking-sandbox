@@ -10,12 +10,12 @@ import (
 
 func TestConfig(t *testing.T) {
 	for k, v := range map[string]string{
-		"ACPURL":         "https://localhost:8443",
-		"ACPINTERNALURL": "https://acp:8443",
-		"APPHOST":        "localhost",
-		"UIURL":          "https://localhost:8091",
-		"CERTFILE":       "cert.pem",
-		"KEYFILE":        "key.pem",
+		"ACP_URL":          "https://localhost:8443",
+		"ACP_INTERNAL_URL": "https://acp:8443",
+		"APP_HOST":         "localhost",
+		"UI_URL":           "https://localhost:8091",
+		"CERT_FILE":        "cert.pem",
+		"KEY_FILE":         "key.pem",
 	} {
 		os.Setenv(k, v)
 	}
@@ -35,6 +35,8 @@ func TestConfig(t *testing.T) {
 	require.NotEmpty(t, config.Login.ClientID)
 	require.NotEmpty(t, config.Login.ServerID)
 	require.NotEmpty(t, config.Login.TenantID)
+	require.NotEmpty(t, config.Login.RootCA)
+	require.NotEmpty(t, config.Login.Timeout)
 
 	require.NotEmpty(t, config.Banks[0].ID)
 	require.NotEmpty(t, config.Banks[0].URL)

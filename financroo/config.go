@@ -12,37 +12,37 @@ import (
 
 func init() {
 	viper.SetDefault("PORT", "8091")
-	viper.SetDefault("DBFILE", "./my.db")
-	viper.SetDefault("ACPURL", "")
-	viper.SetDefault("ACPINTERNALURL", "")
-	viper.SetDefault("APPHOST", "")
-	viper.SetDefault("UIURL", "")
-	viper.SetDefault("CERTFILE", "")
-	viper.SetDefault("KEYFILE", "")
+	viper.SetDefault("DB_FILE", "./my.db")
+	viper.SetDefault("ACP_URL", "")
+	viper.SetDefault("ACP_INTERNAL_URL", "")
+	viper.SetDefault("APP_HOST", "")
+	viper.SetDefault("UI_URL", "")
+	viper.SetDefault("CERT_FILE", "")
+	viper.SetDefault("KEY_FILE", "")
 }
 
 type ClientConfig struct {
-	TenantID string
-	ServerID string
-	ClientID string
+	TenantID string `mapstructure:"tenant_id"`
+	ServerID string `mapstructure:"server_id"`
+	ClientID string `mapstructure:"client_id"`
 }
 
 type LoginConfig struct {
-	ClientConfig
-	RootCA  string
-	Timeout time.Duration
+	ClientConfig `mapstructure:",squash"`
+	RootCA       string `mapstructure:"root_ca"`
+	Timeout      time.Duration
 }
 
 type HTTPClientConfig struct {
-	RootCA   string
-	CertFile string
-	KeyFile  string
+	RootCA   string `mapstructure:"root_ca"`
+	CertFile string `mapstructure:"cert_file"`
+	KeyFile  string `mapstructure:"key_file"`
 	Timeout  time.Duration
 }
 
 type AcpClient struct {
-	ClientConfig
-	HTTPClientConfig
+	ClientConfig     `mapstructure:",squash"`
+	HTTPClientConfig `mapstructure:",squash"`
 }
 
 type BankID string
@@ -50,20 +50,24 @@ type BankID string
 type BankConfig struct {
 	ID        BankID
 	URL       string
-	AcpClient AcpClient
+	AcpClient AcpClient `mapstructure:"acp_client"`
 }
 
 type Config struct {
 	Port           int
-	DBFile         string
-	ACPURL         string
-	ACPInternalURL string
-	AppHost        string
-	UIURL          string
-	CertFile       string
-	KeyFile        string
+	DBFile         string `mapstructure:"db_file"`
+	ACPURL         string `mapstructure:"acp_url"`
+	ACPInternalURL string `mapstructure:"acp_internal_url"`
+	AppHost        string `mapstructure:"app_host"`
+	UIURL          string `mapstructure:"ui_url"`
+	CertFile       string `mapstructure:"cert_file"`
+	KeyFile        string `mapstructure:"key_file"`
 	Login          LoginConfig
 	Banks          []BankConfig
+}
+
+func (c *Config) Validate() error {
+	return nil
 }
 
 func LoadConfig() (Config, error) {
@@ -73,7 +77,6 @@ func LoadConfig() (Config, error) {
 	)
 
 	viper.AutomaticEnv()
-
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("./data")

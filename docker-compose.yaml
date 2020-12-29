@@ -32,14 +32,13 @@ services:
     volumes:
       - ./data:/certs
       - ./financroo/data:/app/data
+    env_file:
+    - .env
     environment:
-      - ACPURL=${ACP_URL}
-      - ACPINTERNALURL=${ACP_INTERNAL_URL}
-      - ACPPHOST=${APP_HOST}
-      - UIURL=https://${APP_HOST}:8091
-      - CERTFILE=/certs/tpp_cert.pem
-      - KEYFILE=/certs/tpp_key.pem
-      - DBFILE=/data/my.db
+      - UI_URL=https://${APP_HOST}:8091
+      - CERT_FILE=/certs/tpp_cert.pem
+      - KEY_FILE=/certs/tpp_key.pem
+      - DB_FILE=/data/my.db
 
   consent-page:
     image: cloudentity/openbanking-sandbox-consent-page:latest
