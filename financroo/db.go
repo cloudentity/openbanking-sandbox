@@ -10,7 +10,7 @@ import (
 
 var mode = os.FileMode(0600)
 
-func InitDB() (*bolt.DB, error) {
+func InitDB(config Config) (*bolt.DB, error) {
 	var (
 		db  *bolt.DB
 		err error

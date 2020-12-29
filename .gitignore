@@ -14,3 +14,5 @@
 .idea
 
 data/seed.yaml.generated
+financroo/data/my.db
+financroo/test.db

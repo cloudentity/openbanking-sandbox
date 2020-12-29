@@ -45,9 +45,9 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
-	Config          Config
-	Client          acpclient.Client
-	AccountsStorage *AccountsStorage
+	Config  Config
+	Client  acpclient.Client
+	Storage *Storage
 }
 
 func NewServer() (Server, error) {
@@ -64,7 +64,7 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
-	if server.AccountsStorage, err = InitAccountsStorage(); err != nil {
+	if server.Storage, err = InitStorage(); err != nil {
 		return server, errors.Wrapf(err, "failed to init accounts storage")
 	}
 
