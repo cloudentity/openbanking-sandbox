@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	"github.com/cloudentity/acp-client-go"
+	acpclient "github.com/cloudentity/acp-client-go"
 )
 
 type Config struct {

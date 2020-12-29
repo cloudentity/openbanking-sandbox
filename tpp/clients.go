@@ -3,9 +3,8 @@ package main
 import (
 	"net/http"
 
-	httptransport "github.com/go-openapi/runtime/client"
-
 	obc "github.com/cloudentity/openbanking-sandbox/client"
+	httptransport "github.com/go-openapi/runtime/client"
 )
 
 type OpenbankingClient struct {

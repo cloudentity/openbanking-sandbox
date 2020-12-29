@@ -6,71 +6,82 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/cloudentity/openbanking-sandbox/models"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
+	"github.com/go-openapi/strfmt"
 
 	"github.com/cloudentity/acp-client-go/client/openbanking"
+	acpClient "github.com/cloudentity/acp-client-go/models"
 )
 
 func (s *Server) GetAccounts() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
-			userAccounts          []Account
+			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
+			userAccounts          []models.OBAccount6
 			err                   error
 		)
 
-		token := c.GetHeader("Authorization")
-		token = strings.ReplaceAll(token, "Bearer ", "")
-
-		if introspectionResponse, err = s.Client.Openbanking.OpenbankingAccountAccessConsentIntrospect(
-			openbanking.NewOpenbankingAccountAccessConsentIntrospectParams().
-				WithTid(s.Client.TenantID).
-				WithAid(s.Client.ServerID).
-				WithToken(&token),
-			nil,
-		); err != nil {
-			c.String(http.StatusBadRequest, fmt.Sprintf("failed to introspect token: %+v", err))
+		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
+			msg := fmt.Sprintf("failed to introspect token: %+v", err)
+			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		logrus.WithFields(logrus.Fields{"introspection_response": introspectionResponse.Payload}).Infof("token introspected")
+		grantedPermissions := introspectionResponse.Permissions
 
-		grantedPermissions := introspectionResponse.Payload.Permissions
-
-		scopes := strings.Split(introspectionResponse.Payload.Scope, " ")
+		scopes := strings.Split(introspectionResponse.Scope, " ")
 		if !has(scopes, "accounts") {
-			c.String(http.StatusForbidden, "token has no accounts scope granted")
+			msg := "token has no accounts scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
 		if !has(grantedPermissions, "ReadAccountsBasic") {
-			c.String(http.StatusForbidden, "ReadAccountsBasic permission has not been granted")
+			msg := "ReadAccountsBasic permission has not been granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		if userAccounts, err = s.AccountsStorage.GetAccount(introspectionResponse.Payload.Subject); err != nil {
-			c.String(http.StatusNotFound, err.Error())
+		if userAccounts, err = s.Storage.GetAccounts(introspectionResponse.Subject); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
-		accounts := []Account{}
+		accounts := []*models.OBAccount6{}
 
 		for _, a := range userAccounts {
-			if has(introspectionResponse.Payload.AccountIDs, a.AccountID) {
+			if has(introspectionResponse.AccountIDs, string(a.AccountID)) {
+				account := a
 				if !has(grantedPermissions, "ReadAccountsDetail") {
-					a.Account = []AccountDetails{}
+					account.Account = []*models.OBAccount6AccountItems0{}
 				}
 
-				accounts = append(accounts, a)
+				accounts = append(accounts, &account)
 			}
 		}
 
-		response := GetAccounts{Data: Data{Account: accounts}}
-		response.Meta.TotalPages = len(response.Data.Account)
-		response.Links.Self = fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port))
-
-		logrus.WithFields(logrus.Fields{"response": response}).Infof("accounts response")
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/accounts", strconv.Itoa(s.Config.Port)))
+		response := models.OBReadAccount6{
+			Data: &models.OBReadAccount6Data{
+				Account: accounts,
+			},
+			Meta: &models.Meta{
+				TotalPages: int32(len(accounts)),
+			},
+			Links: &models.Links{
+				Self: &self,
+			},
+		}
 
 		c.PureJSON(http.StatusOK, response)
 	}
@@ -81,21 +92,24 @@ type InternalAccounts struct {
 }
 
 type InternalAccount struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID   models.AccountID `json:"id"`
+	Name models.Nickname  `json:"name"`
 }
 
 // this API is bank specific. It should return all users's account.
 func (s *Server) InternalGetAccounts() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			accounts []Account
+			accounts []models.OBAccount6
 			sub      = c.Param("sub")
 			err      error
 		)
 
-		if accounts, err = s.AccountsStorage.GetAccount(sub); err != nil {
-			c.String(http.StatusNotFound, err.Error())
+		if accounts, err = s.Storage.GetAccounts(sub); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
 			return
 		}
 
@@ -114,14 +128,173 @@ func (s *Server) InternalGetAccounts() func(*gin.Context) {
 
 func (s *Server) GetBalances() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
-		c.File("./data/balances.json")
+		var (
+			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
+			userBalances          []models.OBReadBalance1DataBalanceItems0
+			err                   error
+		)
+
+		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
+			msg := fmt.Sprintf("failed to introspect token: %+v", err)
+			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		grantedPermissions := introspectionResponse.Permissions
+
+		scopes := strings.Split(introspectionResponse.Scope, " ")
+		if !has(scopes, "accounts") {
+			msg := "token has no accounts scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if !has(grantedPermissions, "ReadBalances") {
+			msg := "ReadBalances permission has not been granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if userBalances, err = s.Storage.GetBalances(introspectionResponse.Subject); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		balances := []*models.OBReadBalance1DataBalanceItems0{}
+
+		for _, balance := range userBalances {
+			b := balance
+			if has(introspectionResponse.AccountIDs, string(b.AccountID)) {
+				balances = append(balances, &b)
+			}
+		}
+
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/balances", strconv.Itoa(s.Config.Port)))
+		response := models.OBReadBalance1{
+			Data: &models.OBReadBalance1Data{
+				Balance: balances,
+			},
+			Meta: &models.Meta{
+				TotalPages: int32(len(balances)),
+			},
+			Links: &models.Links{
+				Self: &self,
+			},
+		}
+
+		c.PureJSON(http.StatusOK, response)
 	}
 }
 
 func (s *Server) GetTransactions() func(ctx *gin.Context) {
 	return func(c *gin.Context) {
-		c.File("./data/transactions.json")
+		var (
+			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
+			userTransactions      []models.OBTransaction6
+			err                   error
+		)
+
+		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
+			msg := fmt.Sprintf("failed to introspect token: %+v", err)
+			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		grantedPermissions := introspectionResponse.Permissions
+
+		scopes := strings.Split(introspectionResponse.Scope, " ")
+		if !has(scopes, "accounts") {
+			msg := "token has no accounts scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if !has(grantedPermissions, "ReadTransactionsBasic") {
+			msg := "ReadTransactionsBasic permission has not been granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if userTransactions, err = s.Storage.GetTransactions(introspectionResponse.Subject); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		transactions := []*models.OBTransaction6{}
+
+		for _, transaction := range userTransactions {
+			t := transaction
+			if has(introspectionResponse.AccountIDs, string(t.AccountID)) {
+				if !has(grantedPermissions, "ReadTransactionsDetail") {
+					t.TransactionInformation = ""
+					t.Balance = &models.OBTransactionCashBalance{}
+					t.MerchantDetails = &models.OBMerchantDetails1{}
+					t.CreditorAgent = &models.OBBranchAndFinancialInstitutionIdentification61{}
+					t.CreditorAccount = &models.OBCashAccount60{}
+					t.DebtorAgent = &models.OBBranchAndFinancialInstitutionIdentification62{}
+					t.DebtorAccount = &models.OBCashAccount61{}
+				}
+
+				transactions = append(transactions, &t)
+			}
+		}
+
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/transactions", strconv.Itoa(s.Config.Port)))
+
+		response := models.OBReadTransaction6{
+			Data: &models.OBReadDataTransaction6{
+				Transaction: transactions,
+			},
+			Meta: &models.Meta{
+				TotalPages: int32(len(transactions)),
+			},
+			Links: &models.Links{
+				Self: &self,
+			},
+		}
+
+		c.PureJSON(http.StatusOK, response)
 	}
+}
+
+func (s *Server) IntrospectToken(c *gin.Context) (*acpClient.IntrospectOpenbankingAccountAccessConsentResponse, error) {
+	var (
+		introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
+		err                   error
+	)
+
+	token := c.GetHeader("Authorization")
+	token = strings.ReplaceAll(token, "Bearer ", "")
+
+	if introspectionResponse, err = s.Client.Openbanking.OpenbankingAccountAccessConsentIntrospect(
+		openbanking.NewOpenbankingAccountAccessConsentIntrospectParams().
+			WithTid(s.Client.TenantID).
+			WithAid(s.Client.ServerID).
+			WithToken(&token),
+		nil,
+	); err != nil {
+		return nil, err
+	}
+
+	return introspectionResponse.Payload, nil
 }
 
 func has(list []string, a string) bool {
