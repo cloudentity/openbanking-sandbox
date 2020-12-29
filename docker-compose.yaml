@@ -31,15 +31,15 @@ services:
       - "8091:8091"
     volumes:
       - ./data:/certs
-      - ./financroo/data:/data
-    env_file:
-      - .env
+      - ./financroo/data:/app/data
     environment:
-      - UI_URL=https://${APP_HOST}:8091
-      - CERT_FILE=/certs/tpp_cert.pem
-      - KEY_FILE=/certs/tpp_key.pem
-      - YAML_CONFIG_FILE=/data/config.yaml
-      - DB_FILE=/data/my.db
+      - ACPURL=${ACP_URL}
+      - ACPINTERNALURL=${ACP_INTERNAL_URL}
+      - ACPPHOST=${APP_HOST}
+      - UIURL=https://${APP_HOST}:8091
+      - CERTFILE=/certs/tpp_cert.pem
+      - KEYFILE=/certs/tpp_key.pem
+      - DBFILE=/data/my.db
 
   consent-page:
     image: cloudentity/openbanking-sandbox-consent-page:latest
