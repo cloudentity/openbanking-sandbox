@@ -7,11 +7,12 @@ import (
 	"time"
 
 	"github.com/caarlos0/env/v6"
-	acpclient "github.com/cloudentity/acp-client-go"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+
+	acpclient "github.com/cloudentity/acp-client-go"
 )
 
 type Config struct {
