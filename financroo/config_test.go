@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 func TestConfig(t *testing.T) {
@@ -47,4 +48,8 @@ func TestConfig(t *testing.T) {
 	require.NotEmpty(t, config.Banks[0].AcpClient.KeyFile)
 	require.NotEmpty(t, config.Banks[0].AcpClient.RootCA)
 	require.Equal(t, 5*time.Second, config.Banks[0].AcpClient.Timeout)
+
+	Validator = validator.New()
+
+	require.NoError(t, config.Validate())
 }

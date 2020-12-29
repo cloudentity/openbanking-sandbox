@@ -56,17 +56,21 @@ type BankConfig struct {
 type Config struct {
 	Port           int
 	DBFile         string `mapstructure:"db_file"`
-	ACPURL         string `mapstructure:"acp_url"`
-	ACPInternalURL string `mapstructure:"acp_internal_url"`
-	AppHost        string `mapstructure:"app_host"`
-	UIURL          string `mapstructure:"ui_url"`
-	CertFile       string `mapstructure:"cert_file"`
-	KeyFile        string `mapstructure:"key_file"`
+	ACPURL         string `mapstructure:"acp_url" validate:"required,url"`
+	ACPInternalURL string `mapstructure:"acp_internal_url" validate:"required,url"`
+	AppHost        string `mapstructure:"app_host" validate:"required"`
+	UIURL          string `mapstructure:"ui_url" validate:"required,url"`
+	CertFile       string `mapstructure:"cert_file" validate:"required"`
+	KeyFile        string `mapstructure:"key_file" validate:"required"`
 	Login          LoginConfig
 	Banks          []BankConfig
 }
 
-func (c *Config) Validate() error {
+func (c *Config) Validate() (err error) {
+	if err = Validator.Struct(c); err != nil {
+		return err
+	}
+
 	return nil
 }
 
