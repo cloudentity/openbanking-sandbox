@@ -20,6 +20,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0
+	github.com/spf13/viper v1.7.1
 	github.com/stretchr/testify v1.6.1
 	github.com/tidwall/pretty v1.0.2 // indirect
 	go.etcd.io/bbolt v1.3.5

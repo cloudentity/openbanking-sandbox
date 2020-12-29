@@ -3,80 +3,86 @@ package main
 import (
 	"crypto/x509"
 	"encoding/pem"
-	"fmt"
 	"io/ioutil"
 	"time"
 
-	"github.com/caarlos0/env/v6"
-	"gopkg.in/yaml.v2"
+	"fmt"
+	"github.com/spf13/viper"
 )
 
+func init() {
+	viper.SetDefault("PORT", "8091")
+	viper.SetDefault("DBFILE", "./my.db")
+	viper.SetDefault("ACPURL", "")
+	viper.SetDefault("ACPINTERNALURL", "")
+	viper.SetDefault("APPHOST", "")
+	viper.SetDefault("UIURL", "")
+	viper.SetDefault("CERTFILE", "")
+	viper.SetDefault("KEYFILE", "")
+}
+
 type ClientConfig struct {
-	TenantID string `yaml:"tenant_id"`
-	ServerID string `yaml:"server_id"`
-	ClientID string `yaml:"client_id"`
+	TenantID string
+	ServerID string
+	ClientID string
 }
 
 type LoginConfig struct {
-	ClientConfig `yaml:",inline"`
-	RootCA       string        `yaml:"root_ca"`
-	Timeout      time.Duration `yaml:"timeout"`
+	ClientConfig
+	RootCA  string
+	Timeout time.Duration
 }
 
 type HTTPClientConfig struct {
-	RootCA   string        `yaml:"root_ca"`
-	CertFile string        `yaml:"cert_file"`
-	KeyFile  string        `yaml:"key_file"`
-	Timeout  time.Duration `yaml:"timeout"`
+	RootCA   string
+	CertFile string
+	KeyFile  string
+	Timeout  time.Duration
 }
 
 type AcpClient struct {
-	ClientConfig     `yaml:",inline"`
-	HTTPClientConfig `yaml:",inline"`
+	ClientConfig
+	HTTPClientConfig
 }
 
 type BankID string
 
 type BankConfig struct {
-	ID        BankID    `yaml:"id"`
-	URL       string    `yaml:"url"`
-	AcpClient AcpClient `yaml:"acp_client"`
-}
-
-type YAMLConfig struct {
-	Login LoginConfig  `yaml:"login"`
-	Banks []BankConfig `yaml:"banks"`
+	ID        BankID
+	URL       string
+	AcpClient AcpClient
 }
 
 type Config struct {
-	YAMLConfig
-	Port           int    `env:"PORT" envDefault:"8091"`
-	CertFile       string `env:"CERT_FILE,required"`
-	KeyFile        string `env:"KEY_FILE,required"`
-	ACPURL         string `env:"ACP_URL,required"`
-	ACPInternalURL string `env:"ACP_INTERNAL_URL,required"`
-	AppHost        string `env:"APP_HOST,required"`
-	UIURL          string `env:"UI_URL,required"`
-	YAMLConfigFile string `env:"YAML_CONFIG_FILE" envDefault:"./config.yaml"`
-	DBFile         string `env:"DB_FILE" envDefault:"./my.db"`
+	Port           int
+	DBFile         string
+	ACPURL         string
+	ACPInternalURL string
+	AppHost        string
+	UIURL          string
+	CertFile       string
+	KeyFile        string
+	Login          LoginConfig
+	Banks          []BankConfig
 }
 
 func LoadConfig() (Config, error) {
 	var (
 		config = Config{}
-		bs     []byte
 		err    error
 	)
 
-	if err = env.Parse(&config); err != nil {
+	viper.AutomaticEnv()
+
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("./data")
+
+	if err = viper.ReadInConfig(); err != nil {
 		return config, err
 	}
 
-	if bs, err = ioutil.ReadFile(config.YAMLConfigFile); err != nil {
-		return config, err
-	}
-
-	if err = yaml.Unmarshal(bs, &config.YAMLConfig); err != nil {
+	if err = viper.Unmarshal(&config); err != nil {
 		return config, err
 	}
 
