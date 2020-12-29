@@ -1,10 +1,7 @@
 package main
 
 import (
-	"crypto/x509"
-	"encoding/pem"
 	"fmt"
-	"io/ioutil"
 	"net/url"
 	"strconv"
 	"time"
@@ -35,30 +32,19 @@ type Config struct {
 
 func (c *Config) ClientConfig() acpclient.Config {
 	return acpclient.Config{
-		ClientID:  c.ClientID,
-		IssuerURL: c.IssuerURL,
-		Scopes:    []string{"accounts"},
-		Timeout:   c.Timeout,
-		CertFile:  c.CertFile,
-		KeyFile:   c.KeyFile,
-		RootCA:    c.RootCA,
+		ClientID:                    c.ClientID,
+		IssuerURL:                   c.IssuerURL,
+		TokenURL:                    c.TokenURL,
+		AuthorizeURL:                c.AuthorizeURL,
+		UserinfoURL:                 c.UserinfoURL,
+		RedirectURL:                 c.RedirectURL,
+		RequestObjectSigningKeyFile: c.KeyFile,
+		Scopes:                      []string{"accounts", "openid"},
+		Timeout:                     c.Timeout,
+		CertFile:                    c.CertFile,
+		KeyFile:                     c.KeyFile,
+		RootCA:                      c.RootCA,
 	}
-}
-
-func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
-	var bs []byte
-
-	if bs, err = ioutil.ReadFile(c.KeyFile); err != nil {
-		return signingKey, err
-	}
-
-	block, _ := pem.Decode(bs)
-
-	if signingKey, err = x509.ParsePKCS1PrivateKey(block.Bytes); err != nil {
-		return signingKey, err
-	}
-
-	return signingKey, nil
 }
 
 func LoadConfig() (config Config, err error) {
@@ -72,7 +58,6 @@ func LoadConfig() (config Config, err error) {
 type Server struct {
 	Config       Config
 	Client       acpclient.Client
-	WebClient    AcpWebClient
 	BankClient   OpenbankingClient
 	SecureCookie *securecookie.SecureCookie
 }
@@ -89,10 +74,6 @@ func NewServer() (Server, error) {
 
 	if server.Client, err = acpclient.New(server.Config.ClientConfig()); err != nil {
 		return server, errors.Wrapf(err, "failed to init acp client")
-	}
-
-	if server.WebClient, err = NewAcpWebClient(server.Config); err != nil {
-		return server, errors.Wrapf(err, "failed to init acp web client")
 	}
 
 	server.BankClient = NewOpenbankingClient(server.Config)
