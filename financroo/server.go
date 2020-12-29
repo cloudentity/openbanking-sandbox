@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/securecookie"
 	"github.com/pkg/errors"
 	bolt "go.etcd.io/bbolt"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 type Clients struct {
@@ -55,6 +56,7 @@ type Server struct {
 	DB           *bolt.DB
 	UserRepo     UserRepo
 	LoginClient  LoginClient
+	Validator    *validator.Validate
 }
 
 func NewServer() (Server, error) {
@@ -63,8 +65,14 @@ func NewServer() (Server, error) {
 		err    error
 	)
 
+	server.Validator = validator.New()
+
 	if server.Config, err = LoadConfig(); err != nil {
 		return server, errors.Wrapf(err, "failed to load config")
+	}
+
+	if err = server.Validator.Struct(server.Config); err != nil {
+		return server, errors.Wrapf(err, "failed to validate config")
 	}
 
 	if server.Clients, err = InitClients(server.Config); err != nil {

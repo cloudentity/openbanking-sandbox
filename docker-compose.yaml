@@ -38,7 +38,7 @@ services:
       - UI_URL=https://${APP_HOST}:8091
       - CERT_FILE=/certs/tpp_cert.pem
       - KEY_FILE=/certs/tpp_key.pem
-      - DB_FILE=/data/my.db
+      - DB_FILE=/app/data/my.db
 
   consent-page:
     image: cloudentity/openbanking-sandbox-consent-page:latest

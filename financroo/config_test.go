@@ -24,7 +24,7 @@ func TestConfig(t *testing.T) {
 	require.NoError(t, err)
 
 	require.Equal(t, 8091, config.Port)
-	require.Equal(t, "./my.db", config.DBFile)
+	require.Equal(t, "./data/my.db", config.DBFile)
 	require.Equal(t, "https://localhost:8443", config.ACPURL)
 	require.Equal(t, "https://acp:8443", config.ACPInternalURL)
 	require.Equal(t, "localhost", config.AppHost)

@@ -12,7 +12,7 @@ import (
 
 func init() {
 	viper.SetDefault("PORT", "8091")
-	viper.SetDefault("DB_FILE", "./my.db")
+	viper.SetDefault("DB_FILE", "./data/my.db")
 	viper.SetDefault("ACP_URL", "")
 	viper.SetDefault("ACP_INTERNAL_URL", "")
 	viper.SetDefault("APP_HOST", "")
@@ -56,18 +56,14 @@ type BankConfig struct {
 type Config struct {
 	Port           int
 	DBFile         string `mapstructure:"db_file"`
-	ACPURL         string `mapstructure:"acp_url"`
-	ACPInternalURL string `mapstructure:"acp_internal_url"`
-	AppHost        string `mapstructure:"app_host"`
-	UIURL          string `mapstructure:"ui_url"`
-	CertFile       string `mapstructure:"cert_file"`
-	KeyFile        string `mapstructure:"key_file"`
+	ACPURL         string `mapstructure:"acp_url" validate:"required,url"`
+	ACPInternalURL string `mapstructure:"acp_internal_url" validate:"required,url"`
+	AppHost        string `mapstructure:"app_host" validate:"required"`
+	UIURL          string `mapstructure:"ui_url" validate:"required,url"`
+	CertFile       string `mapstructure:"cert_file" validate:"required"`
+	KeyFile        string `mapstructure:"key_file" validate:"required"`
 	Login          LoginConfig
 	Banks          []BankConfig
-}
-
-func (c *Config) Validate() error {
-	return nil
 }
 
 func LoadConfig() (Config, error) {
