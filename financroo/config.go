@@ -3,10 +3,10 @@ package main
 import (
 	"crypto/x509"
 	"encoding/pem"
+	"fmt"
 	"io/ioutil"
 	"time"
 
-	"fmt"
 	"github.com/spf13/viper"
 )
 

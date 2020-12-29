@@ -3,9 +3,9 @@ package main
 import (
 	"os"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
-	"time"
 )
 
 func TestConfig(t *testing.T) {
