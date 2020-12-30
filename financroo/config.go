@@ -88,21 +88,7 @@ func LoadConfig() (Config, error) {
 	return config, nil
 }
 
-type SystemClientConfig struct {
-	ClientConfig
-	HTTPClientConfig
-	TokenURL string
-}
-
-func (c *Config) ToSystemClientConfig(cfg BankConfig) SystemClientConfig {
-	return SystemClientConfig{
-		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
-		ClientConfig:     cfg.AcpClient.ClientConfig,
-		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-	}
-}
-
-func NewAcpWebClient(c Config, cfg BankConfig) (acpclient.Client, error) {
+func NewAcpClient(c Config, cfg BankConfig) (acpclient.Client, error) {
 	var (
 		tokenURL, issuerURL, authorizeURL, userinfoURL, redirectURL *url.URL
 		client                                                      acpclient.Client

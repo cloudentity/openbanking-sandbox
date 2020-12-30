@@ -60,11 +60,11 @@ func (s *Server) GetClientWithToken(bank ConnectedBank) (OpenbankingClient, Toke
 		return client, token, fmt.Errorf("can't get client for a bank: %s", bank.BankID)
 	}
 
-	if tResp, err = clients.AcpWebClient.Acp.Oauth2.Token(
+	if tResp, err = clients.AcpClient.Acp.Oauth2.Token(
 		oauth2.NewTokenParams().
-			WithAid(clients.AcpWebClient.ServerID).
-			WithTid(clients.AcpWebClient.TenantID).
-			WithClientID(&clients.AcpWebClient.Config.ClientID).
+			WithAid(clients.AcpClient.ServerID).
+			WithTid(clients.AcpClient.TenantID).
+			WithClientID(&clients.AcpClient.Config.ClientID).
 			WithGrantType("refresh_token").
 			WithRefreshToken(&bank.RefreshToken)); err != nil {
 		return client, token, errors.Wrapf(err, "can't renew access token for a bank: %s", bank.BankID)

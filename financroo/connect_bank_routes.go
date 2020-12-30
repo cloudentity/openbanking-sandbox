@@ -5,11 +5,12 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/cloudentity/openbanking-sandbox/models"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 
 	acpclient "github.com/cloudentity/acp-client-go"
+	"github.com/cloudentity/acp-client-go/client/openbanking"
+	"github.com/cloudentity/acp-client-go/models"
 )
 
 type AppStorage struct {
@@ -46,7 +47,7 @@ func (s *Server) ConnectBank() func(*gin.Context) {
 			bankID             = BankID(c.Param("bankId"))
 			clients            Clients
 			ok                 bool
-			registerResponse   *models.OBReadConsentResponse1
+			registerResponse   *openbanking.CreateAccountAccessConsentRequestCreated
 			encodedCookieValue string
 			loginURL           string
 			data               = gin.H{}
@@ -69,18 +70,28 @@ func (s *Server) ConnectBank() func(*gin.Context) {
 			c.String(http.StatusBadRequest, fmt.Sprintf("client not configured for bank: %s", bankID))
 		}
 
-		if registerResponse, err = clients.AcpSystemClient.RegisterAccountAccessConsent(connectRequest.Permissions); err != nil {
+		if registerResponse, err = clients.AcpClient.Openbanking.CreateAccountAccessConsentRequest(
+			openbanking.NewCreateAccountAccessConsentRequestParams().
+				WithTid(clients.AcpClient.TenantID).
+				WithAid(clients.AcpClient.ServerID).
+				WithRequest(&models.AccountAccessConsentRequest{
+					Data: &models.AccountAccessConsentRequestData{
+						Permissions: connectRequest.Permissions,
+					},
+				}),
+			nil,
+		); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to register account access consent: %+v", err))
 			return
 		}
 
 		app := AppStorage{
 			BankID:   bankID,
-			IntentID: *registerResponse.Data.ConsentID,
+			IntentID: registerResponse.Payload.Data.ConsentID,
 			Sub:      user.Sub,
 		}
 
-		if loginURL, app.CSRF, err = clients.AcpWebClient.AuthorizeURL(
+		if loginURL, app.CSRF, err = clients.AcpClient.AuthorizeURL(
 			acpclient.WithOpenbankingIntentID(app.IntentID, []string{"urn:openbanking:psd2:sca"}),
 			acpclient.WithPKCE(),
 		); err != nil {
@@ -138,7 +149,7 @@ func (s *Server) ConnectBankCallback() func(*gin.Context) {
 			c.String(http.StatusBadRequest, fmt.Sprintf("client not configured for bank: %s", appStorage.BankID))
 		}
 
-		if token, err = clients.AcpWebClient.Exchange(code, c.Query("state"), appStorage.CSRF); err != nil {
+		if token, err = clients.AcpClient.Exchange(code, c.Query("state"), appStorage.CSRF); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to exchange code: %+v", err))
 			return
 		}
