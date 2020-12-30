@@ -8,27 +8,32 @@
     {
       "value": "ReadAccountsBasic",
       "title": "Your account basic",
-      "description": "description"
+      "description": "Ability to read basic account information"
     },
     {
-      "value": "",
-      "title": "Your regular payments",
-      "description": "description"
+      "value": "ReadBalances",
+      "title": "Your balances",
+      "description": "Ability to read all balance information"
     },
     {
-      "value": "",
-      "title": "Your transactions",
-      "description": "description"
+      "value": "ReadTransactionsBasic",
+      "title": "Your transactions basic",
+      "description": "Ability to read basic transaction information"
     },
     {
-      "value": "",
-      "title": "Your statements",
-      "description": "description"
+      "value": "ReadTransactionsDetail",
+      "title": "Your transactions details",
+      "description": "Ability to read transaction data elements which may hold silent party details"
     },
     {
-      "value": "",
-      "title": "Your account feature and benefits",
-      "description": "description"
+      "value": "ReadTransactionsCredits",
+      "title": "Your transactions credits",
+      "description": "Ability to read only credit transactions"
+    },
+    {
+      "value": "ReadTransactionsDebits",
+      "title": "Your transactions debits",
+      "description": "Ability to read only debit transactions"
     }
   ]
 }

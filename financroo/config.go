@@ -3,35 +3,118 @@ package main
 import (
 	"crypto/x509"
 	"encoding/pem"
+	"fmt"
 	"io/ioutil"
-	"net/url"
 	"time"
 
-	"github.com/caarlos0/env/v6"
+	"github.com/spf13/viper"
 )
 
-type Config struct {
-	Port                            int           `env:"PORT" envDefault:"8091"`
-	ClientID                        string        `env:"CLIENT_ID,required"`
-	AuthorizeURL                    *url.URL      `env:"AUTHORIZE_URL,required"`
-	TokenURL                        *url.URL      `env:"TOKEN_URL,required"`
-	UserinfoURL                     *url.URL      `env:"USERINFO_URL,required"`
-	RedirectURL                     *url.URL      `env:"REDIRECT_URL,required"`
-	Timeout                         time.Duration `env:"TIMEOUT" envDefault:"5s"`
-	RootCA                          string        `env:"ROOT_CA,required"`
-	CertFile                        string        `env:"CERT_FILE,required"`
-	KeyFile                         string        `env:"KEY_FILE,required"`
-	BankURL                         *url.URL      `env:"BANK_URL,required"`
-	FinancrooAuthorizationServerURL string        `env:"FINANCROO_AUTHORIZATION_SERVER_URL,required"`
-	FinancrooClientID               string        `env:"FINANCROO_CLIENT_ID,required"`
-	FinancrooAuthorizationServerID  string        `env:"FINANCROO_AUTHORIZATION_SERVER_ID,required"`
-	FinancrooTenantID               string        `env:"FINANCROO_TENANT_ID,required"`
+func init() {
+	viper.SetDefault("PORT", "8091")
+	viper.SetDefault("DB_FILE", "./data/my.db")
+	viper.SetDefault("ACP_URL", "")
+	viper.SetDefault("ACP_INTERNAL_URL", "")
+	viper.SetDefault("APP_HOST", "")
+	viper.SetDefault("UI_URL", "")
+	viper.SetDefault("CERT_FILE", "")
+	viper.SetDefault("KEY_FILE", "")
 }
 
-func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
+type ClientConfig struct {
+	TenantID string `mapstructure:"tenant_id"`
+	ServerID string `mapstructure:"server_id"`
+	ClientID string `mapstructure:"client_id"`
+}
+
+type LoginConfig struct {
+	ClientConfig `mapstructure:",squash"`
+	RootCA       string `mapstructure:"root_ca"`
+	Timeout      time.Duration
+}
+
+type HTTPClientConfig struct {
+	RootCA   string `mapstructure:"root_ca"`
+	CertFile string `mapstructure:"cert_file"`
+	KeyFile  string `mapstructure:"key_file"`
+	Timeout  time.Duration
+}
+
+type AcpClient struct {
+	ClientConfig     `mapstructure:",squash"`
+	HTTPClientConfig `mapstructure:",squash"`
+}
+
+type BankID string
+
+type BankConfig struct {
+	ID        BankID
+	URL       string
+	AcpClient AcpClient `mapstructure:"acp_client"`
+}
+
+type Config struct {
+	Port           int
+	DBFile         string `mapstructure:"db_file"`
+	ACPURL         string `mapstructure:"acp_url" validate:"required,url"`
+	ACPInternalURL string `mapstructure:"acp_internal_url" validate:"required,url"`
+	AppHost        string `mapstructure:"app_host" validate:"required"`
+	UIURL          string `mapstructure:"ui_url" validate:"required,url"`
+	CertFile       string `mapstructure:"cert_file" validate:"required"`
+	KeyFile        string `mapstructure:"key_file" validate:"required"`
+	Login          LoginConfig
+	Banks          []BankConfig
+}
+
+func LoadConfig() (Config, error) {
+	var (
+		config = Config{}
+		err    error
+	)
+
+	viper.AutomaticEnv()
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath("./data")
+
+	if err = viper.ReadInConfig(); err != nil {
+		return config, err
+	}
+
+	if err = viper.Unmarshal(&config); err != nil {
+		return config, err
+	}
+
+	return config, nil
+}
+
+type SystemClientConfig struct {
+	ClientConfig
+	HTTPClientConfig
+	TokenURL string
+}
+
+func (c *Config) ToSystemClientConfig(cfg BankConfig) SystemClientConfig {
+	return SystemClientConfig{
+		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
+		ClientConfig:     cfg.AcpClient.ClientConfig,
+		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+	}
+}
+
+type WebClientConfig struct {
+	ClientConfig
+	HTTPClientConfig
+	AuthorizeURL string
+	TokenURL     string
+	UserinfoURL  string
+	RedirectURL  string
+}
+
+func (w *WebClientConfig) GetSigningKey() (signingKey interface{}, err error) {
 	var bs []byte
 
-	if bs, err = ioutil.ReadFile(c.KeyFile); err != nil {
+	if bs, err = ioutil.ReadFile(w.KeyFile); err != nil {
 		return signingKey, err
 	}
 
@@ -44,10 +127,27 @@ func (c *Config) GetSigningKey() (signingKey interface{}, err error) {
 	return signingKey, nil
 }
 
-func LoadConfig() (config Config, err error) {
-	if err = env.Parse(&config); err != nil {
-		return config, err
+func (c *Config) ToWebClientConfig(cfg BankConfig) WebClientConfig {
+	return WebClientConfig{
+		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
+		ClientConfig:     cfg.AcpClient.ClientConfig,
+		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		AuthorizeURL:     fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.ACPURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		UserinfoURL:      fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
+		RedirectURL:      fmt.Sprintf("%s/api/callback", c.UIURL),
 	}
+}
 
-	return config, err
+type LoginClientConfig struct {
+	RootCA      string
+	Timeout     time.Duration
+	UserinfoURL string
+}
+
+func (c *Config) ToLoginClientConfig() LoginClientConfig {
+	return LoginClientConfig{
+		RootCA:      c.Login.RootCA,
+		Timeout:     c.Login.Timeout,
+		UserinfoURL: fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, c.Login.TenantID, c.Login.ServerID),
+	}
 }

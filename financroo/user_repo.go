@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 
 	"github.com/pkg/errors"
@@ -13,8 +14,9 @@ type User struct {
 }
 
 type ConnectedBank struct {
-	BankID   string `json:"bank_id"`
-	IntentID string `json:"intent_id"`
+	BankID       string `json:"bank_id"`
+	IntentID     string `json:"intent_id"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 type UserRepo struct {
@@ -48,19 +50,26 @@ func (u *UserRepo) Get(sub string) (User, error) {
 	var (
 		user User
 		bs   []byte
+		k    []byte
 		err  error
 	)
 
 	if err = u.DB.View(func(tx *bolt.Tx) error {
-		bs = tx.Bucket(bucket).Get([]byte(sub))
+		k, bs = tx.Bucket(bucket).Cursor().Seek([]byte(sub))
+
+		if bs == nil || !bytes.Equal(k, []byte(sub)) {
+			user = User{Sub: sub}
+
+			return nil
+		}
+
+		if err = json.Unmarshal(bs, &user); err != nil {
+			return errors.Wrapf(err, "failed to unmarshal user")
+		}
 
 		return nil
 	}); err != nil {
 		return user, errors.Wrapf(err, "failed to get user")
-	}
-
-	if err = json.Unmarshal(bs, &user); err != nil {
-		return user, errors.Wrapf(err, "failed to unmarshal user")
 	}
 
 	return user, nil

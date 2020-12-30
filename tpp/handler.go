@@ -1,12 +1,8 @@
 package main
 
 import (
-	"crypto/rand"
-	"crypto/sha256"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"net/url"
 
@@ -14,18 +10,13 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 
+	acpclient "github.com/cloudentity/acp-client-go"
 	"github.com/cloudentity/acp-client-go/client/openbanking"
 	"github.com/cloudentity/acp-client-go/models"
 )
 
-const (
-	challengeLength = 43
-	nonceLength     = 20
-)
-
 type AppStorage struct {
-	Verifier string
-	Nonce    string
+	CSRF acpclient.CSRF
 }
 
 func (s *Server) Get() func(*gin.Context) {
@@ -38,10 +29,8 @@ func (s *Server) Login() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
 			registerResponse   *openbanking.CreateAccountAccessConsentRequestCreated
-			encodedVerifier    string
-			encodedNonce       string
 			encodedCookieValue string
-			challenge          string
+			storage            AppStorage
 			loginURL           string
 			u                  *url.URL
 			data               = gin.H{}
@@ -66,51 +55,29 @@ func (s *Server) Login() func(*gin.Context) {
 		registerResponseRaw, _ := json.MarshalIndent(registerResponse, "", "  ")
 		data["account_access_consent_raw"] = string(registerResponseRaw)
 
-		// generate verifier
-		verifier := make([]byte, challengeLength)
-		if _, err = io.ReadFull(rand.Reader, verifier); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to generate challenge: %+v", err))
+		if loginURL, storage.CSRF, err = s.Client.AuthorizeURL(
+			acpclient.WithOpenbankingIntentID(registerResponse.Payload.Data.ConsentID, []string{"urn:openbanking:psd2:sca"}),
+			acpclient.WithPKCE(),
+		); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
 			return
 		}
-		encodedVerifier = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(verifier)
 
-		// generate nonce
-		nonce := make([]byte, nonceLength)
-		if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to generate nonce: %+v", err))
+		if u, err = url.Parse(loginURL); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to parse login url: %+v", err))
 			return
 		}
-		encodedNonce = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(nonce)
 
-		app := AppStorage{
-			Verifier: encodedVerifier,
-			Nonce:    encodedNonce,
-		}
-
-		// persist verifier and nonce in a secure encrypted cookie
-		if encodedCookieValue, err = s.SecureCookie.Encode("app", app); err != nil {
+		// persist csrf in a secure encrypted cookie
+		if encodedCookieValue, err = s.SecureCookie.Encode("app", storage); err != nil {
 			c.String(http.StatusInternalServerError, fmt.Sprintf("error while encoding cookie: %+v", err))
 			return
 		}
 
 		c.SetCookie("app", encodedCookieValue, 0, "/", "", false, true)
 
-		hash := sha256.New()
-		if _, err = hash.Write([]byte(encodedVerifier)); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("error while creating challenge: %+v", err))
-			return
-		}
-		challenge = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(hash.Sum([]byte{}))
-
-		if loginURL, err = s.WebClient.LoginURL(registerResponse.Payload.Data.ConsentID, challenge, []string{"openid", "accounts"}, encodedNonce); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
-		}
-
-		// debug only
-		if u, err = url.Parse(loginURL); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to parse login url: %+v", err))
-		}
 		rp := u.Query()["request"]
+
 		if len(rp) > 0 {
 			parser := jwt.Parser{}
 			claims := jwt.MapClaims{}
@@ -137,7 +104,7 @@ func (s *Server) Callback() func(*gin.Context) {
 			appStorage       = AppStorage{}
 			userinfoResponse map[string]interface{}
 			code             = c.Query("code")
-			token            Token
+			token            acpclient.Token
 			data             = gin.H{}
 			err              error
 		)
@@ -157,14 +124,12 @@ func (s *Server) Callback() func(*gin.Context) {
 			return
 		}
 
-		if token, err = s.WebClient.Exchange(code, appStorage.Verifier); err != nil {
+		if token, err = s.Client.Exchange(code, c.Query("state"), appStorage.CSRF); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to exchange code: %+v", err))
 			return
 		}
 
-		// todo validate id_token and compare nonces
-
-		if userinfoResponse, err = s.WebClient.Userinfo(token.AccessToken); err != nil {
+		if userinfoResponse, err = s.Client.Userinfo(token.AccessToken); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to introspect access token: %+v", err))
 			return
 		}
@@ -173,10 +138,10 @@ func (s *Server) Callback() func(*gin.Context) {
 		userinfoResp, _ := json.MarshalIndent(userinfoResponse, "", "  ")
 		data["userinfo"] = string(userinfoResp)
 
-		if token.IDToken != nil {
+		if token.IDToken != "" {
 			parser := jwt.Parser{}
 			claims := jwt.MapClaims{}
-			IDToken, _, _ := parser.ParseUnverified(*token.IDToken, &claims)
+			IDToken, _, _ := parser.ParseUnverified(token.IDToken, &claims)
 			header, _ := json.MarshalIndent(IDToken.Header, "", "  ")
 			payload, _ := json.MarshalIndent(claims, "", "  ")
 

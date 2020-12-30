@@ -10,13 +10,13 @@ import (
 
 var mode = os.FileMode(0600)
 
-func InitDB() (*bolt.DB, error) {
+func InitDB(config Config) (*bolt.DB, error) {
 	var (
 		db  *bolt.DB
 		err error
 	)
 
-	if db, err = bolt.Open("./my.db", mode, &bolt.Options{Timeout: 3 * time.Second}); err != nil {
+	if db, err = bolt.Open(config.DBFile, mode, &bolt.Options{Timeout: 3 * time.Second}); err != nil {
 		return nil, errors.Wrapf(err, "failed to open db")
 	}
 

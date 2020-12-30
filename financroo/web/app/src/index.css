@@ -20,3 +20,7 @@ a {
   color: #36C6AF;
   text-decoration: none;
 }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
