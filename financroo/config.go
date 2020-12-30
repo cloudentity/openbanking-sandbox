@@ -1,13 +1,13 @@
 package main
 
 import (
-	"crypto/x509"
-	"encoding/pem"
 	"fmt"
-	"io/ioutil"
+	"net/url"
 	"time"
 
 	"github.com/spf13/viper"
+
+	acpclient "github.com/cloudentity/acp-client-go"
 )
 
 func init() {
@@ -102,40 +102,53 @@ func (c *Config) ToSystemClientConfig(cfg BankConfig) SystemClientConfig {
 	}
 }
 
-type WebClientConfig struct {
-	ClientConfig
-	HTTPClientConfig
-	AuthorizeURL string
-	TokenURL     string
-	UserinfoURL  string
-	RedirectURL  string
-}
+func NewAcpWebClient(c Config, cfg BankConfig) (acpclient.Client, error) {
+	var (
+		tokenURL, issuerURL, authorizeURL, userinfoURL, redirectURL *url.URL
+		client                                                      acpclient.Client
+		err                                                         error
+	)
 
-func (w *WebClientConfig) GetSigningKey() (signingKey interface{}, err error) {
-	var bs []byte
-
-	if bs, err = ioutil.ReadFile(w.KeyFile); err != nil {
-		return signingKey, err
+	if tokenURL, err = url.Parse(fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID)); err != nil {
+		return client, err
 	}
 
-	block, _ := pem.Decode(bs)
-
-	if signingKey, err = x509.ParsePKCS1PrivateKey(block.Bytes); err != nil {
-		return signingKey, err
+	if issuerURL, err = url.Parse(fmt.Sprintf("%s/%s/%s", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID)); err != nil {
+		return client, err
 	}
 
-	return signingKey, nil
-}
-
-func (c *Config) ToWebClientConfig(cfg BankConfig) WebClientConfig {
-	return WebClientConfig{
-		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
-		ClientConfig:     cfg.AcpClient.ClientConfig,
-		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		AuthorizeURL:     fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.ACPURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		UserinfoURL:      fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		RedirectURL:      fmt.Sprintf("%s/api/callback", c.UIURL),
+	if authorizeURL, err = url.Parse(fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.ACPURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID)); err != nil {
+		return client, err
 	}
+
+	if userinfoURL, err = url.Parse(fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID)); err != nil {
+		return client, err
+	}
+
+	if redirectURL, err = url.Parse(fmt.Sprintf("%s/api/callback", c.UIURL)); err != nil {
+		return client, err
+	}
+
+	config := acpclient.Config{
+		ClientID:                    cfg.AcpClient.ClientID,
+		IssuerURL:                   issuerURL,
+		TokenURL:                    tokenURL,
+		AuthorizeURL:                authorizeURL,
+		UserinfoURL:                 userinfoURL,
+		RedirectURL:                 redirectURL,
+		RequestObjectSigningKeyFile: cfg.AcpClient.KeyFile,
+		Scopes:                      []string{"accounts", "openid", "offline_access"},
+		Timeout:                     cfg.AcpClient.Timeout,
+		CertFile:                    cfg.AcpClient.CertFile,
+		KeyFile:                     cfg.AcpClient.KeyFile,
+		RootCA:                      cfg.AcpClient.RootCA,
+	}
+
+	if client, err = acpclient.New(config); err != nil {
+		return client, err
+	}
+
+	return client, nil
 }
 
 type LoginClientConfig struct {

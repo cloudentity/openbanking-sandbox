@@ -9,11 +9,13 @@ import (
 	"github.com/pkg/errors"
 	bolt "go.etcd.io/bbolt"
 	"gopkg.in/go-playground/validator.v9"
+
+	acpclient "github.com/cloudentity/acp-client-go"
 )
 
 type Clients struct {
 	AcpSystemClient AcpAccountAccessClient
-	AcpWebClient    AcpWebClient
+	AcpWebClient    acpclient.Client
 	BankClient      OpenbankingClient
 }
 
@@ -21,7 +23,7 @@ func InitClients(config Config) (map[BankID]Clients, error) {
 	var (
 		clients         = map[BankID]Clients{}
 		acpSystemClient AcpAccountAccessClient
-		acpWebClient    AcpWebClient
+		acpWebClient    acpclient.Client
 		bankClient      OpenbankingClient
 		err             error
 	)
@@ -31,7 +33,7 @@ func InitClients(config Config) (map[BankID]Clients, error) {
 			return clients, errors.Wrapf(err, "failed to init acp system client for bank: %s", bank.ID)
 		}
 
-		if acpWebClient, err = NewAcpWebClient(config.ToWebClientConfig(bank)); err != nil {
+		if acpWebClient, err = NewAcpWebClient(config, bank); err != nil {
 			return clients, errors.Wrapf(err, "failed to init acp web client for bank: %s", bank.ID)
 		}
 

@@ -1,26 +1,19 @@
 package main
 
 import (
-	"crypto/rand"
-	"crypto/sha256"
-	"encoding/base64"
 	"fmt"
-	"io"
 	"net/http"
+	"net/url"
 
 	"github.com/cloudentity/openbanking-sandbox/models"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-)
 
-const (
-	challengeLength = 43
-	nonceLength     = 20
+	acpclient "github.com/cloudentity/acp-client-go"
 )
 
 type AppStorage struct {
-	Verifier string
-	Nonce    string
+	CSRF     acpclient.CSRF
 	Sub      string
 	IntentID string
 	BankID   BankID
@@ -54,10 +47,7 @@ func (s *Server) ConnectBank() func(*gin.Context) {
 			clients            Clients
 			ok                 bool
 			registerResponse   *models.OBReadConsentResponse1
-			encodedVerifier    string
-			encodedNonce       string
 			encodedCookieValue string
-			challenge          string
 			loginURL           string
 			data               = gin.H{}
 			connectRequest     = ConnectBankRequest{}
@@ -84,28 +74,23 @@ func (s *Server) ConnectBank() func(*gin.Context) {
 			return
 		}
 
-		// generate verifier
-		verifier := make([]byte, challengeLength)
-		if _, err = io.ReadFull(rand.Reader, verifier); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to generate challenge: %+v", err))
-			return
-		}
-		encodedVerifier = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(verifier)
-
-		// generate nonce
-		nonce := make([]byte, nonceLength)
-		if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to generate nonce: %+v", err))
-			return
-		}
-		encodedNonce = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(nonce)
-
 		app := AppStorage{
-			Verifier: encodedVerifier,
-			Nonce:    encodedNonce,
 			BankID:   bankID,
 			IntentID: *registerResponse.Data.ConsentID,
 			Sub:      user.Sub,
+		}
+
+		if loginURL, app.CSRF, err = clients.AcpWebClient.AuthorizeURL(
+			acpclient.WithOpenbankingIntentID(app.IntentID, []string{"urn:openbanking:psd2:sca"}),
+			acpclient.WithPKCE(),
+		); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
+			return
+		}
+
+		if _, err = url.Parse(loginURL); err != nil {
+			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to parse login url: %+v", err))
+			return
 		}
 
 		// persist verifier and nonce in a secure encrypted cookie
@@ -115,17 +100,6 @@ func (s *Server) ConnectBank() func(*gin.Context) {
 		}
 
 		c.SetCookie("app", encodedCookieValue, 0, "/", "", false, true)
-
-		hash := sha256.New()
-		if _, err = hash.Write([]byte(encodedVerifier)); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("error while creating challenge: %+v", err))
-			return
-		}
-		challenge = base64.RawURLEncoding.WithPadding(base64.NoPadding).EncodeToString(hash.Sum([]byte{}))
-
-		if loginURL, err = clients.AcpWebClient.LoginURL(*registerResponse.Data.ConsentID, challenge, []string{"openid", "accounts", "offline_access"}, encodedNonce); err != nil {
-			c.String(http.StatusInternalServerError, fmt.Sprintf("failed to build authorize url: %+v", err))
-		}
 
 		data["login_url"] = loginURL
 
@@ -141,7 +115,7 @@ func (s *Server) ConnectBankCallback() func(*gin.Context) {
 			code       = c.Query("code")
 			ok         bool
 			clients    Clients
-			token      Token
+			token      acpclient.Token
 			err        error
 		)
 
@@ -164,14 +138,13 @@ func (s *Server) ConnectBankCallback() func(*gin.Context) {
 			c.String(http.StatusBadRequest, fmt.Sprintf("client not configured for bank: %s", appStorage.BankID))
 		}
 
-		if token, err = clients.AcpWebClient.Exchange(code, appStorage.Verifier); err != nil {
+		if token, err = clients.AcpWebClient.Exchange(code, c.Query("state"), appStorage.CSRF); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to exchange code: %+v", err))
 			return
 		}
 
 		if err = s.ConnectBankForUser(appStorage, token); err != nil {
 			c.String(http.StatusUnauthorized, fmt.Sprintf("failed to exchange code: %+v", err))
-
 			return
 		}
 
@@ -234,7 +207,7 @@ func (s *Server) DisconnectBank() func(*gin.Context) {
 	}
 }
 
-func (s *Server) ConnectBankForUser(appStorage AppStorage, token Token) error {
+func (s *Server) ConnectBankForUser(appStorage AppStorage, token acpclient.Token) error {
 	var (
 		user User
 		err  error
