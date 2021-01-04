@@ -1,10 +1,6 @@
 package main
 
 import (
-	"crypto/x509"
-	"encoding/pem"
-	"fmt"
-	"io/ioutil"
 	"time"
 
 	"github.com/spf13/viper"
@@ -86,68 +82,4 @@ func LoadConfig() (Config, error) {
 	}
 
 	return config, nil
-}
-
-type SystemClientConfig struct {
-	ClientConfig
-	HTTPClientConfig
-	TokenURL string
-}
-
-func (c *Config) ToSystemClientConfig(cfg BankConfig) SystemClientConfig {
-	return SystemClientConfig{
-		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
-		ClientConfig:     cfg.AcpClient.ClientConfig,
-		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-	}
-}
-
-type WebClientConfig struct {
-	ClientConfig
-	HTTPClientConfig
-	AuthorizeURL string
-	TokenURL     string
-	UserinfoURL  string
-	RedirectURL  string
-}
-
-func (w *WebClientConfig) GetSigningKey() (signingKey interface{}, err error) {
-	var bs []byte
-
-	if bs, err = ioutil.ReadFile(w.KeyFile); err != nil {
-		return signingKey, err
-	}
-
-	block, _ := pem.Decode(bs)
-
-	if signingKey, err = x509.ParsePKCS1PrivateKey(block.Bytes); err != nil {
-		return signingKey, err
-	}
-
-	return signingKey, nil
-}
-
-func (c *Config) ToWebClientConfig(cfg BankConfig) WebClientConfig {
-	return WebClientConfig{
-		HTTPClientConfig: cfg.AcpClient.HTTPClientConfig,
-		ClientConfig:     cfg.AcpClient.ClientConfig,
-		TokenURL:         fmt.Sprintf("%s/%s/%s/oauth2/token", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		AuthorizeURL:     fmt.Sprintf("%s/%s/%s/oauth2/authorize", c.ACPURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		UserinfoURL:      fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, cfg.AcpClient.TenantID, cfg.AcpClient.ServerID),
-		RedirectURL:      fmt.Sprintf("%s/api/callback", c.UIURL),
-	}
-}
-
-type LoginClientConfig struct {
-	RootCA      string
-	Timeout     time.Duration
-	UserinfoURL string
-}
-
-func (c *Config) ToLoginClientConfig() LoginClientConfig {
-	return LoginClientConfig{
-		RootCA:      c.Login.RootCA,
-		Timeout:     c.Login.Timeout,
-		UserinfoURL: fmt.Sprintf("%s/%s/%s/userinfo", c.ACPInternalURL, c.Login.TenantID, c.Login.ServerID),
-	}
 }

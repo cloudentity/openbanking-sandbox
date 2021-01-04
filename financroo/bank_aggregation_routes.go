@@ -11,6 +11,8 @@ import (
 	"github.com/cloudentity/openbanking-sandbox/models"
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
+
+	"github.com/cloudentity/acp-client-go/client/oauth2"
 )
 
 func (s *Server) WithUser(c *gin.Context) (User, error) {
@@ -50,6 +52,7 @@ func (s *Server) GetClientWithToken(bank ConnectedBank) (OpenbankingClient, Toke
 		client  OpenbankingClient
 		ok      bool
 		token   Token
+		tResp   *oauth2.TokenOK
 		err     error
 	)
 
@@ -57,9 +60,18 @@ func (s *Server) GetClientWithToken(bank ConnectedBank) (OpenbankingClient, Toke
 		return client, token, fmt.Errorf("can't get client for a bank: %s", bank.BankID)
 	}
 
-	if token, err = clients.AcpWebClient.RenewToken(bank.RefreshToken); err != nil {
+	if tResp, err = clients.AcpClient.Acp.Oauth2.Token(
+		oauth2.NewTokenParams().
+			WithAid(clients.AcpClient.ServerID).
+			WithTid(clients.AcpClient.TenantID).
+			WithClientID(&clients.AcpClient.Config.ClientID).
+			WithGrantType("refresh_token").
+			WithRefreshToken(&bank.RefreshToken)); err != nil {
 		return client, token, errors.Wrapf(err, "can't renew access token for a bank: %s", bank.BankID)
 	}
+
+	token.AccessToken = tResp.Payload.AccessToken
+	token.RefreshToken = tResp.Payload.RefreshToken
 
 	return clients.BankClient, token, nil
 }
