@@ -19,3 +19,4 @@ financroo/test.db
 /tests/node_modules/*
 /*.iml
 /tests/debug.log
+/tests/cypress/videos/*
