@@ -49,7 +49,7 @@ export default function Register({onLogin}) {
         <Grid item xs={12} sm={6} lg={5}>
           <div className={classes.formContainerRoot}>
             <img alt="financroo logo" src={financrooLogo} style={{marginBottom: 44}}/>
-            <Button onClick={onLogin} color={'secondary'} style={{width: '100%', minHeight: 50}} variant={'contained'}>Login</Button>
+            <Button className={'login-button'} onClick={onLogin} color={'secondary'} style={{width: '100%', minHeight: 50}} variant={'contained'}>Login</Button>
           </div>
         </Grid>
       </Grid>
