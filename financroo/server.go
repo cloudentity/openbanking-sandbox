@@ -50,7 +50,7 @@ type Server struct {
 	SecureCookie *securecookie.SecureCookie
 	DB           *bolt.DB
 	UserRepo     UserRepo
-	LoginClient  LoginClient
+	LoginClient  acpclient.Client
 	Validator    *validator.Validate
 }
 
@@ -74,7 +74,7 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to init clients")
 	}
 
-	if server.LoginClient, err = NewLoginClient(server.Config.ToLoginClientConfig()); err != nil {
+	if server.LoginClient, err = NewLoginClient(server.Config); err != nil {
 		return server, errors.Wrapf(err, "failed to init login client")
 	}
 
