@@ -57,7 +57,7 @@ export default function BankCard({bankId, reconnect, accounts, balances, filteri
         <div>
           {reconnect && (
             <Button size={"small"}
-                    class={'reconnect-button'}
+                    className={'reconnect-button'}
                     variant={'contained'}
                     color={'primary'}
                     style={{color: '#fff'}}
