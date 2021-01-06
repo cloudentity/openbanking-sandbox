@@ -1,12 +1,33 @@
-export class TppLoginPage {
-  private readonly loginButtonLocator = '[onclick="onLogin()"]';
-  private readonly statusTextLocator = '.aut-demo-info-text';
+import {Urls} from '../Urls'
 
-  public login(): void {
-    cy.get(this.loginButtonLocator).click();
+export class TppLoginPage {
+  private readonly nextButtonLocator: string = '[type="submit"]';
+  private readonly basicPermissionCheckboxLocator: string = '[value="ReadAccountsBasic"]'
+  private readonly detailPermissionCheckboxLocator: string = '[value="ReadAccountsDetail"]'
+
+  public visit(): void {
+    cy.visit(Urls.tppUrl);
   }
 
-  public assertSuccess(): void {
-    cy.get(this.statusTextLocator).should('contain.text', 'Authenticated')
+  public checkBasicPermission(check: boolean): void {
+    const basicCheckbox = cy.get(this.basicPermissionCheckboxLocator);
+    if (check) {
+      basicCheckbox.check()
+    } else {
+      basicCheckbox.uncheck()
+    }
+  }
+
+  public checkDetailPermission(check: boolean): void {
+    const detailCheckbox = cy.get(this.detailPermissionCheckboxLocator);
+    if (check) {
+      detailCheckbox.check()
+    } else {
+      detailCheckbox.uncheck()
+    }
+  }
+
+  public next(): void {
+    cy.get(this.nextButtonLocator).click();
   }
 }
