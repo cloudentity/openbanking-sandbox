@@ -78,7 +78,7 @@ export default function ConnectAccount({connected, onAllowAccess, onClose}) {
               <Grid container style={{marginTop: 48}} spacing={3}>
                 {banks
                   .map((bank) => (
-                    <Grid item xs={6} sm={4} key={bank.value}>
+                    <Grid item xs={6} sm={4} key={bank.value} id={bank.value}>
                       <Card
                         className={clsx({[classes.cardRoot]: true, [classes.disabled]: (includes(bank.value, connected) || bank.disabled)})}
                         onClick={() => {
