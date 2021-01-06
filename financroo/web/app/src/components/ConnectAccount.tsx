@@ -161,8 +161,8 @@ export default function ConnectAccount({connected, onAllowAccess, onClose}) {
       {selected && (
         <div className={classes.footer}>
           <div>
-            <Button size={'large'} variant={'outlined'} onClick={() => setSelected(null)}>Cancel</Button>
-            <Button size={'large'} variant={'contained'} color={'secondary'} style={{marginLeft: 16}} onClick={() => onAllowAccess({
+            <Button size={'large'} variant={'outlined'} id={'cancel-button'} onClick={() => setSelected(null)}>Cancel</Button>
+            <Button size={'large'} variant={'contained'} id={'allow-button'} color={'secondary'} style={{marginLeft: 16}} onClick={() => onAllowAccess({
               bankId: selected.value,
               permissions: requestAccessPermissions.permissions.map(p => p.value).filter(p => p)
             })}>Allow access</Button>
