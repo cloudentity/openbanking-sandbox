@@ -71,6 +71,7 @@ export default function BankCard({bankId, reconnect, accounts, balances, filteri
       {accounts.map(account => (
         <div
           key={account.AccountId}
+          id={account.Nickname}
           onClick={() => onChangeFiltering(
             {
               accounts:
@@ -108,7 +109,7 @@ export default function BankCard({bankId, reconnect, accounts, balances, filteri
               inputProps={{'aria-label': 'primary checkbox'}}
             />
             <div style={{marginLeft: 12}}>
-              <Typography>{account.Nickname}</Typography>
+              <Typography className={`account-name`}>{account.Nickname}</Typography>
               <Typography>**** ***** **** {account.AccountId}</Typography>
             </div>
           </div>
