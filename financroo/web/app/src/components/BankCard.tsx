@@ -71,7 +71,6 @@ export default function BankCard({bankId, reconnect, accounts, balances, filteri
       {accounts.map(account => (
         <div
           key={account.AccountId}
-          id={account.Nickname}
           onClick={() => onChangeFiltering(
             {
               accounts:
