@@ -26,19 +26,19 @@ jobs:
         run: make run-dev
 
       - name: Run cypress tests
-      - uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v2
         with:
           working-directory: tests
 
       - name: Upload cypress screenshots
-      - uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v1
         if: failure()
         with:
           name: cypress-screenshots
           path: tests/cypress/screenshots
 
       - name: Upload cypress videos
-      - uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v1
         if: failure()
         with:
           name: cypress-videos
