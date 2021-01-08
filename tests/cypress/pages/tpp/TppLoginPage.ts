@@ -1,9 +1,9 @@
 import {Urls} from '../Urls'
 
 export class TppLoginPage {
-  private readonly nextButtonLocator: string = '[type="submit"]';
-  private readonly basicPermissionCheckboxLocator: string = '[value="ReadAccountsBasic"]'
-  private readonly detailPermissionCheckboxLocator: string = '[value="ReadAccountsDetail"]'
+  private readonly nextButtonLocator: string = `[type="submit"]`;
+  private readonly basicPermissionCheckboxLocator: string = `[value="ReadAccountsBasic"]`
+  private readonly detailPermissionCheckboxLocator: string = `[value="ReadAccountsDetail"]`
 
   public visit(): void {
     cy.visit(Urls.tppUrl);

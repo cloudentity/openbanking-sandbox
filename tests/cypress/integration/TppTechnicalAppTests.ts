@@ -3,9 +3,9 @@ import {TppIntentPage} from '../pages/tpp/TppIntentPage';
 import {TppLoginPage} from '../pages/tpp/TppLoginPage';
 import {AcpLoginPage} from '../pages/acp/AcpLoginPage';
 import {ConsentPage} from '../pages/consent/ConsentPage';
-import {ErrorPage} from "../pages/ErrorPage";
+import {ErrorPage} from '../pages/ErrorPage';
 
-describe('Example tests', () => {
+describe(`Tpp technical app`, () => {
   const tppAuthenticatedPage: TppAuthenticatedPage = new TppAuthenticatedPage();
   const tppIntentPage: TppIntentPage = new TppIntentPage();
   const tppLoginPage: TppLoginPage = new TppLoginPage();
@@ -13,8 +13,8 @@ describe('Example tests', () => {
   const consentPage: ConsentPage = new ConsentPage();
   const errorPage: ErrorPage = new ErrorPage();
 
-  const basicPermission: string = 'ReadAccountsBasic';
-  const detailPermission: string = 'ReadAccountsDetail';
+  const basicPermission: string = `ReadAccountsBasic`;
+  const detailPermission: string = `ReadAccountsDetail`;
 
   [
     [basicPermission, detailPermission],
@@ -22,20 +22,20 @@ describe('Example tests', () => {
     [detailPermission],
     []
   ].forEach(permissions => {
-    it(`Example test with permissions: ${permissions}`, () => {
+    it(`Happy path with permissions: ${permissions}`, () => {
       tppLoginPage.visit();
       tppLoginPage.checkBasicPermission(permissions.includes(basicPermission))
       tppLoginPage.checkDetailPermission(permissions.includes(detailPermission))
       tppLoginPage.next();
       if (!permissions.includes(basicPermission) && !permissions.includes(detailPermission)) {
-        errorPage.assertError("Invalid create account access consent request")
+        errorPage.assertError(`Invalid create account access consent request`)
       } else {
         tppIntentPage.login();
-        acpLoginPage.login('user', 'p@ssw0rd!');
+        acpLoginPage.login(`user`, `p@ssw0rd!`);
         consentPage.assertPermissions(permissions)
         consentPage.confirm();
         if (!permissions.includes(basicPermission) && permissions.includes(detailPermission)) {
-          errorPage.assertError("failed to call bank get accounts")
+          errorPage.assertError(`failed to call bank get accounts`)
         } else {
           tppAuthenticatedPage.assertSuccess()
         }
@@ -43,20 +43,20 @@ describe('Example tests', () => {
     })
   })
 
-  it(`Cancel 1`, () => {
+  it(`Cancel on ACP login`, () => {
     tppLoginPage.visit();
     tppLoginPage.next();
     tppIntentPage.login();
     acpLoginPage.cancel();
-    errorPage.assertError("The user rejected the authentication")
+    errorPage.assertError(`The user rejected the authentication`)
   })
 
-  it(`Cancel 2`, () => {
+  it(`Cancel on consent`, () => {
     tppLoginPage.visit();
     tppLoginPage.next();
     tppIntentPage.login();
-    acpLoginPage.login('user', 'p@ssw0rd!');
+    acpLoginPage.login(`user`, `p@ssw0rd!`);
     consentPage.cancel()
-    errorPage.assertError("rejected")
+    errorPage.assertError(`rejected`)
   })
 })

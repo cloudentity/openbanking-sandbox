@@ -1,12 +1,12 @@
 import {AcpLoginPage} from '../pages/acp/AcpLoginPage';
 import {FinancrooLoginPage} from '../pages/financroo/FinancrooLoginPage';
 import {ConsentPage} from '../pages/consent/ConsentPage';
-import {ErrorPage} from "../pages/ErrorPage";
-import {FinancrooWelcomePage} from "../pages/financroo/FinancrooWelcomePage";
-import {FinancrooConnectAccountPage} from "../pages/financroo/FinancrooConnectAccountPage";
-import {FinancrooDashboardPage} from "../pages/financroo/FinancrooDashboardPage";
+import {ErrorPage} from '../pages/ErrorPage';
+import {FinancrooWelcomePage} from '../pages/financroo/FinancrooWelcomePage';
+import {FinancrooConnectAccountPage} from '../pages/financroo/FinancrooConnectAccountPage';
+import {FinancrooDashboardPage} from '../pages/financroo/FinancrooDashboardPage';
 
-describe('Example tests', () => {
+describe(`Financroo app`, () => {
   const acpLoginPage: AcpLoginPage = new AcpLoginPage();
   const consentPage: ConsentPage = new ConsentPage();
   const errorPage: ErrorPage = new ErrorPage();
@@ -15,8 +15,8 @@ describe('Example tests', () => {
   const financrooConnectAccountPage: FinancrooConnectAccountPage = new FinancrooConnectAccountPage();
   const financrooDashboardPage: FinancrooDashboardPage = new FinancrooDashboardPage();
 
-  const billsAccount: string = "Bills";
-  const householdAccount: string = "Household";
+  const billsAccount: string = `Bills`;
+  const householdAccount: string = `Household`;
 
   [
     [billsAccount, householdAccount],
@@ -24,15 +24,15 @@ describe('Example tests', () => {
     [householdAccount],
     []
   ].forEach(accounts => {
-    it(`Example test ${accounts}`, () => {
+    it(`Happy path with accounts: ${accounts}`, () => {
       financrooLoginPage.visit()
       financrooLoginPage.login()
-      acpLoginPage.login('test', 'p@ssw0rd!')
+      acpLoginPage.login(`test`, `p@ssw0rd!`)
       financrooWelcomePage.disconnect()
       financrooWelcomePage.connect()
       financrooConnectAccountPage.connectGoBank()
       financrooConnectAccountPage.allow()
-      acpLoginPage.login('user', 'p@ssw0rd!')
+      acpLoginPage.login(`user`, `p@ssw0rd!`)
       consentPage.checkAccounts(accounts)
       consentPage.assertPermissions([`ReadAccountsDetail`, `ReadAccountsBasic`, `ReadBalances`,
         `ReadTransactionsBasic`, `ReadTransactionsDetail`, `ReadTransactionsCredits`, `ReadTransactionsDebits`])
@@ -41,35 +41,35 @@ describe('Example tests', () => {
     })
   })
 
-  it(`Example test 2`, () => {
+  it(`Cancel on ACP login`, () => {
     financrooLoginPage.visit()
     financrooLoginPage.login()
     acpLoginPage.cancel()
-    errorPage.assertError("The user rejected the authentication")
+    errorPage.assertError(`The user rejected the authentication`)
   })
 
-  it(`Example test 3`, () => {
+  it(`Cancel on second ACP login`, () => {
     financrooLoginPage.visit()
     financrooLoginPage.login()
-    acpLoginPage.login('test', 'p@ssw0rd!')
+    acpLoginPage.login(`test`, `p@ssw0rd!`)
     financrooWelcomePage.disconnect()
     financrooWelcomePage.connect()
     financrooConnectAccountPage.connectGoBank()
     financrooConnectAccountPage.allow()
     acpLoginPage.cancel()
-    errorPage.assertError("The user rejected the authentication")
+    errorPage.assertError(`The user rejected the authentication`)
   })
 
-  it(`Example test 4`, () => {
+  it(`Cancel on consent`, () => {
     financrooLoginPage.visit()
     financrooLoginPage.login()
-    acpLoginPage.login('test', 'p@ssw0rd!')
+    acpLoginPage.login(`test`, `p@ssw0rd!`)
     financrooWelcomePage.disconnect()
     financrooWelcomePage.connect()
     financrooConnectAccountPage.connectGoBank()
     financrooConnectAccountPage.allow()
-    acpLoginPage.login('user', 'p@ssw0rd!')
+    acpLoginPage.login(`user`, `p@ssw0rd!`)
     consentPage.cancel()
-    errorPage.assertError("rejected")
+    errorPage.assertError(`rejected`)
   })
 })
