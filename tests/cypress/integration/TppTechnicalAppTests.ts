@@ -4,6 +4,7 @@ import {TppLoginPage} from '../pages/tpp/TppLoginPage';
 import {AcpLoginPage} from '../pages/acp/AcpLoginPage';
 import {ConsentPage} from '../pages/consent/ConsentPage';
 import {ErrorPage} from '../pages/ErrorPage';
+import {Credentials} from "../pages/Credentials";
 
 describe(`Tpp technical app`, () => {
   const tppAuthenticatedPage: TppAuthenticatedPage = new TppAuthenticatedPage();
@@ -31,7 +32,7 @@ describe(`Tpp technical app`, () => {
         errorPage.assertError(`Invalid create account access consent request`)
       } else {
         tppIntentPage.login();
-        acpLoginPage.login(`user`, `p@ssw0rd!`);
+        acpLoginPage.login(Credentials.tppUsername, Credentials.defaultPassword);
         consentPage.assertPermissions(permissions)
         consentPage.confirm();
         if (!permissions.includes(basicPermission) && permissions.includes(detailPermission)) {
@@ -55,7 +56,7 @@ describe(`Tpp technical app`, () => {
     tppLoginPage.visit();
     tppLoginPage.next();
     tppIntentPage.login();
-    acpLoginPage.login(`user`, `p@ssw0rd!`);
+    acpLoginPage.login(`user`, Credentials.defaultPassword);
     consentPage.cancel()
     errorPage.assertError(`rejected`)
   })
