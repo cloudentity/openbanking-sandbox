@@ -41,7 +41,7 @@
 <div class="aut-container" style="width: 1024px;">
   <pre>{{ .account_access_consent_raw }}</pre>
 
-  <p>Please note unique <strong>Data.ConsentID</strong>: {{ .intent_id }}</p>
+  <p>Please note unique <strong>Data.ConsentID</strong>: <div class="intent-id">{{ .intent_id }}</div></p>
 
   <p style="margin-top:32px">TPP should now use authorization code grant flow with PKCE to authenticate user.</p>
   <p>TPP needs to pass signed request claim containg openbanking_intent_id essential claim.</p>
