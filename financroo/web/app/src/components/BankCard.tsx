@@ -33,7 +33,7 @@ export default function BankCard({bankId, reconnect, accounts, balances, filteri
   const isAccountChecked = id => filtering?.accounts?.includes(id);
 
   return (
-    <Card style={style}>
+    <Card style={style} id={bankId}>
       <div style={{padding: 20, display: 'flex', alignItems: 'center', borderBottom: '1px solid #ECECEC'}}>
         <div style={{
           background: '#FCFCFF',
@@ -57,13 +57,14 @@ export default function BankCard({bankId, reconnect, accounts, balances, filteri
         <div>
           {reconnect && (
             <Button size={"small"}
+                    className={`reconnect-button`}
                     variant={'contained'}
                     color={'primary'}
                     style={{color: '#fff'}}
                     onClick={onReconnect(bankId, requestAccessPermissions.permissions.map(p => p.value).filter(p => p))}>reconnect</Button>
           )}
           {!reconnect && (
-            <Button size={"small"} variant={'outlined'} onClick={onDisconnect(bankId)}>disconnect</Button>
+            <Button size={"small"} className={'disconnect-button'} variant={'outlined'} onClick={onDisconnect(bankId)}>disconnect</Button>
           )}
         </div>
       </div>
@@ -107,7 +108,7 @@ export default function BankCard({bankId, reconnect, accounts, balances, filteri
               inputProps={{'aria-label': 'primary checkbox'}}
             />
             <div style={{marginLeft: 12}}>
-              <Typography>{account.Nickname}</Typography>
+              <Typography className={`account-name`}>{account.Nickname}</Typography>
               <Typography>**** ***** **** {account.AccountId}</Typography>
             </div>
           </div>

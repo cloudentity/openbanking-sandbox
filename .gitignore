@@ -16,3 +16,7 @@
 data/seed.yaml.generated
 financroo/data/my.db
 financroo/test.db
+/tests/node_modules/*
+/*.iml
+/tests/debug.log
+/tests/cypress/videos/*
