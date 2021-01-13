@@ -61,7 +61,7 @@ export default function ClientCard({client, onRevokeClient, onRevokeConsent}) {
                             <div style={{marginLeft: 24, display: 'flex', justifyContent: 'space-between'}}>
                                 <Typography>Revoke all the client consents which access the Financial
                                     information</Typography>
-                                <Button class={"revoke-all-button"} variant={'contained'}
+                                <Button className={"revoke-all-button"} variant={'contained'}
                                         style={{background: '#DC1B37', color: '#fff'}}
                                         onClick={onRevokeClient(client.client_id)}>Revoke all</Button>
                             </div>
