@@ -4,7 +4,7 @@ export class FinancrooLoginPage {
   private readonly loginButtonLocator: string = `.login-button`;
 
   public visit(): void {
-    cy.visit(Urls.financrooUrl);
+    Urls.forceVisit(Urls.financrooUrl);
   }
 
   public login(): void {
