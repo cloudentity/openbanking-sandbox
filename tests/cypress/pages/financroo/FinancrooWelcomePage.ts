@@ -1,23 +1,18 @@
-import {Urls} from "../Urls";
+import {FinancrooConnectAccountPage} from "./FinancrooConnectAccountPage";
 
 export class FinancrooWelcomePage {
   private readonly connectButtonLocator: string = `.connect-button`;
-
-  public disconnect(): void {
-    cy.intercept(`POST`, `${Urls.acpUrl}/default/financroo/oauth2/token`).as(`getToken`)
-    cy.wait(`@getToken`).then(interception => {
-      cy.request({
-        method: `DELETE`,
-        url: `${Urls.financrooUrl}/api/disconnect/gobank`,
-        auth: {bearer: interception.response.body.access_token}
-      })
-    })
-    cy.reload()
-  }
+  private readonly financrooConnectAccountPage: FinancrooConnectAccountPage = new FinancrooConnectAccountPage();
 
   public connect(): void {
-    cy.get(this.connectButtonLocator).click()
+    cy.get(`[class*="connect-button"]`).then(ele => {
+      ele.click()
+      if (ele.text().includes('disconnect')) {
+        this.connect()
+      } else if (!ele.text().includes('reconnect')) {
+        this.financrooConnectAccountPage.connectGoBank()
+        this.financrooConnectAccountPage.allow()
+      }
+    })
   }
-
-
 }

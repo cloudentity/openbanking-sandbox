@@ -6,7 +6,7 @@ export class TppLoginPage {
   private readonly detailPermissionCheckboxLocator: string = `[value="ReadAccountsDetail"]`
 
   public visit(): void {
-    cy.visit(Urls.tppUrl);
+    Urls.forceVisit(Urls.tppTechnicalUrl);
   }
 
   public checkBasicPermission(check: boolean): void {

@@ -37,7 +37,7 @@ export default function Accounts ({banks, reconnectBank, accounts, balances, fil
 
       <div style={{flex: 1}}/>
 
-      <Button color={'secondary'} className={'connect-button'} variant={'contained'} size={'large'} style={{width: '100%'}} onClick={onConnectClick}>Connect your bank</Button>
+      <Button color={'secondary'} variant={'contained'} size={'large'} style={{width: '100%'}} onClick={onConnectClick}>Connect your bank</Button>
     </div>
   )
 };

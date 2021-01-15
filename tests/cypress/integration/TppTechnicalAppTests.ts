@@ -5,6 +5,7 @@ import {AcpLoginPage} from '../pages/acp/AcpLoginPage';
 import {ConsentPage} from '../pages/consent/ConsentPage';
 import {ErrorPage} from '../pages/ErrorPage';
 import {Credentials} from "../pages/Credentials";
+import {Urls} from "../pages/Urls";
 
 describe(`Tpp technical app`, () => {
   const tppAuthenticatedPage: TppAuthenticatedPage = new TppAuthenticatedPage();
@@ -17,6 +18,12 @@ describe(`Tpp technical app`, () => {
   const basicPermission: string = `ReadAccountsBasic`;
   const detailPermission: string = `ReadAccountsDetail`;
 
+  beforeEach(() => {
+    tppLoginPage.visit()
+    Urls.clearLocalStorage()
+    tppLoginPage.visit();
+  });
+
   [
     [basicPermission, detailPermission],
     [basicPermission],
@@ -24,7 +31,6 @@ describe(`Tpp technical app`, () => {
     []
   ].forEach(permissions => {
     it(`Happy path with permissions: ${permissions}`, () => {
-      tppLoginPage.visit();
       tppLoginPage.checkBasicPermission(permissions.includes(basicPermission))
       tppLoginPage.checkDetailPermission(permissions.includes(detailPermission))
       tppLoginPage.next();
@@ -45,7 +51,6 @@ describe(`Tpp technical app`, () => {
   })
 
   it(`Cancel on ACP login`, () => {
-    tppLoginPage.visit();
     tppLoginPage.next();
     tppIntentPage.login();
     acpLoginPage.cancel();
@@ -53,11 +58,11 @@ describe(`Tpp technical app`, () => {
   })
 
   it(`Cancel on consent`, () => {
-    tppLoginPage.visit();
     tppLoginPage.next();
     tppIntentPage.login();
     acpLoginPage.login(`user`, Credentials.defaultPassword);
     consentPage.cancel()
     errorPage.assertError(`rejected`)
   })
+
 })

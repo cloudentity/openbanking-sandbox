@@ -75,7 +75,7 @@ export default function ApplicationCard({client, onRevokeConsent}) {
                 padding: 0
             }}>
                 {client.consents?.map(consent => (
-                    <div style={{paddingBottom: 32, borderLeft: "6px solid #006580",}}
+                    <div id={consent.consent_id} style={{paddingBottom: 32, borderLeft: "6px solid #006580",}}
                          key={consent.consent_id}>
                         <div style={{
                             background: "#E4EEF0",
@@ -120,7 +120,7 @@ export default function ApplicationCard({client, onRevokeConsent}) {
                                 ))}
                             </Grid>
                             <Divider style={{margin: "24px 0"}}/>
-                            <Button variant={'outlined'} color={'primary'}
+                            <Button variant={'outlined'} color={'primary'} className={'revoke-button'}
                                     onClick={() => onRevokeConsent(consent)}>Revoke Access</Button>
                         </div>
                     </div>
