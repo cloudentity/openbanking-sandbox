@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -36,13 +38,40 @@ func (m *OBPartyRelationships1) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBPartyRelationships1) validateAccount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Account) { // not required
 		return nil
 	}
 
 	if m.Account != nil {
 		if err := m.Account.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Account")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b party relationships1 based on the context it is used
+func (m *OBPartyRelationships1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBPartyRelationships1) contextValidateAccount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Account != nil {
+		if err := m.Account.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Account")
 			}
@@ -112,11 +141,11 @@ func (m *OBPartyRelationships1Account) validateID(formats strfmt.Registry) error
 		return err
 	}
 
-	if err := validate.MinLength("Account"+"."+"Id", "body", string(*m.ID), 1); err != nil {
+	if err := validate.MinLength("Account"+"."+"Id", "body", *m.ID, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Account"+"."+"Id", "body", string(*m.ID), 40); err != nil {
+	if err := validate.MaxLength("Account"+"."+"Id", "body", *m.ID, 40); err != nil {
 		return err
 	}
 
@@ -133,6 +162,11 @@ func (m *OBPartyRelationships1Account) validateRelated(formats strfmt.Registry) 
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this o b party relationships1 account based on context it is used
+func (m *OBPartyRelationships1Account) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

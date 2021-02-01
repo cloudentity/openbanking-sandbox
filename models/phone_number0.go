@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/validate"
@@ -27,5 +29,10 @@ func (m PhoneNumber0) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this phone number 0 based on context it is used
+func (m PhoneNumber0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

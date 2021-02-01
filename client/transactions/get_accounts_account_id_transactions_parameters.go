@@ -16,100 +16,125 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAccountsAccountIDTransactionsParams creates a new GetAccountsAccountIDTransactionsParams object
-// with the default values initialized.
+// NewGetAccountsAccountIDTransactionsParams creates a new GetAccountsAccountIDTransactionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAccountsAccountIDTransactionsParams() *GetAccountsAccountIDTransactionsParams {
-	var ()
 	return &GetAccountsAccountIDTransactionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAccountsAccountIDTransactionsParamsWithTimeout creates a new GetAccountsAccountIDTransactionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAccountsAccountIDTransactionsParamsWithTimeout(timeout time.Duration) *GetAccountsAccountIDTransactionsParams {
-	var ()
 	return &GetAccountsAccountIDTransactionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAccountsAccountIDTransactionsParamsWithContext creates a new GetAccountsAccountIDTransactionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAccountsAccountIDTransactionsParamsWithContext(ctx context.Context) *GetAccountsAccountIDTransactionsParams {
-	var ()
 	return &GetAccountsAccountIDTransactionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAccountsAccountIDTransactionsParamsWithHTTPClient creates a new GetAccountsAccountIDTransactionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAccountsAccountIDTransactionsParamsWithHTTPClient(client *http.Client) *GetAccountsAccountIDTransactionsParams {
-	var ()
 	return &GetAccountsAccountIDTransactionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAccountsAccountIDTransactionsParams contains all the parameters to send to the API endpoint
-for the get accounts account Id transactions operation typically these are written to a http.Request
+/* GetAccountsAccountIDTransactionsParams contains all the parameters to send to the API endpoint
+   for the get accounts account Id transactions operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAccountsAccountIDTransactionsParams struct {
 
-	/*AccountID
-	  AccountId
+	/* AccountID.
 
+	   AccountId
 	*/
 	AccountID string
-	/*Authorization
-	  An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 
+	/* Authorization.
+
+	   An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 	*/
 	Authorization string
-	/*FromBookingDateTime
-	  The UTC ISO 8601 Date Time to filter transactions FROM
+
+	/* FromBookingDateTime.
+
+	     The UTC ISO 8601 Date Time to filter transactions FROM
 	NB Time component is optional - set to 00:00:00 for just Date.
 	If the Date Time contains a timezone, the ASPSP must ignore the timezone component.
 
+	     Format: date-time
 	*/
 	FromBookingDateTime *strfmt.DateTime
-	/*ToBookingDateTime
-	  The UTC ISO 8601 Date Time to filter transactions TO
+
+	/* ToBookingDateTime.
+
+	     The UTC ISO 8601 Date Time to filter transactions TO
 	NB Time component is optional - set to 00:00:00 for just Date.
 	If the Date Time contains a timezone, the ASPSP must ignore the timezone component.
 
+	     Format: date-time
 	*/
 	ToBookingDateTime *strfmt.DateTime
-	/*XCustomerUserAgent
-	  Indicates the user-agent that the PSU is using.
 
+	/* XCustomerUserAgent.
+
+	   Indicates the user-agent that the PSU is using.
 	*/
 	XCustomerUserAgent *string
-	/*XFapiAuthDate
-	  The time when the PSU last logged in with the TPP.
+
+	/* XFapiAuthDate.
+
+	     The time when the PSU last logged in with the TPP.
 	All dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below:
 	Sun, 10 Sep 2017 19:43:31 UTC
-
 	*/
 	XFapiAuthDate *string
-	/*XFapiCustomerIPAddress
-	  The PSU's IP address if the PSU is currently logged in with the TPP.
 
+	/* XFapiCustomerIPAddress.
+
+	   The PSU's IP address if the PSU is currently logged in with the TPP.
 	*/
 	XFapiCustomerIPAddress *string
-	/*XFapiInteractionID
-	  An RFC4122 UID used as a correlation id.
 
+	/* XFapiInteractionID.
+
+	   An RFC4122 UID used as a correlation id.
 	*/
 	XFapiInteractionID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get accounts account Id transactions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountsAccountIDTransactionsParams) WithDefaults() *GetAccountsAccountIDTransactionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get accounts account Id transactions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountsAccountIDTransactionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get accounts account Id transactions params
@@ -255,32 +280,34 @@ func (o *GetAccountsAccountIDTransactionsParams) WriteToRequest(r runtime.Client
 
 		// query param fromBookingDateTime
 		var qrFromBookingDateTime strfmt.DateTime
+
 		if o.FromBookingDateTime != nil {
 			qrFromBookingDateTime = *o.FromBookingDateTime
 		}
 		qFromBookingDateTime := qrFromBookingDateTime.String()
 		if qFromBookingDateTime != "" {
+
 			if err := r.SetQueryParam("fromBookingDateTime", qFromBookingDateTime); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ToBookingDateTime != nil {
 
 		// query param toBookingDateTime
 		var qrToBookingDateTime strfmt.DateTime
+
 		if o.ToBookingDateTime != nil {
 			qrToBookingDateTime = *o.ToBookingDateTime
 		}
 		qToBookingDateTime := qrToBookingDateTime.String()
 		if qToBookingDateTime != "" {
+
 			if err := r.SetQueryParam("toBookingDateTime", qToBookingDateTime); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.XCustomerUserAgent != nil {
@@ -289,7 +316,6 @@ func (o *GetAccountsAccountIDTransactionsParams) WriteToRequest(r runtime.Client
 		if err := r.SetHeaderParam("x-customer-user-agent", *o.XCustomerUserAgent); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiAuthDate != nil {
@@ -298,7 +324,6 @@ func (o *GetAccountsAccountIDTransactionsParams) WriteToRequest(r runtime.Client
 		if err := r.SetHeaderParam("x-fapi-auth-date", *o.XFapiAuthDate); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiCustomerIPAddress != nil {
@@ -307,7 +332,6 @@ func (o *GetAccountsAccountIDTransactionsParams) WriteToRequest(r runtime.Client
 		if err := r.SetHeaderParam("x-fapi-customer-ip-address", *o.XFapiCustomerIPAddress); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiInteractionID != nil {
@@ -316,7 +340,6 @@ func (o *GetAccountsAccountIDTransactionsParams) WriteToRequest(r runtime.Client
 		if err := r.SetHeaderParam("x-fapi-interaction-id", *o.XFapiInteractionID); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

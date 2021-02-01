@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -72,7 +73,6 @@ func (m *OBReadOffer1) validateData(formats strfmt.Registry) error {
 }
 
 func (m *OBReadOffer1) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -90,13 +90,76 @@ func (m *OBReadOffer1) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *OBReadOffer1) validateMeta(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Meta) { // not required
 		return nil
 	}
 
 	if m.Meta != nil {
 		if err := m.Meta.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Meta")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read offer1 based on the context it is used
+func (m *OBReadOffer1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMeta(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadOffer1) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadOffer1) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Links")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadOffer1) contextValidateMeta(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Meta != nil {
+		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Meta")
 			}
@@ -149,7 +212,6 @@ func (m *OBReadOffer1Data) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBReadOffer1Data) validateOffer(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Offer) { // not required
 		return nil
 	}
@@ -161,6 +223,38 @@ func (m *OBReadOffer1Data) validateOffer(formats strfmt.Registry) error {
 
 		if m.Offer[i] != nil {
 			if err := m.Offer[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Data" + "." + "Offer" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read offer1 data based on the context it is used
+func (m *OBReadOffer1Data) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateOffer(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadOffer1Data) contextValidateOffer(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Offer); i++ {
+
+		if m.Offer[i] != nil {
+			if err := m.Offer[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Data" + "." + "Offer" + "." + strconv.Itoa(i))
 				}
@@ -198,7 +292,7 @@ type OBReadOffer1DataOfferItems0 struct {
 
 	// account Id
 	// Required: true
-	AccountID AccountID `json:"AccountId"`
+	AccountID *AccountID `json:"AccountId"`
 
 	// amount
 	Amount *OBReadOffer1DataOfferItems0Amount `json:"Amount,omitempty"`
@@ -306,18 +400,27 @@ func (m *OBReadOffer1DataOfferItems0) Validate(formats strfmt.Registry) error {
 
 func (m *OBReadOffer1DataOfferItems0) validateAccountID(formats strfmt.Registry) error {
 
-	if err := m.AccountID.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountId")
-		}
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	if m.AccountID != nil {
+		if err := m.AccountID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateAmount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Amount) { // not required
 		return nil
 	}
@@ -335,16 +438,15 @@ func (m *OBReadOffer1DataOfferItems0) validateAmount(formats strfmt.Registry) er
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Description", "body", string(m.Description), 1); err != nil {
+	if err := validate.MinLength("Description", "body", m.Description, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Description", "body", string(m.Description), 500); err != nil {
+	if err := validate.MaxLength("Description", "body", m.Description, 500); err != nil {
 		return err
 	}
 
@@ -352,7 +454,6 @@ func (m *OBReadOffer1DataOfferItems0) validateDescription(formats strfmt.Registr
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateEndDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EndDateTime) { // not required
 		return nil
 	}
@@ -365,7 +466,6 @@ func (m *OBReadOffer1DataOfferItems0) validateEndDateTime(formats strfmt.Registr
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateFee(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Fee) { // not required
 		return nil
 	}
@@ -383,16 +483,15 @@ func (m *OBReadOffer1DataOfferItems0) validateFee(formats strfmt.Registry) error
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateOfferID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OfferID) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("OfferId", "body", string(m.OfferID), 1); err != nil {
+	if err := validate.MinLength("OfferId", "body", m.OfferID, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("OfferId", "body", string(m.OfferID), 40); err != nil {
+	if err := validate.MaxLength("OfferId", "body", m.OfferID, 40); err != nil {
 		return err
 	}
 
@@ -438,7 +537,6 @@ func (m *OBReadOffer1DataOfferItems0) validateOfferTypeEnum(path, location strin
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateOfferType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OfferType) { // not required
 		return nil
 	}
@@ -452,12 +550,11 @@ func (m *OBReadOffer1DataOfferItems0) validateOfferType(formats strfmt.Registry)
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateRate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Rate) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("Rate", "body", string(m.Rate), `^(-?\d{1,3}){1}(\.\d{1,4}){0,1}$`); err != nil {
+	if err := validate.Pattern("Rate", "body", m.Rate, `^(-?\d{1,3}){1}(\.\d{1,4}){0,1}$`); err != nil {
 		return err
 	}
 
@@ -465,7 +562,6 @@ func (m *OBReadOffer1DataOfferItems0) validateRate(formats strfmt.Registry) erro
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateStartDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StartDateTime) { // not required
 		return nil
 	}
@@ -478,16 +574,15 @@ func (m *OBReadOffer1DataOfferItems0) validateStartDateTime(formats strfmt.Regis
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateTerm(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Term) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Term", "body", string(m.Term), 1); err != nil {
+	if err := validate.MinLength("Term", "body", m.Term, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Term", "body", string(m.Term), 500); err != nil {
+	if err := validate.MaxLength("Term", "body", m.Term, 500); err != nil {
 		return err
 	}
 
@@ -495,17 +590,80 @@ func (m *OBReadOffer1DataOfferItems0) validateTerm(formats strfmt.Registry) erro
 }
 
 func (m *OBReadOffer1DataOfferItems0) validateURL(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.URL) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("URL", "body", string(m.URL), 1); err != nil {
+	if err := validate.MinLength("URL", "body", m.URL, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("URL", "body", string(m.URL), 256); err != nil {
+	if err := validate.MaxLength("URL", "body", m.URL, 256); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read offer1 data offer items0 based on the context it is used
+func (m *OBReadOffer1DataOfferItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFee(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadOffer1DataOfferItems0) contextValidateAccountID(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountID != nil {
+		if err := m.AccountID.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadOffer1DataOfferItems0) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadOffer1DataOfferItems0) contextValidateFee(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Fee != nil {
+		if err := m.Fee.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Fee")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -536,11 +694,11 @@ type OBReadOffer1DataOfferItems0Amount struct {
 
 	// amount
 	// Required: true
-	Amount OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
+	Amount *OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
 
 	// currency
 	// Required: true
-	Currency ActiveOrHistoricCurrencyCode1 `json:"Currency"`
+	Currency *ActiveOrHistoricCurrencyCode1 `json:"Currency"`
 }
 
 // Validate validates this o b read offer1 data offer items0 amount
@@ -563,11 +721,21 @@ func (m *OBReadOffer1DataOfferItems0Amount) Validate(formats strfmt.Registry) er
 
 func (m *OBReadOffer1DataOfferItems0Amount) validateAmount(formats strfmt.Registry) error {
 
-	if err := m.Amount.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Amount" + "." + "Amount")
-		}
+	if err := validate.Required("Amount"+"."+"Amount", "body", m.Amount); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Amount"+"."+"Amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	if m.Amount != nil {
+		if err := m.Amount.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Amount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -575,11 +743,67 @@ func (m *OBReadOffer1DataOfferItems0Amount) validateAmount(formats strfmt.Regist
 
 func (m *OBReadOffer1DataOfferItems0Amount) validateCurrency(formats strfmt.Registry) error {
 
-	if err := m.Currency.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Amount" + "." + "Currency")
-		}
+	if err := validate.Required("Amount"+"."+"Currency", "body", m.Currency); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Amount"+"."+"Currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	if m.Currency != nil {
+		if err := m.Currency.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Currency")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read offer1 data offer items0 amount based on the context it is used
+func (m *OBReadOffer1DataOfferItems0Amount) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadOffer1DataOfferItems0Amount) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadOffer1DataOfferItems0Amount) contextValidateCurrency(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Currency != nil {
+		if err := m.Currency.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Currency")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -610,11 +834,11 @@ type OBReadOffer1DataOfferItems0Fee struct {
 
 	// amount
 	// Required: true
-	Amount OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
+	Amount *OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
 
 	// currency
 	// Required: true
-	Currency ActiveOrHistoricCurrencyCode1 `json:"Currency"`
+	Currency *ActiveOrHistoricCurrencyCode1 `json:"Currency"`
 }
 
 // Validate validates this o b read offer1 data offer items0 fee
@@ -637,11 +861,21 @@ func (m *OBReadOffer1DataOfferItems0Fee) Validate(formats strfmt.Registry) error
 
 func (m *OBReadOffer1DataOfferItems0Fee) validateAmount(formats strfmt.Registry) error {
 
-	if err := m.Amount.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Fee" + "." + "Amount")
-		}
+	if err := validate.Required("Fee"+"."+"Amount", "body", m.Amount); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Fee"+"."+"Amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	if m.Amount != nil {
+		if err := m.Amount.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Fee" + "." + "Amount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -649,11 +883,67 @@ func (m *OBReadOffer1DataOfferItems0Fee) validateAmount(formats strfmt.Registry)
 
 func (m *OBReadOffer1DataOfferItems0Fee) validateCurrency(formats strfmt.Registry) error {
 
-	if err := m.Currency.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Fee" + "." + "Currency")
-		}
+	if err := validate.Required("Fee"+"."+"Currency", "body", m.Currency); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Fee"+"."+"Currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	if m.Currency != nil {
+		if err := m.Currency.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Fee" + "." + "Currency")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read offer1 data offer items0 fee based on the context it is used
+func (m *OBReadOffer1DataOfferItems0Fee) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadOffer1DataOfferItems0Fee) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Fee" + "." + "Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadOffer1DataOfferItems0Fee) contextValidateCurrency(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Currency != nil {
+		if err := m.Currency.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Fee" + "." + "Currency")
+			}
+			return err
+		}
 	}
 
 	return nil

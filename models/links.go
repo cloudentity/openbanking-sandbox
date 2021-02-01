@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -70,7 +72,6 @@ func (m *Links) Validate(formats strfmt.Registry) error {
 }
 
 func (m *Links) validateFirst(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.First) { // not required
 		return nil
 	}
@@ -83,7 +84,6 @@ func (m *Links) validateFirst(formats strfmt.Registry) error {
 }
 
 func (m *Links) validateLast(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Last) { // not required
 		return nil
 	}
@@ -96,7 +96,6 @@ func (m *Links) validateLast(formats strfmt.Registry) error {
 }
 
 func (m *Links) validateNext(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Next) { // not required
 		return nil
 	}
@@ -109,7 +108,6 @@ func (m *Links) validateNext(formats strfmt.Registry) error {
 }
 
 func (m *Links) validatePrev(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Prev) { // not required
 		return nil
 	}
@@ -131,6 +129,11 @@ func (m *Links) validateSelf(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this links based on context it is used
+func (m *Links) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

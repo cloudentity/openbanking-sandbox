@@ -6,9 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // OBBranchAndFinancialInstitutionIdentification50 Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
@@ -18,11 +21,11 @@ type OBBranchAndFinancialInstitutionIdentification50 struct {
 
 	// identification
 	// Required: true
-	Identification Identification1 `json:"Identification"`
+	Identification *Identification1 `json:"Identification"`
 
 	// scheme name
 	// Required: true
-	SchemeName OBExternalFinancialInstitutionIdentification4Code `json:"SchemeName"`
+	SchemeName *OBExternalFinancialInstitutionIdentification4Code `json:"SchemeName"`
 }
 
 // Validate validates this o b branch and financial institution identification5 0
@@ -45,11 +48,21 @@ func (m *OBBranchAndFinancialInstitutionIdentification50) Validate(formats strfm
 
 func (m *OBBranchAndFinancialInstitutionIdentification50) validateIdentification(formats strfmt.Registry) error {
 
-	if err := m.Identification.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Identification")
-		}
+	if err := validate.Required("Identification", "body", m.Identification); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Identification", "body", m.Identification); err != nil {
+		return err
+	}
+
+	if m.Identification != nil {
+		if err := m.Identification.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Identification")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -57,11 +70,67 @@ func (m *OBBranchAndFinancialInstitutionIdentification50) validateIdentification
 
 func (m *OBBranchAndFinancialInstitutionIdentification50) validateSchemeName(formats strfmt.Registry) error {
 
-	if err := m.SchemeName.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("SchemeName")
-		}
+	if err := validate.Required("SchemeName", "body", m.SchemeName); err != nil {
 		return err
+	}
+
+	if err := validate.Required("SchemeName", "body", m.SchemeName); err != nil {
+		return err
+	}
+
+	if m.SchemeName != nil {
+		if err := m.SchemeName.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("SchemeName")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b branch and financial institution identification5 0 based on the context it is used
+func (m *OBBranchAndFinancialInstitutionIdentification50) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateIdentification(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSchemeName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBBranchAndFinancialInstitutionIdentification50) contextValidateIdentification(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Identification != nil {
+		if err := m.Identification.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Identification")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBBranchAndFinancialInstitutionIdentification50) contextValidateSchemeName(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SchemeName != nil {
+		if err := m.SchemeName.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("SchemeName")
+			}
+			return err
+		}
 	}
 
 	return nil

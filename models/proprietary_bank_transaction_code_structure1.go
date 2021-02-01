@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -53,11 +55,11 @@ func (m *ProprietaryBankTransactionCodeStructure1) validateCode(formats strfmt.R
 		return err
 	}
 
-	if err := validate.MinLength("Code", "body", string(*m.Code), 1); err != nil {
+	if err := validate.MinLength("Code", "body", *m.Code, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Code", "body", string(*m.Code), 35); err != nil {
+	if err := validate.MaxLength("Code", "body", *m.Code, 35); err != nil {
 		return err
 	}
 
@@ -65,19 +67,23 @@ func (m *ProprietaryBankTransactionCodeStructure1) validateCode(formats strfmt.R
 }
 
 func (m *ProprietaryBankTransactionCodeStructure1) validateIssuer(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Issuer) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Issuer", "body", string(m.Issuer), 1); err != nil {
+	if err := validate.MinLength("Issuer", "body", m.Issuer, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Issuer", "body", string(m.Issuer), 35); err != nil {
+	if err := validate.MaxLength("Issuer", "body", m.Issuer, 35); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this proprietary bank transaction code structure1 based on context it is used
+func (m *ProprietaryBankTransactionCodeStructure1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

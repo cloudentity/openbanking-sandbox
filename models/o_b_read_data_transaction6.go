@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -37,7 +38,6 @@ func (m *OBReadDataTransaction6) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBReadDataTransaction6) validateTransaction(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Transaction) { // not required
 		return nil
 	}
@@ -49,6 +49,38 @@ func (m *OBReadDataTransaction6) validateTransaction(formats strfmt.Registry) er
 
 		if m.Transaction[i] != nil {
 			if err := m.Transaction[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Transaction" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read data transaction6 based on the context it is used
+func (m *OBReadDataTransaction6) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateTransaction(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadDataTransaction6) contextValidateTransaction(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Transaction); i++ {
+
+		if m.Transaction[i] != nil {
+			if err := m.Transaction[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Transaction" + "." + strconv.Itoa(i))
 				}

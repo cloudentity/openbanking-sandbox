@@ -16,86 +16,105 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteAccountAccessConsentsConsentIDParams creates a new DeleteAccountAccessConsentsConsentIDParams object
-// with the default values initialized.
+// NewDeleteAccountAccessConsentsConsentIDParams creates a new DeleteAccountAccessConsentsConsentIDParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteAccountAccessConsentsConsentIDParams() *DeleteAccountAccessConsentsConsentIDParams {
-	var ()
 	return &DeleteAccountAccessConsentsConsentIDParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteAccountAccessConsentsConsentIDParamsWithTimeout creates a new DeleteAccountAccessConsentsConsentIDParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteAccountAccessConsentsConsentIDParamsWithTimeout(timeout time.Duration) *DeleteAccountAccessConsentsConsentIDParams {
-	var ()
 	return &DeleteAccountAccessConsentsConsentIDParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteAccountAccessConsentsConsentIDParamsWithContext creates a new DeleteAccountAccessConsentsConsentIDParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteAccountAccessConsentsConsentIDParamsWithContext(ctx context.Context) *DeleteAccountAccessConsentsConsentIDParams {
-	var ()
 	return &DeleteAccountAccessConsentsConsentIDParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteAccountAccessConsentsConsentIDParamsWithHTTPClient creates a new DeleteAccountAccessConsentsConsentIDParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteAccountAccessConsentsConsentIDParamsWithHTTPClient(client *http.Client) *DeleteAccountAccessConsentsConsentIDParams {
-	var ()
 	return &DeleteAccountAccessConsentsConsentIDParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteAccountAccessConsentsConsentIDParams contains all the parameters to send to the API endpoint
-for the delete account access consents consent Id operation typically these are written to a http.Request
+/* DeleteAccountAccessConsentsConsentIDParams contains all the parameters to send to the API endpoint
+   for the delete account access consents consent Id operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteAccountAccessConsentsConsentIDParams struct {
 
-	/*Authorization
-	  An Authorisation Token as per https://tools.ietf.org/html/rfc6750
+	/* Authorization.
 
+	   An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 	*/
 	Authorization string
-	/*ConsentID
-	  ConsentId
 
+	/* ConsentID.
+
+	   ConsentId
 	*/
 	ConsentID string
-	/*XCustomerUserAgent
-	  Indicates the user-agent that the PSU is using.
 
+	/* XCustomerUserAgent.
+
+	   Indicates the user-agent that the PSU is using.
 	*/
 	XCustomerUserAgent *string
-	/*XFapiAuthDate
-	  The time when the PSU last logged in with the TPP.
+
+	/* XFapiAuthDate.
+
+	     The time when the PSU last logged in with the TPP.
 	All dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below:
 	Sun, 10 Sep 2017 19:43:31 UTC
-
 	*/
 	XFapiAuthDate *string
-	/*XFapiCustomerIPAddress
-	  The PSU's IP address if the PSU is currently logged in with the TPP.
 
+	/* XFapiCustomerIPAddress.
+
+	   The PSU's IP address if the PSU is currently logged in with the TPP.
 	*/
 	XFapiCustomerIPAddress *string
-	/*XFapiInteractionID
-	  An RFC4122 UID used as a correlation id.
 
+	/* XFapiInteractionID.
+
+	   An RFC4122 UID used as a correlation id.
 	*/
 	XFapiInteractionID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete account access consents consent Id params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAccountAccessConsentsConsentIDParams) WithDefaults() *DeleteAccountAccessConsentsConsentIDParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete account access consents consent Id params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAccountAccessConsentsConsentIDParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete account access consents consent Id params
@@ -221,7 +240,6 @@ func (o *DeleteAccountAccessConsentsConsentIDParams) WriteToRequest(r runtime.Cl
 		if err := r.SetHeaderParam("x-customer-user-agent", *o.XCustomerUserAgent); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiAuthDate != nil {
@@ -230,7 +248,6 @@ func (o *DeleteAccountAccessConsentsConsentIDParams) WriteToRequest(r runtime.Cl
 		if err := r.SetHeaderParam("x-fapi-auth-date", *o.XFapiAuthDate); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiCustomerIPAddress != nil {
@@ -239,7 +256,6 @@ func (o *DeleteAccountAccessConsentsConsentIDParams) WriteToRequest(r runtime.Cl
 		if err := r.SetHeaderParam("x-fapi-customer-ip-address", *o.XFapiCustomerIPAddress); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiInteractionID != nil {
@@ -248,7 +264,6 @@ func (o *DeleteAccountAccessConsentsConsentIDParams) WriteToRequest(r runtime.Cl
 		if err := r.SetHeaderParam("x-fapi-interaction-id", *o.XFapiInteractionID); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

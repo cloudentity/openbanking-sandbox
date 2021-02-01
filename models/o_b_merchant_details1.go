@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -47,16 +49,15 @@ func (m *OBMerchantDetails1) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBMerchantDetails1) validateMerchantCategoryCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MerchantCategoryCode) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("MerchantCategoryCode", "body", string(m.MerchantCategoryCode), 3); err != nil {
+	if err := validate.MinLength("MerchantCategoryCode", "body", m.MerchantCategoryCode, 3); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("MerchantCategoryCode", "body", string(m.MerchantCategoryCode), 4); err != nil {
+	if err := validate.MaxLength("MerchantCategoryCode", "body", m.MerchantCategoryCode, 4); err != nil {
 		return err
 	}
 
@@ -64,19 +65,23 @@ func (m *OBMerchantDetails1) validateMerchantCategoryCode(formats strfmt.Registr
 }
 
 func (m *OBMerchantDetails1) validateMerchantName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MerchantName) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("MerchantName", "body", string(m.MerchantName), 1); err != nil {
+	if err := validate.MinLength("MerchantName", "body", m.MerchantName, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("MerchantName", "body", string(m.MerchantName), 350); err != nil {
+	if err := validate.MaxLength("MerchantName", "body", m.MerchantName, 350); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this o b merchant details1 based on context it is used
+func (m *OBMerchantDetails1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

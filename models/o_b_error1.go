@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -13,6 +15,8 @@ import (
 )
 
 // OBError1 o b error1
+//
+// Min Properties: 1
 //
 // swagger:model OBError1
 type OBError1 struct {
@@ -74,11 +78,11 @@ func (m *OBError1) validateMessage(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MinLength("Message", "body", string(*m.Message), 1); err != nil {
+	if err := validate.MinLength("Message", "body", *m.Message, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Message", "body", string(*m.Message), 500); err != nil {
+	if err := validate.MaxLength("Message", "body", *m.Message, 500); err != nil {
 		return err
 	}
 
@@ -86,19 +90,23 @@ func (m *OBError1) validateMessage(formats strfmt.Registry) error {
 }
 
 func (m *OBError1) validatePath(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Path) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Path", "body", string(m.Path), 1); err != nil {
+	if err := validate.MinLength("Path", "body", m.Path, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Path", "body", string(m.Path), 500); err != nil {
+	if err := validate.MaxLength("Path", "body", m.Path, 500); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this o b error1 based on context it is used
+func (m *OBError1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

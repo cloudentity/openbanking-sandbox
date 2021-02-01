@@ -79,7 +79,6 @@ func (o *GetOffersReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -90,12 +89,13 @@ func NewGetOffersOK() *GetOffersOK {
 	return &GetOffersOK{}
 }
 
-/*GetOffersOK handles this case with default header values.
+/* GetOffersOK describes a response with status code 200, with default header values.
 
 Offers Read
 */
 type GetOffersOK struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -105,15 +105,18 @@ type GetOffersOK struct {
 func (o *GetOffersOK) Error() string {
 	return fmt.Sprintf("[GET /offers][%d] getOffersOK  %+v", 200, o.Payload)
 }
-
 func (o *GetOffersOK) GetPayload() *models.OBReadOffer1 {
 	return o.Payload
 }
 
 func (o *GetOffersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBReadOffer1)
 
@@ -130,12 +133,13 @@ func NewGetOffersBadRequest() *GetOffersBadRequest {
 	return &GetOffersBadRequest{}
 }
 
-/*GetOffersBadRequest handles this case with default header values.
+/* GetOffersBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type GetOffersBadRequest struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -145,15 +149,18 @@ type GetOffersBadRequest struct {
 func (o *GetOffersBadRequest) Error() string {
 	return fmt.Sprintf("[GET /offers][%d] getOffersBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetOffersBadRequest) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetOffersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -170,12 +177,13 @@ func NewGetOffersUnauthorized() *GetOffersUnauthorized {
 	return &GetOffersUnauthorized{}
 }
 
-/*GetOffersUnauthorized handles this case with default header values.
+/* GetOffersUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetOffersUnauthorized struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -186,8 +194,12 @@ func (o *GetOffersUnauthorized) Error() string {
 
 func (o *GetOffersUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -197,12 +209,13 @@ func NewGetOffersForbidden() *GetOffersForbidden {
 	return &GetOffersForbidden{}
 }
 
-/*GetOffersForbidden handles this case with default header values.
+/* GetOffersForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetOffersForbidden struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -212,15 +225,18 @@ type GetOffersForbidden struct {
 func (o *GetOffersForbidden) Error() string {
 	return fmt.Sprintf("[GET /offers][%d] getOffersForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetOffersForbidden) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetOffersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -237,12 +253,13 @@ func NewGetOffersNotFound() *GetOffersNotFound {
 	return &GetOffersNotFound{}
 }
 
-/*GetOffersNotFound handles this case with default header values.
+/* GetOffersNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type GetOffersNotFound struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -253,8 +270,12 @@ func (o *GetOffersNotFound) Error() string {
 
 func (o *GetOffersNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -264,12 +285,13 @@ func NewGetOffersMethodNotAllowed() *GetOffersMethodNotAllowed {
 	return &GetOffersMethodNotAllowed{}
 }
 
-/*GetOffersMethodNotAllowed handles this case with default header values.
+/* GetOffersMethodNotAllowed describes a response with status code 405, with default header values.
 
 Method Not Allowed
 */
 type GetOffersMethodNotAllowed struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -280,8 +302,12 @@ func (o *GetOffersMethodNotAllowed) Error() string {
 
 func (o *GetOffersMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -291,12 +317,13 @@ func NewGetOffersNotAcceptable() *GetOffersNotAcceptable {
 	return &GetOffersNotAcceptable{}
 }
 
-/*GetOffersNotAcceptable handles this case with default header values.
+/* GetOffersNotAcceptable describes a response with status code 406, with default header values.
 
 Not Acceptable
 */
 type GetOffersNotAcceptable struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -307,8 +334,12 @@ func (o *GetOffersNotAcceptable) Error() string {
 
 func (o *GetOffersNotAcceptable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -318,15 +349,17 @@ func NewGetOffersTooManyRequests() *GetOffersTooManyRequests {
 	return &GetOffersTooManyRequests{}
 }
 
-/*GetOffersTooManyRequests handles this case with default header values.
+/* GetOffersTooManyRequests describes a response with status code 429, with default header values.
 
 Too Many Requests
 */
 type GetOffersTooManyRequests struct {
-	/*Number in seconds to wait
+
+	/* Number in seconds to wait
 	 */
 	RetryAfter int64
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -337,15 +370,23 @@ func (o *GetOffersTooManyRequests) Error() string {
 
 func (o *GetOffersTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Retry-After
-	retryAfter, err := swag.ConvertInt64(response.GetHeader("Retry-After"))
-	if err != nil {
-		return errors.InvalidType("Retry-After", "header", "int64", response.GetHeader("Retry-After"))
-	}
-	o.RetryAfter = retryAfter
+	// hydrates response header Retry-After
+	hdrRetryAfter := response.GetHeader("Retry-After")
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	if hdrRetryAfter != "" {
+		valretryAfter, err := swag.ConvertInt64(hdrRetryAfter)
+		if err != nil {
+			return errors.InvalidType("Retry-After", "header", "int64", hdrRetryAfter)
+		}
+		o.RetryAfter = valretryAfter
+	}
+
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -355,12 +396,13 @@ func NewGetOffersInternalServerError() *GetOffersInternalServerError {
 	return &GetOffersInternalServerError{}
 }
 
-/*GetOffersInternalServerError handles this case with default header values.
+/* GetOffersInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
 type GetOffersInternalServerError struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -370,15 +412,18 @@ type GetOffersInternalServerError struct {
 func (o *GetOffersInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /offers][%d] getOffersInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetOffersInternalServerError) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetOffersInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 

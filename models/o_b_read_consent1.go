@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -67,8 +68,36 @@ func (m *OBReadConsent1) validateData(formats strfmt.Registry) error {
 
 func (m *OBReadConsent1) validateRisk(formats strfmt.Registry) error {
 
-	if err := validate.Required("Risk", "body", m.Risk); err != nil {
-		return err
+	if m.Risk == nil {
+		return errors.Required("Risk", "body", nil)
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read consent1 based on the context it is used
+func (m *OBReadConsent1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadConsent1) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -151,7 +180,6 @@ func (m *OBReadConsent1Data) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBReadConsent1Data) validateExpirationDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ExpirationDateTime) { // not required
 		return nil
 	}
@@ -207,7 +235,6 @@ func (m *OBReadConsent1Data) validatePermissions(formats strfmt.Registry) error 
 }
 
 func (m *OBReadConsent1Data) validateTransactionFromDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TransactionFromDateTime) { // not required
 		return nil
 	}
@@ -220,7 +247,6 @@ func (m *OBReadConsent1Data) validateTransactionFromDateTime(formats strfmt.Regi
 }
 
 func (m *OBReadConsent1Data) validateTransactionToDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TransactionToDateTime) { // not required
 		return nil
 	}
@@ -229,6 +255,11 @@ func (m *OBReadConsent1Data) validateTransactionToDateTime(formats strfmt.Regist
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this o b read consent1 data based on context it is used
+func (m *OBReadConsent1Data) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

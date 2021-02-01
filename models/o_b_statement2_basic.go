@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -21,22 +22,22 @@ type OBStatement2Basic struct {
 
 	// account Id
 	// Required: true
-	AccountID AccountID `json:"AccountId"`
+	AccountID *AccountID `json:"AccountId"`
 
 	// creation date time
 	// Required: true
 	// Format: date-time
-	CreationDateTime CreationDateTime `json:"CreationDateTime"`
+	CreationDateTime *CreationDateTime `json:"CreationDateTime"`
 
 	// end date time
 	// Required: true
 	// Format: date-time
-	EndDateTime EndDateTime `json:"EndDateTime"`
+	EndDateTime *EndDateTime `json:"EndDateTime"`
 
 	// start date time
 	// Required: true
 	// Format: date-time
-	StartDateTime StartDateTime `json:"StartDateTime"`
+	StartDateTime *StartDateTime `json:"StartDateTime"`
 
 	// statement benefit
 	StatementBenefit []*OBStatement2BasicStatementBenefitItems0 `json:"StatementBenefit"`
@@ -67,7 +68,7 @@ type OBStatement2Basic struct {
 
 	// type
 	// Required: true
-	Type OBExternalStatementType1Code `json:"Type"`
+	Type *OBExternalStatementType1Code `json:"Type"`
 }
 
 // Validate validates this o b statement2 basic
@@ -138,11 +139,21 @@ func (m *OBStatement2Basic) Validate(formats strfmt.Registry) error {
 
 func (m *OBStatement2Basic) validateAccountID(formats strfmt.Registry) error {
 
-	if err := m.AccountID.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountId")
-		}
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	if m.AccountID != nil {
+		if err := m.AccountID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -150,11 +161,21 @@ func (m *OBStatement2Basic) validateAccountID(formats strfmt.Registry) error {
 
 func (m *OBStatement2Basic) validateCreationDateTime(formats strfmt.Registry) error {
 
-	if err := m.CreationDateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("CreationDateTime")
-		}
+	if err := validate.Required("CreationDateTime", "body", m.CreationDateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("CreationDateTime", "body", m.CreationDateTime); err != nil {
+		return err
+	}
+
+	if m.CreationDateTime != nil {
+		if err := m.CreationDateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreationDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -162,11 +183,21 @@ func (m *OBStatement2Basic) validateCreationDateTime(formats strfmt.Registry) er
 
 func (m *OBStatement2Basic) validateEndDateTime(formats strfmt.Registry) error {
 
-	if err := m.EndDateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("EndDateTime")
-		}
+	if err := validate.Required("EndDateTime", "body", m.EndDateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("EndDateTime", "body", m.EndDateTime); err != nil {
+		return err
+	}
+
+	if m.EndDateTime != nil {
+		if err := m.EndDateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("EndDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -174,18 +205,27 @@ func (m *OBStatement2Basic) validateEndDateTime(formats strfmt.Registry) error {
 
 func (m *OBStatement2Basic) validateStartDateTime(formats strfmt.Registry) error {
 
-	if err := m.StartDateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("StartDateTime")
-		}
+	if err := validate.Required("StartDateTime", "body", m.StartDateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("StartDateTime", "body", m.StartDateTime); err != nil {
+		return err
+	}
+
+	if m.StartDateTime != nil {
+		if err := m.StartDateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("StartDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBStatement2Basic) validateStatementBenefit(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementBenefit) { // not required
 		return nil
 	}
@@ -210,7 +250,6 @@ func (m *OBStatement2Basic) validateStatementBenefit(formats strfmt.Registry) er
 }
 
 func (m *OBStatement2Basic) validateStatementDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementDateTime) { // not required
 		return nil
 	}
@@ -235,18 +274,17 @@ func (m *OBStatement2Basic) validateStatementDateTime(formats strfmt.Registry) e
 }
 
 func (m *OBStatement2Basic) validateStatementDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementDescription) { // not required
 		return nil
 	}
 
 	for i := 0; i < len(m.StatementDescription); i++ {
 
-		if err := validate.MinLength("StatementDescription"+"."+strconv.Itoa(i), "body", string(m.StatementDescription[i]), 1); err != nil {
+		if err := validate.MinLength("StatementDescription"+"."+strconv.Itoa(i), "body", m.StatementDescription[i], 1); err != nil {
 			return err
 		}
 
-		if err := validate.MaxLength("StatementDescription"+"."+strconv.Itoa(i), "body", string(m.StatementDescription[i]), 500); err != nil {
+		if err := validate.MaxLength("StatementDescription"+"."+strconv.Itoa(i), "body", m.StatementDescription[i], 500); err != nil {
 			return err
 		}
 
@@ -256,7 +294,6 @@ func (m *OBStatement2Basic) validateStatementDescription(formats strfmt.Registry
 }
 
 func (m *OBStatement2Basic) validateStatementFee(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementFee) { // not required
 		return nil
 	}
@@ -281,7 +318,6 @@ func (m *OBStatement2Basic) validateStatementFee(formats strfmt.Registry) error 
 }
 
 func (m *OBStatement2Basic) validateStatementID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementID) { // not required
 		return nil
 	}
@@ -297,7 +333,6 @@ func (m *OBStatement2Basic) validateStatementID(formats strfmt.Registry) error {
 }
 
 func (m *OBStatement2Basic) validateStatementInterest(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementInterest) { // not required
 		return nil
 	}
@@ -322,7 +357,6 @@ func (m *OBStatement2Basic) validateStatementInterest(formats strfmt.Registry) e
 }
 
 func (m *OBStatement2Basic) validateStatementRate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementRate) { // not required
 		return nil
 	}
@@ -347,7 +381,6 @@ func (m *OBStatement2Basic) validateStatementRate(formats strfmt.Registry) error
 }
 
 func (m *OBStatement2Basic) validateStatementReference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementReference) { // not required
 		return nil
 	}
@@ -363,7 +396,6 @@ func (m *OBStatement2Basic) validateStatementReference(formats strfmt.Registry) 
 }
 
 func (m *OBStatement2Basic) validateStatementValue(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementValue) { // not required
 		return nil
 	}
@@ -389,11 +421,285 @@ func (m *OBStatement2Basic) validateStatementValue(formats strfmt.Registry) erro
 
 func (m *OBStatement2Basic) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b statement2 basic based on the context it is used
+func (m *OBStatement2Basic) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreationDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateEndDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStartDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementBenefit(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementFee(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementInterest(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementRate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementReference(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementValue(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateAccountID(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountID != nil {
+		if err := m.AccountID.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateCreationDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreationDateTime != nil {
+		if err := m.CreationDateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreationDateTime")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateEndDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.EndDateTime != nil {
+		if err := m.EndDateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("EndDateTime")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStartDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.StartDateTime != nil {
+		if err := m.StartDateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("StartDateTime")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementBenefit(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatementBenefit); i++ {
+
+		if m.StatementBenefit[i] != nil {
+			if err := m.StatementBenefit[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("StatementBenefit" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatementDateTime); i++ {
+
+		if m.StatementDateTime[i] != nil {
+			if err := m.StatementDateTime[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("StatementDateTime" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementFee(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatementFee); i++ {
+
+		if m.StatementFee[i] != nil {
+			if err := m.StatementFee[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("StatementFee" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.StatementID.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
+			return ve.ValidateName("StatementId")
 		}
 		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementInterest(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatementInterest); i++ {
+
+		if m.StatementInterest[i] != nil {
+			if err := m.StatementInterest[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("StatementInterest" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementRate(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatementRate); i++ {
+
+		if m.StatementRate[i] != nil {
+			if err := m.StatementRate[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("StatementRate" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementReference(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.StatementReference.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("StatementReference")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateStatementValue(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatementValue); i++ {
+
+		if m.StatementValue[i] != nil {
+			if err := m.StatementValue[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("StatementValue" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBStatement2Basic) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -428,7 +734,7 @@ type OBStatement2BasicStatementBenefitItems0 struct {
 
 	// type
 	// Required: true
-	Type OBExternalStatementBenefitType1Code `json:"Type"`
+	Type *OBExternalStatementBenefitType1Code `json:"Type"`
 }
 
 // Validate validates this o b statement2 basic statement benefit items0
@@ -469,11 +775,67 @@ func (m *OBStatement2BasicStatementBenefitItems0) validateAmount(formats strfmt.
 
 func (m *OBStatement2BasicStatementBenefitItems0) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
-		}
+	if err := validate.Required("Type", "body", m.Type); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b statement2 basic statement benefit items0 based on the context it is used
+func (m *OBStatement2BasicStatementBenefitItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBStatement2BasicStatementBenefitItems0) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementBenefitItems0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -505,11 +867,11 @@ type OBStatement2BasicStatementDateTimeItems0 struct {
 	// date time
 	// Required: true
 	// Format: date-time
-	DateTime DateTime `json:"DateTime"`
+	DateTime *DateTime `json:"DateTime"`
 
 	// type
 	// Required: true
-	Type OBExternalStatementDateTimeType1Code `json:"Type"`
+	Type *OBExternalStatementDateTimeType1Code `json:"Type"`
 }
 
 // Validate validates this o b statement2 basic statement date time items0
@@ -532,11 +894,21 @@ func (m *OBStatement2BasicStatementDateTimeItems0) Validate(formats strfmt.Regis
 
 func (m *OBStatement2BasicStatementDateTimeItems0) validateDateTime(formats strfmt.Registry) error {
 
-	if err := m.DateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("DateTime")
-		}
+	if err := validate.Required("DateTime", "body", m.DateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("DateTime", "body", m.DateTime); err != nil {
+		return err
+	}
+
+	if m.DateTime != nil {
+		if err := m.DateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -544,11 +916,67 @@ func (m *OBStatement2BasicStatementDateTimeItems0) validateDateTime(formats strf
 
 func (m *OBStatement2BasicStatementDateTimeItems0) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
-		}
+	if err := validate.Required("Type", "body", m.Type); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b statement2 basic statement date time items0 based on the context it is used
+func (m *OBStatement2BasicStatementDateTimeItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBStatement2BasicStatementDateTimeItems0) contextValidateDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DateTime != nil {
+		if err := m.DateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DateTime")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementDateTimeItems0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -583,7 +1011,7 @@ type OBStatement2BasicStatementFeeItems0 struct {
 
 	// credit debit indicator
 	// Required: true
-	CreditDebitIndicator OBCreditDebitCode0 `json:"CreditDebitIndicator"`
+	CreditDebitIndicator *OBCreditDebitCode0 `json:"CreditDebitIndicator"`
 
 	// description
 	Description Description1 `json:"Description,omitempty"`
@@ -599,7 +1027,7 @@ type OBStatement2BasicStatementFeeItems0 struct {
 
 	// type
 	// Required: true
-	Type OBExternalStatementFeeType1Code `json:"Type"`
+	Type *OBExternalStatementFeeType1Code `json:"Type"`
 }
 
 // Validate validates this o b statement2 basic statement fee items0
@@ -660,18 +1088,27 @@ func (m *OBStatement2BasicStatementFeeItems0) validateAmount(formats strfmt.Regi
 
 func (m *OBStatement2BasicStatementFeeItems0) validateCreditDebitIndicator(formats strfmt.Registry) error {
 
-	if err := m.CreditDebitIndicator.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("CreditDebitIndicator")
-		}
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
 		return err
+	}
+
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
+		return err
+	}
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBStatement2BasicStatementFeeItems0) validateDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
@@ -687,7 +1124,6 @@ func (m *OBStatement2BasicStatementFeeItems0) validateDescription(formats strfmt
 }
 
 func (m *OBStatement2BasicStatementFeeItems0) validateFrequency(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Frequency) { // not required
 		return nil
 	}
@@ -703,7 +1139,6 @@ func (m *OBStatement2BasicStatementFeeItems0) validateFrequency(formats strfmt.R
 }
 
 func (m *OBStatement2BasicStatementFeeItems0) validateRate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Rate) { // not required
 		return nil
 	}
@@ -719,7 +1154,6 @@ func (m *OBStatement2BasicStatementFeeItems0) validateRate(formats strfmt.Regist
 }
 
 func (m *OBStatement2BasicStatementFeeItems0) validateRateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RateType) { // not required
 		return nil
 	}
@@ -736,11 +1170,149 @@ func (m *OBStatement2BasicStatementFeeItems0) validateRateType(formats strfmt.Re
 
 func (m *OBStatement2BasicStatementFeeItems0) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b statement2 basic statement fee items0 based on the context it is used
+func (m *OBStatement2BasicStatementFeeItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreditDebitIndicator(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDescription(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFrequency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBStatement2BasicStatementFeeItems0) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementFeeItems0) contextValidateCreditDebitIndicator(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementFeeItems0) contextValidateDescription(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Description.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
+			return ve.ValidateName("Description")
 		}
 		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementFeeItems0) contextValidateFrequency(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Frequency.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Frequency")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementFeeItems0) contextValidateRate(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Rate.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Rate")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementFeeItems0) contextValidateRateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.RateType.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("RateType")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementFeeItems0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -775,7 +1347,7 @@ type OBStatement2BasicStatementInterestItems0 struct {
 
 	// credit debit indicator
 	// Required: true
-	CreditDebitIndicator OBCreditDebitCode0 `json:"CreditDebitIndicator"`
+	CreditDebitIndicator *OBCreditDebitCode0 `json:"CreditDebitIndicator"`
 
 	// description
 	Description Description2 `json:"Description,omitempty"`
@@ -791,7 +1363,7 @@ type OBStatement2BasicStatementInterestItems0 struct {
 
 	// type
 	// Required: true
-	Type OBExternalStatementInterestType1Code `json:"Type"`
+	Type *OBExternalStatementInterestType1Code `json:"Type"`
 }
 
 // Validate validates this o b statement2 basic statement interest items0
@@ -852,18 +1424,27 @@ func (m *OBStatement2BasicStatementInterestItems0) validateAmount(formats strfmt
 
 func (m *OBStatement2BasicStatementInterestItems0) validateCreditDebitIndicator(formats strfmt.Registry) error {
 
-	if err := m.CreditDebitIndicator.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("CreditDebitIndicator")
-		}
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
 		return err
+	}
+
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
+		return err
+	}
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBStatement2BasicStatementInterestItems0) validateDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
@@ -879,7 +1460,6 @@ func (m *OBStatement2BasicStatementInterestItems0) validateDescription(formats s
 }
 
 func (m *OBStatement2BasicStatementInterestItems0) validateFrequency(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Frequency) { // not required
 		return nil
 	}
@@ -895,7 +1475,6 @@ func (m *OBStatement2BasicStatementInterestItems0) validateFrequency(formats str
 }
 
 func (m *OBStatement2BasicStatementInterestItems0) validateRate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Rate) { // not required
 		return nil
 	}
@@ -911,7 +1490,6 @@ func (m *OBStatement2BasicStatementInterestItems0) validateRate(formats strfmt.R
 }
 
 func (m *OBStatement2BasicStatementInterestItems0) validateRateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RateType) { // not required
 		return nil
 	}
@@ -928,11 +1506,149 @@ func (m *OBStatement2BasicStatementInterestItems0) validateRateType(formats strf
 
 func (m *OBStatement2BasicStatementInterestItems0) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b statement2 basic statement interest items0 based on the context it is used
+func (m *OBStatement2BasicStatementInterestItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreditDebitIndicator(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDescription(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFrequency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBStatement2BasicStatementInterestItems0) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementInterestItems0) contextValidateCreditDebitIndicator(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementInterestItems0) contextValidateDescription(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Description.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
+			return ve.ValidateName("Description")
 		}
 		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementInterestItems0) contextValidateFrequency(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Frequency.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Frequency")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementInterestItems0) contextValidateRate(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Rate.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Rate")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementInterestItems0) contextValidateRateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.RateType.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("RateType")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementInterestItems0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -963,11 +1679,11 @@ type OBStatement2BasicStatementRateItems0 struct {
 
 	// rate
 	// Required: true
-	Rate Rate `json:"Rate"`
+	Rate *Rate `json:"Rate"`
 
 	// type
 	// Required: true
-	Type OBExternalStatementRateType1Code `json:"Type"`
+	Type *OBExternalStatementRateType1Code `json:"Type"`
 }
 
 // Validate validates this o b statement2 basic statement rate items0
@@ -990,11 +1706,21 @@ func (m *OBStatement2BasicStatementRateItems0) Validate(formats strfmt.Registry)
 
 func (m *OBStatement2BasicStatementRateItems0) validateRate(formats strfmt.Registry) error {
 
-	if err := m.Rate.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Rate")
-		}
+	if err := validate.Required("Rate", "body", m.Rate); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Rate", "body", m.Rate); err != nil {
+		return err
+	}
+
+	if m.Rate != nil {
+		if err := m.Rate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Rate")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -1002,11 +1728,67 @@ func (m *OBStatement2BasicStatementRateItems0) validateRate(formats strfmt.Regis
 
 func (m *OBStatement2BasicStatementRateItems0) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
-		}
+	if err := validate.Required("Type", "body", m.Type); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b statement2 basic statement rate items0 based on the context it is used
+func (m *OBStatement2BasicStatementRateItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBStatement2BasicStatementRateItems0) contextValidateRate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Rate != nil {
+		if err := m.Rate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Rate")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementRateItems0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -1037,11 +1819,11 @@ type OBStatement2BasicStatementValueItems0 struct {
 
 	// type
 	// Required: true
-	Type OBExternalStatementValueType1Code `json:"Type"`
+	Type *OBExternalStatementValueType1Code `json:"Type"`
 
 	// value
 	// Required: true
-	Value Value `json:"Value"`
+	Value *Value `json:"Value"`
 }
 
 // Validate validates this o b statement2 basic statement value items0
@@ -1064,11 +1846,21 @@ func (m *OBStatement2BasicStatementValueItems0) Validate(formats strfmt.Registry
 
 func (m *OBStatement2BasicStatementValueItems0) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
-		}
+	if err := validate.Required("Type", "body", m.Type); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -1076,11 +1868,67 @@ func (m *OBStatement2BasicStatementValueItems0) validateType(formats strfmt.Regi
 
 func (m *OBStatement2BasicStatementValueItems0) validateValue(formats strfmt.Registry) error {
 
-	if err := m.Value.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Value")
-		}
+	if err := validate.Required("Value", "body", m.Value); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Value", "body", m.Value); err != nil {
+		return err
+	}
+
+	if m.Value != nil {
+		if err := m.Value.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Value")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b statement2 basic statement value items0 based on the context it is used
+func (m *OBStatement2BasicStatementValueItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateValue(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBStatement2BasicStatementValueItems0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBStatement2BasicStatementValueItems0) contextValidateValue(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Value != nil {
+		if err := m.Value.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Value")
+			}
+			return err
+		}
 	}
 
 	return nil

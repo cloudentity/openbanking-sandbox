@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -56,7 +58,6 @@ func (m *OBBranchAndFinancialInstitutionIdentification62) Validate(formats strfm
 }
 
 func (m *OBBranchAndFinancialInstitutionIdentification62) validateIdentification(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Identification) { // not required
 		return nil
 	}
@@ -72,7 +73,6 @@ func (m *OBBranchAndFinancialInstitutionIdentification62) validateIdentification
 }
 
 func (m *OBBranchAndFinancialInstitutionIdentification62) validateName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
@@ -88,7 +88,6 @@ func (m *OBBranchAndFinancialInstitutionIdentification62) validateName(formats s
 }
 
 func (m *OBBranchAndFinancialInstitutionIdentification62) validatePostalAddress(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PostalAddress) { // not required
 		return nil
 	}
@@ -106,12 +105,87 @@ func (m *OBBranchAndFinancialInstitutionIdentification62) validatePostalAddress(
 }
 
 func (m *OBBranchAndFinancialInstitutionIdentification62) validateSchemeName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SchemeName) { // not required
 		return nil
 	}
 
 	if err := m.SchemeName.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("SchemeName")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b branch and financial institution identification6 2 based on the context it is used
+func (m *OBBranchAndFinancialInstitutionIdentification62) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateIdentification(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePostalAddress(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSchemeName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBBranchAndFinancialInstitutionIdentification62) contextValidateIdentification(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Identification.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Identification")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBBranchAndFinancialInstitutionIdentification62) contextValidateName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Name.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Name")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBBranchAndFinancialInstitutionIdentification62) contextValidatePostalAddress(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PostalAddress != nil {
+		if err := m.PostalAddress.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PostalAddress")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBBranchAndFinancialInstitutionIdentification62) contextValidateSchemeName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.SchemeName.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("SchemeName")
 		}

@@ -6,9 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // OBActiveOrHistoricCurrencyAndAmount7 Amount of money associated with the statement interest amount type.
@@ -18,11 +21,11 @@ type OBActiveOrHistoricCurrencyAndAmount7 struct {
 
 	// amount
 	// Required: true
-	Amount OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
+	Amount *OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
 
 	// currency
 	// Required: true
-	Currency ActiveOrHistoricCurrencyCode1 `json:"Currency"`
+	Currency *ActiveOrHistoricCurrencyCode1 `json:"Currency"`
 }
 
 // Validate validates this o b active or historic currency and amount 7
@@ -45,11 +48,21 @@ func (m *OBActiveOrHistoricCurrencyAndAmount7) Validate(formats strfmt.Registry)
 
 func (m *OBActiveOrHistoricCurrencyAndAmount7) validateAmount(formats strfmt.Registry) error {
 
-	if err := m.Amount.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Amount")
-		}
+	if err := validate.Required("Amount", "body", m.Amount); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	if m.Amount != nil {
+		if err := m.Amount.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -57,11 +70,67 @@ func (m *OBActiveOrHistoricCurrencyAndAmount7) validateAmount(formats strfmt.Reg
 
 func (m *OBActiveOrHistoricCurrencyAndAmount7) validateCurrency(formats strfmt.Registry) error {
 
-	if err := m.Currency.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Currency")
-		}
+	if err := validate.Required("Currency", "body", m.Currency); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	if m.Currency != nil {
+		if err := m.Currency.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Currency")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b active or historic currency and amount 7 based on the context it is used
+func (m *OBActiveOrHistoricCurrencyAndAmount7) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBActiveOrHistoricCurrencyAndAmount7) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBActiveOrHistoricCurrencyAndAmount7) contextValidateCurrency(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Currency != nil {
+		if err := m.Currency.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Currency")
+			}
+			return err
+		}
 	}
 
 	return nil

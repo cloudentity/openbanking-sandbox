@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 )
 
@@ -16,5 +18,10 @@ type OBExternalFinancialInstitutionIdentification4Code string
 
 // Validate validates this o b external financial institution identification4 code
 func (m OBExternalFinancialInstitutionIdentification4Code) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this o b external financial institution identification4 code based on context it is used
+func (m OBExternalFinancialInstitutionIdentification4Code) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

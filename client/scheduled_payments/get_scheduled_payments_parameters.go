@@ -16,81 +16,99 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetScheduledPaymentsParams creates a new GetScheduledPaymentsParams object
-// with the default values initialized.
+// NewGetScheduledPaymentsParams creates a new GetScheduledPaymentsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetScheduledPaymentsParams() *GetScheduledPaymentsParams {
-	var ()
 	return &GetScheduledPaymentsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetScheduledPaymentsParamsWithTimeout creates a new GetScheduledPaymentsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetScheduledPaymentsParamsWithTimeout(timeout time.Duration) *GetScheduledPaymentsParams {
-	var ()
 	return &GetScheduledPaymentsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetScheduledPaymentsParamsWithContext creates a new GetScheduledPaymentsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetScheduledPaymentsParamsWithContext(ctx context.Context) *GetScheduledPaymentsParams {
-	var ()
 	return &GetScheduledPaymentsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetScheduledPaymentsParamsWithHTTPClient creates a new GetScheduledPaymentsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetScheduledPaymentsParamsWithHTTPClient(client *http.Client) *GetScheduledPaymentsParams {
-	var ()
 	return &GetScheduledPaymentsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetScheduledPaymentsParams contains all the parameters to send to the API endpoint
-for the get scheduled payments operation typically these are written to a http.Request
+/* GetScheduledPaymentsParams contains all the parameters to send to the API endpoint
+   for the get scheduled payments operation.
+
+   Typically these are written to a http.Request.
 */
 type GetScheduledPaymentsParams struct {
 
-	/*Authorization
-	  An Authorisation Token as per https://tools.ietf.org/html/rfc6750
+	/* Authorization.
 
+	   An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 	*/
 	Authorization string
-	/*XCustomerUserAgent
-	  Indicates the user-agent that the PSU is using.
 
+	/* XCustomerUserAgent.
+
+	   Indicates the user-agent that the PSU is using.
 	*/
 	XCustomerUserAgent *string
-	/*XFapiAuthDate
-	  The time when the PSU last logged in with the TPP.
+
+	/* XFapiAuthDate.
+
+	     The time when the PSU last logged in with the TPP.
 	All dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below:
 	Sun, 10 Sep 2017 19:43:31 UTC
-
 	*/
 	XFapiAuthDate *string
-	/*XFapiCustomerIPAddress
-	  The PSU's IP address if the PSU is currently logged in with the TPP.
 
+	/* XFapiCustomerIPAddress.
+
+	   The PSU's IP address if the PSU is currently logged in with the TPP.
 	*/
 	XFapiCustomerIPAddress *string
-	/*XFapiInteractionID
-	  An RFC4122 UID used as a correlation id.
 
+	/* XFapiInteractionID.
+
+	   An RFC4122 UID used as a correlation id.
 	*/
 	XFapiInteractionID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get scheduled payments params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetScheduledPaymentsParams) WithDefaults() *GetScheduledPaymentsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get scheduled payments params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetScheduledPaymentsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get scheduled payments params
@@ -200,7 +218,6 @@ func (o *GetScheduledPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg
 		if err := r.SetHeaderParam("x-customer-user-agent", *o.XCustomerUserAgent); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiAuthDate != nil {
@@ -209,7 +226,6 @@ func (o *GetScheduledPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg
 		if err := r.SetHeaderParam("x-fapi-auth-date", *o.XFapiAuthDate); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiCustomerIPAddress != nil {
@@ -218,7 +234,6 @@ func (o *GetScheduledPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg
 		if err := r.SetHeaderParam("x-fapi-customer-ip-address", *o.XFapiCustomerIPAddress); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiInteractionID != nil {
@@ -227,7 +242,6 @@ func (o *GetScheduledPaymentsParams) WriteToRequest(r runtime.ClientRequest, reg
 		if err := r.SetHeaderParam("x-fapi-interaction-id", *o.XFapiInteractionID); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

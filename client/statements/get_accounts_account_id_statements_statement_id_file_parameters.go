@@ -16,91 +16,111 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAccountsAccountIDStatementsStatementIDFileParams creates a new GetAccountsAccountIDStatementsStatementIDFileParams object
-// with the default values initialized.
+// NewGetAccountsAccountIDStatementsStatementIDFileParams creates a new GetAccountsAccountIDStatementsStatementIDFileParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAccountsAccountIDStatementsStatementIDFileParams() *GetAccountsAccountIDStatementsStatementIDFileParams {
-	var ()
 	return &GetAccountsAccountIDStatementsStatementIDFileParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAccountsAccountIDStatementsStatementIDFileParamsWithTimeout creates a new GetAccountsAccountIDStatementsStatementIDFileParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAccountsAccountIDStatementsStatementIDFileParamsWithTimeout(timeout time.Duration) *GetAccountsAccountIDStatementsStatementIDFileParams {
-	var ()
 	return &GetAccountsAccountIDStatementsStatementIDFileParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAccountsAccountIDStatementsStatementIDFileParamsWithContext creates a new GetAccountsAccountIDStatementsStatementIDFileParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAccountsAccountIDStatementsStatementIDFileParamsWithContext(ctx context.Context) *GetAccountsAccountIDStatementsStatementIDFileParams {
-	var ()
 	return &GetAccountsAccountIDStatementsStatementIDFileParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAccountsAccountIDStatementsStatementIDFileParamsWithHTTPClient creates a new GetAccountsAccountIDStatementsStatementIDFileParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAccountsAccountIDStatementsStatementIDFileParamsWithHTTPClient(client *http.Client) *GetAccountsAccountIDStatementsStatementIDFileParams {
-	var ()
 	return &GetAccountsAccountIDStatementsStatementIDFileParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAccountsAccountIDStatementsStatementIDFileParams contains all the parameters to send to the API endpoint
-for the get accounts account Id statements statement Id file operation typically these are written to a http.Request
+/* GetAccountsAccountIDStatementsStatementIDFileParams contains all the parameters to send to the API endpoint
+   for the get accounts account Id statements statement Id file operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAccountsAccountIDStatementsStatementIDFileParams struct {
 
-	/*AccountID
-	  AccountId
+	/* AccountID.
 
+	   AccountId
 	*/
 	AccountID string
-	/*Authorization
-	  An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 
+	/* Authorization.
+
+	   An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 	*/
 	Authorization string
-	/*StatementID
-	  StatementId
 
+	/* StatementID.
+
+	   StatementId
 	*/
 	StatementID string
-	/*XCustomerUserAgent
-	  Indicates the user-agent that the PSU is using.
 
+	/* XCustomerUserAgent.
+
+	   Indicates the user-agent that the PSU is using.
 	*/
 	XCustomerUserAgent *string
-	/*XFapiAuthDate
-	  The time when the PSU last logged in with the TPP.
+
+	/* XFapiAuthDate.
+
+	     The time when the PSU last logged in with the TPP.
 	All dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below:
 	Sun, 10 Sep 2017 19:43:31 UTC
-
 	*/
 	XFapiAuthDate *string
-	/*XFapiCustomerIPAddress
-	  The PSU's IP address if the PSU is currently logged in with the TPP.
 
+	/* XFapiCustomerIPAddress.
+
+	   The PSU's IP address if the PSU is currently logged in with the TPP.
 	*/
 	XFapiCustomerIPAddress *string
-	/*XFapiInteractionID
-	  An RFC4122 UID used as a correlation id.
 
+	/* XFapiInteractionID.
+
+	   An RFC4122 UID used as a correlation id.
 	*/
 	XFapiInteractionID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get accounts account Id statements statement Id file params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountsAccountIDStatementsStatementIDFileParams) WithDefaults() *GetAccountsAccountIDStatementsStatementIDFileParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get accounts account Id statements statement Id file params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountsAccountIDStatementsStatementIDFileParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get accounts account Id statements statement Id file params
@@ -242,7 +262,6 @@ func (o *GetAccountsAccountIDStatementsStatementIDFileParams) WriteToRequest(r r
 		if err := r.SetHeaderParam("x-customer-user-agent", *o.XCustomerUserAgent); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiAuthDate != nil {
@@ -251,7 +270,6 @@ func (o *GetAccountsAccountIDStatementsStatementIDFileParams) WriteToRequest(r r
 		if err := r.SetHeaderParam("x-fapi-auth-date", *o.XFapiAuthDate); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiCustomerIPAddress != nil {
@@ -260,7 +278,6 @@ func (o *GetAccountsAccountIDStatementsStatementIDFileParams) WriteToRequest(r r
 		if err := r.SetHeaderParam("x-fapi-customer-ip-address", *o.XFapiCustomerIPAddress); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiInteractionID != nil {
@@ -269,7 +286,6 @@ func (o *GetAccountsAccountIDStatementsStatementIDFileParams) WriteToRequest(r r
 		if err := r.SetHeaderParam("x-fapi-interaction-id", *o.XFapiInteractionID); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

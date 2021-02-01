@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -89,16 +91,15 @@ func (m *OBCurrencyExchange5) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBCurrencyExchange5) validateContractIdentification(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ContractIdentification) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("ContractIdentification", "body", string(m.ContractIdentification), 1); err != nil {
+	if err := validate.MinLength("ContractIdentification", "body", m.ContractIdentification, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("ContractIdentification", "body", string(m.ContractIdentification), 35); err != nil {
+	if err := validate.MaxLength("ContractIdentification", "body", m.ContractIdentification, 35); err != nil {
 		return err
 	}
 
@@ -115,7 +116,6 @@ func (m *OBCurrencyExchange5) validateExchangeRate(formats strfmt.Registry) erro
 }
 
 func (m *OBCurrencyExchange5) validateInstructedAmount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.InstructedAmount) { // not required
 		return nil
 	}
@@ -133,7 +133,6 @@ func (m *OBCurrencyExchange5) validateInstructedAmount(formats strfmt.Registry) 
 }
 
 func (m *OBCurrencyExchange5) validateQuotationDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.QuotationDate) { // not required
 		return nil
 	}
@@ -151,7 +150,7 @@ func (m *OBCurrencyExchange5) validateSourceCurrency(formats strfmt.Registry) er
 		return err
 	}
 
-	if err := validate.Pattern("SourceCurrency", "body", string(*m.SourceCurrency), `^[A-Z]{3,3}$`); err != nil {
+	if err := validate.Pattern("SourceCurrency", "body", *m.SourceCurrency, `^[A-Z]{3,3}$`); err != nil {
 		return err
 	}
 
@@ -159,12 +158,11 @@ func (m *OBCurrencyExchange5) validateSourceCurrency(formats strfmt.Registry) er
 }
 
 func (m *OBCurrencyExchange5) validateTargetCurrency(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TargetCurrency) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("TargetCurrency", "body", string(m.TargetCurrency), `^[A-Z]{3,3}$`); err != nil {
+	if err := validate.Pattern("TargetCurrency", "body", m.TargetCurrency, `^[A-Z]{3,3}$`); err != nil {
 		return err
 	}
 
@@ -172,13 +170,40 @@ func (m *OBCurrencyExchange5) validateTargetCurrency(formats strfmt.Registry) er
 }
 
 func (m *OBCurrencyExchange5) validateUnitCurrency(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UnitCurrency) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("UnitCurrency", "body", string(m.UnitCurrency), `^[A-Z]{3,3}$`); err != nil {
+	if err := validate.Pattern("UnitCurrency", "body", m.UnitCurrency, `^[A-Z]{3,3}$`); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b currency exchange5 based on the context it is used
+func (m *OBCurrencyExchange5) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateInstructedAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBCurrencyExchange5) contextValidateInstructedAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.InstructedAmount != nil {
+		if err := m.InstructedAmount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("InstructedAmount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -209,11 +234,11 @@ type OBCurrencyExchange5InstructedAmount struct {
 
 	// amount
 	// Required: true
-	Amount OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
+	Amount *OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
 
 	// currency
 	// Required: true
-	Currency ActiveOrHistoricCurrencyCode1 `json:"Currency"`
+	Currency *ActiveOrHistoricCurrencyCode1 `json:"Currency"`
 }
 
 // Validate validates this o b currency exchange5 instructed amount
@@ -236,11 +261,21 @@ func (m *OBCurrencyExchange5InstructedAmount) Validate(formats strfmt.Registry) 
 
 func (m *OBCurrencyExchange5InstructedAmount) validateAmount(formats strfmt.Registry) error {
 
-	if err := m.Amount.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("InstructedAmount" + "." + "Amount")
-		}
+	if err := validate.Required("InstructedAmount"+"."+"Amount", "body", m.Amount); err != nil {
 		return err
+	}
+
+	if err := validate.Required("InstructedAmount"+"."+"Amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	if m.Amount != nil {
+		if err := m.Amount.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("InstructedAmount" + "." + "Amount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -248,11 +283,67 @@ func (m *OBCurrencyExchange5InstructedAmount) validateAmount(formats strfmt.Regi
 
 func (m *OBCurrencyExchange5InstructedAmount) validateCurrency(formats strfmt.Registry) error {
 
-	if err := m.Currency.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("InstructedAmount" + "." + "Currency")
-		}
+	if err := validate.Required("InstructedAmount"+"."+"Currency", "body", m.Currency); err != nil {
 		return err
+	}
+
+	if err := validate.Required("InstructedAmount"+"."+"Currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	if m.Currency != nil {
+		if err := m.Currency.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("InstructedAmount" + "." + "Currency")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b currency exchange5 instructed amount based on the context it is used
+func (m *OBCurrencyExchange5InstructedAmount) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBCurrencyExchange5InstructedAmount) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("InstructedAmount" + "." + "Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBCurrencyExchange5InstructedAmount) contextValidateCurrency(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Currency != nil {
+		if err := m.Currency.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("InstructedAmount" + "." + "Currency")
+			}
+			return err
+		}
 	}
 
 	return nil

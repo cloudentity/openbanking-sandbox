@@ -16,86 +16,105 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAccountsAccountIDBalancesParams creates a new GetAccountsAccountIDBalancesParams object
-// with the default values initialized.
+// NewGetAccountsAccountIDBalancesParams creates a new GetAccountsAccountIDBalancesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAccountsAccountIDBalancesParams() *GetAccountsAccountIDBalancesParams {
-	var ()
 	return &GetAccountsAccountIDBalancesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAccountsAccountIDBalancesParamsWithTimeout creates a new GetAccountsAccountIDBalancesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAccountsAccountIDBalancesParamsWithTimeout(timeout time.Duration) *GetAccountsAccountIDBalancesParams {
-	var ()
 	return &GetAccountsAccountIDBalancesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAccountsAccountIDBalancesParamsWithContext creates a new GetAccountsAccountIDBalancesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAccountsAccountIDBalancesParamsWithContext(ctx context.Context) *GetAccountsAccountIDBalancesParams {
-	var ()
 	return &GetAccountsAccountIDBalancesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAccountsAccountIDBalancesParamsWithHTTPClient creates a new GetAccountsAccountIDBalancesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAccountsAccountIDBalancesParamsWithHTTPClient(client *http.Client) *GetAccountsAccountIDBalancesParams {
-	var ()
 	return &GetAccountsAccountIDBalancesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAccountsAccountIDBalancesParams contains all the parameters to send to the API endpoint
-for the get accounts account Id balances operation typically these are written to a http.Request
+/* GetAccountsAccountIDBalancesParams contains all the parameters to send to the API endpoint
+   for the get accounts account Id balances operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAccountsAccountIDBalancesParams struct {
 
-	/*AccountID
-	  AccountId
+	/* AccountID.
 
+	   AccountId
 	*/
 	AccountID string
-	/*Authorization
-	  An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 
+	/* Authorization.
+
+	   An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 	*/
 	Authorization string
-	/*XCustomerUserAgent
-	  Indicates the user-agent that the PSU is using.
 
+	/* XCustomerUserAgent.
+
+	   Indicates the user-agent that the PSU is using.
 	*/
 	XCustomerUserAgent *string
-	/*XFapiAuthDate
-	  The time when the PSU last logged in with the TPP.
+
+	/* XFapiAuthDate.
+
+	     The time when the PSU last logged in with the TPP.
 	All dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below:
 	Sun, 10 Sep 2017 19:43:31 UTC
-
 	*/
 	XFapiAuthDate *string
-	/*XFapiCustomerIPAddress
-	  The PSU's IP address if the PSU is currently logged in with the TPP.
 
+	/* XFapiCustomerIPAddress.
+
+	   The PSU's IP address if the PSU is currently logged in with the TPP.
 	*/
 	XFapiCustomerIPAddress *string
-	/*XFapiInteractionID
-	  An RFC4122 UID used as a correlation id.
 
+	/* XFapiInteractionID.
+
+	   An RFC4122 UID used as a correlation id.
 	*/
 	XFapiInteractionID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get accounts account Id balances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountsAccountIDBalancesParams) WithDefaults() *GetAccountsAccountIDBalancesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get accounts account Id balances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAccountsAccountIDBalancesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get accounts account Id balances params
@@ -221,7 +240,6 @@ func (o *GetAccountsAccountIDBalancesParams) WriteToRequest(r runtime.ClientRequ
 		if err := r.SetHeaderParam("x-customer-user-agent", *o.XCustomerUserAgent); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiAuthDate != nil {
@@ -230,7 +248,6 @@ func (o *GetAccountsAccountIDBalancesParams) WriteToRequest(r runtime.ClientRequ
 		if err := r.SetHeaderParam("x-fapi-auth-date", *o.XFapiAuthDate); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiCustomerIPAddress != nil {
@@ -239,7 +256,6 @@ func (o *GetAccountsAccountIDBalancesParams) WriteToRequest(r runtime.ClientRequ
 		if err := r.SetHeaderParam("x-fapi-customer-ip-address", *o.XFapiCustomerIPAddress); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiInteractionID != nil {
@@ -248,7 +264,6 @@ func (o *GetAccountsAccountIDBalancesParams) WriteToRequest(r runtime.ClientRequ
 		if err := r.SetHeaderParam("x-fapi-interaction-id", *o.XFapiInteractionID); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

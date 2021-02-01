@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -110,7 +111,6 @@ func (m *OBPostalAddress6) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBPostalAddress6) validateAddressLine(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AddressLine) { // not required
 		return nil
 	}
@@ -127,11 +127,11 @@ func (m *OBPostalAddress6) validateAddressLine(formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.AddressLine); i++ {
 
-		if err := validate.MinLength("AddressLine"+"."+strconv.Itoa(i), "body", string(m.AddressLine[i]), 1); err != nil {
+		if err := validate.MinLength("AddressLine"+"."+strconv.Itoa(i), "body", m.AddressLine[i], 1); err != nil {
 			return err
 		}
 
-		if err := validate.MaxLength("AddressLine"+"."+strconv.Itoa(i), "body", string(m.AddressLine[i]), 70); err != nil {
+		if err := validate.MaxLength("AddressLine"+"."+strconv.Itoa(i), "body", m.AddressLine[i], 70); err != nil {
 			return err
 		}
 
@@ -141,7 +141,6 @@ func (m *OBPostalAddress6) validateAddressLine(formats strfmt.Registry) error {
 }
 
 func (m *OBPostalAddress6) validateAddressType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AddressType) { // not required
 		return nil
 	}
@@ -157,7 +156,6 @@ func (m *OBPostalAddress6) validateAddressType(formats strfmt.Registry) error {
 }
 
 func (m *OBPostalAddress6) validateBuildingNumber(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BuildingNumber) { // not required
 		return nil
 	}
@@ -173,12 +171,11 @@ func (m *OBPostalAddress6) validateBuildingNumber(formats strfmt.Registry) error
 }
 
 func (m *OBPostalAddress6) validateCountry(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Country) { // not required
 		return nil
 	}
 
-	if err := validate.Pattern("Country", "body", string(m.Country), `^[A-Z]{2,2}$`); err != nil {
+	if err := validate.Pattern("Country", "body", m.Country, `^[A-Z]{2,2}$`); err != nil {
 		return err
 	}
 
@@ -186,16 +183,15 @@ func (m *OBPostalAddress6) validateCountry(formats strfmt.Registry) error {
 }
 
 func (m *OBPostalAddress6) validateCountrySubDivision(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CountrySubDivision) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("CountrySubDivision", "body", string(m.CountrySubDivision), 1); err != nil {
+	if err := validate.MinLength("CountrySubDivision", "body", m.CountrySubDivision, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("CountrySubDivision", "body", string(m.CountrySubDivision), 35); err != nil {
+	if err := validate.MaxLength("CountrySubDivision", "body", m.CountrySubDivision, 35); err != nil {
 		return err
 	}
 
@@ -203,16 +199,15 @@ func (m *OBPostalAddress6) validateCountrySubDivision(formats strfmt.Registry) e
 }
 
 func (m *OBPostalAddress6) validateDepartment(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Department) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Department", "body", string(m.Department), 1); err != nil {
+	if err := validate.MinLength("Department", "body", m.Department, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Department", "body", string(m.Department), 70); err != nil {
+	if err := validate.MaxLength("Department", "body", m.Department, 70); err != nil {
 		return err
 	}
 
@@ -220,7 +215,6 @@ func (m *OBPostalAddress6) validateDepartment(formats strfmt.Registry) error {
 }
 
 func (m *OBPostalAddress6) validatePostCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PostCode) { // not required
 		return nil
 	}
@@ -236,7 +230,6 @@ func (m *OBPostalAddress6) validatePostCode(formats strfmt.Registry) error {
 }
 
 func (m *OBPostalAddress6) validateStreetName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StreetName) { // not required
 		return nil
 	}
@@ -252,16 +245,15 @@ func (m *OBPostalAddress6) validateStreetName(formats strfmt.Registry) error {
 }
 
 func (m *OBPostalAddress6) validateSubDepartment(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SubDepartment) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("SubDepartment", "body", string(m.SubDepartment), 1); err != nil {
+	if err := validate.MinLength("SubDepartment", "body", m.SubDepartment, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("SubDepartment", "body", string(m.SubDepartment), 70); err != nil {
+	if err := validate.MaxLength("SubDepartment", "body", m.SubDepartment, 70); err != nil {
 		return err
 	}
 
@@ -269,12 +261,101 @@ func (m *OBPostalAddress6) validateSubDepartment(formats strfmt.Registry) error 
 }
 
 func (m *OBPostalAddress6) validateTownName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TownName) { // not required
 		return nil
 	}
 
 	if err := m.TownName.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("TownName")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b postal address6 based on the context it is used
+func (m *OBPostalAddress6) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAddressType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBuildingNumber(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePostCode(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStreetName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTownName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBPostalAddress6) contextValidateAddressType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.AddressType.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("AddressType")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBPostalAddress6) contextValidateBuildingNumber(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.BuildingNumber.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("BuildingNumber")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBPostalAddress6) contextValidatePostCode(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.PostCode.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("PostCode")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBPostalAddress6) contextValidateStreetName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.StreetName.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("StreetName")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBPostalAddress6) contextValidateTownName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.TownName.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("TownName")
 		}

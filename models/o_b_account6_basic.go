@@ -6,9 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // OBAccount6Basic Unambiguous identification of the account to which credit and debit entries are made.
@@ -18,19 +21,19 @@ type OBAccount6Basic struct {
 
 	// account Id
 	// Required: true
-	AccountID AccountID `json:"AccountId"`
+	AccountID *AccountID `json:"AccountId"`
 
 	// account sub type
 	// Required: true
-	AccountSubType OBExternalAccountSubType1Code `json:"AccountSubType"`
+	AccountSubType *OBExternalAccountSubType1Code `json:"AccountSubType"`
 
 	// account type
 	// Required: true
-	AccountType OBExternalAccountType1Code `json:"AccountType"`
+	AccountType *OBExternalAccountType1Code `json:"AccountType"`
 
 	// currency
 	// Required: true
-	Currency ActiveOrHistoricCurrencyCode0 `json:"Currency"`
+	Currency *ActiveOrHistoricCurrencyCode0 `json:"Currency"`
 
 	// description
 	Description Description0 `json:"Description,omitempty"`
@@ -113,11 +116,21 @@ func (m *OBAccount6Basic) Validate(formats strfmt.Registry) error {
 
 func (m *OBAccount6Basic) validateAccountID(formats strfmt.Registry) error {
 
-	if err := m.AccountID.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountId")
-		}
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	if m.AccountID != nil {
+		if err := m.AccountID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -125,11 +138,21 @@ func (m *OBAccount6Basic) validateAccountID(formats strfmt.Registry) error {
 
 func (m *OBAccount6Basic) validateAccountSubType(formats strfmt.Registry) error {
 
-	if err := m.AccountSubType.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountSubType")
-		}
+	if err := validate.Required("AccountSubType", "body", m.AccountSubType); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountSubType", "body", m.AccountSubType); err != nil {
+		return err
+	}
+
+	if m.AccountSubType != nil {
+		if err := m.AccountSubType.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountSubType")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -137,11 +160,21 @@ func (m *OBAccount6Basic) validateAccountSubType(formats strfmt.Registry) error 
 
 func (m *OBAccount6Basic) validateAccountType(formats strfmt.Registry) error {
 
-	if err := m.AccountType.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountType")
-		}
+	if err := validate.Required("AccountType", "body", m.AccountType); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountType", "body", m.AccountType); err != nil {
+		return err
+	}
+
+	if m.AccountType != nil {
+		if err := m.AccountType.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountType")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -149,18 +182,27 @@ func (m *OBAccount6Basic) validateAccountType(formats strfmt.Registry) error {
 
 func (m *OBAccount6Basic) validateCurrency(formats strfmt.Registry) error {
 
-	if err := m.Currency.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Currency")
-		}
+	if err := validate.Required("Currency", "body", m.Currency); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	if m.Currency != nil {
+		if err := m.Currency.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Currency")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBAccount6Basic) validateDescription(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Description) { // not required
 		return nil
 	}
@@ -176,7 +218,6 @@ func (m *OBAccount6Basic) validateDescription(formats strfmt.Registry) error {
 }
 
 func (m *OBAccount6Basic) validateMaturityDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MaturityDate) { // not required
 		return nil
 	}
@@ -192,7 +233,6 @@ func (m *OBAccount6Basic) validateMaturityDate(formats strfmt.Registry) error {
 }
 
 func (m *OBAccount6Basic) validateNickname(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Nickname) { // not required
 		return nil
 	}
@@ -208,7 +248,6 @@ func (m *OBAccount6Basic) validateNickname(formats strfmt.Registry) error {
 }
 
 func (m *OBAccount6Basic) validateOpeningDate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.OpeningDate) { // not required
 		return nil
 	}
@@ -224,7 +263,6 @@ func (m *OBAccount6Basic) validateOpeningDate(formats strfmt.Registry) error {
 }
 
 func (m *OBAccount6Basic) validateStatus(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Status) { // not required
 		return nil
 	}
@@ -240,7 +278,6 @@ func (m *OBAccount6Basic) validateStatus(formats strfmt.Registry) error {
 }
 
 func (m *OBAccount6Basic) validateStatusUpdateDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatusUpdateDateTime) { // not required
 		return nil
 	}
@@ -256,12 +293,205 @@ func (m *OBAccount6Basic) validateStatusUpdateDateTime(formats strfmt.Registry) 
 }
 
 func (m *OBAccount6Basic) validateSwitchStatus(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SwitchStatus) { // not required
 		return nil
 	}
 
 	if err := m.SwitchStatus.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("SwitchStatus")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b account6 basic based on the context it is used
+func (m *OBAccount6Basic) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAccountSubType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAccountType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDescription(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMaturityDate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNickname(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateOpeningDate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatusUpdateDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSwitchStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateAccountID(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountID != nil {
+		if err := m.AccountID.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateAccountSubType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountSubType != nil {
+		if err := m.AccountSubType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountSubType")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateAccountType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountType != nil {
+		if err := m.AccountType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountType")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateCurrency(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Currency != nil {
+		if err := m.Currency.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Currency")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateDescription(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Description.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Description")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateMaturityDate(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.MaturityDate.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("MaturityDate")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateNickname(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Nickname.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Nickname")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateOpeningDate(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.OpeningDate.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("OpeningDate")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Status.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Status")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateStatusUpdateDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.StatusUpdateDateTime.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("StatusUpdateDateTime")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBAccount6Basic) contextValidateSwitchStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.SwitchStatus.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("SwitchStatus")
 		}

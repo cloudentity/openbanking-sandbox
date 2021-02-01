@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -19,7 +21,7 @@ type OBScheduledPayment3Basic struct {
 
 	// account Id
 	// Required: true
-	AccountID AccountID `json:"AccountId"`
+	AccountID *AccountID `json:"AccountId"`
 
 	// debtor reference
 	DebtorReference DebtorReference `json:"DebtorReference,omitempty"`
@@ -34,14 +36,14 @@ type OBScheduledPayment3Basic struct {
 	// scheduled payment date time
 	// Required: true
 	// Format: date-time
-	ScheduledPaymentDateTime ScheduledPaymentDateTime `json:"ScheduledPaymentDateTime"`
+	ScheduledPaymentDateTime *ScheduledPaymentDateTime `json:"ScheduledPaymentDateTime"`
 
 	// scheduled payment Id
 	ScheduledPaymentID ScheduledPaymentID `json:"ScheduledPaymentId,omitempty"`
 
 	// scheduled type
 	// Required: true
-	ScheduledType OBExternalScheduleType1Code `json:"ScheduledType"`
+	ScheduledType *OBExternalScheduleType1Code `json:"ScheduledType"`
 }
 
 // Validate validates this o b scheduled payment3 basic
@@ -84,18 +86,27 @@ func (m *OBScheduledPayment3Basic) Validate(formats strfmt.Registry) error {
 
 func (m *OBScheduledPayment3Basic) validateAccountID(formats strfmt.Registry) error {
 
-	if err := m.AccountID.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountId")
-		}
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	if m.AccountID != nil {
+		if err := m.AccountID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBScheduledPayment3Basic) validateDebtorReference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.DebtorReference) { // not required
 		return nil
 	}
@@ -129,7 +140,6 @@ func (m *OBScheduledPayment3Basic) validateInstructedAmount(formats strfmt.Regis
 }
 
 func (m *OBScheduledPayment3Basic) validateReference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Reference) { // not required
 		return nil
 	}
@@ -146,18 +156,27 @@ func (m *OBScheduledPayment3Basic) validateReference(formats strfmt.Registry) er
 
 func (m *OBScheduledPayment3Basic) validateScheduledPaymentDateTime(formats strfmt.Registry) error {
 
-	if err := m.ScheduledPaymentDateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("ScheduledPaymentDateTime")
-		}
+	if err := validate.Required("ScheduledPaymentDateTime", "body", m.ScheduledPaymentDateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("ScheduledPaymentDateTime", "body", m.ScheduledPaymentDateTime); err != nil {
+		return err
+	}
+
+	if m.ScheduledPaymentDateTime != nil {
+		if err := m.ScheduledPaymentDateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ScheduledPaymentDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBScheduledPayment3Basic) validateScheduledPaymentID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ScheduledPaymentID) { // not required
 		return nil
 	}
@@ -174,11 +193,151 @@ func (m *OBScheduledPayment3Basic) validateScheduledPaymentID(formats strfmt.Reg
 
 func (m *OBScheduledPayment3Basic) validateScheduledType(formats strfmt.Registry) error {
 
-	if err := m.ScheduledType.Validate(formats); err != nil {
+	if err := validate.Required("ScheduledType", "body", m.ScheduledType); err != nil {
+		return err
+	}
+
+	if err := validate.Required("ScheduledType", "body", m.ScheduledType); err != nil {
+		return err
+	}
+
+	if m.ScheduledType != nil {
+		if err := m.ScheduledType.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ScheduledType")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b scheduled payment3 basic based on the context it is used
+func (m *OBScheduledPayment3Basic) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDebtorReference(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInstructedAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReference(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateScheduledPaymentDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateScheduledPaymentID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateScheduledType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBScheduledPayment3Basic) contextValidateAccountID(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountID != nil {
+		if err := m.AccountID.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBScheduledPayment3Basic) contextValidateDebtorReference(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.DebtorReference.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("ScheduledType")
+			return ve.ValidateName("DebtorReference")
 		}
 		return err
+	}
+
+	return nil
+}
+
+func (m *OBScheduledPayment3Basic) contextValidateInstructedAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.InstructedAmount != nil {
+		if err := m.InstructedAmount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("InstructedAmount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBScheduledPayment3Basic) contextValidateReference(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Reference.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Reference")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBScheduledPayment3Basic) contextValidateScheduledPaymentDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ScheduledPaymentDateTime != nil {
+		if err := m.ScheduledPaymentDateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ScheduledPaymentDateTime")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBScheduledPayment3Basic) contextValidateScheduledPaymentID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.ScheduledPaymentID.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("ScheduledPaymentId")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBScheduledPayment3Basic) contextValidateScheduledType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ScheduledType != nil {
+		if err := m.ScheduledType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ScheduledType")
+			}
+			return err
+		}
 	}
 
 	return nil

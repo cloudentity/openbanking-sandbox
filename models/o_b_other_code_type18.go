@@ -6,9 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // OBOtherCodeType18 Other fee rate type which is not available in the standard code set
@@ -21,11 +24,11 @@ type OBOtherCodeType18 struct {
 
 	// description
 	// Required: true
-	Description Description3 `json:"Description"`
+	Description *Description3 `json:"Description"`
 
 	// name
 	// Required: true
-	Name Name4 `json:"Name"`
+	Name *Name4 `json:"Name"`
 }
 
 // Validate validates this o b other code type1 8
@@ -51,7 +54,6 @@ func (m *OBOtherCodeType18) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBOtherCodeType18) validateCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Code) { // not required
 		return nil
 	}
@@ -68,11 +70,21 @@ func (m *OBOtherCodeType18) validateCode(formats strfmt.Registry) error {
 
 func (m *OBOtherCodeType18) validateDescription(formats strfmt.Registry) error {
 
-	if err := m.Description.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Description")
-		}
+	if err := validate.Required("Description", "body", m.Description); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Description", "body", m.Description); err != nil {
+		return err
+	}
+
+	if m.Description != nil {
+		if err := m.Description.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Description")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -80,11 +92,83 @@ func (m *OBOtherCodeType18) validateDescription(formats strfmt.Registry) error {
 
 func (m *OBOtherCodeType18) validateName(formats strfmt.Registry) error {
 
-	if err := m.Name.Validate(formats); err != nil {
+	if err := validate.Required("Name", "body", m.Name); err != nil {
+		return err
+	}
+
+	if err := validate.Required("Name", "body", m.Name); err != nil {
+		return err
+	}
+
+	if m.Name != nil {
+		if err := m.Name.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Name")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b other code type1 8 based on the context it is used
+func (m *OBOtherCodeType18) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCode(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDescription(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBOtherCodeType18) contextValidateCode(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Code.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Name")
+			return ve.ValidateName("Code")
 		}
 		return err
+	}
+
+	return nil
+}
+
+func (m *OBOtherCodeType18) contextValidateDescription(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Description != nil {
+		if err := m.Description.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Description")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBOtherCodeType18) contextValidateName(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Name != nil {
+		if err := m.Name.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Name")
+			}
+			return err
+		}
 	}
 
 	return nil

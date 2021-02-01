@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -80,7 +81,6 @@ func (m *OBReadConsentResponse1) validateData(formats strfmt.Registry) error {
 }
 
 func (m *OBReadConsentResponse1) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -98,7 +98,6 @@ func (m *OBReadConsentResponse1) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *OBReadConsentResponse1) validateMeta(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Meta) { // not required
 		return nil
 	}
@@ -117,8 +116,72 @@ func (m *OBReadConsentResponse1) validateMeta(formats strfmt.Registry) error {
 
 func (m *OBReadConsentResponse1) validateRisk(formats strfmt.Registry) error {
 
-	if err := validate.Required("Risk", "body", m.Risk); err != nil {
-		return err
+	if m.Risk == nil {
+		return errors.Required("Risk", "body", nil)
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read consent response1 based on the context it is used
+func (m *OBReadConsentResponse1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMeta(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadConsentResponse1) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadConsentResponse1) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Links")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadConsentResponse1) contextValidateMeta(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Meta != nil {
+		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Meta")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -156,7 +219,7 @@ type OBReadConsentResponse1Data struct {
 	// creation date time
 	// Required: true
 	// Format: date-time
-	CreationDateTime CreationDateTime `json:"CreationDateTime"`
+	CreationDateTime *CreationDateTime `json:"CreationDateTime"`
 
 	// Specified date and time the permissions will expire.
 	// If this is not populated, the permissions will be open ended.All dates in the JSON payloads are represented in ISO 8601 date-time format.
@@ -178,7 +241,7 @@ type OBReadConsentResponse1Data struct {
 	// status update date time
 	// Required: true
 	// Format: date-time
-	StatusUpdateDateTime StatusUpdateDateTime `json:"StatusUpdateDateTime"`
+	StatusUpdateDateTime *StatusUpdateDateTime `json:"StatusUpdateDateTime"`
 
 	// Specified start date and time for the transaction query period.
 	// If this is not populated, the start date will be open ended, and data will be returned from the earliest available transaction.All dates in the JSON payloads are represented in ISO 8601 date-time format.
@@ -243,11 +306,11 @@ func (m *OBReadConsentResponse1Data) validateConsentID(formats strfmt.Registry) 
 		return err
 	}
 
-	if err := validate.MinLength("Data"+"."+"ConsentId", "body", string(*m.ConsentID), 1); err != nil {
+	if err := validate.MinLength("Data"+"."+"ConsentId", "body", *m.ConsentID, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Data"+"."+"ConsentId", "body", string(*m.ConsentID), 128); err != nil {
+	if err := validate.MaxLength("Data"+"."+"ConsentId", "body", *m.ConsentID, 128); err != nil {
 		return err
 	}
 
@@ -256,18 +319,27 @@ func (m *OBReadConsentResponse1Data) validateConsentID(formats strfmt.Registry) 
 
 func (m *OBReadConsentResponse1Data) validateCreationDateTime(formats strfmt.Registry) error {
 
-	if err := m.CreationDateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Data" + "." + "CreationDateTime")
-		}
+	if err := validate.Required("Data"+"."+"CreationDateTime", "body", m.CreationDateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Data"+"."+"CreationDateTime", "body", m.CreationDateTime); err != nil {
+		return err
+	}
+
+	if m.CreationDateTime != nil {
+		if err := m.CreationDateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data" + "." + "CreationDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBReadConsentResponse1Data) validateExpirationDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ExpirationDateTime) { // not required
 		return nil
 	}
@@ -373,18 +445,27 @@ func (m *OBReadConsentResponse1Data) validateStatus(formats strfmt.Registry) err
 
 func (m *OBReadConsentResponse1Data) validateStatusUpdateDateTime(formats strfmt.Registry) error {
 
-	if err := m.StatusUpdateDateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Data" + "." + "StatusUpdateDateTime")
-		}
+	if err := validate.Required("Data"+"."+"StatusUpdateDateTime", "body", m.StatusUpdateDateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Data"+"."+"StatusUpdateDateTime", "body", m.StatusUpdateDateTime); err != nil {
+		return err
+	}
+
+	if m.StatusUpdateDateTime != nil {
+		if err := m.StatusUpdateDateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data" + "." + "StatusUpdateDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBReadConsentResponse1Data) validateTransactionFromDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TransactionFromDateTime) { // not required
 		return nil
 	}
@@ -397,13 +478,58 @@ func (m *OBReadConsentResponse1Data) validateTransactionFromDateTime(formats str
 }
 
 func (m *OBReadConsentResponse1Data) validateTransactionToDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TransactionToDateTime) { // not required
 		return nil
 	}
 
 	if err := validate.FormatOf("Data"+"."+"TransactionToDateTime", "body", "date-time", m.TransactionToDateTime.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read consent response1 data based on the context it is used
+func (m *OBReadConsentResponse1Data) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCreationDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatusUpdateDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadConsentResponse1Data) contextValidateCreationDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreationDateTime != nil {
+		if err := m.CreationDateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data" + "." + "CreationDateTime")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadConsentResponse1Data) contextValidateStatusUpdateDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.StatusUpdateDateTime != nil {
+		if err := m.StatusUpdateDateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data" + "." + "StatusUpdateDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil

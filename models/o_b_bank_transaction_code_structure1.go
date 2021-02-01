@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -54,11 +56,11 @@ func (m *OBBankTransactionCodeStructure1) validateCode(formats strfmt.Registry) 
 		return err
 	}
 
-	if err := validate.MinLength("Code", "body", string(*m.Code), 1); err != nil {
+	if err := validate.MinLength("Code", "body", *m.Code, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Code", "body", string(*m.Code), 4); err != nil {
+	if err := validate.MaxLength("Code", "body", *m.Code, 4); err != nil {
 		return err
 	}
 
@@ -71,14 +73,19 @@ func (m *OBBankTransactionCodeStructure1) validateSubCode(formats strfmt.Registr
 		return err
 	}
 
-	if err := validate.MinLength("SubCode", "body", string(*m.SubCode), 1); err != nil {
+	if err := validate.MinLength("SubCode", "body", *m.SubCode, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("SubCode", "body", string(*m.SubCode), 4); err != nil {
+	if err := validate.MaxLength("SubCode", "body", *m.SubCode, 4); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this o b bank transaction code structure1 based on context it is used
+func (m *OBBankTransactionCodeStructure1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

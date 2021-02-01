@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -45,7 +46,7 @@ type OBParty2 struct {
 
 	// party Id
 	// Required: true
-	PartyID PartyID `json:"PartyId"`
+	PartyID *PartyID `json:"PartyId"`
 
 	// party number
 	PartyNumber PartyNumber `json:"PartyNumber,omitempty"`
@@ -119,7 +120,6 @@ func (m *OBParty2) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateAccountRole(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AccountRole) { // not required
 		return nil
 	}
@@ -135,7 +135,6 @@ func (m *OBParty2) validateAccountRole(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateAddress(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Address) { // not required
 		return nil
 	}
@@ -160,7 +159,6 @@ func (m *OBParty2) validateAddress(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateEmailAddress(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EmailAddress) { // not required
 		return nil
 	}
@@ -176,7 +174,6 @@ func (m *OBParty2) validateEmailAddress(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateFullLegalName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.FullLegalName) { // not required
 		return nil
 	}
@@ -192,7 +189,6 @@ func (m *OBParty2) validateFullLegalName(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateLegalStructure(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LegalStructure) { // not required
 		return nil
 	}
@@ -208,7 +204,6 @@ func (m *OBParty2) validateLegalStructure(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateMobile(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Mobile) { // not required
 		return nil
 	}
@@ -224,7 +219,6 @@ func (m *OBParty2) validateMobile(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
@@ -241,18 +235,27 @@ func (m *OBParty2) validateName(formats strfmt.Registry) error {
 
 func (m *OBParty2) validatePartyID(formats strfmt.Registry) error {
 
-	if err := m.PartyID.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("PartyId")
-		}
+	if err := validate.Required("PartyId", "body", m.PartyID); err != nil {
 		return err
+	}
+
+	if err := validate.Required("PartyId", "body", m.PartyID); err != nil {
+		return err
+	}
+
+	if m.PartyID != nil {
+		if err := m.PartyID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PartyId")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBParty2) validatePartyNumber(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PartyNumber) { // not required
 		return nil
 	}
@@ -268,7 +271,6 @@ func (m *OBParty2) validatePartyNumber(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validatePartyType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PartyType) { // not required
 		return nil
 	}
@@ -284,7 +286,6 @@ func (m *OBParty2) validatePartyType(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validatePhone(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Phone) { // not required
 		return nil
 	}
@@ -300,13 +301,224 @@ func (m *OBParty2) validatePhone(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2) validateRelationships(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Relationships) { // not required
 		return nil
 	}
 
 	if m.Relationships != nil {
 		if err := m.Relationships.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Relationships")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b party2 based on the context it is used
+func (m *OBParty2) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountRole(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAddress(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateEmailAddress(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFullLegalName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLegalStructure(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMobile(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePartyID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePartyNumber(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePartyType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePhone(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRelationships(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBParty2) contextValidateAccountRole(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.AccountRole.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("AccountRole")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidateAddress(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Address); i++ {
+
+		if m.Address[i] != nil {
+			if err := m.Address[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Address" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidateEmailAddress(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.EmailAddress.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("EmailAddress")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidateFullLegalName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.FullLegalName.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("FullLegalName")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidateLegalStructure(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.LegalStructure.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("LegalStructure")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidateMobile(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Mobile.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Mobile")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidateName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Name.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Name")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidatePartyID(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PartyID != nil {
+		if err := m.PartyID.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("PartyId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidatePartyNumber(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.PartyNumber.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("PartyNumber")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidatePartyType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.PartyType.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("PartyType")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidatePhone(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Phone.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Phone")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2) contextValidateRelationships(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Relationships != nil {
+		if err := m.Relationships.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Relationships")
 			}
@@ -353,7 +565,7 @@ type OBParty2AddressItems0 struct {
 
 	// country
 	// Required: true
-	Country CountryCode `json:"Country"`
+	Country *CountryCode `json:"Country"`
 
 	// country sub division
 	CountrySubDivision CountrySubDivision `json:"CountrySubDivision,omitempty"`
@@ -411,7 +623,6 @@ func (m *OBParty2AddressItems0) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBParty2AddressItems0) validateAddressLine(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AddressLine) { // not required
 		return nil
 	}
@@ -428,11 +639,11 @@ func (m *OBParty2AddressItems0) validateAddressLine(formats strfmt.Registry) err
 
 	for i := 0; i < len(m.AddressLine); i++ {
 
-		if err := validate.MinLength("AddressLine"+"."+strconv.Itoa(i), "body", string(m.AddressLine[i]), 1); err != nil {
+		if err := validate.MinLength("AddressLine"+"."+strconv.Itoa(i), "body", m.AddressLine[i], 1); err != nil {
 			return err
 		}
 
-		if err := validate.MaxLength("AddressLine"+"."+strconv.Itoa(i), "body", string(m.AddressLine[i]), 70); err != nil {
+		if err := validate.MaxLength("AddressLine"+"."+strconv.Itoa(i), "body", m.AddressLine[i], 70); err != nil {
 			return err
 		}
 
@@ -442,7 +653,6 @@ func (m *OBParty2AddressItems0) validateAddressLine(formats strfmt.Registry) err
 }
 
 func (m *OBParty2AddressItems0) validateAddressType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AddressType) { // not required
 		return nil
 	}
@@ -458,7 +668,6 @@ func (m *OBParty2AddressItems0) validateAddressType(formats strfmt.Registry) err
 }
 
 func (m *OBParty2AddressItems0) validateBuildingNumber(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BuildingNumber) { // not required
 		return nil
 	}
@@ -475,18 +684,27 @@ func (m *OBParty2AddressItems0) validateBuildingNumber(formats strfmt.Registry) 
 
 func (m *OBParty2AddressItems0) validateCountry(formats strfmt.Registry) error {
 
-	if err := m.Country.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Country")
-		}
+	if err := validate.Required("Country", "body", m.Country); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Country", "body", m.Country); err != nil {
+		return err
+	}
+
+	if m.Country != nil {
+		if err := m.Country.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Country")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBParty2AddressItems0) validateCountrySubDivision(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CountrySubDivision) { // not required
 		return nil
 	}
@@ -502,7 +720,6 @@ func (m *OBParty2AddressItems0) validateCountrySubDivision(formats strfmt.Regist
 }
 
 func (m *OBParty2AddressItems0) validatePostCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PostCode) { // not required
 		return nil
 	}
@@ -518,7 +735,6 @@ func (m *OBParty2AddressItems0) validatePostCode(formats strfmt.Registry) error 
 }
 
 func (m *OBParty2AddressItems0) validateStreetName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StreetName) { // not required
 		return nil
 	}
@@ -534,12 +750,135 @@ func (m *OBParty2AddressItems0) validateStreetName(formats strfmt.Registry) erro
 }
 
 func (m *OBParty2AddressItems0) validateTownName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TownName) { // not required
 		return nil
 	}
 
 	if err := m.TownName.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("TownName")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b party2 address items0 based on the context it is used
+func (m *OBParty2AddressItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAddressType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBuildingNumber(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCountry(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCountrySubDivision(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePostCode(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStreetName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTownName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBParty2AddressItems0) contextValidateAddressType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.AddressType.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("AddressType")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2AddressItems0) contextValidateBuildingNumber(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.BuildingNumber.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("BuildingNumber")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2AddressItems0) contextValidateCountry(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Country != nil {
+		if err := m.Country.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Country")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBParty2AddressItems0) contextValidateCountrySubDivision(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.CountrySubDivision.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("CountrySubDivision")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2AddressItems0) contextValidatePostCode(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.PostCode.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("PostCode")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2AddressItems0) contextValidateStreetName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.StreetName.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("StreetName")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBParty2AddressItems0) contextValidateTownName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.TownName.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("TownName")
 		}

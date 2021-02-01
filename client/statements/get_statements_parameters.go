@@ -16,95 +16,119 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetStatementsParams creates a new GetStatementsParams object
-// with the default values initialized.
+// NewGetStatementsParams creates a new GetStatementsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetStatementsParams() *GetStatementsParams {
-	var ()
 	return &GetStatementsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetStatementsParamsWithTimeout creates a new GetStatementsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetStatementsParamsWithTimeout(timeout time.Duration) *GetStatementsParams {
-	var ()
 	return &GetStatementsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetStatementsParamsWithContext creates a new GetStatementsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetStatementsParamsWithContext(ctx context.Context) *GetStatementsParams {
-	var ()
 	return &GetStatementsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetStatementsParamsWithHTTPClient creates a new GetStatementsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetStatementsParamsWithHTTPClient(client *http.Client) *GetStatementsParams {
-	var ()
 	return &GetStatementsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetStatementsParams contains all the parameters to send to the API endpoint
-for the get statements operation typically these are written to a http.Request
+/* GetStatementsParams contains all the parameters to send to the API endpoint
+   for the get statements operation.
+
+   Typically these are written to a http.Request.
 */
 type GetStatementsParams struct {
 
-	/*Authorization
-	  An Authorisation Token as per https://tools.ietf.org/html/rfc6750
+	/* Authorization.
 
+	   An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 	*/
 	Authorization string
-	/*FromStatementDateTime
-	  The UTC ISO 8601 Date Time to filter statements FROM
+
+	/* FromStatementDateTime.
+
+	     The UTC ISO 8601 Date Time to filter statements FROM
 	NB Time component is optional - set to 00:00:00 for just Date.
 	If the Date Time contains a timezone, the ASPSP must ignore the timezone component.
 
+	     Format: date-time
 	*/
 	FromStatementDateTime *strfmt.DateTime
-	/*ToStatementDateTime
-	  The UTC ISO 8601 Date Time to filter statements TO
+
+	/* ToStatementDateTime.
+
+	     The UTC ISO 8601 Date Time to filter statements TO
 	NB Time component is optional - set to 00:00:00 for just Date.
 	If the Date Time contains a timezone, the ASPSP must ignore the timezone component.
 
+	     Format: date-time
 	*/
 	ToStatementDateTime *strfmt.DateTime
-	/*XCustomerUserAgent
-	  Indicates the user-agent that the PSU is using.
 
+	/* XCustomerUserAgent.
+
+	   Indicates the user-agent that the PSU is using.
 	*/
 	XCustomerUserAgent *string
-	/*XFapiAuthDate
-	  The time when the PSU last logged in with the TPP.
+
+	/* XFapiAuthDate.
+
+	     The time when the PSU last logged in with the TPP.
 	All dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below:
 	Sun, 10 Sep 2017 19:43:31 UTC
-
 	*/
 	XFapiAuthDate *string
-	/*XFapiCustomerIPAddress
-	  The PSU's IP address if the PSU is currently logged in with the TPP.
 
+	/* XFapiCustomerIPAddress.
+
+	   The PSU's IP address if the PSU is currently logged in with the TPP.
 	*/
 	XFapiCustomerIPAddress *string
-	/*XFapiInteractionID
-	  An RFC4122 UID used as a correlation id.
 
+	/* XFapiInteractionID.
+
+	   An RFC4122 UID used as a correlation id.
 	*/
 	XFapiInteractionID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get statements params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetStatementsParams) WithDefaults() *GetStatementsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get statements params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetStatementsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get statements params
@@ -234,32 +258,34 @@ func (o *GetStatementsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param fromStatementDateTime
 		var qrFromStatementDateTime strfmt.DateTime
+
 		if o.FromStatementDateTime != nil {
 			qrFromStatementDateTime = *o.FromStatementDateTime
 		}
 		qFromStatementDateTime := qrFromStatementDateTime.String()
 		if qFromStatementDateTime != "" {
+
 			if err := r.SetQueryParam("fromStatementDateTime", qFromStatementDateTime); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ToStatementDateTime != nil {
 
 		// query param toStatementDateTime
 		var qrToStatementDateTime strfmt.DateTime
+
 		if o.ToStatementDateTime != nil {
 			qrToStatementDateTime = *o.ToStatementDateTime
 		}
 		qToStatementDateTime := qrToStatementDateTime.String()
 		if qToStatementDateTime != "" {
+
 			if err := r.SetQueryParam("toStatementDateTime", qToStatementDateTime); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.XCustomerUserAgent != nil {
@@ -268,7 +294,6 @@ func (o *GetStatementsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("x-customer-user-agent", *o.XCustomerUserAgent); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiAuthDate != nil {
@@ -277,7 +302,6 @@ func (o *GetStatementsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("x-fapi-auth-date", *o.XFapiAuthDate); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiCustomerIPAddress != nil {
@@ -286,7 +310,6 @@ func (o *GetStatementsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("x-fapi-customer-ip-address", *o.XFapiCustomerIPAddress); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiInteractionID != nil {
@@ -295,7 +318,6 @@ func (o *GetStatementsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetHeaderParam("x-fapi-interaction-id", *o.XFapiInteractionID); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

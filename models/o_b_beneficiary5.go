@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -73,7 +75,6 @@ func (m *OBBeneficiary5) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBBeneficiary5) validateAccountID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AccountID) { // not required
 		return nil
 	}
@@ -89,7 +90,6 @@ func (m *OBBeneficiary5) validateAccountID(formats strfmt.Registry) error {
 }
 
 func (m *OBBeneficiary5) validateBeneficiaryID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BeneficiaryID) { // not required
 		return nil
 	}
@@ -105,7 +105,6 @@ func (m *OBBeneficiary5) validateBeneficiaryID(formats strfmt.Registry) error {
 }
 
 func (m *OBBeneficiary5) validateBeneficiaryType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BeneficiaryType) { // not required
 		return nil
 	}
@@ -121,7 +120,6 @@ func (m *OBBeneficiary5) validateBeneficiaryType(formats strfmt.Registry) error 
 }
 
 func (m *OBBeneficiary5) validateCreditorAccount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreditorAccount) { // not required
 		return nil
 	}
@@ -139,7 +137,6 @@ func (m *OBBeneficiary5) validateCreditorAccount(formats strfmt.Registry) error 
 }
 
 func (m *OBBeneficiary5) validateCreditorAgent(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreditorAgent) { // not required
 		return nil
 	}
@@ -157,12 +154,121 @@ func (m *OBBeneficiary5) validateCreditorAgent(formats strfmt.Registry) error {
 }
 
 func (m *OBBeneficiary5) validateReference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Reference) { // not required
 		return nil
 	}
 
 	if err := m.Reference.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Reference")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b beneficiary5 based on the context it is used
+func (m *OBBeneficiary5) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBeneficiaryID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBeneficiaryType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreditorAccount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreditorAgent(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateReference(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBBeneficiary5) contextValidateAccountID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.AccountID.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("AccountId")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBBeneficiary5) contextValidateBeneficiaryID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.BeneficiaryID.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("BeneficiaryId")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBBeneficiary5) contextValidateBeneficiaryType(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.BeneficiaryType.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("BeneficiaryType")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBBeneficiary5) contextValidateCreditorAccount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreditorAccount != nil {
+		if err := m.CreditorAccount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditorAccount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBBeneficiary5) contextValidateCreditorAgent(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreditorAgent != nil {
+		if err := m.CreditorAgent.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditorAgent")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBBeneficiary5) contextValidateReference(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Reference.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("Reference")
 		}

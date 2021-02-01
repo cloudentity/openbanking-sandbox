@@ -79,7 +79,6 @@ func (o *CreateAccountAccessConsentsReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -90,12 +89,13 @@ func NewCreateAccountAccessConsentsCreated() *CreateAccountAccessConsentsCreated
 	return &CreateAccountAccessConsentsCreated{}
 }
 
-/*CreateAccountAccessConsentsCreated handles this case with default header values.
+/* CreateAccountAccessConsentsCreated describes a response with status code 201, with default header values.
 
 Account Access Consents Created
 */
 type CreateAccountAccessConsentsCreated struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -105,15 +105,18 @@ type CreateAccountAccessConsentsCreated struct {
 func (o *CreateAccountAccessConsentsCreated) Error() string {
 	return fmt.Sprintf("[POST /account-access-consents][%d] createAccountAccessConsentsCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateAccountAccessConsentsCreated) GetPayload() *models.OBReadConsentResponse1 {
 	return o.Payload
 }
 
 func (o *CreateAccountAccessConsentsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBReadConsentResponse1)
 
@@ -130,12 +133,13 @@ func NewCreateAccountAccessConsentsBadRequest() *CreateAccountAccessConsentsBadR
 	return &CreateAccountAccessConsentsBadRequest{}
 }
 
-/*CreateAccountAccessConsentsBadRequest handles this case with default header values.
+/* CreateAccountAccessConsentsBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type CreateAccountAccessConsentsBadRequest struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -145,15 +149,18 @@ type CreateAccountAccessConsentsBadRequest struct {
 func (o *CreateAccountAccessConsentsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /account-access-consents][%d] createAccountAccessConsentsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateAccountAccessConsentsBadRequest) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *CreateAccountAccessConsentsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -170,12 +177,13 @@ func NewCreateAccountAccessConsentsUnauthorized() *CreateAccountAccessConsentsUn
 	return &CreateAccountAccessConsentsUnauthorized{}
 }
 
-/*CreateAccountAccessConsentsUnauthorized handles this case with default header values.
+/* CreateAccountAccessConsentsUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type CreateAccountAccessConsentsUnauthorized struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -186,8 +194,12 @@ func (o *CreateAccountAccessConsentsUnauthorized) Error() string {
 
 func (o *CreateAccountAccessConsentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -197,12 +209,13 @@ func NewCreateAccountAccessConsentsForbidden() *CreateAccountAccessConsentsForbi
 	return &CreateAccountAccessConsentsForbidden{}
 }
 
-/*CreateAccountAccessConsentsForbidden handles this case with default header values.
+/* CreateAccountAccessConsentsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type CreateAccountAccessConsentsForbidden struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -212,15 +225,18 @@ type CreateAccountAccessConsentsForbidden struct {
 func (o *CreateAccountAccessConsentsForbidden) Error() string {
 	return fmt.Sprintf("[POST /account-access-consents][%d] createAccountAccessConsentsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *CreateAccountAccessConsentsForbidden) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *CreateAccountAccessConsentsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -237,12 +253,13 @@ func NewCreateAccountAccessConsentsMethodNotAllowed() *CreateAccountAccessConsen
 	return &CreateAccountAccessConsentsMethodNotAllowed{}
 }
 
-/*CreateAccountAccessConsentsMethodNotAllowed handles this case with default header values.
+/* CreateAccountAccessConsentsMethodNotAllowed describes a response with status code 405, with default header values.
 
 Method Not Allowed
 */
 type CreateAccountAccessConsentsMethodNotAllowed struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -253,8 +270,12 @@ func (o *CreateAccountAccessConsentsMethodNotAllowed) Error() string {
 
 func (o *CreateAccountAccessConsentsMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -264,12 +285,13 @@ func NewCreateAccountAccessConsentsNotAcceptable() *CreateAccountAccessConsentsN
 	return &CreateAccountAccessConsentsNotAcceptable{}
 }
 
-/*CreateAccountAccessConsentsNotAcceptable handles this case with default header values.
+/* CreateAccountAccessConsentsNotAcceptable describes a response with status code 406, with default header values.
 
 Not Acceptable
 */
 type CreateAccountAccessConsentsNotAcceptable struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -280,8 +302,12 @@ func (o *CreateAccountAccessConsentsNotAcceptable) Error() string {
 
 func (o *CreateAccountAccessConsentsNotAcceptable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -291,12 +317,13 @@ func NewCreateAccountAccessConsentsUnsupportedMediaType() *CreateAccountAccessCo
 	return &CreateAccountAccessConsentsUnsupportedMediaType{}
 }
 
-/*CreateAccountAccessConsentsUnsupportedMediaType handles this case with default header values.
+/* CreateAccountAccessConsentsUnsupportedMediaType describes a response with status code 415, with default header values.
 
 Unsupported Media Type
 */
 type CreateAccountAccessConsentsUnsupportedMediaType struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -307,8 +334,12 @@ func (o *CreateAccountAccessConsentsUnsupportedMediaType) Error() string {
 
 func (o *CreateAccountAccessConsentsUnsupportedMediaType) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -318,15 +349,17 @@ func NewCreateAccountAccessConsentsTooManyRequests() *CreateAccountAccessConsent
 	return &CreateAccountAccessConsentsTooManyRequests{}
 }
 
-/*CreateAccountAccessConsentsTooManyRequests handles this case with default header values.
+/* CreateAccountAccessConsentsTooManyRequests describes a response with status code 429, with default header values.
 
 Too Many Requests
 */
 type CreateAccountAccessConsentsTooManyRequests struct {
-	/*Number in seconds to wait
+
+	/* Number in seconds to wait
 	 */
 	RetryAfter int64
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -337,15 +370,23 @@ func (o *CreateAccountAccessConsentsTooManyRequests) Error() string {
 
 func (o *CreateAccountAccessConsentsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Retry-After
-	retryAfter, err := swag.ConvertInt64(response.GetHeader("Retry-After"))
-	if err != nil {
-		return errors.InvalidType("Retry-After", "header", "int64", response.GetHeader("Retry-After"))
-	}
-	o.RetryAfter = retryAfter
+	// hydrates response header Retry-After
+	hdrRetryAfter := response.GetHeader("Retry-After")
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	if hdrRetryAfter != "" {
+		valretryAfter, err := swag.ConvertInt64(hdrRetryAfter)
+		if err != nil {
+			return errors.InvalidType("Retry-After", "header", "int64", hdrRetryAfter)
+		}
+		o.RetryAfter = valretryAfter
+	}
+
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -355,12 +396,13 @@ func NewCreateAccountAccessConsentsInternalServerError() *CreateAccountAccessCon
 	return &CreateAccountAccessConsentsInternalServerError{}
 }
 
-/*CreateAccountAccessConsentsInternalServerError handles this case with default header values.
+/* CreateAccountAccessConsentsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
 type CreateAccountAccessConsentsInternalServerError struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -370,15 +412,18 @@ type CreateAccountAccessConsentsInternalServerError struct {
 func (o *CreateAccountAccessConsentsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /account-access-consents][%d] createAccountAccessConsentsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *CreateAccountAccessConsentsInternalServerError) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *CreateAccountAccessConsentsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 

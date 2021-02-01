@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 )
 
@@ -16,5 +18,10 @@ type OBExternalSwitchStatusCode string
 
 // Validate validates this o b external switch status code
 func (m OBExternalSwitchStatusCode) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this o b external switch status code based on context it is used
+func (m OBExternalSwitchStatusCode) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }

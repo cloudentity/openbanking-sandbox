@@ -6,9 +6,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // OBCashAccount50 Provides the details to identify the beneficiary account.
@@ -18,14 +21,14 @@ type OBCashAccount50 struct {
 
 	// identification
 	// Required: true
-	Identification Identification0 `json:"Identification"`
+	Identification *Identification0 `json:"Identification"`
 
 	// name
 	Name Name0 `json:"Name,omitempty"`
 
 	// scheme name
 	// Required: true
-	SchemeName OBExternalAccountIdentification4Code `json:"SchemeName"`
+	SchemeName *OBExternalAccountIdentification4Code `json:"SchemeName"`
 
 	// secondary identification
 	SecondaryIdentification SecondaryIdentification `json:"SecondaryIdentification,omitempty"`
@@ -59,18 +62,27 @@ func (m *OBCashAccount50) Validate(formats strfmt.Registry) error {
 
 func (m *OBCashAccount50) validateIdentification(formats strfmt.Registry) error {
 
-	if err := m.Identification.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Identification")
-		}
+	if err := validate.Required("Identification", "body", m.Identification); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Identification", "body", m.Identification); err != nil {
+		return err
+	}
+
+	if m.Identification != nil {
+		if err := m.Identification.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Identification")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBCashAccount50) validateName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
@@ -87,9 +99,34 @@ func (m *OBCashAccount50) validateName(formats strfmt.Registry) error {
 
 func (m *OBCashAccount50) validateSchemeName(formats strfmt.Registry) error {
 
-	if err := m.SchemeName.Validate(formats); err != nil {
+	if err := validate.Required("SchemeName", "body", m.SchemeName); err != nil {
+		return err
+	}
+
+	if err := validate.Required("SchemeName", "body", m.SchemeName); err != nil {
+		return err
+	}
+
+	if m.SchemeName != nil {
+		if err := m.SchemeName.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("SchemeName")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBCashAccount50) validateSecondaryIdentification(formats strfmt.Registry) error {
+	if swag.IsZero(m.SecondaryIdentification) { // not required
+		return nil
+	}
+
+	if err := m.SecondaryIdentification.Validate(formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("SchemeName")
+			return ve.ValidateName("SecondaryIdentification")
 		}
 		return err
 	}
@@ -97,13 +134,75 @@ func (m *OBCashAccount50) validateSchemeName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *OBCashAccount50) validateSecondaryIdentification(formats strfmt.Registry) error {
+// ContextValidate validate this o b cash account5 0 based on the context it is used
+func (m *OBCashAccount50) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
 
-	if swag.IsZero(m.SecondaryIdentification) { // not required
-		return nil
+	if err := m.contextValidateIdentification(ctx, formats); err != nil {
+		res = append(res, err)
 	}
 
-	if err := m.SecondaryIdentification.Validate(formats); err != nil {
+	if err := m.contextValidateName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSchemeName(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSecondaryIdentification(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBCashAccount50) contextValidateIdentification(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Identification != nil {
+		if err := m.Identification.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Identification")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBCashAccount50) contextValidateName(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.Name.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("Name")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBCashAccount50) contextValidateSchemeName(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SchemeName != nil {
+		if err := m.SchemeName.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("SchemeName")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBCashAccount50) contextValidateSecondaryIdentification(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.SecondaryIdentification.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("SecondaryIdentification")
 		}

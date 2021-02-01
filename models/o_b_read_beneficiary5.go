@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -71,7 +72,6 @@ func (m *OBReadBeneficiary5) validateData(formats strfmt.Registry) error {
 }
 
 func (m *OBReadBeneficiary5) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -89,13 +89,76 @@ func (m *OBReadBeneficiary5) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *OBReadBeneficiary5) validateMeta(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Meta) { // not required
 		return nil
 	}
 
 	if m.Meta != nil {
 		if err := m.Meta.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Meta")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read beneficiary5 based on the context it is used
+func (m *OBReadBeneficiary5) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMeta(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBeneficiary5) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBeneficiary5) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Links")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBeneficiary5) contextValidateMeta(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Meta != nil {
+		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Meta")
 			}
@@ -148,7 +211,6 @@ func (m *OBReadBeneficiary5Data) Validate(formats strfmt.Registry) error {
 }
 
 func (m *OBReadBeneficiary5Data) validateBeneficiary(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Beneficiary) { // not required
 		return nil
 	}
@@ -160,6 +222,38 @@ func (m *OBReadBeneficiary5Data) validateBeneficiary(formats strfmt.Registry) er
 
 		if m.Beneficiary[i] != nil {
 			if err := m.Beneficiary[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Data" + "." + "Beneficiary" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read beneficiary5 data based on the context it is used
+func (m *OBReadBeneficiary5Data) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBeneficiary(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBeneficiary5Data) contextValidateBeneficiary(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Beneficiary); i++ {
+
+		if m.Beneficiary[i] != nil {
+			if err := m.Beneficiary[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Data" + "." + "Beneficiary" + "." + strconv.Itoa(i))
 				}

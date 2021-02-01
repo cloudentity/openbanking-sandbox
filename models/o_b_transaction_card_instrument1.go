@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -101,7 +102,6 @@ func (m *OBTransactionCardInstrument1) validateAuthorisationTypeEnum(path, locat
 }
 
 func (m *OBTransactionCardInstrument1) validateAuthorisationType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AuthorisationType) { // not required
 		return nil
 	}
@@ -167,16 +167,15 @@ func (m *OBTransactionCardInstrument1) validateCardSchemeName(formats strfmt.Reg
 }
 
 func (m *OBTransactionCardInstrument1) validateIdentification(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Identification) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Identification", "body", string(m.Identification), 1); err != nil {
+	if err := validate.MinLength("Identification", "body", m.Identification, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Identification", "body", string(m.Identification), 34); err != nil {
+	if err := validate.MaxLength("Identification", "body", m.Identification, 34); err != nil {
 		return err
 	}
 
@@ -184,19 +183,23 @@ func (m *OBTransactionCardInstrument1) validateIdentification(formats strfmt.Reg
 }
 
 func (m *OBTransactionCardInstrument1) validateName(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Name", "body", string(m.Name), 1); err != nil {
+	if err := validate.MinLength("Name", "body", m.Name, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Name", "body", string(m.Name), 70); err != nil {
+	if err := validate.MaxLength("Name", "body", m.Name, 70); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this o b transaction card instrument1 based on context it is used
+func (m *OBTransactionCardInstrument1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

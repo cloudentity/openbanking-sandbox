@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -72,7 +73,6 @@ func (m *OBReadBalance1) validateData(formats strfmt.Registry) error {
 }
 
 func (m *OBReadBalance1) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -90,13 +90,76 @@ func (m *OBReadBalance1) validateLinks(formats strfmt.Registry) error {
 }
 
 func (m *OBReadBalance1) validateMeta(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Meta) { // not required
 		return nil
 	}
 
 	if m.Meta != nil {
 		if err := m.Meta.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Meta")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read balance1 based on the context it is used
+func (m *OBReadBalance1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateData(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMeta(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBalance1) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Data != nil {
+		if err := m.Data.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Data")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Links != nil {
+		if err := m.Links.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Links")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1) contextValidateMeta(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Meta != nil {
+		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Meta")
 			}
@@ -181,6 +244,38 @@ func (m *OBReadBalance1Data) validateBalance(formats strfmt.Registry) error {
 	return nil
 }
 
+// ContextValidate validate this o b read balance1 data based on the context it is used
+func (m *OBReadBalance1Data) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBalance(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBalance1Data) contextValidateBalance(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Balance); i++ {
+
+		if m.Balance[i] != nil {
+			if err := m.Balance[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Data" + "." + "Balance" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // MarshalBinary interface implementation
 func (m *OBReadBalance1Data) MarshalBinary() ([]byte, error) {
 	if m == nil {
@@ -206,7 +301,7 @@ type OBReadBalance1DataBalanceItems0 struct {
 
 	// account Id
 	// Required: true
-	AccountID AccountID `json:"AccountId"`
+	AccountID *AccountID `json:"AccountId"`
 
 	// amount
 	// Required: true
@@ -214,7 +309,7 @@ type OBReadBalance1DataBalanceItems0 struct {
 
 	// credit debit indicator
 	// Required: true
-	CreditDebitIndicator OBCreditDebitCode2 `json:"CreditDebitIndicator"`
+	CreditDebitIndicator *OBCreditDebitCode2 `json:"CreditDebitIndicator"`
 
 	// credit line
 	CreditLine []*OBReadBalance1DataBalanceItems0CreditLineItems0 `json:"CreditLine"`
@@ -228,7 +323,7 @@ type OBReadBalance1DataBalanceItems0 struct {
 
 	// type
 	// Required: true
-	Type OBBalanceType1Code `json:"Type"`
+	Type *OBBalanceType1Code `json:"Type"`
 }
 
 // Validate validates this o b read balance1 data balance items0
@@ -267,11 +362,21 @@ func (m *OBReadBalance1DataBalanceItems0) Validate(formats strfmt.Registry) erro
 
 func (m *OBReadBalance1DataBalanceItems0) validateAccountID(formats strfmt.Registry) error {
 
-	if err := m.AccountID.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountId")
-		}
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	if m.AccountID != nil {
+		if err := m.AccountID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -297,18 +402,27 @@ func (m *OBReadBalance1DataBalanceItems0) validateAmount(formats strfmt.Registry
 
 func (m *OBReadBalance1DataBalanceItems0) validateCreditDebitIndicator(formats strfmt.Registry) error {
 
-	if err := m.CreditDebitIndicator.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("CreditDebitIndicator")
-		}
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
 		return err
+	}
+
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
+		return err
+	}
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBReadBalance1DataBalanceItems0) validateCreditLine(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreditLine) { // not required
 		return nil
 	}
@@ -347,11 +461,125 @@ func (m *OBReadBalance1DataBalanceItems0) validateDateTime(formats strfmt.Regist
 
 func (m *OBReadBalance1DataBalanceItems0) validateType(formats strfmt.Registry) error {
 
-	if err := m.Type.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Type")
-		}
+	if err := validate.Required("Type", "body", m.Type); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Type", "body", m.Type); err != nil {
+		return err
+	}
+
+	if m.Type != nil {
+		if err := m.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read balance1 data balance items0 based on the context it is used
+func (m *OBReadBalance1DataBalanceItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreditDebitIndicator(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreditLine(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0) contextValidateAccountID(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountID != nil {
+		if err := m.AccountID.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0) contextValidateCreditDebitIndicator(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0) contextValidateCreditLine(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.CreditLine); i++ {
+
+		if m.CreditLine[i] != nil {
+			if err := m.CreditLine[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("CreditLine" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Type != nil {
+		if err := m.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Type")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -382,11 +610,11 @@ type OBReadBalance1DataBalanceItems0Amount struct {
 
 	// amount
 	// Required: true
-	Amount OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
+	Amount *OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
 
 	// currency
 	// Required: true
-	Currency ActiveOrHistoricCurrencyCode1 `json:"Currency"`
+	Currency *ActiveOrHistoricCurrencyCode1 `json:"Currency"`
 }
 
 // Validate validates this o b read balance1 data balance items0 amount
@@ -409,11 +637,21 @@ func (m *OBReadBalance1DataBalanceItems0Amount) Validate(formats strfmt.Registry
 
 func (m *OBReadBalance1DataBalanceItems0Amount) validateAmount(formats strfmt.Registry) error {
 
-	if err := m.Amount.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Amount" + "." + "Amount")
-		}
+	if err := validate.Required("Amount"+"."+"Amount", "body", m.Amount); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Amount"+"."+"Amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	if m.Amount != nil {
+		if err := m.Amount.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Amount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -421,11 +659,67 @@ func (m *OBReadBalance1DataBalanceItems0Amount) validateAmount(formats strfmt.Re
 
 func (m *OBReadBalance1DataBalanceItems0Amount) validateCurrency(formats strfmt.Registry) error {
 
-	if err := m.Currency.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Amount" + "." + "Currency")
-		}
+	if err := validate.Required("Amount"+"."+"Currency", "body", m.Currency); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Amount"+"."+"Currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	if m.Currency != nil {
+		if err := m.Currency.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Currency")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read balance1 data balance items0 amount based on the context it is used
+func (m *OBReadBalance1DataBalanceItems0Amount) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0Amount) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0Amount) contextValidateCurrency(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Currency != nil {
+		if err := m.Currency.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Currency")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -490,7 +784,6 @@ func (m *OBReadBalance1DataBalanceItems0CreditLineItems0) Validate(formats strfm
 }
 
 func (m *OBReadBalance1DataBalanceItems0CreditLineItems0) validateAmount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Amount) { // not required
 		return nil
 	}
@@ -539,8 +832,8 @@ const (
 	// OBReadBalance1DataBalanceItems0CreditLineItems0TypeEmergency captures enum value "Emergency"
 	OBReadBalance1DataBalanceItems0CreditLineItems0TypeEmergency string = "Emergency"
 
-	// OBReadBalance1DataBalanceItems0CreditLineItems0TypePreAgreed captures enum value "Pre-Agreed"
-	OBReadBalance1DataBalanceItems0CreditLineItems0TypePreAgreed string = "Pre-Agreed"
+	// OBReadBalance1DataBalanceItems0CreditLineItems0TypePreDashAgreed captures enum value "Pre-Agreed"
+	OBReadBalance1DataBalanceItems0CreditLineItems0TypePreDashAgreed string = "Pre-Agreed"
 
 	// OBReadBalance1DataBalanceItems0CreditLineItems0TypeTemporary captures enum value "Temporary"
 	OBReadBalance1DataBalanceItems0CreditLineItems0TypeTemporary string = "Temporary"
@@ -555,7 +848,6 @@ func (m *OBReadBalance1DataBalanceItems0CreditLineItems0) validateTypeEnum(path,
 }
 
 func (m *OBReadBalance1DataBalanceItems0CreditLineItems0) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -563,6 +855,34 @@ func (m *OBReadBalance1DataBalanceItems0CreditLineItems0) validateType(formats s
 	// value enum
 	if err := m.validateTypeEnum("Type", "body", m.Type); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read balance1 data balance items0 credit line items0 based on the context it is used
+func (m *OBReadBalance1DataBalanceItems0CreditLineItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0CreditLineItems0) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -593,11 +913,11 @@ type OBReadBalance1DataBalanceItems0CreditLineItems0Amount struct {
 
 	// amount
 	// Required: true
-	Amount OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
+	Amount *OBActiveCurrencyAndAmountSimpleType `json:"Amount"`
 
 	// currency
 	// Required: true
-	Currency ActiveOrHistoricCurrencyCode1 `json:"Currency"`
+	Currency *ActiveOrHistoricCurrencyCode1 `json:"Currency"`
 }
 
 // Validate validates this o b read balance1 data balance items0 credit line items0 amount
@@ -620,11 +940,21 @@ func (m *OBReadBalance1DataBalanceItems0CreditLineItems0Amount) Validate(formats
 
 func (m *OBReadBalance1DataBalanceItems0CreditLineItems0Amount) validateAmount(formats strfmt.Registry) error {
 
-	if err := m.Amount.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Amount" + "." + "Amount")
-		}
+	if err := validate.Required("Amount"+"."+"Amount", "body", m.Amount); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Amount"+"."+"Amount", "body", m.Amount); err != nil {
+		return err
+	}
+
+	if m.Amount != nil {
+		if err := m.Amount.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Amount")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -632,11 +962,67 @@ func (m *OBReadBalance1DataBalanceItems0CreditLineItems0Amount) validateAmount(f
 
 func (m *OBReadBalance1DataBalanceItems0CreditLineItems0Amount) validateCurrency(formats strfmt.Registry) error {
 
-	if err := m.Currency.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Amount" + "." + "Currency")
-		}
+	if err := validate.Required("Amount"+"."+"Currency", "body", m.Currency); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Amount"+"."+"Currency", "body", m.Currency); err != nil {
+		return err
+	}
+
+	if m.Currency != nil {
+		if err := m.Currency.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Currency")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b read balance1 data balance items0 credit line items0 amount based on the context it is used
+func (m *OBReadBalance1DataBalanceItems0CreditLineItems0Amount) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrency(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0CreditLineItems0Amount) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBReadBalance1DataBalanceItems0CreditLineItems0Amount) contextValidateCurrency(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Currency != nil {
+		if err := m.Currency.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount" + "." + "Currency")
+			}
+			return err
+		}
 	}
 
 	return nil

@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -74,11 +75,11 @@ func (m *OBErrorResponse1) validateCode(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MinLength("Code", "body", string(*m.Code), 1); err != nil {
+	if err := validate.MinLength("Code", "body", *m.Code, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Code", "body", string(*m.Code), 40); err != nil {
+	if err := validate.MaxLength("Code", "body", *m.Code, 40); err != nil {
 		return err
 	}
 
@@ -117,16 +118,15 @@ func (m *OBErrorResponse1) validateErrors(formats strfmt.Registry) error {
 }
 
 func (m *OBErrorResponse1) validateID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ID) { // not required
 		return nil
 	}
 
-	if err := validate.MinLength("Id", "body", string(m.ID), 1); err != nil {
+	if err := validate.MinLength("Id", "body", m.ID, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Id", "body", string(m.ID), 40); err != nil {
+	if err := validate.MaxLength("Id", "body", m.ID, 40); err != nil {
 		return err
 	}
 
@@ -139,12 +139,44 @@ func (m *OBErrorResponse1) validateMessage(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.MinLength("Message", "body", string(*m.Message), 1); err != nil {
+	if err := validate.MinLength("Message", "body", *m.Message, 1); err != nil {
 		return err
 	}
 
-	if err := validate.MaxLength("Message", "body", string(*m.Message), 500); err != nil {
+	if err := validate.MaxLength("Message", "body", *m.Message, 500); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b error response1 based on the context it is used
+func (m *OBErrorResponse1) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateErrors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBErrorResponse1) contextValidateErrors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Errors); i++ {
+
+		if m.Errors[i] != nil {
+			if err := m.Errors[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("Errors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

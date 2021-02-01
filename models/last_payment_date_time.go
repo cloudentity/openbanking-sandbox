@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -40,6 +42,11 @@ func (m LastPaymentDateTime) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+// ContextValidate validates this last payment date time based on context it is used
+func (m LastPaymentDateTime) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

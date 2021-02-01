@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -21,7 +22,7 @@ type OBTransaction6Basic struct {
 
 	// account Id
 	// Required: true
-	AccountID AccountID `json:"AccountId"`
+	AccountID *AccountID `json:"AccountId"`
 
 	// address line
 	AddressLine AddressLine `json:"AddressLine,omitempty"`
@@ -36,7 +37,7 @@ type OBTransaction6Basic struct {
 	// booking date time
 	// Required: true
 	// Format: date-time
-	BookingDateTime BookingDateTime `json:"BookingDateTime"`
+	BookingDateTime *BookingDateTime `json:"BookingDateTime"`
 
 	// card instrument
 	CardInstrument *OBTransactionCardInstrument1 `json:"CardInstrument,omitempty"`
@@ -46,7 +47,7 @@ type OBTransaction6Basic struct {
 
 	// credit debit indicator
 	// Required: true
-	CreditDebitIndicator OBCreditDebitCode1 `json:"CreditDebitIndicator"`
+	CreditDebitIndicator *OBCreditDebitCode1 `json:"CreditDebitIndicator"`
 
 	// currency exchange
 	CurrencyExchange *OBCurrencyExchange5 `json:"CurrencyExchange,omitempty"`
@@ -59,7 +60,7 @@ type OBTransaction6Basic struct {
 
 	// status
 	// Required: true
-	Status OBEntryStatus1Code `json:"Status"`
+	Status *OBEntryStatus1Code `json:"Status"`
 
 	// supplementary data
 	SupplementaryData OBSupplementaryData1 `json:"SupplementaryData,omitempty"`
@@ -154,18 +155,27 @@ func (m *OBTransaction6Basic) Validate(formats strfmt.Registry) error {
 
 func (m *OBTransaction6Basic) validateAccountID(formats strfmt.Registry) error {
 
-	if err := m.AccountID.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("AccountId")
-		}
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
 		return err
+	}
+
+	if err := validate.Required("AccountId", "body", m.AccountID); err != nil {
+		return err
+	}
+
+	if m.AccountID != nil {
+		if err := m.AccountID.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBTransaction6Basic) validateAddressLine(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AddressLine) { // not required
 		return nil
 	}
@@ -199,7 +209,6 @@ func (m *OBTransaction6Basic) validateAmount(formats strfmt.Registry) error {
 }
 
 func (m *OBTransaction6Basic) validateBankTransactionCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BankTransactionCode) { // not required
 		return nil
 	}
@@ -218,18 +227,27 @@ func (m *OBTransaction6Basic) validateBankTransactionCode(formats strfmt.Registr
 
 func (m *OBTransaction6Basic) validateBookingDateTime(formats strfmt.Registry) error {
 
-	if err := m.BookingDateTime.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("BookingDateTime")
-		}
+	if err := validate.Required("BookingDateTime", "body", m.BookingDateTime); err != nil {
 		return err
+	}
+
+	if err := validate.Required("BookingDateTime", "body", m.BookingDateTime); err != nil {
+		return err
+	}
+
+	if m.BookingDateTime != nil {
+		if err := m.BookingDateTime.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("BookingDateTime")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBTransaction6Basic) validateCardInstrument(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CardInstrument) { // not required
 		return nil
 	}
@@ -247,7 +265,6 @@ func (m *OBTransaction6Basic) validateCardInstrument(formats strfmt.Registry) er
 }
 
 func (m *OBTransaction6Basic) validateChargeAmount(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ChargeAmount) { // not required
 		return nil
 	}
@@ -266,18 +283,27 @@ func (m *OBTransaction6Basic) validateChargeAmount(formats strfmt.Registry) erro
 
 func (m *OBTransaction6Basic) validateCreditDebitIndicator(formats strfmt.Registry) error {
 
-	if err := m.CreditDebitIndicator.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("CreditDebitIndicator")
-		}
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
 		return err
+	}
+
+	if err := validate.Required("CreditDebitIndicator", "body", m.CreditDebitIndicator); err != nil {
+		return err
+	}
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBTransaction6Basic) validateCurrencyExchange(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CurrencyExchange) { // not required
 		return nil
 	}
@@ -295,7 +321,6 @@ func (m *OBTransaction6Basic) validateCurrencyExchange(formats strfmt.Registry) 
 }
 
 func (m *OBTransaction6Basic) validateProprietaryBankTransactionCode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ProprietaryBankTransactionCode) { // not required
 		return nil
 	}
@@ -313,7 +338,6 @@ func (m *OBTransaction6Basic) validateProprietaryBankTransactionCode(formats str
 }
 
 func (m *OBTransaction6Basic) validateStatementReference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.StatementReference) { // not required
 		return nil
 	}
@@ -334,18 +358,27 @@ func (m *OBTransaction6Basic) validateStatementReference(formats strfmt.Registry
 
 func (m *OBTransaction6Basic) validateStatus(formats strfmt.Registry) error {
 
-	if err := m.Status.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("Status")
-		}
+	if err := validate.Required("Status", "body", m.Status); err != nil {
 		return err
+	}
+
+	if err := validate.Required("Status", "body", m.Status); err != nil {
+		return err
+	}
+
+	if m.Status != nil {
+		if err := m.Status.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Status")
+			}
+			return err
+		}
 	}
 
 	return nil
 }
 
 func (m *OBTransaction6Basic) validateTransactionID(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TransactionID) { // not required
 		return nil
 	}
@@ -361,7 +394,6 @@ func (m *OBTransaction6Basic) validateTransactionID(formats strfmt.Registry) err
 }
 
 func (m *OBTransaction6Basic) validateTransactionMutability(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TransactionMutability) { // not required
 		return nil
 	}
@@ -377,7 +409,6 @@ func (m *OBTransaction6Basic) validateTransactionMutability(formats strfmt.Regis
 }
 
 func (m *OBTransaction6Basic) validateTransactionReference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TransactionReference) { // not required
 		return nil
 	}
@@ -393,12 +424,301 @@ func (m *OBTransaction6Basic) validateTransactionReference(formats strfmt.Regist
 }
 
 func (m *OBTransaction6Basic) validateValueDateTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ValueDateTime) { // not required
 		return nil
 	}
 
 	if err := m.ValueDateTime.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("ValueDateTime")
+		}
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this o b transaction6 basic based on the context it is used
+func (m *OBTransaction6Basic) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccountID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAddressLine(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBankTransactionCode(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateBookingDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCardInstrument(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateChargeAmount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCreditDebitIndicator(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCurrencyExchange(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateProprietaryBankTransactionCode(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatementReference(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTransactionID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTransactionMutability(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTransactionReference(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateValueDateTime(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateAccountID(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AccountID != nil {
+		if err := m.AccountID.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("AccountId")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateAddressLine(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.AddressLine.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("AddressLine")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Amount != nil {
+		if err := m.Amount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateBankTransactionCode(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BankTransactionCode != nil {
+		if err := m.BankTransactionCode.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("BankTransactionCode")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateBookingDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BookingDateTime != nil {
+		if err := m.BookingDateTime.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("BookingDateTime")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateCardInstrument(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CardInstrument != nil {
+		if err := m.CardInstrument.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CardInstrument")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateChargeAmount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ChargeAmount != nil {
+		if err := m.ChargeAmount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ChargeAmount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateCreditDebitIndicator(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CreditDebitIndicator != nil {
+		if err := m.CreditDebitIndicator.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CreditDebitIndicator")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateCurrencyExchange(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CurrencyExchange != nil {
+		if err := m.CurrencyExchange.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("CurrencyExchange")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateProprietaryBankTransactionCode(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ProprietaryBankTransactionCode != nil {
+		if err := m.ProprietaryBankTransactionCode.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ProprietaryBankTransactionCode")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateStatementReference(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.StatementReference); i++ {
+
+		if err := m.StatementReference[i].ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("StatementReference" + "." + strconv.Itoa(i))
+			}
+			return err
+		}
+
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Status != nil {
+		if err := m.Status.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("Status")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateTransactionID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.TransactionID.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("TransactionId")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateTransactionMutability(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.TransactionMutability.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("TransactionMutability")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateTransactionReference(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.TransactionReference.ContextValidate(ctx, formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("TransactionReference")
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (m *OBTransaction6Basic) contextValidateValueDateTime(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := m.ValueDateTime.ContextValidate(ctx, formats); err != nil {
 		if ve, ok := err.(*errors.Validation); ok {
 			return ve.ValidateName("ValueDateTime")
 		}
