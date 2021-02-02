@@ -60,7 +60,7 @@ func (s *Server) GetAccounts() func(*gin.Context) {
 		accounts := []*models.OBAccount6{}
 
 		for _, a := range userAccounts {
-			if has(introspectionResponse.AccountIDs, string(a.AccountID)) {
+			if has(introspectionResponse.AccountIDs, string(*a.AccountID)) {
 				account := a
 				if !has(grantedPermissions, "ReadAccountsDetail") {
 					account.Account = []*models.OBAccount6AccountItems0{}
@@ -117,7 +117,7 @@ func (s *Server) InternalGetAccounts() func(*gin.Context) {
 
 		for i, a := range accounts {
 			ia[i] = InternalAccount{
-				ID:   a.AccountID,
+				ID:   *a.AccountID,
 				Name: a.Nickname,
 			}
 		}
@@ -173,7 +173,7 @@ func (s *Server) GetBalances() func(ctx *gin.Context) {
 
 		for _, balance := range userBalances {
 			b := balance
-			if has(introspectionResponse.AccountIDs, string(b.AccountID)) {
+			if has(introspectionResponse.AccountIDs, string(*b.AccountID)) {
 				balances = append(balances, &b)
 			}
 		}
@@ -242,7 +242,7 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 
 		for _, transaction := range userTransactions {
 			t := transaction
-			if has(introspectionResponse.AccountIDs, string(t.AccountID)) {
+			if has(introspectionResponse.AccountIDs, string(*t.AccountID)) {
 				if !has(grantedPermissions, "ReadTransactionsDetail") {
 					t.TransactionInformation = ""
 					t.Balance = &models.OBTransactionCashBalance{}
