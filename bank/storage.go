@@ -6,13 +6,15 @@ import (
 	"io/ioutil"
 
 	"github.com/cloudentity/openbanking-sandbox/models"
+	paymentModels "github.com/cloudentity/openbanking-sandbox/openbanking/paymentinitiation/models"
 	"github.com/pkg/errors"
 )
 
 type Data struct {
-	Accounts     []models.OBAccount6                      `json:"accounts"`
-	Balances     []models.OBReadBalance1DataBalanceItems0 `json:"balances"`
-	Transactions []models.OBTransaction6                  `json:"transactions"`
+	Accounts     []models.OBAccount6                             `json:"accounts"`
+	Balances     []models.OBReadBalance1DataBalanceItems0        `json:"balances"`
+	Transactions []models.OBTransaction6                         `json:"transactions"`
+	Consents     []paymentModels.OBWriteDomesticConsentResponse5 `json:"consents"`
 }
 
 type Storage struct {
@@ -47,6 +49,26 @@ func (a *Storage) Load() error {
 	}
 
 	return nil
+}
+
+func (a *Storage) GetConsent(sub, consentID string) (paymentModels.OBWriteDomesticConsentResponse5, error) {
+	var (
+		consent paymentModels.OBWriteDomesticConsentResponse5
+		data    Data
+		ok      bool
+	)
+
+	if data, ok = a.userToData[sub]; !ok {
+		return consent, fmt.Errorf("no data found for user: %s", sub)
+	}
+
+	for _, c := range data.Consents {
+		if *c.Data.ConsentID == consentID {
+			return c, nil
+		}
+	}
+
+	return consent, fmt.Errorf("consent id not found for user: %s", sub)
 }
 
 func (a *Storage) GetAccounts(sub string) ([]models.OBAccount6, error) {
