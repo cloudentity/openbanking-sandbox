@@ -7,6 +7,7 @@ COPY go.mod .
 COPY go.sum .
 COPY client client
 COPY models models
+COPY openbanking openbanking
 
 RUN go mod download
 
