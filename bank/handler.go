@@ -66,8 +66,8 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 			return
 		}
 
-		if *consent.Data.Status != "Authorised" {
-			msg := "domestic payment consent does not have status authorised"
+		if *consent.Data.Status != "Authorised" { //nolint
+			msg := "domestic payment consent does not have status authorised" //nolint
 			c.JSON(http.StatusUnprocessableEntity, models.OBError1{
 				Message: &msg,
 			})
