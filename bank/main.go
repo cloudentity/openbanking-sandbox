@@ -75,9 +75,9 @@ func (s *Server) Start() error {
 	r := gin.Default()
 	r.GET("/accounts", s.GetAccounts())
 	r.GET("/internal/accounts/:sub", s.InternalGetAccounts())
-
 	r.GET("/transactions", s.GetTransactions())
 	r.GET("/balances", s.GetBalances())
+	r.POST("/domestic-payments", s.CreateDomesticPayment())
 
 	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
 }

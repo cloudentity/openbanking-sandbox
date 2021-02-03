@@ -1,18 +1,116 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/cloudentity/openbanking-sandbox/models"
+	paymentModels "github.com/cloudentity/openbanking-sandbox/openbanking/paymentinitiation/models"
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/strfmt"
 
 	"github.com/cloudentity/acp-client-go/client/openbanking"
 	acpClient "github.com/cloudentity/acp-client-go/models"
 )
+
+var (
+	StatusPayment     string = "AcceptedSettlementInProcess"
+	DomesticPaymentID string = "58923-001"
+)
+
+func (s *Server) CreateDomesticPayment() func(*gin.Context) {
+	return func(c *gin.Context) {
+		var (
+			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
+			obDomesticRequest     *paymentModels.OBWriteDomestic2
+			consent               paymentModels.OBWriteDomesticConsentResponse5
+			err                   error
+		)
+
+		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
+			msg := fmt.Sprintf("failed to introspect token: %+v", err)
+			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		scopes := strings.Split(introspectionResponse.Scope, " ")
+		if !has(scopes, "payments") {
+			msg := "token has no payments scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if err = json.NewDecoder(c.Request.Body).Decode(&obDomesticRequest); err != nil {
+			msg := "unable to decode domestic payments request object"
+			c.JSON(http.StatusBadRequest, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if consent, err = s.Storage.GetConsent(introspectionResponse.Subject, *obDomesticRequest.Data.ConsentID); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusNotFound, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if *consent.Data.Status != "Authorised" {
+			msg := "domestic payment consent does not have status authorised"
+			c.JSON(http.StatusUnprocessableEntity, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
+		// request initiation and consent initiation must match
+		if !initiationsAreEqual(*obDomesticRequest.Data.Initiation, *consent.Data.Initiation) {
+			msg := "request initiation does not match consent initiation"
+			c.JSON(http.StatusBadRequest, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
+		// request risk and consent risk must match
+		if !risksAreEqual(*obDomesticRequest.Risk, *consent.Risk) {
+			msg := "request risk does not match consent risk"
+			c.JSON(http.StatusBadRequest, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/domestic-payments", strconv.Itoa(s.Config.Port)))
+		response := paymentModels.OBWriteDomesticResponse5{
+			Data: &paymentModels.OBWriteDomesticResponse5Data{
+				DomesticPaymentID:    &DomesticPaymentID,
+				ConsentID:            consent.Data.ConsentID,
+				Status:               &StatusPayment,
+				Charges:              []*paymentModels.OBWriteDomesticResponse5DataChargesItems0{},
+				CreationDateTime:     newDateTimePtr(time.Now()),
+				StatusUpdateDateTime: newDateTimePtr(time.Now()),
+				Initiation:           toDomesticResponse5DataInitiation(*consent.Data.Initiation),
+			},
+			Links: &paymentModels.Links{
+				Self: &self,
+			},
+		}
+
+		c.PureJSON(http.StatusOK, response)
+	}
+}
 
 func (s *Server) GetAccounts() func(*gin.Context) {
 	return func(c *gin.Context) {
@@ -304,4 +402,42 @@ func has(list []string, a string) bool {
 		}
 	}
 	return false
+}
+
+func newDateTimePtr(t time.Time) *strfmt.DateTime {
+	str := strfmt.DateTime(t)
+	return &str
+}
+
+func initiationsAreEqual(initiation1, initiation2 interface{}) bool {
+	var (
+		initiation1Bytes []byte
+		initiation2Bytes []byte
+		err              error
+	)
+	if initiation1Bytes, err = json.Marshal(initiation1); err != nil {
+		return false
+	}
+	if initiation2Bytes, err = json.Marshal(initiation2); err != nil {
+		return false
+	}
+	return bytes.Equal(initiation1Bytes, initiation2Bytes)
+}
+
+func risksAreEqual(risk1, risk2 paymentModels.OBRisk1) bool {
+	return reflect.DeepEqual(risk1, risk2)
+}
+
+func toDomesticResponse5DataInitiation(initiation paymentModels.OBWriteDomesticConsentResponse5DataInitiation) *paymentModels.OBWriteDomesticResponse5DataInitiation {
+	return &paymentModels.OBWriteDomesticResponse5DataInitiation{
+		CreditorAccount:           (*paymentModels.OBWriteDomesticResponse5DataInitiationCreditorAccount)(initiation.CreditorAccount),
+		CreditorPostalAddress:     initiation.CreditorPostalAddress,
+		DebtorAccount:             (*paymentModels.OBWriteDomesticResponse5DataInitiationDebtorAccount)(initiation.DebtorAccount),
+		EndToEndIdentification:    initiation.EndToEndIdentification,
+		InstructedAmount:          (*paymentModels.OBWriteDomesticResponse5DataInitiationInstructedAmount)(initiation.InstructedAmount),
+		InstructionIdentification: initiation.InstructionIdentification,
+		LocalInstrument:           initiation.LocalInstrument,
+		RemittanceInformation:     (*paymentModels.OBWriteDomesticResponse5DataInitiationRemittanceInformation)(initiation.RemittanceInformation),
+		SupplementaryData:         initiation.SupplementaryData,
+	}
 }
