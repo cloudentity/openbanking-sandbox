@@ -47,7 +47,7 @@ func LoadConfig() (config Config, err error) {
 type Server struct {
 	Config  Config
 	Client  acpclient.Client
-	Storage *Storage
+	Storage UserRepo
 }
 
 func NewServer() (Server, error) {
@@ -64,8 +64,8 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
-	if server.Storage, err = InitStorage(); err != nil {
-		return server, errors.Wrapf(err, "failed to init accounts storage")
+	if server.Storage, err = NewUserRepo(); err != nil {
+		return server, errors.Wrapf(err, "failed to init repo")
 	}
 
 	return server, nil
@@ -78,6 +78,9 @@ func (s *Server) Start() error {
 	r.GET("/transactions", s.GetTransactions())
 	r.GET("/balances", s.GetBalances())
 	r.POST("/domestic-payments", s.CreateDomesticPayment())
+	r.GET("/domestic-payments/:DomesticPaymentId", s.GetDomesticPayment())
+
+	// start payment queue
 
 	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
 }

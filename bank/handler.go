@@ -17,23 +17,35 @@ import (
 
 	"github.com/cloudentity/acp-client-go/client/openbanking"
 	acpClient "github.com/cloudentity/acp-client-go/models"
+	//"github.com/cloudentity/go-tools/secretx"
 )
 
 var (
-	StatusPayment     string = "AcceptedSettlementInProcess"
-	DomesticPaymentID string = "58923-001"
+	Pending                           string = "Pending"
+	Rejected                          string = "Rejected"
+	AcceptedSettlementInProcess       string = "AcceptedSettlementInProcess"
+	AcceptedSettlementCompleted       string = "AcceptedSettleCompleted"
+	AcceptedWithoutPosting            string = "AcceptedWithoutPosting"
+	AcceptedCreditSettlementCompleted string = "AcceptedCreditSettlementCompleted"
 )
 
 func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
-			introspectionResponse *acpClient.IntrospectOpenbankingAccountAccessConsentResponse
-			obDomesticRequest     *paymentModels.OBWriteDomestic2
-			consent               paymentModels.OBWriteDomesticConsentResponse5
+			introspectionResponse IntrospectOpenbankingPaymentInitiationConsentResponse
+			paymentRequest        *paymentModels.OBWriteDomestic2
 			err                   error
 		)
 
-		if introspectionResponse, err = s.IntrospectToken(c); err != nil {
+		if err = json.NewDecoder(c.Request.Body).Decode(&paymentRequest); err != nil {
+			msg := "unable to decode domestic payments request object"
+			c.JSON(http.StatusBadRequest, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if introspectionResponse, err = s.MockIntrospectPaymentToken(c); err != nil {
 			msg := fmt.Sprintf("failed to introspect token: %+v", err)
 			c.JSON(http.StatusBadRequest, models.OBErrorResponse1{
 				Message: &msg,
@@ -50,23 +62,7 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 			return
 		}
 
-		if err = json.NewDecoder(c.Request.Body).Decode(&obDomesticRequest); err != nil {
-			msg := "unable to decode domestic payments request object"
-			c.JSON(http.StatusBadRequest, models.OBError1{
-				Message: &msg,
-			})
-			return
-		}
-
-		if consent, err = s.Storage.GetConsent(introspectionResponse.Subject, *obDomesticRequest.Data.ConsentID); err != nil {
-			msg := err.Error()
-			c.JSON(http.StatusNotFound, models.OBError1{
-				Message: &msg,
-			})
-			return
-		}
-
-		if *consent.Data.Status != "Authorised" { //nolint
+		if *introspectionResponse.Payload.Data.Status != "Authorised" { //nolint
 			msg := "domestic payment consent does not have status authorised" //nolint
 			c.JSON(http.StatusUnprocessableEntity, models.OBError1{
 				Message: &msg,
@@ -75,7 +71,7 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 		}
 
 		// request initiation and consent initiation must match
-		if !initiationsAreEqual(*obDomesticRequest.Data.Initiation, *consent.Data.Initiation) {
+		if !initiationsAreEqual(*paymentRequest.Data.Initiation, *introspectionResponse.Payload.Data.Initiation) {
 			msg := "request initiation does not match consent initiation"
 			c.JSON(http.StatusBadRequest, models.OBError1{
 				Message: &msg,
@@ -84,7 +80,7 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 		}
 
 		// request risk and consent risk must match
-		if !risksAreEqual(*obDomesticRequest.Risk, *consent.Risk) {
+		if !risksAreEqual(*paymentRequest.Risk, *introspectionResponse.Payload.Risk) {
 			msg := "request risk does not match consent risk"
 			c.JSON(http.StatusBadRequest, models.OBError1{
 				Message: &msg,
@@ -95,20 +91,70 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/domestic-payments", strconv.Itoa(s.Config.Port)))
 		response := paymentModels.OBWriteDomesticResponse5{
 			Data: &paymentModels.OBWriteDomesticResponse5Data{
-				DomesticPaymentID:    &DomesticPaymentID,
-				ConsentID:            consent.Data.ConsentID,
-				Status:               &StatusPayment,
+				DomesticPaymentID:    NewDomesticPaymentID(),
+				ConsentID:            introspectionResponse.Payload.Data.ConsentID,
+				Status:               &AcceptedSettlementInProcess,
 				Charges:              []*paymentModels.OBWriteDomesticResponse5DataChargesItems0{},
 				CreationDateTime:     newDateTimePtr(time.Now()),
 				StatusUpdateDateTime: newDateTimePtr(time.Now()),
-				Initiation:           toDomesticResponse5DataInitiation(*consent.Data.Initiation),
+				Initiation:           toDomesticResponse5DataInitiation(*introspectionResponse.Payload.Data.Initiation),
 			},
 			Links: &paymentModels.Links{
 				Self: &self,
 			},
 		}
 
+		// create resource
+		if err = s.Storage.CreateDomesticPayment(introspectionResponse.Subject, response); err != nil {
+			msg := err.Error()
+			c.JSON(http.StatusInternalServerError, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
 		c.PureJSON(http.StatusOK, response)
+	}
+}
+
+func (s *Server) GetDomesticPayment() func(*gin.Context) {
+	return func(c *gin.Context) {
+		var (
+			payment               paymentModels.OBWriteDomesticResponse5
+			err                   error
+			domesticPaymentID     = c.Param("DomesticPaymentId")
+			introspectionResponse IntrospectOpenbankingPaymentInitiationConsentResponse
+		)
+
+		if introspectionResponse, err = s.MockIntrospectPaymentToken(c); err != nil {
+			return
+		}
+
+		scopes := strings.Split(introspectionResponse.Scope, " ")
+		if !has(scopes, "payments") {
+			msg := "token has no payments scope granted"
+			c.JSON(http.StatusForbidden, models.OBErrorResponse1{
+				Message: &msg,
+			})
+			return
+		}
+
+		if payment, err = s.Storage.GetDomesticPayment("user", domesticPaymentID); err != nil {
+			if _, ok := err.(ErrNotFound); ok {
+				msg := "domestic payment id not found"
+				c.JSON(http.StatusNotFound, models.OBErrorResponse1{
+					Message: &msg,
+				})
+				return
+			}
+			msg := "retrieving domestic payment id failed"
+			c.JSON(http.StatusInternalServerError, models.OBError1{
+				Message: &msg,
+			})
+			return
+		}
+
+		c.PureJSON(http.StatusOK, payment)
 	}
 }
 
@@ -373,6 +419,22 @@ func (s *Server) GetTransactions() func(ctx *gin.Context) {
 	}
 }
 
+type IntrospectOpenbankingPaymentInitiationConsentResponse struct {
+	Subject string
+	Scope   string
+	Payload *paymentModels.OBWriteDomesticConsentResponse5
+}
+
+func (s *Server) MockIntrospectPaymentToken(c *gin.Context) (IntrospectOpenbankingPaymentInitiationConsentResponse, error) {
+	// return default consent response until endpoint is implemented
+	return IntrospectOpenbankingPaymentInitiationConsentResponse{
+		Subject: "user",
+		Scope:   "payments",
+		Payload: getDefaultConsent(),
+	}, nil
+
+}
+
 func (s *Server) IntrospectToken(c *gin.Context) (*acpClient.IntrospectOpenbankingAccountAccessConsentResponse, error) {
 	var (
 		introspectionResponse *openbanking.OpenbankingAccountAccessConsentIntrospectOK
@@ -440,4 +502,72 @@ func toDomesticResponse5DataInitiation(initiation paymentModels.OBWriteDomesticC
 		RemittanceInformation:     (*paymentModels.OBWriteDomesticResponse5DataInitiationRemittanceInformation)(initiation.RemittanceInformation),
 		SupplementaryData:         initiation.SupplementaryData,
 	}
+}
+
+func NewDomesticPaymentID() *string {
+	//random, _ := secretx.Generate(10)
+	//return &random
+	random := "12345"
+	return &random
+}
+
+func getDefaultConsent() *paymentModels.OBWriteDomesticConsentResponse5 {
+	var consent paymentModels.OBWriteDomesticConsentResponse5
+
+	data := []byte(`{
+		"Data": {
+		  "ConsentId": "58923",
+		  "Status": "Authorised",
+		  "CreationDateTime": "2017-06-05T15:15:13+00:00",
+		  "StatusUpdateDateTime": "2017-06-05T15:15:22+00:00",
+		  "ReadRefundAccount": "Yes",
+		  "Initiation": {
+			"InstructionIdentification": "ACME412",
+			"EndToEndIdentification": "FRESCO.21302.GFX.20",
+			"InstructedAmount": {
+			  "Amount": "165.88",
+			  "Currency": "GBP"
+			},
+			"CreditorAccount": {
+			  "SchemeName": "UK.OBIE.SortCodeAccountNumber",
+			  "Identification": "08080021325698",
+			  "Name": "ACME Inc",
+			  "SecondaryIdentification": "0002"
+			},
+			"RemittanceInformation": {
+			  "Reference": "FRESCO-101",
+			  "Unstructured": "Internal ops code 5120101"
+			}
+		  },
+		  "Debtor": {
+			"Name": "D Jones"
+		  }
+		},
+		"Risk": {
+		  "PaymentContextCode": "EcommerceGoods",
+		  "MerchantCategoryCode": "5967",
+		  "MerchantCustomerIdentification": "053598653254",
+		  "DeliveryAddress": {
+			"AddressLine": [
+			  "Flat 7",
+			  "Acacia Lodge"
+			],
+			"StreetName": "Acacia Avenue",
+			"BuildingNumber": "27",
+			"PostCode": "GU31 2ZZ",
+			"TownName": "Sparsholt",
+			"CountySubDivision": [
+			  "Wessex"
+			],
+			"Country": "UK"
+		  }
+		},
+		"Links": {
+		  "Self": "https://api.alphabank.com/open-banking/v3.1/pisp/domestic-payment-consents/58923"
+		},
+		"Meta": {}
+	  }`)
+
+	json.Unmarshal(data, &consent)
+	return &consent
 }
