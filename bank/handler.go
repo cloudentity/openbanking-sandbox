@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"reflect"
@@ -21,12 +22,12 @@ import (
 )
 
 var (
-	Pending                           string = "Pending"
-	Rejected                          string = "Rejected"
+	Pending                           string = "Pending"  //nolint
+	Rejected                          string = "Rejected" //nolint
 	AcceptedSettlementInProcess       string = "AcceptedSettlementInProcess"
 	AcceptedSettlementCompleted       string = "AcceptedSettleCompleted"
-	AcceptedWithoutPosting            string = "AcceptedWithoutPosting"
-	AcceptedCreditSettlementCompleted string = "AcceptedCreditSettlementCompleted"
+	AcceptedWithoutPosting            string = "AcceptedWithoutPosting"            //nolint
+	AcceptedCreditSettlementCompleted string = "AcceptedCreditSettlementCompleted" //nolint
 )
 
 func (s *Server) CreateDomesticPayment() func(*gin.Context) {
@@ -35,6 +36,7 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 			introspectionResponse IntrospectOpenbankingPaymentInitiationConsentResponse
 			paymentRequest        *paymentModels.OBWriteDomestic2
 			err                   error
+			errAlreadyExists      ErrAlreadyExists
 		)
 
 		if err = json.NewDecoder(c.Request.Body).Decode(&paymentRequest); err != nil {
@@ -108,7 +110,7 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 		// create resource
 		if err = s.Storage.CreateDomesticPayment(introspectionResponse.Subject, response); err != nil {
 			msg := err.Error()
-			if _, ok := err.(ErrAlreadyExists); ok {
+			if errors.As(err, &errAlreadyExists) {
 				c.JSON(http.StatusConflict, models.OBError1{
 					Message: &msg,
 				})
@@ -134,6 +136,7 @@ func (s *Server) GetDomesticPayment() func(*gin.Context) {
 			err                   error
 			domesticPaymentID     = c.Param("DomesticPaymentId")
 			introspectionResponse IntrospectOpenbankingPaymentInitiationConsentResponse
+			errNotFound           ErrNotFound
 		)
 
 		if introspectionResponse, err = s.MockIntrospectPaymentToken(c); err != nil {
@@ -150,7 +153,7 @@ func (s *Server) GetDomesticPayment() func(*gin.Context) {
 		}
 
 		if payment, err = s.Storage.GetDomesticPayment(introspectionResponse.Subject, domesticPaymentID); err != nil {
-			if _, ok := err.(ErrNotFound); ok {
+			if errors.As(err, &errNotFound) {
 				msg := "domestic payment id not found"
 				c.JSON(http.StatusNotFound, models.OBErrorResponse1{
 					Message: &msg,
@@ -442,7 +445,6 @@ func (s *Server) MockIntrospectPaymentToken(c *gin.Context) (IntrospectOpenbanki
 		Scope:   "payments",
 		Payload: getDefaultConsent(),
 	}, nil
-
 }
 
 func (s *Server) IntrospectToken(c *gin.Context) (*acpClient.IntrospectOpenbankingAccountAccessConsentResponse, error) {
@@ -520,7 +522,7 @@ func getDefaultConsent() *paymentModels.OBWriteDomesticConsentResponse5 {
 	data := []byte(`{
 		"Data": {
 		  "ConsentId": "58923",
-		  "Status": "Authorised",
+		  "Status": "Authorized",
 		  "CreationDateTime": "2017-06-05T15:15:13+00:00",
 		  "StatusUpdateDateTime": "2017-06-05T15:15:22+00:00",
 		  "ReadRefundAccount": "Yes",
@@ -571,6 +573,6 @@ func getDefaultConsent() *paymentModels.OBWriteDomesticConsentResponse5 {
 		"Meta": {}
 	  }`)
 
-	json.Unmarshal(data, &consent)
+	json.Unmarshal(data, &consent) //nolint
 	return &consent
 }

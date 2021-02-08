@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/cloudentity/openbanking-sandbox/models"
@@ -13,9 +14,7 @@ import (
 	bolt "go.etcd.io/bbolt"
 )
 
-var (
-	bucketName = []byte(`users`)
-)
+var bucketName = []byte(`users`)
 
 type UserRepo struct {
 	*bolt.DB
@@ -56,7 +55,7 @@ func NewUserRepo() (UserRepo, error) {
 	)
 
 	// create db
-	if userRepo.DB, err = bolt.Open("data/tppdb.db", 0644, &bolt.Options{Timeout: 3 * time.Second}); err != nil {
+	if userRepo.DB, err = bolt.Open("data/tppdb.db", os.FileMode(0644), &bolt.Options{Timeout: 3 * time.Second}); err != nil {
 		return userRepo, errors.Wrapf(err, "failed to open db")
 	}
 
@@ -73,10 +72,7 @@ func NewUserRepo() (UserRepo, error) {
 		}
 
 		for k, v := range u2df {
-			var (
-				valBytes []byte
-				err      error
-			)
+			var valBytes []byte
 
 			if valBytes, err = json.Marshal(v); err != nil {
 				return errors.Wrapf(err, "failed to unmarshal data value from file")

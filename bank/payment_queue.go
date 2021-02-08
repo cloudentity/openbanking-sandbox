@@ -8,7 +8,7 @@ import (
 
 type PaymentQueue struct {
 	repo  UserRepo
-	queue chan (paymentModels.OBWriteDomesticResponse5)
+	queue chan paymentModels.OBWriteDomesticResponse5
 }
 
 func NewPaymentQueue(repo UserRepo) (PaymentQueue, error) {
@@ -19,11 +19,8 @@ func NewPaymentQueue(repo UserRepo) (PaymentQueue, error) {
 }
 
 func (pq *PaymentQueue) Start() {
-	for {
-		select {
-		case payment := <-pq.queue:
-			time.Sleep(10 * time.Second)
-			pq.repo.SetDomesticPaymentStatus(*payment.Data.DomesticPaymentID, AcceptedCreditSettlementCompleted)
-		}
+	for payment := range pq.queue {
+		time.Sleep(10 * time.Second)
+		pq.repo.SetDomesticPaymentStatus(*payment.Data.DomesticPaymentID, AcceptedSettlementCompleted) //nolint
 	}
 }

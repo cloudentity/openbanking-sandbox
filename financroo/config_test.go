@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestConfig(t *testing.T) {
+func TestConfig(t *testing.T) { //nolint
 	for k, v := range map[string]string{
 		"ACP_URL":          "https://localhost:8443",
 		"ACP_INTERNAL_URL": "https://acp:8443",

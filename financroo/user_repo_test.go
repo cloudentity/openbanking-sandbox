@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestUsersRepo(t *testing.T) {
+func TestUsersRepo(t *testing.T) { //nolint
 	db, err := InitDB(Config{DBFile: "./test.db"})
 	require.NoError(t, err)
 	defer db.Close()
