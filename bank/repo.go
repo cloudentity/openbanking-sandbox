@@ -30,14 +30,6 @@ type Data struct {
 
 type UserToDataFile map[string]Data
 
-type ErrNotFound struct {
-	name string
-}
-
-func (e ErrNotFound) Error() string {
-	return fmt.Sprintf("unable to find resource %s", e.name)
-}
-
 func readUserToDataFile() (UserToDataFile, error) {
 	var (
 		bs   []byte
@@ -144,35 +136,23 @@ func (ur *UserRepo) GetTransactions(sub string) ([]models.OBTransaction6, error)
 
 func (ur *UserRepo) CreateDomesticPayment(sub string, payment paymentModels.OBWriteDomesticResponse5) error {
 	var (
-		data      Data
-		err       error
-		dataBytes []byte
+		data Data
+		err  error
 	)
 
-	if err = ur.Update(func(tx *bolt.Tx) error {
-		b := tx.Bucket(bucketName)
-		v := b.Get([]byte(sub))
-
-		if err = json.Unmarshal(v, &data); err != nil {
-			return err
-		}
-
-		data.Payments = append(data.Payments, payment)
-
-		if dataBytes, err = json.Marshal(data); err != nil {
-			return err
-		}
-
-		if err = b.Put([]byte(sub), dataBytes); err != nil {
-			return err
-		}
-
-		return nil
-	}); err != nil {
-		return errors.Wrapf(err, "failed to update db")
+	if err = ur.loadUser(sub, &data); err != nil {
+		return errors.Wrapf(err, fmt.Sprintf("failed to load user %s from database", sub))
 	}
 
-	return nil
+	for _, p := range data.Payments {
+		if p.Data.DomesticPaymentID == payment.Data.DomesticPaymentID {
+			return ErrAlreadyExists{fmt.Sprintf("/domestic-payments/%s", *p.Data.DomesticPaymentID)}
+		}
+	}
+
+	data.Payments = append(data.Payments, payment)
+
+	return ur.writeData(bucketName, []byte(sub), data)
 }
 
 func (ur *UserRepo) GetDomesticPayment(sub, domesticPaymentID string) (paymentModels.OBWriteDomesticResponse5, error) {
@@ -183,7 +163,7 @@ func (ur *UserRepo) GetDomesticPayment(sub, domesticPaymentID string) (paymentMo
 	)
 
 	if err = ur.loadUser(sub, &data); err != nil {
-		return payment, err
+		return payment, errors.Wrapf(err, "failed to load data from db")
 	}
 
 	for _, p := range data.Payments {
