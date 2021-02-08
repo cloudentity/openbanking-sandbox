@@ -108,6 +108,12 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 		// create resource
 		if err = s.Storage.CreateDomesticPayment(introspectionResponse.Subject, response); err != nil {
 			msg := err.Error()
+			if _, ok := err.(ErrAlreadyExists); ok {
+				c.JSON(http.StatusConflict, models.OBError1{
+					Message: &msg,
+				})
+				return
+			}
 			c.JSON(http.StatusInternalServerError, models.OBError1{
 				Message: &msg,
 			})
