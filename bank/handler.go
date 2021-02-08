@@ -14,10 +14,10 @@ import (
 	paymentModels "github.com/cloudentity/openbanking-sandbox/openbanking/paymentinitiation/models"
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/strfmt"
+	"github.com/google/uuid"
 
 	"github.com/cloudentity/acp-client-go/client/openbanking"
 	acpClient "github.com/cloudentity/acp-client-go/models"
-	//"github.com/cloudentity/go-tools/secretx"
 )
 
 var (
@@ -88,10 +88,11 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 			return
 		}
 
-		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/domestic-payments", strconv.Itoa(s.Config.Port)))
+		id := uuid.New().String()
+		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/domestic-payments/%s", strconv.Itoa(s.Config.Port), id))
 		response := paymentModels.OBWriteDomesticResponse5{
 			Data: &paymentModels.OBWriteDomesticResponse5Data{
-				DomesticPaymentID:    NewDomesticPaymentID(),
+				DomesticPaymentID:    &id,
 				ConsentID:            introspectionResponse.Payload.Data.ConsentID,
 				Status:               &AcceptedSettlementInProcess,
 				Charges:              []*paymentModels.OBWriteDomesticResponse5DataChargesItems0{},
@@ -112,6 +113,9 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 			})
 			return
 		}
+
+		// add to payment queue worker
+		s.PaymentQueue.queue <- response
 
 		c.PureJSON(http.StatusOK, response)
 	}
@@ -139,7 +143,7 @@ func (s *Server) GetDomesticPayment() func(*gin.Context) {
 			return
 		}
 
-		if payment, err = s.Storage.GetDomesticPayment("user", domesticPaymentID); err != nil {
+		if payment, err = s.Storage.GetDomesticPayment(introspectionResponse.Subject, domesticPaymentID); err != nil {
 			if _, ok := err.(ErrNotFound); ok {
 				msg := "domestic payment id not found"
 				c.JSON(http.StatusNotFound, models.OBErrorResponse1{
@@ -502,13 +506,6 @@ func toDomesticResponse5DataInitiation(initiation paymentModels.OBWriteDomesticC
 		RemittanceInformation:     (*paymentModels.OBWriteDomesticResponse5DataInitiationRemittanceInformation)(initiation.RemittanceInformation),
 		SupplementaryData:         initiation.SupplementaryData,
 	}
-}
-
-func NewDomesticPaymentID() *string {
-	//random, _ := secretx.Generate(10)
-	//return &random
-	random := "12345"
-	return &random
 }
 
 func getDefaultConsent() *paymentModels.OBWriteDomesticConsentResponse5 {
