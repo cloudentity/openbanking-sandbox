@@ -8,6 +8,7 @@ import (
 
 	"github.com/cloudentity/openbanking-sandbox/models"
 	paymentModels "github.com/cloudentity/openbanking-sandbox/openbanking/paymentinitiation/models"
+	"github.com/go-openapi/strfmt"
 	"github.com/pkg/errors"
 	bolt "go.etcd.io/bbolt"
 )
@@ -102,69 +103,45 @@ func NewUserRepo() (UserRepo, error) {
 	return userRepo, nil
 }
 
-func (us *UserRepo) GetAccounts(sub string) ([]models.OBAccount6, error) {
+func (ur *UserRepo) GetAccounts(sub string) ([]models.OBAccount6, error) {
 	var (
 		data Data
 		err  error
 	)
 
-	if err = us.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket(bucketName)
-		v := b.Get([]byte(sub))
-		if err = json.Unmarshal(v, &data); err != nil {
-			return errors.Wrapf(err, "failed to unmarshal json")
-		}
-		return nil
-	}); err != nil {
-		return data.Accounts, errors.Wrapf(err, "failed to read account data")
+	if err = ur.loadUser(sub, &data); err != nil {
+		return data.Accounts, err
 	}
 
 	return data.Accounts, nil
 }
 
-func (us *UserRepo) GetBalances(sub string) ([]models.OBReadBalance1DataBalanceItems0, error) {
+func (ur *UserRepo) GetBalances(sub string) ([]models.OBReadBalance1DataBalanceItems0, error) {
 	var (
 		data Data
 		err  error
 	)
 
-	if err = us.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket(bucketName)
-		v := b.Get([]byte(sub))
-		if err = json.Unmarshal(v, &data); err != nil {
-			return errors.Wrapf(err, "failed to unmarshal json")
-		}
-		return nil
-	}); err != nil {
-		return data.Balances, errors.Wrapf(err, "failed to read balances data")
+	if err = ur.loadUser(sub, &data); err != nil {
+		return data.Balances, err
 	}
 
 	return data.Balances, nil
 }
 
-func (us *UserRepo) GetTransactions(sub string) ([]models.OBTransaction6, error) {
+func (ur *UserRepo) GetTransactions(sub string) ([]models.OBTransaction6, error) {
 	var (
 		data Data
 		err  error
 	)
 
-	if err = us.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket(bucketName)
-		v := b.Get([]byte(sub))
-		if err = json.Unmarshal(v, &data); err != nil {
-			return errors.Wrapf(err, "failed to unmarshal json")
-		}
-		return nil
-	}); err != nil {
-		return data.Transactions, errors.Wrapf(err, "failed to read transaction data")
+	if err = ur.loadUser(sub, &data); err != nil {
+		return data.Transactions, err
 	}
 
 	return data.Transactions, nil
 }
 
-// either this or the web handler will need to trigger a routine to modify accounts/transactions/balances whenever the "payment" goes through
-// additionally, can just have a separate go routine running that always listens for these things
-// this will create the domestic payment resource
 func (ur *UserRepo) CreateDomesticPayment(sub string, payment paymentModels.OBWriteDomesticResponse5) error {
 	var (
 		data      Data
@@ -205,15 +182,8 @@ func (ur *UserRepo) GetDomesticPayment(sub, domesticPaymentID string) (paymentMo
 		err     error
 	)
 
-	if err = ur.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket(bucketName)
-		v := b.Get([]byte(sub))
-		if err = json.Unmarshal(v, &data); err != nil {
-			return errors.Wrapf(err, "failed to unmarshal data")
-		}
-		return nil
-	}); err != nil {
-		return payment, errors.Wrapf(err, "failed to read payment data")
+	if err = ur.loadUser(sub, &data); err != nil {
+		return payment, err
 	}
 
 	for _, p := range data.Payments {
@@ -223,4 +193,78 @@ func (ur *UserRepo) GetDomesticPayment(sub, domesticPaymentID string) (paymentMo
 	}
 
 	return payment, ErrNotFound{fmt.Sprintf("domestic-payment with id %s", domesticPaymentID)}
+}
+
+func (ur *UserRepo) SetDomesticPaymentStatus(domesticPaymentID, status string) error {
+	var (
+		data = make(map[string]Data)
+		err  error
+	)
+
+	if err = ur.loadAll(data); err != nil {
+		return errors.Wrapf(err, "failed to load data from db")
+	}
+
+	for k, v := range data {
+		for i, payment := range v.Payments {
+			if *payment.Data.DomesticPaymentID == domesticPaymentID {
+				*data[k].Payments[i].Data.Status = status
+				*data[k].Payments[i].Data.StatusUpdateDateTime = strfmt.DateTime(time.Now())
+				return ur.writeData(bucketName, []byte(k), data[k])
+			}
+		}
+	}
+
+	return fmt.Errorf("unable to find domestic payment id %s", domesticPaymentID)
+}
+
+func (ur *UserRepo) loadUser(sub string, data *Data) error {
+	return ur.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket(bucketName)
+		v := b.Get([]byte(sub))
+		if err := json.Unmarshal(v, data); err != nil {
+			return errors.Wrapf(err, fmt.Sprintf("failed to unmarshal data for user %s", sub))
+		}
+		return nil
+	})
+}
+
+func (ur *UserRepo) writeData(bucket, key []byte, data Data) error {
+	var (
+		dataBytes []byte
+		err       error
+	)
+
+	if dataBytes, err = json.Marshal(data); err != nil {
+		return err
+	}
+
+	return ur.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket(bucket)
+		if err = b.Put(key, dataBytes); err != nil {
+			return errors.Wrapf(err, "failed to put value into database")
+		}
+		return nil
+	})
+}
+
+func (ur *UserRepo) loadAll(m map[string]Data) error {
+	var (
+		data Data
+		err  error
+	)
+
+	return ur.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket(bucketName)
+		c := b.Cursor()
+
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			if err = json.Unmarshal(v, &data); err != nil {
+				return errors.Wrapf(err, fmt.Sprintf("failed to unmarshal data for user %s", string(k)))
+			}
+			m[string(k)] = data
+		}
+
+		return nil
+	})
 }
