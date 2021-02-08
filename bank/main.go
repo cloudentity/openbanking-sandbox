@@ -45,9 +45,10 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
-	Config  Config
-	Client  acpclient.Client
-	Storage UserRepo
+	Config       Config
+	Client       acpclient.Client
+	Storage      UserRepo
+	PaymentQueue PaymentQueue
 }
 
 func NewServer() (Server, error) {
@@ -68,6 +69,10 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to init repo")
 	}
 
+	if server.PaymentQueue, err = NewPaymentQueue(server.Storage); err != nil {
+		return server, errors.Wrapf(err, "failed to init payment queue")
+	}
+
 	return server, nil
 }
 
@@ -80,7 +85,7 @@ func (s *Server) Start() error {
 	r.POST("/domestic-payments", s.CreateDomesticPayment())
 	r.GET("/domestic-payments/:DomesticPaymentId", s.GetDomesticPayment())
 
-	// start payment queue
+	go s.PaymentQueue.Start()
 
 	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
 }
