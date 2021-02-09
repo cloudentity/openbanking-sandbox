@@ -4,6 +4,7 @@ import (
 	"time"
 
 	paymentModels "github.com/cloudentity/openbanking-sandbox/openbanking/paymentinitiation/models"
+	logrus "github.com/sirupsen/logrus"
 )
 
 type PaymentQueue struct {
@@ -20,7 +21,11 @@ func NewPaymentQueue(repo UserRepo) (PaymentQueue, error) {
 
 func (pq *PaymentQueue) Start() {
 	for payment := range pq.queue {
-		time.Sleep(10 * time.Second)
-		pq.repo.SetDomesticPaymentStatus(*payment.Data.DomesticPaymentID, AcceptedSettlementCompleted) //nolint
+		payment := payment
+		time.AfterFunc(10*time.Second, func() {
+			if err := pq.repo.SetDomesticPaymentStatus(*payment.Data.DomesticPaymentID, AcceptedSettlementCompleted); err != nil {
+				logrus.WithError(err).Errorf("failed to update domestic payment status for id %s (%s)", *payment.Data.DomesticPaymentID, err)
+			}
+		})
 	}
 }
