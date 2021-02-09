@@ -21,13 +21,11 @@ import (
 	acpClient "github.com/cloudentity/acp-client-go/models"
 )
 
-var (
-	Pending                           string = "Pending"  //nolint
-	Rejected                          string = "Rejected" //nolint
-	AcceptedSettlementInProcess       string = "AcceptedSettlementInProcess"
-	AcceptedSettlementCompleted       string = "AcceptedSettleCompleted"
-	AcceptedWithoutPosting            string = "AcceptedWithoutPosting"            //nolint
-	AcceptedCreditSettlementCompleted string = "AcceptedCreditSettlementCompleted" //nolint
+type DomesticPaymentStatus string
+
+const (
+	AcceptedSettlementInProcess DomesticPaymentStatus = "AcceptedSettlementInProcess"
+	AcceptedSettlementCompleted DomesticPaymentStatus = "AcceptedSettlementCompleted"
 )
 
 func (s *Server) CreateDomesticPayment() func(*gin.Context) {
@@ -64,8 +62,8 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 			return
 		}
 
-		if *introspectionResponse.Payload.Data.Status != "Authorised" { //nolint
-			msg := "domestic payment consent does not have status authorised" //nolint
+		if *introspectionResponse.Payload.Data.Status != "Authorised" {
+			msg := "domestic payment consent does not have status authorised"
 			c.JSON(http.StatusUnprocessableEntity, models.OBError1{
 				Message: &msg,
 			})
@@ -91,12 +89,13 @@ func (s *Server) CreateDomesticPayment() func(*gin.Context) {
 		}
 
 		id := uuid.New().String()
+		status := string(AcceptedSettlementInProcess)
 		self := strfmt.URI(fmt.Sprintf("http://localhost:%s/domestic-payments/%s", strconv.Itoa(s.Config.Port), id))
 		response := paymentModels.OBWriteDomesticResponse5{
 			Data: &paymentModels.OBWriteDomesticResponse5Data{
 				DomesticPaymentID:    &id,
 				ConsentID:            introspectionResponse.Payload.Data.ConsentID,
-				Status:               &AcceptedSettlementInProcess,
+				Status:               &status,
 				Charges:              []*paymentModels.OBWriteDomesticResponse5DataChargesItems0{},
 				CreationDateTime:     newDateTimePtr(time.Now()),
 				StatusUpdateDateTime: newDateTimePtr(time.Now()),
@@ -517,12 +516,15 @@ func toDomesticResponse5DataInitiation(initiation paymentModels.OBWriteDomesticC
 }
 
 func getDefaultConsent() *paymentModels.OBWriteDomesticConsentResponse5 {
-	var consent paymentModels.OBWriteDomesticConsentResponse5
+	var (
+		consent paymentModels.OBWriteDomesticConsentResponse5
+		err     error
+	)
 
 	data := []byte(`{
 		"Data": {
 		  "ConsentId": "58923",
-		  "Status": "Authorized",
+		  "Status": "Authorised",
 		  "CreationDateTime": "2017-06-05T15:15:13+00:00",
 		  "StatusUpdateDateTime": "2017-06-05T15:15:22+00:00",
 		  "ReadRefundAccount": "Yes",
@@ -573,6 +575,8 @@ func getDefaultConsent() *paymentModels.OBWriteDomesticConsentResponse5 {
 		"Meta": {}
 	  }`)
 
-	json.Unmarshal(data, &consent) //nolint
+	if err = json.Unmarshal(data, &consent); err != nil {
+		panic(err)
+	}
 	return &consent
 }
