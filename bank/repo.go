@@ -171,7 +171,7 @@ func (ur *UserRepo) GetDomesticPayment(sub, domesticPaymentID string) (paymentMo
 	return payment, ErrNotFound{fmt.Sprintf("domestic-payment with id %s", domesticPaymentID)}
 }
 
-func (ur *UserRepo) SetDomesticPaymentStatus(domesticPaymentID, status string) error {
+func (ur *UserRepo) SetDomesticPaymentStatus(domesticPaymentID string, status DomesticPaymentStatus) error {
 	var (
 		data = make(map[string]Data)
 		err  error
@@ -184,7 +184,7 @@ func (ur *UserRepo) SetDomesticPaymentStatus(domesticPaymentID, status string) e
 	for k, v := range data {
 		for i, payment := range v.Payments {
 			if *payment.Data.DomesticPaymentID == domesticPaymentID {
-				*data[k].Payments[i].Data.Status = status
+				*data[k].Payments[i].Data.Status = string(status)
 				*data[k].Payments[i].Data.StatusUpdateDateTime = strfmt.DateTime(time.Now())
 				return ur.writeData(bucketName, []byte(k), data[k])
 			}
