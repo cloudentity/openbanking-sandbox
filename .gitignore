@@ -20,3 +20,4 @@ financroo/test.db
 /*.iml
 /tests/debug.log
 /tests/cypress/videos/*
+/tests/cypress

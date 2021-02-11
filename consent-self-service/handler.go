@@ -139,6 +139,7 @@ func (s *Server) RevokeConsent() func(*gin.Context) {
 		if _, err = s.Client.Openbanking.RevokeOpenbankingConsent(
 			openbanking.NewRevokeOpenbankingConsentParams().
 				WithTid(s.Client.TenantID).
+				WithAid(s.Config.SystemClientsServerID).
 				WithConsentID(id),
 			nil,
 		); err != nil {
