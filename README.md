@@ -95,3 +95,11 @@ To run the sandbox with local images, use:
 ```sh
 make run-dev
 ```
+
+### Run e2e tests locally
+
+``` sh
+cd tests
+npm i
+yarn run cypress open
+```
