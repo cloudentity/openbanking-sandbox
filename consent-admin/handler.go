@@ -108,6 +108,8 @@ func (s *Server) RevokeConsent() func(*gin.Context) {
 	}
 }
 
+var accountAccessConsentType = "account_access"
+
 func (s *Server) RevokeConsentsForClient() func(*gin.Context) {
 	return func(c *gin.Context) {
 		var (
@@ -124,7 +126,8 @@ func (s *Server) RevokeConsentsForClient() func(*gin.Context) {
 			openbanking.NewRevokeOpenbankingConsentsParams().
 				WithTid(s.Client.TenantID).
 				WithAid(s.Config.SystemClientsServerID).
-				WithClientID(&id),
+				WithClientID(&id).
+				WithConsentType(&accountAccessConsentType),
 			nil,
 		); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("failed to revoke account access consents for client: %s, err: %+v", id, err))
