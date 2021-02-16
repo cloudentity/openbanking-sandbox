@@ -1704,12 +1704,12 @@ clients:
   id_token_signed_response_alg: ES256
   jwks:
     keys:
-    - use: sig
+    - alg: RS256
+      e: AQAB
+      kid: "167467200346518873990055631921812347975180003245"
       kty: RSA
-      kid: '167467200346518873990055631921812347975180003245'
-      alg: RS256
-      'n': 4b_IX1bV29pw6_Ce8DdkoNx4dxJnDD9AyxmTG2z99cvlHG6BJaMF6l09ncGXGbv3dufDKrhftkwfbTBdpUEAeext_ugCmXTV06Fayva6Iq7xCNE8pA6hJT1y3Edsqq3IU8KVivYjYwd_vrSUfCe8pQRsR6K8rqnJ66ryn0yewkTEyCgPIv6pOMbgq1d5iX_2G9rZNhj74miN5y4fy0tsbI3q2RUOzt2d-htkoysqu3Xta6qPA3vEJ2FnQo3dhgw4XSCEvjz-HSGnsTC-XBv6j6jI9SD5jI2UYqnyDcYmRHPJx2sQ_c8aLYHRdZxrxqIxUzulS6g0x74E2m0gBMKF5w
-      'e': AQAB
+      "n": 4b_IX1bV29pw6_Ce8DdkoNx4dxJnDD9AyxmTG2z99cvlHG6BJaMF6l09ncGXGbv3dufDKrhftkwfbTBdpUEAeext_ugCmXTV06Fayva6Iq7xCNE8pA6hJT1y3Edsqq3IU8KVivYjYwd_vrSUfCe8pQRsR6K8rqnJ66ryn0yewkTEyCgPIv6pOMbgq1d5iX_2G9rZNhj74miN5y4fy0tsbI3q2RUOzt2d-htkoysqu3Xta6qPA3vEJ2FnQo3dhgw4XSCEvjz-HSGnsTC-XBv6j6jI9SD5jI2UYqnyDcYmRHPJx2sQ_c8aLYHRdZxrxqIxUzulS6g0x74E2m0gBMKF5w
+      use: sig
       x5c:
       - MIIEVjCCAz6gAwIBAgIUHVV9LeNtt81MoMzosAABgejAp60wDQYJKoZIhvcNAQELBQAwVzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0b24xEDAOBgNVBAcTB1NlYXR0bGUxFDASBgNVBAoTC0Nsb3VkZW50aXR5MQswCQYDVQQLEwJDQTAeFw0yMTAxMjAwOTQ4MDBaFw0yNjAxMTkwOTQ4MDBaMIGQMQswCQYDVQQGEwJVUzEUMBIGA1UECBMLV2FzaGluZ2h0b24xEDAOBgNVBAcTB1NlYXR0bGUxFDASBgNVBAoTC0Nsb3VkZW50aXR5MRYwFAYDVQQLEw1BdXRob3JpemF0aW9uMSswKQYDVQQDEyJjaWQxLmF1dGhvcml6YXRpb24uY2xvdWRlbnRpdHkuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4b/IX1bV29pw6/Ce8DdkoNx4dxJnDD9AyxmTG2z99cvlHG6BJaMF6l09ncGXGbv3dufDKrhftkwfbTBdpUEAeext/ugCmXTV06Fayva6Iq7xCNE8pA6hJT1y3Edsqq3IU8KVivYjYwd/vrSUfCe8pQRsR6K8rqnJ66ryn0yewkTEyCgPIv6pOMbgq1d5iX/2G9rZNhj74miN5y4fy0tsbI3q2RUOzt2d+htkoysqu3Xta6qPA3vEJ2FnQo3dhgw4XSCEvjz+HSGnsTC+XBv6j6jI9SD5jI2UYqnyDcYmRHPJx2sQ/c8aLYHRdZxrxqIxUzulS6g0x74E2m0gBMKF5wIDAQABo4HfMIHcMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUt+G5I2aokd3gFFMty1rsIT8yMuwwHwYDVR0jBBgwFoAUylkHhGQUSf1DtT8uxH02jqlbo20wXQYDVR0RBFYwVIIJbG9jYWxob3N0giJjaWQxLmF1dGhvcml6YXRpb24uY2xvdWRlbnRpdHkuY29tgh1hdXRob3JpemF0aW9uLmNsb3VkZW50aXR5LmNvbYcEfwAAATANBgkqhkiG9w0BAQsFAAOCAQEAjKXSkhqkL7tpjk5KbQe8OIvpsR0EjO3Za2KsvzUGDQzE+3tqL3jDvAhqWpICGGzv0kkroveb0kXc2Ltc5a+EQtm5l100N0kMB8f11/B1tcLFWQQnqEPB4RTkesGv70e1C3LbjmgJbE62cLR8X2dXr20HxUMZAzmlDdRZS/80YnXSDgjcWxDiFVitFbFeUyYF/oh4RmO5HQKvMEd3XIO/hWKp0Jv2G4B5IwtWm2ZodaM6zwMgX0BBp1LUsSF5OYDjuJ2Tq8daEGmUj5Y/+CroeW7nFDgAwt+1x3M76uT8fo+rP+UHweR8TCSq28dY3+N8UYrD5YIBZD/0ro2b2KVvgg==
       x5t: XaOtIp7yC5-VnZ0XYKJ1KZzsEG8
@@ -2147,6 +2147,7 @@ clients:
   userinfo_signed_response_alg: none
 idps:
 - authorization_server_id: openbanking
+  config: {}
   credentials:
     azure: {}
     azureb2c: {}
@@ -2193,6 +2194,7 @@ idps:
   tenant_id: default
   transformer: {}
 - authorization_server_id: bank-customers
+  config: {}
   credentials:
     azure: {}
     azureb2c: {}
@@ -2239,6 +2241,7 @@ idps:
   tenant_id: default
   transformer: {}
 - authorization_server_id: bank-admins
+  config: {}
   credentials:
     azure: {}
     azureb2c: {}
@@ -2277,6 +2280,7 @@ idps:
   tenant_id: default
   transformer: {}
 - authorization_server_id: financroo
+  config: {}
   credentials:
     azure: {}
     azureb2c: {}
@@ -2315,6 +2319,7 @@ idps:
   tenant_id: default
   transformer: {}
 - authorization_server_id: admin
+  config: {}
   credentials:
     azure: {}
     azureb2c: {}
@@ -2353,6 +2358,7 @@ idps:
   tenant_id: default
   transformer: {}
 - authorization_server_id: developer
+  config: {}
   credentials:
     azure: {}
     azureb2c: {}
@@ -4309,6 +4315,11 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: json
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
@@ -4319,6 +4330,18 @@ servers:
   issuer_url: https://localhost:8443/default/admin
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: rQCgUVr4CO9X9PDdAkV8fY7gTjn-SEY3_ED7DoaqvcP2ZjXnJNKh3p5ZO1T-USbvIA6NK-mL9_kj5NBK_Rb1VIhucgqnLSVNpY9dUZFnKTOczNK4zuJHkVZo_B683oR0cE5mVuMFZzCVp_B5-u5IB08czQXleSO9C_1kXUmqxsT3oA9Cbd-aEb3au7ZcL_ThB8-lCc8njtNL0kmV7pV8zwOD37PYnuKlGLhl0k-FVIiUO3MKJ4DnXPxZSqVl-BQPQGFjt58mNPUZN8aJUl03PrR2EMUTAH2HwcxSJaHlO9K1DJrlEA8witLZiSnj2Pf4mzugP-IJ-8L39LG1XcP40Q
+      dp: Z4KCU0-YqJi4sTgpeDVGNpi2S2RpvcuFUSfGasJzI02TQiYp1Rxo-jpwTJQkI7_XrjuqYz3gqxdP1KObtUCAL8inZykuuZAfzaitZkdsshGe-OCU9ExOB-3KA8gjMENcWdU_p7-QHcTnUmDaTCCX-pOWAiV0m_TSTkC8ln0cjaE
+      dq: ukE3OO1-RjhZxeX0llzekB_XXhISb_mJBA4wS2yla9muC_M4m6NG7IfYXKWSmU1aeyS6XLOiw-ubarUP4VwOU3gFTIXQhtZeBNJfcy60U4hljJfH4Qr6O0Y0nvHZAXuzfMMABUD6buv4qklADAFpLiNYh3FwDnfXNyFvb68ZzT0
+      e: AQAB
+      kid: c0i6nsjsie7t0um22890
+      kty: RSA
+      "n": r1lS-ep3tYiQMbLiELOlfVQ6E9YtZZwywCJtHOCJm04ji860rPmtDWoe-7OD7ZY-ZH2K0XuKn-Au_sP2XGYf4JI3T733QeHr3fiRcqL-eWIhzBXgfcmEA1lwXwz5Yp7KURA6LFkdOjk4pl9wgF-J4WZunqme6tTGRjKlqY46wX-BgL8DEfVe_S4h9sm6PhuIT6vzfz5rFrIP77Cl5NQMKbJ4Op3Ig11A0bz6jHmkp2NTnyI6jOtq7Zckkx1DR_SMtu4v4dHRzwq0yKKCXNA_I2dWwM9khMG3oWErabZ8nlTGT3LbhhdJsnal-nk9Ph61tLT2-VDqskfd6WDCC06AsQ
+      p: 4K-iTgYSHOiKdnFe9_wwIEd4GTBXHZ6ebbp30FIx-TkI85lEeIYFWOO8Ohowf9SMZaQ6U6PH6SPofuBB32iCGu_H-AAvgYzmVys8OfhK1PragoGKsOr93YFw4vxlab0Wodyr_3NhyrnngaEkVSeDayNHIxlKffom04cUI8Mct2c
+      q: x8lvjg1SIYfqNGhB4n3nmgaVpBPhIwDIkraeNDpcmdGzPwf4wUI0RgSYkWaXyk0HIilv2oQu_jmZ6HRKm9V2P3aJvFHPTFyz8sLizWK0qjvjS1mXo6GN-YQGsSnB2eyhKmvnZb7aTE0pP1GbCxN4vsfj9JyJMlaONDXCi8FS8Cc
+      qi: Cy8BEY5XDQcKFCV3qKnd_xGo9T-83GASg2jWkRnh3LfNhLFL0lTOe6Vqg4XHJzRCzEeHJ3HIDaq82dy5FykUwAMkvGreIJOkcTHCzwQRiRLYAIpAYalIz8wTS_fDgCS8PdQbsRq-iV39J4_x57wHIlAW8uVTKMJ_q1-tuevihds
+      use: enc
     - alg: ES256
       crv: P-256
       d: STzYNgPGgrRI58L6d1oUEBMRHBzi8V1N-xqCdA5Y7FA
@@ -4357,6 +4380,11 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: json
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
@@ -4370,6 +4398,18 @@ servers:
   issuer_url: https://localhost:8443/default/bank-admins
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: m4dj89Xp81T7WCPJqyTlG-b5fjjiz5EKuyhxpC0JumzHQvxVKfo9YIwB9fIiLNeY0flpbctam23KSbCRZTtU_ay1AHaJtjNxy4_D27SAIRpyebU_VxIeF4LIEQb3LW4sLZXQWMFKUf-ObXcBnY3Qmq9ASKFA6OkeZ0_SuNczUsZ1TC6v46W_b1IeD9dh3ziPmR3j6WdxUHsR2IFHwzTbpTzyQwriUTIM9xqC51GDXCGLxT7c6qYRg-UEp7VYuMgs17uh4EoaY73642-fbHUabxq-JQYzBoEMHDTUjDyxWDdQy7z00S8h1L4Ghrdk_ZLwMjxd6BX_GR2UrZidXd3VoQ
+      dp: rrhKrzg1Wu9nNLnOl4EH611Lfc9j7-zcfeabReoDLBINxk8hzc5P3UqIZJNg035T4a9lrGqntwkg2d5POW9-s35VDkQ3o97TTCFF554gQJqEf370iK2bcAHQ_hdmkLUIM8nDHAtIXAbclplHga_b64z7QYcCA67HmROtSUA5cVk
+      dq: InASq6tGAgp9J1c_pIEhGglfCZhgW_BEmFXrq2a3VL5WAS5nOrqWdh1AQs3-qmFz3z7wZK5F0lsQ2qayyUtBEl0zR0fze0iAe0zYoZ5O3vLj7UQjQmt6oqpM1m9Wy5rEWhEXeVfY3QJIZXDPRuUm04psiKuXI7w6jeyhiL719UE
+      e: AQAB
+      kid: c0i6nsjsie7t0um2289g
+      kty: RSA
+      "n": vVitw3r8lPnx1XZdR43xxnVaryrOAw_WXInu8KlwdNOvubYUpmcijrXwkDUShc9oBUK-8MRZNUOOSHzp__wEE1WmgaI7LnBEx4L71OXEhn-xkouW53fm78Jdwl0YaERMEYKFJfAcs3a8_WaZ325vDbu5gN0BrypgyWXka8nh_hMxybME4zDuUPPPCOt973m--LEpShbcahpInlvNLTvmfa0DE1O6yx_cq5fYHq2eEmeA4ZdsbCa9WjpfdBD27rHL82T3u7PcfKZG3gprtlSqSWFdFMYBiWf3GVIuNQMl6-CNpjJm2RXqlc8XPUZES8o_-jXjbLldv40MdVWEtMCVYQ
+      p: w974csd1xohSIl8OxZ3fFrTVL7WZPyZK122spHc4aVShC8ZfPW4UVao69K752MuARYTSqsjt8rnzt3qi1HdtKCbae5mpMJnS9g2i9SPa7hfPNWMbaUyvyFs6oGFpJoizZ6_yJw3f6D6bE-gZe0tKuMPueisSCTeO8xHgfgk5sBs
+      q: 93j1Gf3NLHojiDUxSMeRYU3z9Prj043wErWO27AiAYGmKXFqP9OR_A_l89MhBWSN8UICy91DYtT5bHNaRgIWY6ghXGKo9gGtd9c9fJoQF2dhA9HBTo-i-r_C8J9cYJryNn8lHvhtRe1J33jySyC41V5RYMoZlMETJe2SHafvgDM
+      qi: DGwRCoYbzT7AKQibc-fP2jX7y_RauF9H99DaKcLxSint4z6K1agx23lVauFdopy_RlbUitMsda_D0m_p8vvbVQstNwLy-oKfPSfSLH5Wr0CiJQb1KX00fVvDh0pNeXM5Y-YKHGFEqUSGST1h4z4LPt4obJXIEPgtTtg9PDXWyz4
+      use: enc
     - alg: ES256
       crv: P-256
       d: t8VbJ8XmoYpk0iO7rW-PjoLnxHygRvzq2Hew_hG2F4o
@@ -4408,6 +4448,11 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: json
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
@@ -4421,6 +4466,18 @@ servers:
   issuer_url: https://localhost:8443/default/bank-customers
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: RPqZZCo84ioKCLdvlj80s5kID8iOXp6AlPJcaFcNXX0pcf3w6uiJYi47CJ8SB3mKGvrF9ZiZHhtzhriR-EmVz_298_JyWA3Bmqb9CFDqTq-y4isDioWV_LTS6otUoJhNiWuRcfYipRpUiAg2wVgr5Xqu7gRyE-lijk-dAdBo5SRncmyW4fVlc4jm-VHpuICVNbLIH3pLUmCc3asAqfvlveh9_EN9boyD96iLCLC526T6lADJZCo8Ayhzyw2GWWKHE8pc9zPWISsm4Foxo13zlYkEfIjYhyEvODTtBwY97-eEjtNAEeTJdf5mg19k_Czo_UrmVlmqvKZP73Sp8FowQQ
+      dp: Dpm0VMogFKz4emNj_xsjf4pLKy7ur8mwQ-YHdqmrqPqAttRoQ4ho1lJnJPVxkMqxVx8f_p15fUWWHXFz5iiI--uSCIJvmlskRBJi8HfsZAcFxHRid_mGKfWZr4XRwDFlETK9VG4VjEvscuRupnhGp6MGCcqusucZiyw9dMm2EDE
+      dq: gmXDj50iqvYzIHyX9Ue73PKcMEEqkM55dB7pp2IGCRkkk9dhbJKfQhvbVMENUwvTCNuKGXHkI0Rn4Z-usc5M7_IFd2ZjxpzAVj52co8MXTUJUFkCyy2LLBBGv5lQhIR4WJisCKKiDReejyvQWDDiSuixmybS1ac1KCsE11GE-lk
+      e: AQAB
+      kid: c0i6nsjsie7t0um228a0
+      kty: RSA
+      "n": qI5SOpp89-8C91jZTRMoE_wj-UlALGmF7oqbpjuKJF82PxF56xdK-WQe6kufY7km8vNfCOHdA6u2j8AXrhlB4FgZ03xC1vT7TsWeev9zzCuKbAfX4xHpV7oz19FCW1_t_sns9mmmsEnbSv5Yvwt3SqEWV55CSOGhxIkZeuDVGZmDDNJnQXMTtyhR0vs2ciNLpWJymSGufM1ymg5keS2e52Q1kUzq_bKN0TA9-1KkhbXpAkaXEZWP_mhToGF4XVidChI_ydcDR8BK8iH7YQIciHYIh7QBH-uLDZHGE7KWVzfsCZQDOzBzdk3DEMWghNVRyh3A0aXn4PmPKsiBkmofWQ
+      p: xtmjkGj1FVYIelqRQ2l5pu57SmEjC0xmBCpQQ044vv9znzwsr2JVeoh70QCPVY9UJy4hgJwzpN8yK2NzGtYIUs8o3LMvSLYVqfThuKarTW2wK_OZqWO0bZSENZl_XLxlbm8BBRN4XAIq7EGf99s-xZGlLV1yJVX-2BaXJMU0qcU
+      q: 2P_Kre4ZgiGbmUqWvoM89ymY3qleGZ5TgiduHoYgSdbtnDSBdljfcAXOyF8uCWTjISfrOyQPymNSMQ_66dBh9o36hdsfyyr8raG45FS05UrWG3JqPolN7LQAkjvvSvTWfsPZXrPfFHy6X10fPbkcA_i_tbCaiAc_Ksl3ysow_IU
+      qi: G8-lccuw0pUHJ6kOUpkVmKnozEPwjSEQMTCmBAPb-j85X4wTzLuCDrQ7kscaft7W_FKGhyrM9arDSoJHlG_s6mK3P4qDw4g4E0z7oE-GyDe5YYhjw9m0Z4Jqkty_NQGMrnmP2c-byU8CMCmOerX_ifsHEB0yTzIUPmFDZpXBIz8
+      use: enc
     - alg: ES256
       crv: P-256
       d: r7o6NAEZirX6f-bKU_vAYctKV7i2iKhFVPVpxpeuws8
@@ -4459,6 +4516,11 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: json
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
@@ -4469,6 +4531,18 @@ servers:
   issuer_url: https://localhost:8443/default/developer
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: ONvota599OZ61Xx5VXPgQZ4Crh0xJa8cuigQrjLVlZwhMda5A2E4MexCNuObyToJSwTv4OewLiGgNTYD9OVcouy6cytu1LIFgijvjWnlDkKvEfnYhRzoyJhpn-KM_iCYg55SHZJRHLpc4mzhQM9o1lPYRQeqFPzscR8StUTJ5iWElJM5luIp6s_VhMA2wwl7nse1CwmxZ8Okvf1VAT09MXJ_n2KkpVQ0pmD25AN2qJi-YhoNDans9L54E5MMgd1dRnx31tb7g0YFIIiCsQ6t9T-ZhDUorrhmudHsXUGS_2WlRKatxVGGKoIwqUQpoWQzvaQ3awze-rU3CxhjlNxJ8Q
+      dp: G8XneTTnXThMeB2c5gMw0oawbwCZEBj99wEwMK8J8mqu8pxhKkRB2ECwRDSvTI1D4Bk-cL7GUioV5rNx7XIUSvU4flYoXiyHkFb8pe4qvaA_9TvGg-XInqhAoP0qAeDkpTEGk7s_3yQmyjf1pHJm9hAd5nR_ha45L1XYDOLTrxs
+      dq: GDIYvib4l2OSwUBsXA3V98BGhpo_ieUJY5Y6BrD1bpq22kiHs8gOpQlp_8UOIT6KApRlAQwpQJciLGOyNKlbBp0VhsdX_wKGysVwPxNFx3lunemrhhWSA0ikcRg0EDU9Cz5cMwaFJv1Y2jfjzgb_C6v-BNIDBxseRF_FUdJ_IsU
+      e: AQAB
+      kid: c0i6nsrsie7t0um228ag
+      kty: RSA
+      "n": 5SVVcTyqMgEQ-DZi9Fab7zkWAnQqfH5agZo5Vlqr-ZqqDAaX-h228U3M2xjyQSN1rInSUEdMQKJu_u7b_wNkmOjxjAp7_N1u7Cv6r0PjSePPllpGEWbjuBu9wuxF5_iMXGuD4vpoEpFLaurebsXPqtBXil-Cg2aBHk_XhDH79Ai8g6fsYRwisrRWza0XyEUAsvqzGaVlcpeT_nH0HTkSxCdyGkFyZqynjd9ODKdRHJeKEXg9YJp_uajN8RCOjL56tX56coisxojAxcMZetLUFwJUXC36kYWZA7DoGJwW5bwWM9uq5aMxOCNrUl2aV_bYfu_09MzF6ZTLyF4TfR81Hw
+      p: -HyH_VtpPDR7dCNDiv6YpYAe9DA7TCfGH-niW-NvFU5MTbPfqPUQnlYzr4LdsEQ8KNv8kxtm9QFdg_qR6E4RBXhPP5g6Bs-5_jOwWUmpHCscvqvek9gJYbZfdCCtUAd_Ukr99uhBgfm08WH05oYc4kvWbk_2Sly26BiVHftWN2M
+      q: 7BMXhlW0ZiWpDyzrZkM7GKr7bABi8eHdMG0QAQdIvVjlKzvfsVO_tU1ehoANp9VwNP3PzgqHyNQCa8bHMDH9yc7-NBgxVKrPwuBxmBZxTE8MXIwnx6K0dLmFHbbK2V2dALOQTsRv9IJWf41Icr-X05nFahFME5hjEo_mcwQJzhU
+      qi: LKeOLpmVnRu3I8LrV-pvG928bQj_LLOKehJqQ2tDzoPbRkKYkBF3asDri0eeCuBZIsliQ7qzsPVPJkni2uz5enNfdsWVvFcBDVdeeYlPYfRks173fUoAIgTGyxuHw-KRkSb69CH8Zf7k45l_OIDNyRq_UjwP7bj-_Ntn7nqZjCE
+      use: enc
     - alg: ES256
       crv: P-256
       d: dwFFAzuzzid-gLq7EVENmibGsH-Xu8P5dTpMRHSSCU0
@@ -4507,6 +4581,11 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: json
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
@@ -4520,6 +4599,18 @@ servers:
   issuer_url: https://localhost:8443/default/financroo
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: VwGmoDPONzw1-ztktHFiMeg1UQIXT3qC-J4ISqkThO9oSImCfA1DJSkVWUQb4BzWJrYXz3MA_Hr5PZSt1erdDO3nfDQMDda8vmJiO7JMtv8MBIU2UWC0TKsF0BJDux6zlttv5vcrc4mE8GjV9Xa8skJUzD13WVUdv20AlAlJNt09cbgH2BeHYZVcrsc906QkMV5n9eSpr3HBUnUF0cZqjEF168B5aPXfhUNASCwmG1qdxHOkOVmpErTyucOkxfL-iLCDV5GuL7cTDxYKiWZIJhwmcVwebhV5YHhVdBcyDKF2UDva-xZUQ7PQjrMFYp5Ci02UHLt9gFSHli3zlB50oQ
+      dp: c9jDN6HcQSrmvg5fkQBwBOgfqa57lNM4Nx91hl8VWtF9kNjUTtRx3J66rkC1iXZNNLi_g9ZBqdWBOMbkb6heg8n7u7c3sWf3jIs4LZLV7nMUrSo8XPLWLgP3uElKA_Zicsp_SnVKEYJ0JhSsGSBpi-o4KXwauq_6SQWeSgEy05M
+      dq: g6edBecqZZmYp6x6LKE4VXl-UX3BeK6_1CUgXozjXgHqzinbYMcGpxVPxHxOYsiqsottANhjsqtqZNZ985VPSJVwUiqLq3F5KXwZpV8qmZzy4oByvUhBjaROVddDan2OA_5ob0Tx0qwfofsBKiRziUTFEzAQPJRS7KM74uEGrMU
+      e: AQAB
+      kid: c0i6nsrsie7t0um228b0
+      kty: RSA
+      "n": t0Ebj2evALYHwxBKHCeLqRLqlg-JJStciIPoPs1FpvjV-X-t55RQlNmMxYhRpjrTxDTGKJEy1yBlj-T6EJeJuRJ_krR5x3wv9TLZg3GBxXPl1Wz8RQkH6NOPaRRWEZfuRloHdQzST78sR1Qimzzuuxz8NCWLwU_c4_N-nCLcbS-0iEjBRLhjPaCvMVKIgv4FEM3gNsJ7b_jO4LGF9ohDOJTX3xQVHPPvplpdiDZQl-w7WYExNcqmFkZs3vK3ae7fEBKJBFHRYh8aZghLt1BD9Cig5vbyGcng4tglunADr1ORc0SoivhvkKFilYim8-0LGXMVedUpwq8A9nP--VX0Bw
+      p: yvPRxQEyYV--XaonyFK6fQcPLxNsSkFHO-Wd5MgYbggsakdbGic-esI4kr4zU2JZaFNMRbQ6VSpqPKVXfrjvDOAnrNxZbqIDoWPh7CJSjWcTAWU6s-55qmDDFvrSW2pJIqBoKUFWGcZ8nqH3wmL8V1GNQ389CmLWUxAf-BzwZVM
+      q: 5yc6MH1RKNrZrXmTftcYyKi9h3j-dbsv8FeZCnewyu6wN8a64SWyOkET03LuPNOhS4uK-MKkeC3LGMV7xboNHMMHbMITQg9obJ3mUaIVCGz-4NoTQZtFW3tjO90IAIAd26Ph1b-iq2cFTVv1CNn37sYnDQgfhnJ9Ob29F1TTy_0
+      qi: qg268FRdSrsiJrWcwnioppIETYs_RBdXAd5nt6LUFLXoIqoJqqkPbL_l4zoNMdaMBlvAJFpOCiWsDyWk4bse7XOf1G8Jxo2LGap3QaI_4dtmAQ9DtTd4482lRhvTIvJ4wj0DYZg7B0pOUfeA3qkJnly0vtlgDD9oyEA1dKPaaq0
+      use: enc
     - alg: ES256
       crv: P-256
       d: vV0_FUymz5bQ-dpJvRhlXPWsv_Yk7Xeca_KXcMDMG3s
@@ -4558,9 +4649,15 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: jws
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
+      required: true
   enforce_pkce: true
   enforce_pkce_for_public_clients: true
   grant_types:
@@ -4572,6 +4669,18 @@ servers:
   issuer_url: https://localhost:8443/default/openbanking
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: DFr-OHO8DzpbNxBo05hw6l315sdCAqrr5AIyG8lRqV-NSJUPH1LWDV1n9OaBrCIiVNxz2-djE6o7cW__c3Zw3uO02vc1UXMB-Qdwn38ogw71xxy7OH2HJSx2c9PckjmuuLHPsvbGyWesxRowsRRwS0ycgSI-JGHo7mOlNsbigiOveU8KKh124GY3d4yH9ZAbGIE-37Dy1nuTQGULam6LZJ-5XzT4SMlk-X0uc8RAkV9oPW7byertNqlpdUk3R8RTrLx4TyEK5BEwGW89RoqTGlAkyWbquePLvze4N7JfdtMHzkX_pzayF6_Xpsluzg1r0Y7i49r68LQc9RoTDPYASQ
+      dp: vDnlfH8Wd6_acxeXbE0cmleGA8iUMT2Zyei27RogDMrJZA8Ai_O6P6ZQNs5-uvAwfVWhGTgLZ80XR7yXNSQW2uvM9u6hFlLri7aMdEmQ93Xkl1iF4z0GNY6Hl-ga1mt9MdSRkgCPHnbyKweLdx_o7tbCkCSaywORO2iCCyx_zkE
+      dq: yzqe_Ytlt9ocoou32mmaeWYLIMUavhFMRskLlGJHYbtVUI5K53OwvOShLiW6RZe0yPvk9w4GJu_Na4cS2fsJr_lKh72wO5ON8mWkSklvBEzQvTYS_xCtUqLJDE9f0m8YP4nUrexUmFDGSJPr-A1aYZxZPCzteozw7Cs1Ga8Sot0
+      e: AQAB
+      kid: c0i6nsrsie7t0um228bg
+      kty: RSA
+      "n": wRIaVdGkIhXhFB7B3Kymr_g0DQLbIKbqkiJPt3M1g08luwvS2qQoiuSc4_M3dobtBDLUMgGlmoKR_IwzfAac1LJ20vToepZdwlBtzmwppGiNAX77jsGYZcpDKUgsUe479sEnPBeLyq35NgSBHX11i9X-JzunCt5Dpm3Y1p8GiGGNYRZQpuMfmTPBxRplhfNuJ7t7sproOPy-lzoN0BWZyKqhtCdw-5_LhjkE6paYwWxAhUBCqH5BDHwutU4frtp4S6RllMTmnOskkLxMt9ILQTOD3NbEOBF60704KZBLiJ9wrS4_WCMxuT9uoaTpNa0XY9460Z6dcr0QA7JfoHKksQ
+      p: y20pbsuHdWwD7hvfmCIUs1o-QfyWvKn-I_H0NDe2rI8Fd2O3tEx9Cs9MczpzaJ_czEkUDm0J_wXOGo_eb9YsCTKOzdy1C26mBdFcLcERs5ESkEQ1v7VVdPFDTZv5x47gG10XzdJ6hk6xp5-BAfB28Ys39RZ4tBI4vAWpwlL-OL8
+      q: 8vfM7f6KHcs2bV9-dtSLjbfcPa6zz00rLd_5j-QvNFN1MD0_yn5yHmrb-Ex6VQWbE0C-n9vSjlnHGPye5Z-Sgw3YH37YrNhSS2P6gfvEBtFCFwbicbjn3x-rowzhZrm_argcbgem4XlUUYeg7_gqb6T3jLxgdggROmdTMg3Jjo8
+      qi: Au_2_iOCHvDxev2FSmPWKhF6A-QTD3MxV98DwTCMVoC5wJcxGrRvtFdwDwX3SK0_ONAg9bcOg533Q1EMTYiEN61c0CsIyirNbYMAwtB4p-TrhVrCwdFVhYE8CTmDhLnuYXBtUneLJOlorHRMBbAcvsoCDrEtqGwo8ZdoM0F8bWs
+      use: enc
     - alg: ES256
       crv: P-256
       d: AigfBVg_bcfSMMc89d0m4G9CTq2Otw-jUKEdrGqKv5M
@@ -4625,6 +4734,11 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: json
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
@@ -4635,6 +4749,18 @@ servers:
   issuer_url: https://localhost:8443/default/system
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: jS-J1uYuPittNaYBKbaJxSIq8osRQx_1mjt22OevoUyQzwwtR6d0ZQvs6it-__tgjEzigVphguCPt4vNNWkW1uIIqp_XUkrloGZSSHCZZmO2N8r1xOIjf6fQgSlH0U47rXeNl0xcPjz8bZwC05f3XBpyd7UDTxUxCHPT0UaocRiXcg3xn2najYSJnkPEIFKysjucWSNfUzvPmFW8QNKe2tmUKNRpPxF9UqW08daoQNX-RqpfJrmgDUTVOhxpS4faIXMbCrYsbOYBCmkGs76PoIQdBUSStiTZo8NqOirqvJFWyUphy8MoEQrEjv6j2QJm43mBOWQBR6WbHv3YdiZKDQ
+      dp: Q4jL1u8vwGIQvbMkj1nlUodd4PJ2t6DUAqYIvSLwMqdUHgwQ27Tz8sM88nVwm2cGu5DdZwHJcWa-g6ePfayPGqaY1T103YoIFDUwtYnU2jXdc9NGkV_i90CrxwWWQF2u5QSKbV4hDaVReXcTJZuBrHyWoIuBqer2ocInZAgfFCU
+      dq: MfE-ZIfD6MVO1FvTiQtH8wmyrykAf4iY8jxxasIs_re8VJr03n8OqHSP5V4UmjaI0H5dMblUxXebb-4D9ym690Y0f029vFWwAj3J7v57mBgGZsYp-3oyzfUKvq79CAqOPRacbWgwkDmKoLA47wbOTLhfeI7hyY8u5nUUZ6sk6T8
+      e: AQAB
+      kid: c0i6nsrsie7t0um228c0
+      kty: RSA
+      "n": we-mqhoCDTKcWYmd7OLQQpkVBWG-q0RbVb5G1tJTP3BiRmRJGb4vchdfXS_wAfHDLyJUDHP6QTmf8eWCLqlECqDvPyPj9bs5CdA_3azlaGe7VrAvC4p-m0Rli2oL3zdaEkVv4i1xytVG6P03stXsIwPfJwLCDeDThbYCYKYAKOCGspz47Jnf2BU5bxCPFADavzTCG7kBB6zVSRjcup122E7nFCYfNLx_s9E_L4Z08N0zQEEsPC6bYjEl5cDOLg_GsNb1U7udz-UDIxyArSVTq4Suj2k7ukn5Av4w9Iw01xBHGrPr904cts84ubicFDe9pcRJSfaxLKfNjTmXCaj_OQ
+      p: 5x9oIl6usG4rJjRhPxqO4mmBwWNf0vhSZO4a8GiOhpWL4D1fNHQ-qoNg1bVW_ALqgw5RHb8kzhX54fnkiBahGjKUAos3n_LQW--z_5suwyhk3zRNK20CJ3U5xeS--gl0a0_amD5vU7CHKZUQIZASgF1MPYWhesE0LBJo8UMEGB8
+      q: 1s-RV-xiMfy73ZGMDX0AOUlD8RND5xXdzoboahwNysCgbHTk21r23ma6fgI3ne8Dsl1XnqmiINX-0O49RumsYWZD3l40fP3FbgcX0gn0yVbakEPBU1H6UuUDIyB40Wc_hPZUx3lr_QLajdEEeSp6m3TBOsJ_IBb95NC4FiuGXac
+      qi: O-eEALDl11QqgzmMjIDaz3hWW-VdR3tzZSaPkzCHitbld0QcUkUFaGE0ClB-AajLmCXWalQv8cXa2hhxbSwGe-lx97jcvdzLfcjYbqtOICeAm91y2QogdIFqwt9o886u8-1PFJvr9nxu9qpIM4pTmdtqJq1vDxYp6gChNbaZViY
+      use: enc
     - alg: ES256
       crv: P-256
       d: KB7hXvxMgvDaSBJHdtkTnmixNabKBjStxEttqVikwkw
@@ -4695,6 +4821,11 @@ servers:
   cookie_max_age: 1h0m0s
   dynamic_client_registration:
     initial_access_token: {}
+    payload:
+      format: json
+      jws_payload:
+        jwks:
+          keys: null
     software_statement:
       jwks:
         keys: null
@@ -4705,6 +4836,18 @@ servers:
   issuer_url: https://localhost:8443/system/system
   jwks:
     keys:
+    - alg: RSA-OAEP-256
+      d: 2TgiReXlAwjfwIOfCtRJ0q1LLa68WDqik4-4MG8OpwOMg3A3i88kVs3ehovhJZH2lMY0PcsPmR9J9hcqah6bggf5ppg9XI0rhK4ELNnPR6Fu5AagF1ItWlR1iG-P2sE-MIv8VQQAWHCAmdXYOerWGHwbn5JMzk6hPw3AuxWdFpR9pfbQ0LUxsJiIorm9TfyUr97o9xhs1EbcMkZueZUv3tifOJkXIzeqeAvmVaOI8uPizsEuysDfjVH0qimErAQr23jkhcgUAgF4oqyRa0dHNQibyrOKgoAlCY-MBoQ62lX2C17bfViWTrAP7ZXTdGCejA7EO6ZbG-P16LfbLsvoZQ
+      dp: tDWfHWnW87ApOuzByUMQUuvJARpGZbru1b6F60xUeXy0bGl8jNdO9KDkgqCtlaWK2WFV1TiCXzigbpUHvKE5h3SVzG54dJOd5LHe575TcJLpIeSZrHcgHOiJoWOhUEC8Mh0RSWUeSnIvchogfKryGemRTrWiOq4OxGutrJe8PiE
+      dq: FRPnVC0OnxgSk0FniNFno-oveO1pqFVSfD78WEqeJdzN1lSdEN9NSyH-4PnBseRu8gmIcNqzOMu0JXy7HKhHWZOoZRuLVC_p2c_BXrgVA7jx9OK5rzfjQKmDWM9_vgiNKbJPHHAfkOjaXgB8LMn2QXdpDNMj1eFTu9o0LX1mIbs
+      e: AQAB
+      kid: c0i6nsrsie7t0um228cg
+      kty: RSA
+      "n": 5AxM-XOWk8v2aNdxtUUwduxPliNyzyqIsVVPeO3RHloLzF08ACzQwuKEBtmmqcyRHkOQD63W81X9C3d5ZYn1IpsFjyA0UIk7x0x7SRMCIEb0zm4gadiLL_Wh3wIrqvv0zbo_NzhjnxL4lTOYDIMdXSlVaJf7T6ARxaf8MqGiaNul2kLCm9GJJ2E1q92O1jpYJ65K5OA-DZtwBeJSQ0V85ARfFLbIzWhQBiDWfbrgDG-5ymNuhzf7K75fabAgFKgrtm7JzTfE_3z4t9MOVG3GawMBi6zbL44DbE_0m-uRtMhAEa5bYHWToKoOEyqaMZ8N7g94MephVK2FiwZIUk4W4Q
+      p: 7PdOQPh2Kpt5cPM-p4OKwXBSvgYevIjbrbiklK46DRK6G-51eNQsxNPVHlon5Cfxh78nUTAyvyHGgknAJwAyLRvYjrEMGLeG_LYi0BK2hdOWv46QkLp0o2yY6U2tQv1aFlG1FRJdxL-ejZF6KKg45USuMDHj0Ba7JLUPVBnZ0Kc
+      q: 9l2dqHJ0EUpE6WYUdu8sZLY8UX4tdoZzxFj3nJpACIkj--lTkyuE1jDx768I4xrWywOJlTbWeX2OAK3j2OO9D1dXSS-MkPkEJGqeLaHXuK58ulAEeMoZrzjAmM7C1_jXPUskmwRWbjxTaLscgKsUYfcTJB-f-9pE_wnRUwf5BTc
+      qi: xRXkMa8i-GLjz93hZW9vF4YhedfNNrmhIkC3t0xx-pdQ5hr4dDN1z1R4DdMiPRQiS9zTB1AQpC3ubY_wmb4U3TtjBtTnHHUnX8OUIXkPshzpdyHFqVQGZPRogRm0qqPiF_J6yrMI7YJe0jW6dqfv91oUisIOtY6C4gbHjIad5JU
+      use: enc
     - alg: ES256
       crv: P-256
       d: yk5vE5Mv5-vVnxcfcHzU2HKTA8bvlsUGtwu22ELZSsQ
@@ -4743,13 +4886,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: system
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bube15t8739jub0p4eq0
     name: email
     tenant_id: system
   - authorization_server_id: system
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bube15t8739jub0p4eqg
     name: phone
@@ -4761,13 +4906,16 @@ services:
     name: address
     tenant_id: system
   - authorization_server_id: system
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bube15t8739jub0p4erg
     name: profile
     tenant_id: system
   - authorization_server_id: system
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bube15t8739jub0p4es0
     name: openid
@@ -4823,7 +4971,8 @@ services:
     name: revoke_client_access
     tenant_id: system
   - authorization_server_id: system
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bube15t8739jub0p4f10
     name: dcr_register
@@ -4836,13 +4985,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: system
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bube15t8739jub0p4fe0
     name: email
     tenant_id: default
   - authorization_server_id: system
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bube15t8739jub0p4feg
     name: phone
@@ -4854,13 +5005,16 @@ services:
     name: address
     tenant_id: default
   - authorization_server_id: system
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bube15t8739jub0p4ffg
     name: profile
     tenant_id: default
   - authorization_server_id: system
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bube15t8739jub0p4fg0
     name: openid
@@ -4916,7 +5070,8 @@ services:
     name: revoke_client_access
     tenant_id: default
   - authorization_server_id: system
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bube15t8739jub0p4fl0
     name: dcr_register
@@ -4963,13 +5118,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: admin
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bube15t8739jub0p4g5g
     name: email
     tenant_id: default
   - authorization_server_id: admin
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bube15t8739jub0p4g60
     name: phone
@@ -4981,13 +5138,16 @@ services:
     name: address
     tenant_id: default
   - authorization_server_id: admin
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bube15t8739jub0p4g70
     name: profile
     tenant_id: default
   - authorization_server_id: admin
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bube15t8739jub0p4g7g
     name: openid
@@ -5043,7 +5203,8 @@ services:
     name: revoke_client_access
     tenant_id: default
   - authorization_server_id: admin
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bube15t8739jub0p4gcg
     name: dcr_register
@@ -5056,13 +5217,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: developer
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bube15t8739jub0p4gpg
     name: email
     tenant_id: default
   - authorization_server_id: developer
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bube15t8739jub0p4gq0
     name: phone
@@ -5074,13 +5237,16 @@ services:
     name: address
     tenant_id: default
   - authorization_server_id: developer
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bube15t8739jub0p4gr0
     name: profile
     tenant_id: default
   - authorization_server_id: developer
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bube15t8739jub0p4grg
     name: openid
@@ -5136,7 +5302,8 @@ services:
     name: revoke_client_access
     tenant_id: default
   - authorization_server_id: developer
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bube15t8739jub0p4h0g
     name: dcr_register
@@ -5149,13 +5316,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: openbanking
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bugkg8q3g9kregtu04lg
     name: email
     tenant_id: default
   - authorization_server_id: openbanking
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bugkg8q3g9kregtu04m0
     name: phone
@@ -5167,13 +5336,16 @@ services:
     name: address
     tenant_id: default
   - authorization_server_id: openbanking
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bugkg8q3g9kregtu04n0
     name: profile
     tenant_id: default
   - authorization_server_id: openbanking
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bugkg8q3g9kregtu04ng
     name: openid
@@ -5235,7 +5407,8 @@ services:
     name: revoke_client_access
     tenant_id: default
   - authorization_server_id: openbanking
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bugkg8q3g9kregtu04sg
     name: dcr_register
@@ -5277,13 +5450,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: bank-customers
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bv0na68mekk67nekvpu0
     name: email
     tenant_id: default
   - authorization_server_id: bank-customers
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bv0na68mekk67nekvpug
     name: phone
@@ -5295,13 +5470,16 @@ services:
     name: address
     tenant_id: default
   - authorization_server_id: bank-customers
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bv0na68mekk67nekvpvg
     name: profile
     tenant_id: default
   - authorization_server_id: bank-customers
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bv0na68mekk67nekvq00
     name: openid
@@ -5363,7 +5541,8 @@ services:
     name: revoke_client_access
     tenant_id: default
   - authorization_server_id: bank-customers
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bv0na68mekk67nekvq50
     name: dcr_register
@@ -5376,13 +5555,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: bank-admins
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bv2f7sqed9c9is80f23g
     name: email
     tenant_id: default
   - authorization_server_id: bank-admins
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bv2f7sqed9c9is80f240
     name: phone
@@ -5394,13 +5575,16 @@ services:
     name: address
     tenant_id: default
   - authorization_server_id: bank-admins
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bv2f7sqed9c9is80f250
     name: profile
     tenant_id: default
   - authorization_server_id: bank-admins
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bv2f7sqed9c9is80f25g
     name: openid
@@ -5462,7 +5646,8 @@ services:
     name: revoke_client_access
     tenant_id: default
   - authorization_server_id: bank-admins
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bv2f7sqed9c9is80f2ag
     name: dcr_register
@@ -5486,13 +5671,15 @@ services:
   name: Profile
   scopes:
   - authorization_server_id: financroo
-    description: This scope value requests access to the email and email_verified claims.
+    description: This scope value requests access to the email and email_verified
+      claims.
     display_name: Email
     id: bv3p4io557ouq8rha0g0
     name: email
     tenant_id: default
   - authorization_server_id: financroo
-    description: This scope value requests access to the phone_number and phone_number_verified claims.
+    description: This scope value requests access to the phone_number and phone_number_verified
+      claims.
     display_name: Phone
     id: bv3p4io557ouq8rha0gg
     name: phone
@@ -5504,13 +5691,16 @@ services:
     name: address
     tenant_id: default
   - authorization_server_id: financroo
-    description: 'This scope value requests access to the end-user''s default profile claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username, profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
+    description: 'This scope value requests access to the end-user''s default profile
+      claims, which are: name, family_name, given_name, middle_name, nickname, preferred_username,
+      profile, picture, website, gender, birthdate, zoneinfo, locale, and updated_at.'
     display_name: Profile
     id: bv3p4io557ouq8rha0hg
     name: profile
     tenant_id: default
   - authorization_server_id: financroo
-    description: This scope value requests access to the sub claim which uniquely identifies the user.
+    description: This scope value requests access to the sub claim which uniquely
+      identifies the user.
     display_name: OpenID
     id: bv3p4io557ouq8rha0i0
     name: openid
@@ -5572,7 +5762,8 @@ services:
     name: revoke_client_access
     tenant_id: default
   - authorization_server_id: financroo
-    description: Allows to register client using dynamic client registration endpoint when it's configured to require initial access token
+    description: Allows to register client using dynamic client registration endpoint
+      when it's configured to require initial access token
     display_name: Use Dynamic Client Registration
     id: bv3p4io557ouq8rha0n0
     name: dcr_register
@@ -5679,6 +5870,8 @@ tenants:
       x5t#S256: w16uagJslkf67eS7flMCL92BxINQF-frFv4ZyCGVJFw
       "y": IZ7gbxcE3KgnU-swV1EGKFQOw5njkDlJDsUFzjv9o9Y
   name: default
+  styling:
+    colors: {}
   url: https://localhost:8443/default
 - authentication_context_settings:
     attributes:
@@ -5776,5 +5969,7 @@ tenants:
       x5t#S256: ILbB6LI4mMXLBNhyuNkU6h5k2-7iVJ2-MW9rD2-jBZ4
       "y": UfbT6c_EEboEfUVzywWwg3iPGKn3ki2V0mLZ8Wkt2NQ
   name: default
+  styling:
+    colors: {}
   url: https://localhost:8443/system
 

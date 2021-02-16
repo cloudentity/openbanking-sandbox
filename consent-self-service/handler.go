@@ -75,7 +75,7 @@ func (s *Server) ListConsents() func(*gin.Context) {
 func (s *Server) FetchAccounts(c *gin.Context) (*models.ListAccountAccessConsentsWithClient, error) {
 	var (
 		accounts InternalAccounts
-		response *openbanking.ListConsentsByAccountsOK
+		response *openbanking.ListAccountAccessConsentsOK
 		at       *models.IntrospectResponse
 		err      error
 	)
@@ -96,14 +96,13 @@ func (s *Server) FetchAccounts(c *gin.Context) (*models.ListAccountAccessConsent
 		accountIDs[i] = a.ID
 	}
 
-	if response, err = s.Client.Openbanking.ListConsentsByAccounts(
-		openbanking.NewListConsentsByAccountsParams().
+	if response, err = s.Client.Openbanking.ListAccountAccessConsents(
+		openbanking.NewListAccountAccessConsentsParams().
 			WithTid(s.Client.TenantID).
-			WithListConsentsByAccountsRequest(
-				&models.ListConsentsByAccountsRequest{
-					AccountIDs: accountIDs,
-				},
-			),
+			WithAid(s.Config.SystemClientsServerID).
+			WithListAccountAccessConsentsRequest(&models.ListAccountAccessConsentsRequest{
+				AccountIDs: accountIDs,
+			}),
 		nil,
 	); err != nil {
 		return nil, err
@@ -140,6 +139,7 @@ func (s *Server) RevokeConsent() func(*gin.Context) {
 		if _, err = s.Client.Openbanking.RevokeOpenbankingConsent(
 			openbanking.NewRevokeOpenbankingConsentParams().
 				WithTid(s.Client.TenantID).
+				WithAid(s.Config.SystemClientsServerID).
 				WithConsentID(id),
 			nil,
 		); err != nil {

@@ -33,14 +33,14 @@ clean:
 
 .PHONY: seed
 seed:
-	docker exec acp ./authorization import \
+	docker exec acp ./acp import \
 		--sql.url 'postgres://root@crdb:26257/defaultdb?sslmode=disable' \
 		--secret.key KNEcLGdDqpwrXDubqPgDSUkMMsLPXaHh \
 		--format yaml --input /seed.yaml
 
 .PHONY: dump
 dump:
-	docker exec acp ./authorization export \
+	docker exec acp ./acp export \
 		--sql.url 'postgres://root@crdb:26257/defaultdb?sslmode=disable' \
 		--secret.key KNEcLGdDqpwrXDubqPgDSUkMMsLPXaHh \
 		--format yaml > data/seed.yaml
