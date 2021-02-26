@@ -29,6 +29,8 @@ We're using docker-compose to spin the sandbox.
 * make
 * contact sales@cloudentity.com to get credentials to be able to download ACP docker image
 
+For Windows you need to use WSL.
+
 ### Quickstart
 
 To run the sandbox use the following command:
