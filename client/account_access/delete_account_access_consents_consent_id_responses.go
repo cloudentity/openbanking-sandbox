@@ -73,7 +73,6 @@ func (o *DeleteAccountAccessConsentsConsentIDReader) ReadResponse(response runti
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -84,12 +83,13 @@ func NewDeleteAccountAccessConsentsConsentIDNoContent() *DeleteAccountAccessCons
 	return &DeleteAccountAccessConsentsConsentIDNoContent{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDNoContent handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDNoContent describes a response with status code 204, with default header values.
 
 Account Access Consents Deleted
 */
 type DeleteAccountAccessConsentsConsentIDNoContent struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -100,8 +100,12 @@ func (o *DeleteAccountAccessConsentsConsentIDNoContent) Error() string {
 
 func (o *DeleteAccountAccessConsentsConsentIDNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -111,12 +115,13 @@ func NewDeleteAccountAccessConsentsConsentIDBadRequest() *DeleteAccountAccessCon
 	return &DeleteAccountAccessConsentsConsentIDBadRequest{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDBadRequest handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type DeleteAccountAccessConsentsConsentIDBadRequest struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -126,15 +131,18 @@ type DeleteAccountAccessConsentsConsentIDBadRequest struct {
 func (o *DeleteAccountAccessConsentsConsentIDBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /account-access-consents/{ConsentId}][%d] deleteAccountAccessConsentsConsentIdBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteAccountAccessConsentsConsentIDBadRequest) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *DeleteAccountAccessConsentsConsentIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -151,12 +159,13 @@ func NewDeleteAccountAccessConsentsConsentIDUnauthorized() *DeleteAccountAccessC
 	return &DeleteAccountAccessConsentsConsentIDUnauthorized{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDUnauthorized handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type DeleteAccountAccessConsentsConsentIDUnauthorized struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -167,8 +176,12 @@ func (o *DeleteAccountAccessConsentsConsentIDUnauthorized) Error() string {
 
 func (o *DeleteAccountAccessConsentsConsentIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -178,12 +191,13 @@ func NewDeleteAccountAccessConsentsConsentIDForbidden() *DeleteAccountAccessCons
 	return &DeleteAccountAccessConsentsConsentIDForbidden{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDForbidden handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type DeleteAccountAccessConsentsConsentIDForbidden struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -193,15 +207,18 @@ type DeleteAccountAccessConsentsConsentIDForbidden struct {
 func (o *DeleteAccountAccessConsentsConsentIDForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /account-access-consents/{ConsentId}][%d] deleteAccountAccessConsentsConsentIdForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteAccountAccessConsentsConsentIDForbidden) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *DeleteAccountAccessConsentsConsentIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -218,12 +235,13 @@ func NewDeleteAccountAccessConsentsConsentIDMethodNotAllowed() *DeleteAccountAcc
 	return &DeleteAccountAccessConsentsConsentIDMethodNotAllowed{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDMethodNotAllowed handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDMethodNotAllowed describes a response with status code 405, with default header values.
 
 Method Not Allowed
 */
 type DeleteAccountAccessConsentsConsentIDMethodNotAllowed struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -234,8 +252,12 @@ func (o *DeleteAccountAccessConsentsConsentIDMethodNotAllowed) Error() string {
 
 func (o *DeleteAccountAccessConsentsConsentIDMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -245,12 +267,13 @@ func NewDeleteAccountAccessConsentsConsentIDNotAcceptable() *DeleteAccountAccess
 	return &DeleteAccountAccessConsentsConsentIDNotAcceptable{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDNotAcceptable handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDNotAcceptable describes a response with status code 406, with default header values.
 
 Not Acceptable
 */
 type DeleteAccountAccessConsentsConsentIDNotAcceptable struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -261,8 +284,12 @@ func (o *DeleteAccountAccessConsentsConsentIDNotAcceptable) Error() string {
 
 func (o *DeleteAccountAccessConsentsConsentIDNotAcceptable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -272,15 +299,17 @@ func NewDeleteAccountAccessConsentsConsentIDTooManyRequests() *DeleteAccountAcce
 	return &DeleteAccountAccessConsentsConsentIDTooManyRequests{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDTooManyRequests handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDTooManyRequests describes a response with status code 429, with default header values.
 
 Too Many Requests
 */
 type DeleteAccountAccessConsentsConsentIDTooManyRequests struct {
-	/*Number in seconds to wait
+
+	/* Number in seconds to wait
 	 */
 	RetryAfter int64
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -291,15 +320,23 @@ func (o *DeleteAccountAccessConsentsConsentIDTooManyRequests) Error() string {
 
 func (o *DeleteAccountAccessConsentsConsentIDTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Retry-After
-	retryAfter, err := swag.ConvertInt64(response.GetHeader("Retry-After"))
-	if err != nil {
-		return errors.InvalidType("Retry-After", "header", "int64", response.GetHeader("Retry-After"))
-	}
-	o.RetryAfter = retryAfter
+	// hydrates response header Retry-After
+	hdrRetryAfter := response.GetHeader("Retry-After")
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	if hdrRetryAfter != "" {
+		valretryAfter, err := swag.ConvertInt64(hdrRetryAfter)
+		if err != nil {
+			return errors.InvalidType("Retry-After", "header", "int64", hdrRetryAfter)
+		}
+		o.RetryAfter = valretryAfter
+	}
+
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -309,12 +346,13 @@ func NewDeleteAccountAccessConsentsConsentIDInternalServerError() *DeleteAccount
 	return &DeleteAccountAccessConsentsConsentIDInternalServerError{}
 }
 
-/*DeleteAccountAccessConsentsConsentIDInternalServerError handles this case with default header values.
+/* DeleteAccountAccessConsentsConsentIDInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
 type DeleteAccountAccessConsentsConsentIDInternalServerError struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -324,15 +362,18 @@ type DeleteAccountAccessConsentsConsentIDInternalServerError struct {
 func (o *DeleteAccountAccessConsentsConsentIDInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /account-access-consents/{ConsentId}][%d] deleteAccountAccessConsentsConsentIdInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteAccountAccessConsentsConsentIDInternalServerError) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *DeleteAccountAccessConsentsConsentIDInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 

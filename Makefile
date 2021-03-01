@@ -51,5 +51,7 @@ swagger = docker run --rm -it -e GOPATH=/go \
 			-w $(shell pwd)/src quay.io/goswagger/swagger
 
 generate:
-	rm -rf client models
-	${swagger} generate client -f /go/src/swagger.yaml -A openbanking -t /go/src -q
+	rm -rf openbanking/accountinformation/*
+	rm -rf opebanking/paymentinitiation/*
+	${swagger} generate client -f /go/src/api/accounts.yaml -A OpenbankingAccountsClient -t /go/src/openbanking/accountinformation 
+	${swagger} generate client -f /go/src/api/paymentinitiation.yaml -A OpenbankingPaymentsClient -t /go/src/openbanking/paymentinitiation 

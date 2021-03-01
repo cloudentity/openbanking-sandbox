@@ -9,6 +9,7 @@ import (
 )
 
 func TestConfig(t *testing.T) {
+	t.Parallel()
 	for k, v := range map[string]string{
 		"ACP_URL":          "https://localhost:8443",
 		"ACP_INTERNAL_URL": "https://acp:8443",

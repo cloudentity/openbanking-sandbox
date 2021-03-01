@@ -73,7 +73,6 @@ func (o *GetAccountsAccountIDBalancesReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -84,12 +83,13 @@ func NewGetAccountsAccountIDBalancesOK() *GetAccountsAccountIDBalancesOK {
 	return &GetAccountsAccountIDBalancesOK{}
 }
 
-/*GetAccountsAccountIDBalancesOK handles this case with default header values.
+/* GetAccountsAccountIDBalancesOK describes a response with status code 200, with default header values.
 
 Balances Read
 */
 type GetAccountsAccountIDBalancesOK struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -99,15 +99,18 @@ type GetAccountsAccountIDBalancesOK struct {
 func (o *GetAccountsAccountIDBalancesOK) Error() string {
 	return fmt.Sprintf("[GET /accounts/{AccountId}/balances][%d] getAccountsAccountIdBalancesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetAccountsAccountIDBalancesOK) GetPayload() *models.OBReadBalance1 {
 	return o.Payload
 }
 
 func (o *GetAccountsAccountIDBalancesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBReadBalance1)
 
@@ -124,12 +127,13 @@ func NewGetAccountsAccountIDBalancesBadRequest() *GetAccountsAccountIDBalancesBa
 	return &GetAccountsAccountIDBalancesBadRequest{}
 }
 
-/*GetAccountsAccountIDBalancesBadRequest handles this case with default header values.
+/* GetAccountsAccountIDBalancesBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type GetAccountsAccountIDBalancesBadRequest struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -139,15 +143,18 @@ type GetAccountsAccountIDBalancesBadRequest struct {
 func (o *GetAccountsAccountIDBalancesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /accounts/{AccountId}/balances][%d] getAccountsAccountIdBalancesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetAccountsAccountIDBalancesBadRequest) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetAccountsAccountIDBalancesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -164,12 +171,13 @@ func NewGetAccountsAccountIDBalancesUnauthorized() *GetAccountsAccountIDBalances
 	return &GetAccountsAccountIDBalancesUnauthorized{}
 }
 
-/*GetAccountsAccountIDBalancesUnauthorized handles this case with default header values.
+/* GetAccountsAccountIDBalancesUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetAccountsAccountIDBalancesUnauthorized struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -180,8 +188,12 @@ func (o *GetAccountsAccountIDBalancesUnauthorized) Error() string {
 
 func (o *GetAccountsAccountIDBalancesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -191,12 +203,13 @@ func NewGetAccountsAccountIDBalancesForbidden() *GetAccountsAccountIDBalancesFor
 	return &GetAccountsAccountIDBalancesForbidden{}
 }
 
-/*GetAccountsAccountIDBalancesForbidden handles this case with default header values.
+/* GetAccountsAccountIDBalancesForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetAccountsAccountIDBalancesForbidden struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -206,15 +219,18 @@ type GetAccountsAccountIDBalancesForbidden struct {
 func (o *GetAccountsAccountIDBalancesForbidden) Error() string {
 	return fmt.Sprintf("[GET /accounts/{AccountId}/balances][%d] getAccountsAccountIdBalancesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetAccountsAccountIDBalancesForbidden) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetAccountsAccountIDBalancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -231,12 +247,13 @@ func NewGetAccountsAccountIDBalancesMethodNotAllowed() *GetAccountsAccountIDBala
 	return &GetAccountsAccountIDBalancesMethodNotAllowed{}
 }
 
-/*GetAccountsAccountIDBalancesMethodNotAllowed handles this case with default header values.
+/* GetAccountsAccountIDBalancesMethodNotAllowed describes a response with status code 405, with default header values.
 
 Method Not Allowed
 */
 type GetAccountsAccountIDBalancesMethodNotAllowed struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -247,8 +264,12 @@ func (o *GetAccountsAccountIDBalancesMethodNotAllowed) Error() string {
 
 func (o *GetAccountsAccountIDBalancesMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -258,12 +279,13 @@ func NewGetAccountsAccountIDBalancesNotAcceptable() *GetAccountsAccountIDBalance
 	return &GetAccountsAccountIDBalancesNotAcceptable{}
 }
 
-/*GetAccountsAccountIDBalancesNotAcceptable handles this case with default header values.
+/* GetAccountsAccountIDBalancesNotAcceptable describes a response with status code 406, with default header values.
 
 Not Acceptable
 */
 type GetAccountsAccountIDBalancesNotAcceptable struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -274,8 +296,12 @@ func (o *GetAccountsAccountIDBalancesNotAcceptable) Error() string {
 
 func (o *GetAccountsAccountIDBalancesNotAcceptable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -285,15 +311,17 @@ func NewGetAccountsAccountIDBalancesTooManyRequests() *GetAccountsAccountIDBalan
 	return &GetAccountsAccountIDBalancesTooManyRequests{}
 }
 
-/*GetAccountsAccountIDBalancesTooManyRequests handles this case with default header values.
+/* GetAccountsAccountIDBalancesTooManyRequests describes a response with status code 429, with default header values.
 
 Too Many Requests
 */
 type GetAccountsAccountIDBalancesTooManyRequests struct {
-	/*Number in seconds to wait
+
+	/* Number in seconds to wait
 	 */
 	RetryAfter int64
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -304,15 +332,23 @@ func (o *GetAccountsAccountIDBalancesTooManyRequests) Error() string {
 
 func (o *GetAccountsAccountIDBalancesTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Retry-After
-	retryAfter, err := swag.ConvertInt64(response.GetHeader("Retry-After"))
-	if err != nil {
-		return errors.InvalidType("Retry-After", "header", "int64", response.GetHeader("Retry-After"))
-	}
-	o.RetryAfter = retryAfter
+	// hydrates response header Retry-After
+	hdrRetryAfter := response.GetHeader("Retry-After")
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	if hdrRetryAfter != "" {
+		valretryAfter, err := swag.ConvertInt64(hdrRetryAfter)
+		if err != nil {
+			return errors.InvalidType("Retry-After", "header", "int64", hdrRetryAfter)
+		}
+		o.RetryAfter = valretryAfter
+	}
+
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -322,12 +358,13 @@ func NewGetAccountsAccountIDBalancesInternalServerError() *GetAccountsAccountIDB
 	return &GetAccountsAccountIDBalancesInternalServerError{}
 }
 
-/*GetAccountsAccountIDBalancesInternalServerError handles this case with default header values.
+/* GetAccountsAccountIDBalancesInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
 type GetAccountsAccountIDBalancesInternalServerError struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -337,15 +374,18 @@ type GetAccountsAccountIDBalancesInternalServerError struct {
 func (o *GetAccountsAccountIDBalancesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /accounts/{AccountId}/balances][%d] getAccountsAccountIdBalancesInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetAccountsAccountIDBalancesInternalServerError) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetAccountsAccountIDBalancesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 

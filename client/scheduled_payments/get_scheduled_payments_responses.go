@@ -79,7 +79,6 @@ func (o *GetScheduledPaymentsReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -90,12 +89,13 @@ func NewGetScheduledPaymentsOK() *GetScheduledPaymentsOK {
 	return &GetScheduledPaymentsOK{}
 }
 
-/*GetScheduledPaymentsOK handles this case with default header values.
+/* GetScheduledPaymentsOK describes a response with status code 200, with default header values.
 
 Scheduled Payments Read
 */
 type GetScheduledPaymentsOK struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -105,15 +105,18 @@ type GetScheduledPaymentsOK struct {
 func (o *GetScheduledPaymentsOK) Error() string {
 	return fmt.Sprintf("[GET /scheduled-payments][%d] getScheduledPaymentsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetScheduledPaymentsOK) GetPayload() *models.OBReadScheduledPayment3 {
 	return o.Payload
 }
 
 func (o *GetScheduledPaymentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBReadScheduledPayment3)
 
@@ -130,12 +133,13 @@ func NewGetScheduledPaymentsBadRequest() *GetScheduledPaymentsBadRequest {
 	return &GetScheduledPaymentsBadRequest{}
 }
 
-/*GetScheduledPaymentsBadRequest handles this case with default header values.
+/* GetScheduledPaymentsBadRequest describes a response with status code 400, with default header values.
 
 Bad request
 */
 type GetScheduledPaymentsBadRequest struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -145,15 +149,18 @@ type GetScheduledPaymentsBadRequest struct {
 func (o *GetScheduledPaymentsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /scheduled-payments][%d] getScheduledPaymentsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetScheduledPaymentsBadRequest) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetScheduledPaymentsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -170,12 +177,13 @@ func NewGetScheduledPaymentsUnauthorized() *GetScheduledPaymentsUnauthorized {
 	return &GetScheduledPaymentsUnauthorized{}
 }
 
-/*GetScheduledPaymentsUnauthorized handles this case with default header values.
+/* GetScheduledPaymentsUnauthorized describes a response with status code 401, with default header values.
 
 Unauthorized
 */
 type GetScheduledPaymentsUnauthorized struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -186,8 +194,12 @@ func (o *GetScheduledPaymentsUnauthorized) Error() string {
 
 func (o *GetScheduledPaymentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -197,12 +209,13 @@ func NewGetScheduledPaymentsForbidden() *GetScheduledPaymentsForbidden {
 	return &GetScheduledPaymentsForbidden{}
 }
 
-/*GetScheduledPaymentsForbidden handles this case with default header values.
+/* GetScheduledPaymentsForbidden describes a response with status code 403, with default header values.
 
 Forbidden
 */
 type GetScheduledPaymentsForbidden struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -212,15 +225,18 @@ type GetScheduledPaymentsForbidden struct {
 func (o *GetScheduledPaymentsForbidden) Error() string {
 	return fmt.Sprintf("[GET /scheduled-payments][%d] getScheduledPaymentsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetScheduledPaymentsForbidden) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetScheduledPaymentsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 
@@ -237,12 +253,13 @@ func NewGetScheduledPaymentsNotFound() *GetScheduledPaymentsNotFound {
 	return &GetScheduledPaymentsNotFound{}
 }
 
-/*GetScheduledPaymentsNotFound handles this case with default header values.
+/* GetScheduledPaymentsNotFound describes a response with status code 404, with default header values.
 
 Not found
 */
 type GetScheduledPaymentsNotFound struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -253,8 +270,12 @@ func (o *GetScheduledPaymentsNotFound) Error() string {
 
 func (o *GetScheduledPaymentsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -264,12 +285,13 @@ func NewGetScheduledPaymentsMethodNotAllowed() *GetScheduledPaymentsMethodNotAll
 	return &GetScheduledPaymentsMethodNotAllowed{}
 }
 
-/*GetScheduledPaymentsMethodNotAllowed handles this case with default header values.
+/* GetScheduledPaymentsMethodNotAllowed describes a response with status code 405, with default header values.
 
 Method Not Allowed
 */
 type GetScheduledPaymentsMethodNotAllowed struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -280,8 +302,12 @@ func (o *GetScheduledPaymentsMethodNotAllowed) Error() string {
 
 func (o *GetScheduledPaymentsMethodNotAllowed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -291,12 +317,13 @@ func NewGetScheduledPaymentsNotAcceptable() *GetScheduledPaymentsNotAcceptable {
 	return &GetScheduledPaymentsNotAcceptable{}
 }
 
-/*GetScheduledPaymentsNotAcceptable handles this case with default header values.
+/* GetScheduledPaymentsNotAcceptable describes a response with status code 406, with default header values.
 
 Not Acceptable
 */
 type GetScheduledPaymentsNotAcceptable struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -307,8 +334,12 @@ func (o *GetScheduledPaymentsNotAcceptable) Error() string {
 
 func (o *GetScheduledPaymentsNotAcceptable) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -318,15 +349,17 @@ func NewGetScheduledPaymentsTooManyRequests() *GetScheduledPaymentsTooManyReques
 	return &GetScheduledPaymentsTooManyRequests{}
 }
 
-/*GetScheduledPaymentsTooManyRequests handles this case with default header values.
+/* GetScheduledPaymentsTooManyRequests describes a response with status code 429, with default header values.
 
 Too Many Requests
 */
 type GetScheduledPaymentsTooManyRequests struct {
-	/*Number in seconds to wait
+
+	/* Number in seconds to wait
 	 */
 	RetryAfter int64
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 }
@@ -337,15 +370,23 @@ func (o *GetScheduledPaymentsTooManyRequests) Error() string {
 
 func (o *GetScheduledPaymentsTooManyRequests) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header Retry-After
-	retryAfter, err := swag.ConvertInt64(response.GetHeader("Retry-After"))
-	if err != nil {
-		return errors.InvalidType("Retry-After", "header", "int64", response.GetHeader("Retry-After"))
-	}
-	o.RetryAfter = retryAfter
+	// hydrates response header Retry-After
+	hdrRetryAfter := response.GetHeader("Retry-After")
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	if hdrRetryAfter != "" {
+		valretryAfter, err := swag.ConvertInt64(hdrRetryAfter)
+		if err != nil {
+			return errors.InvalidType("Retry-After", "header", "int64", hdrRetryAfter)
+		}
+		o.RetryAfter = valretryAfter
+	}
+
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	return nil
 }
@@ -355,12 +396,13 @@ func NewGetScheduledPaymentsInternalServerError() *GetScheduledPaymentsInternalS
 	return &GetScheduledPaymentsInternalServerError{}
 }
 
-/*GetScheduledPaymentsInternalServerError handles this case with default header values.
+/* GetScheduledPaymentsInternalServerError describes a response with status code 500, with default header values.
 
 Internal Server Error
 */
 type GetScheduledPaymentsInternalServerError struct {
-	/*An RFC4122 UID used as a correlation id.
+
+	/* An RFC4122 UID used as a correlation id.
 	 */
 	XFapiInteractionID string
 
@@ -370,15 +412,18 @@ type GetScheduledPaymentsInternalServerError struct {
 func (o *GetScheduledPaymentsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /scheduled-payments][%d] getScheduledPaymentsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetScheduledPaymentsInternalServerError) GetPayload() *models.OBErrorResponse1 {
 	return o.Payload
 }
 
 func (o *GetScheduledPaymentsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-fapi-interaction-id
-	o.XFapiInteractionID = response.GetHeader("x-fapi-interaction-id")
+	// hydrates response header x-fapi-interaction-id
+	hdrXFapiInteractionID := response.GetHeader("x-fapi-interaction-id")
+
+	if hdrXFapiInteractionID != "" {
+		o.XFapiInteractionID = hdrXFapiInteractionID
+	}
 
 	o.Payload = new(models.OBErrorResponse1)
 

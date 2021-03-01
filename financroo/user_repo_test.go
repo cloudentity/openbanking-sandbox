@@ -7,6 +7,7 @@ import (
 )
 
 func TestUsersRepo(t *testing.T) {
+	t.Parallel()
 	db, err := InitDB(Config{DBFile: "./test.db"})
 	require.NoError(t, err)
 	defer db.Close()

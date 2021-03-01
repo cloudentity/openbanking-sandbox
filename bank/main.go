@@ -45,9 +45,10 @@ func LoadConfig() (config Config, err error) {
 }
 
 type Server struct {
-	Config  Config
-	Client  acpclient.Client
-	Storage *Storage
+	Config       Config
+	Client       acpclient.Client
+	Storage      UserRepo
+	PaymentQueue PaymentQueue
 }
 
 func NewServer() (Server, error) {
@@ -64,8 +65,12 @@ func NewServer() (Server, error) {
 		return server, errors.Wrapf(err, "failed to init acp client")
 	}
 
-	if server.Storage, err = InitStorage(); err != nil {
-		return server, errors.Wrapf(err, "failed to init accounts storage")
+	if server.Storage, err = NewUserRepo(); err != nil {
+		return server, errors.Wrapf(err, "failed to init repo")
+	}
+
+	if server.PaymentQueue, err = NewPaymentQueue(server.Storage); err != nil {
+		return server, errors.Wrapf(err, "failed to init payment queue")
 	}
 
 	return server, nil
@@ -75,9 +80,12 @@ func (s *Server) Start() error {
 	r := gin.Default()
 	r.GET("/accounts", s.GetAccounts())
 	r.GET("/internal/accounts/:sub", s.InternalGetAccounts())
-
 	r.GET("/transactions", s.GetTransactions())
 	r.GET("/balances", s.GetBalances())
+	r.POST("/domestic-payments", s.CreateDomesticPayment())
+	r.GET("/domestic-payments/:DomesticPaymentId", s.GetDomesticPayment())
+
+	go s.PaymentQueue.Start()
 
 	return r.Run(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)))
 }

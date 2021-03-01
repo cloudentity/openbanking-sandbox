@@ -18,86 +18,105 @@ import (
 	"github.com/cloudentity/openbanking-sandbox/models"
 )
 
-// NewCreateAccountAccessConsentsParams creates a new CreateAccountAccessConsentsParams object
-// with the default values initialized.
+// NewCreateAccountAccessConsentsParams creates a new CreateAccountAccessConsentsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateAccountAccessConsentsParams() *CreateAccountAccessConsentsParams {
-	var ()
 	return &CreateAccountAccessConsentsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateAccountAccessConsentsParamsWithTimeout creates a new CreateAccountAccessConsentsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateAccountAccessConsentsParamsWithTimeout(timeout time.Duration) *CreateAccountAccessConsentsParams {
-	var ()
 	return &CreateAccountAccessConsentsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateAccountAccessConsentsParamsWithContext creates a new CreateAccountAccessConsentsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateAccountAccessConsentsParamsWithContext(ctx context.Context) *CreateAccountAccessConsentsParams {
-	var ()
 	return &CreateAccountAccessConsentsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateAccountAccessConsentsParamsWithHTTPClient creates a new CreateAccountAccessConsentsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateAccountAccessConsentsParamsWithHTTPClient(client *http.Client) *CreateAccountAccessConsentsParams {
-	var ()
 	return &CreateAccountAccessConsentsParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateAccountAccessConsentsParams contains all the parameters to send to the API endpoint
-for the create account access consents operation typically these are written to a http.Request
+/* CreateAccountAccessConsentsParams contains all the parameters to send to the API endpoint
+   for the create account access consents operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateAccountAccessConsentsParams struct {
 
-	/*Authorization
-	  An Authorisation Token as per https://tools.ietf.org/html/rfc6750
+	/* Authorization.
 
+	   An Authorisation Token as per https://tools.ietf.org/html/rfc6750
 	*/
 	Authorization string
-	/*OBReadConsent1Param
-	  Default
 
+	/* OBReadConsent1Param.
+
+	   Default
 	*/
 	OBReadConsent1Param *models.OBReadConsent1
-	/*XCustomerUserAgent
-	  Indicates the user-agent that the PSU is using.
 
+	/* XCustomerUserAgent.
+
+	   Indicates the user-agent that the PSU is using.
 	*/
 	XCustomerUserAgent *string
-	/*XFapiAuthDate
-	  The time when the PSU last logged in with the TPP.
+
+	/* XFapiAuthDate.
+
+	     The time when the PSU last logged in with the TPP.
 	All dates in the HTTP headers are represented as RFC 7231 Full Dates. An example is below:
 	Sun, 10 Sep 2017 19:43:31 UTC
-
 	*/
 	XFapiAuthDate *string
-	/*XFapiCustomerIPAddress
-	  The PSU's IP address if the PSU is currently logged in with the TPP.
 
+	/* XFapiCustomerIPAddress.
+
+	   The PSU's IP address if the PSU is currently logged in with the TPP.
 	*/
 	XFapiCustomerIPAddress *string
-	/*XFapiInteractionID
-	  An RFC4122 UID used as a correlation id.
 
+	/* XFapiInteractionID.
+
+	   An RFC4122 UID used as a correlation id.
 	*/
 	XFapiInteractionID *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create account access consents params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateAccountAccessConsentsParams) WithDefaults() *CreateAccountAccessConsentsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create account access consents params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateAccountAccessConsentsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create account access consents params
@@ -211,7 +230,6 @@ func (o *CreateAccountAccessConsentsParams) WriteToRequest(r runtime.ClientReque
 	if err := r.SetHeaderParam("Authorization", o.Authorization); err != nil {
 		return err
 	}
-
 	if o.OBReadConsent1Param != nil {
 		if err := r.SetBodyParam(o.OBReadConsent1Param); err != nil {
 			return err
@@ -224,7 +242,6 @@ func (o *CreateAccountAccessConsentsParams) WriteToRequest(r runtime.ClientReque
 		if err := r.SetHeaderParam("x-customer-user-agent", *o.XCustomerUserAgent); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiAuthDate != nil {
@@ -233,7 +250,6 @@ func (o *CreateAccountAccessConsentsParams) WriteToRequest(r runtime.ClientReque
 		if err := r.SetHeaderParam("x-fapi-auth-date", *o.XFapiAuthDate); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiCustomerIPAddress != nil {
@@ -242,7 +258,6 @@ func (o *CreateAccountAccessConsentsParams) WriteToRequest(r runtime.ClientReque
 		if err := r.SetHeaderParam("x-fapi-customer-ip-address", *o.XFapiCustomerIPAddress); err != nil {
 			return err
 		}
-
 	}
 
 	if o.XFapiInteractionID != nil {
@@ -251,7 +266,6 @@ func (o *CreateAccountAccessConsentsParams) WriteToRequest(r runtime.ClientReque
 		if err := r.SetHeaderParam("x-fapi-interaction-id", *o.XFapiInteractionID); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {
