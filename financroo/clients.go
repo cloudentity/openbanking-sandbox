@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"time"
 
 	obc "github.com/cloudentity/openbanking-sandbox/client"
 	httptransport "github.com/go-openapi/runtime/client"
@@ -31,12 +32,14 @@ func NewAcpClient(c Config, cfg BankConfig) (acpclient.Client, error) {
 		return client, err
 	}
 
+	requestObjectExpiration := time.Minute * 10
 	config := acpclient.Config{
 		ClientID:                    cfg.AcpClient.ClientID,
 		IssuerURL:                   issuerURL,
 		AuthorizeURL:                authorizeURL,
 		RedirectURL:                 redirectURL,
 		RequestObjectSigningKeyFile: cfg.AcpClient.KeyFile,
+		RequestObjectExpiration:     &requestObjectExpiration,
 		Scopes:                      []string{"accounts", "openid", "offline_access"},
 		Timeout:                     cfg.AcpClient.Timeout,
 		CertFile:                    cfg.AcpClient.CertFile,

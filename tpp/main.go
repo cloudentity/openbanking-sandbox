@@ -31,6 +31,7 @@ type Config struct {
 }
 
 func (c *Config) ClientConfig() acpclient.Config {
+	requestObjectExpiration := time.Minute * 10
 	return acpclient.Config{
 		ClientID:                    c.ClientID,
 		IssuerURL:                   c.IssuerURL,
@@ -39,6 +40,7 @@ func (c *Config) ClientConfig() acpclient.Config {
 		UserinfoURL:                 c.UserinfoURL,
 		RedirectURL:                 c.RedirectURL,
 		RequestObjectSigningKeyFile: c.KeyFile,
+		RequestObjectExpiration:     &requestObjectExpiration,
 		Scopes:                      []string{"accounts", "openid"},
 		Timeout:                     c.Timeout,
 		CertFile:                    c.CertFile,
