@@ -41,11 +41,6 @@ make run
 
 It will download prebuild images from the docker hub.
 
-By default, sandbox is accessible locally using localhost domain.
-
-If you want to deploy it to a host with different domain,
-please adjust environment variables in `.env` file before running `make run`.
-
 If you finish playing with the sandbox you can turn it off:
 
 ``` sh
@@ -87,6 +82,52 @@ If you would like to access ACP's admin portal (credentials: `admin / p@ssw0rd!`
 
 ```
 https://localhost:8443/app/default/admin
+```
+
+### Custom deployment
+
+By default, when you run sandbox using a quickstart, it's deployed locally and
+accessible using the localhost domain.
+
+You can clone this repository and make some changes in `.env` file to run ACP /
+openbanking apps on some remote hosts with a different domains assigned.
+
+If you want to run sandbox on a single host with a given domain, modify the
+following environment variables:
+
+``` sh
+ACP_URL=https://example.com:8443
+APP_HOST=example.com
+```
+
+And then run the following command on `example.com` host:
+
+``` sh
+make run
+```
+
+If you want to split the deployment i.e. deploy ACP components on the one host
+and the rest of openbanking sandbox apps on the other, modify the following
+environment variables:
+
+``` sh
+ACP_URL=https://acp-host.com:8443
+ACP_INTERNAL_URL=https://acp-host.com:8443
+ACP_HOST=apps-host.com
+```
+
+Then to run ACP components, execute the following command on `acp-host.com`
+host:
+
+``` sh
+make run-acp
+```
+
+And then to run openbanking apps, execute the following command on
+`apps-host.com` host:
+
+``` sh
+make run-apps
 ```
 
 ### Developer commands

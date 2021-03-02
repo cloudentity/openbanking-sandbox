@@ -17,11 +17,19 @@ run-dev: replace-hosts
 	./scripts/wait.sh
 	make seed
 
-.PHONY: run
-run: replace-hosts
-	docker-compose up -d --no-build
+.PHONY: run-acp
+run-acp: replace-hosts
+	docker-compose up -d --no-build acp crdb hazelcast
 	./scripts/wait.sh
 	make seed
+
+.PHONY: run-apps
+run-apps:
+	docker-compose up -d --no-build tpp financroo consent-page consent-self-service consent-admin bank
+
+.PHONY: run
+run:
+	make run-acp run-apps
 
 .PHONY: lint
 lint:
@@ -53,5 +61,5 @@ swagger = docker run --rm -it -e GOPATH=/go \
 generate:
 	rm -rf openbanking/accountinformation/*
 	rm -rf opebanking/paymentinitiation/*
-	${swagger} generate client -f /go/src/api/accounts.yaml -A OpenbankingAccountsClient -t /go/src/openbanking/accountinformation 
-	${swagger} generate client -f /go/src/api/paymentinitiation.yaml -A OpenbankingPaymentsClient -t /go/src/openbanking/paymentinitiation 
+	${swagger} generate client -f /go/src/api/accounts.yaml -A OpenbankingAccountsClient -t /go/src/openbanking/accountinformation
+	${swagger} generate client -f /go/src/api/paymentinitiation.yaml -A OpenbankingPaymentsClient -t /go/src/openbanking/paymentinitiation
