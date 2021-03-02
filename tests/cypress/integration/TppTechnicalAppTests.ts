@@ -35,7 +35,7 @@ describe(`Tpp technical app`, () => {
       tppLoginPage.checkDetailPermission(permissions.includes(detailPermission))
       tppLoginPage.next();
       if (!permissions.includes(basicPermission) && !permissions.includes(detailPermission)) {
-        errorPage.assertError(`Invalid create account access consent request`)
+        errorPage.assertError(`Invalid consent request`)
       } else {
         tppIntentPage.login();
         acpLoginPage.login(Credentials.tppUsername, Credentials.defaultPassword);

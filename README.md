@@ -41,6 +41,11 @@ make run
 
 It will download prebuild images from the docker hub.
 
+By default, sandbox is accessible locally using localhost domain.
+
+If you want to deploy it to a host with different domain,
+please adjust environment variables in `.env` file before running `make run`.
+
 If you finish playing with the sandbox you can turn it off:
 
 ``` sh
