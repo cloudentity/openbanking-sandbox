@@ -4307,6 +4307,21 @@ server_consents:
   server_id: openbanking
   tenant_id: default
   type: custom
+- custom: {}
+  oidc: {}
+  server_id: developer
+  tenant_id: default
+  type: oidc
+- custom: {}
+  oidc: {}
+  server_id: system
+  tenant_id: default
+  type: oidc
+- custom: {}
+  oidc: {}
+  server_id: admin
+  tenant_id: default
+  type: oidc
 servers:
 - access_token_strategy: jwt
   access_token_ttl: 1h0m0s
