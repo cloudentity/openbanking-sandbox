@@ -3,6 +3,9 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 
 .EXPORT_ALL_VARIABLES: ;
 
+OB_APPS=tpp financroo consent-page consent-self-service consent-admin bank
+ACP_APPS=acp crdb hazelcast
+
 .PHONY: build
 build:
 	docker-compose -f docker-compose.yaml -f docker-compose.build.yaml build
@@ -18,18 +21,27 @@ run-dev: replace-hosts
 	make seed
 
 .PHONY: run-acp
-run-acp: replace-hosts
-	docker-compose up -d --no-build acp crdb hazelcast
+run-acp-apps: replace-hosts
+	docker-compose up -d --no-build ${ACP_APPS}
 	./scripts/wait.sh
 	make seed
 
+.PHONY: stop-acp-apps
+stop-acp-apps:
+	docker-compose rm -s -f ${ACP_APPS}
+
 .PHONY: run-apps
 run-apps:
-	docker-compose up -d --no-build tpp financroo consent-page consent-self-service consent-admin bank
+	docker-compose up -d --no-build ${OB_APPS}
 
 .PHONY: run
 run:
-	make run-acp run-apps
+	make run-acp-apps run-apps
+
+.PHONY: restart-acp
+restart-acp:
+	docker-compose rm -s -f acp
+	docker-compose up -d --no-build acp
 
 .PHONY: lint
 lint:
