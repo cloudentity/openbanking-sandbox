@@ -120,7 +120,7 @@ Then to run ACP components, execute the following command on `acp-host.com`
 host:
 
 ``` sh
-make run-acp
+make run-acp-apps
 ```
 
 And then to run openbanking apps, execute the following command on
