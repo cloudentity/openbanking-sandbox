@@ -169,7 +169,7 @@ services:
      - 8081:8080
     command: start-single-node --insecure
     volumes:
-     - "${PWD}/data/crdb:/cockroach/cockroach-data"
+     - crdb:/cockroach/cockroach-data"
 
   hazelcast:
     container_name: hazelcast
@@ -177,3 +177,6 @@ services:
     restart: on-failure
     ports:
       - 5701:5701
+
+volumes:
+  crdb:
