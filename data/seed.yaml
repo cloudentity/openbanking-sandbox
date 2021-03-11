@@ -1580,6 +1580,35 @@ clients:
   userinfo_signed_response_alg: none
 - application_type: web
   audience:
+  - admin-swagger
+  authorization_server_id: admin
+  client_id: admin-swagger
+  client_id_issued_at: 1615473136
+  client_name: Admin Swagger
+  client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: ES256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: any
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - offline_access
+  - openid
+  - profile
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
   - bank-admins
   authorization_server_id: bank-admins
   client_id: bank-admins
