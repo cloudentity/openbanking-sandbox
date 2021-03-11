@@ -2174,6 +2174,37 @@ clients:
   token_endpoint_auth_method: client_secret_basic
   token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
+- application_type: web
+  audience:
+  - system-swagger
+  authorization_server_id: system
+  client_id: system-swagger
+  client_id_issued_at: 1615473636
+  client_name: System Swagger
+  client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: ES256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: any
+  response_types:
+  - code
+  scopes:
+  - manage_consents
+  - manage_logins
+  - manage_openbanking_consents
+  - manage_scope_grants
+  - read_gateway_configuration
+  - view_clients
+  - view_consents
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
 idps:
 - authorization_server_id: openbanking
   config: {}
