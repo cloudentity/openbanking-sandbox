@@ -47,9 +47,13 @@ restart-acp:
 lint:
 	golangci-lint run --fix --deadline=5m ./...
 
+.PHONY: stop
+stop:
+	docker-compose stop
+
 .PHONY: clean
 clean:
-	docker-compose down
+	docker-compose down -v
 
 .PHONY: seed
 seed:
