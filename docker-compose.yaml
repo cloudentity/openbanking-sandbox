@@ -136,7 +136,6 @@ services:
     image: ${ACP_DOCKER_IMAGE}:${ACP_VERSION}
     ports:
      - 8443:8443
-    restart: on-failure
     volumes:
       - ./data/seed.yaml.generated:/seed.yaml
       - ./data/acp_cert.pem:/acp_cert.pem
@@ -163,7 +162,7 @@ services:
   crdb:
     container_name: crdb
     image: cockroachdb/cockroach:v20.1.7
-    restart: on-failure
+    restart: always
     ports:
      - 26257:26257
      - 8081:8080
