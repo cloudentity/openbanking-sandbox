@@ -1580,6 +1580,35 @@ clients:
   userinfo_signed_response_alg: none
 - application_type: web
   audience:
+  - admin-swagger
+  authorization_server_id: admin
+  client_id: admin-swagger
+  client_id_issued_at: 1615473136
+  client_name: Admin Swagger
+  client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: ES256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: any
+  response_types:
+  - id_token
+  - code
+  - token
+  scopes:
+  - offline_access
+  - openid
+  - profile
+  subject_type: public
+  tenant_id: default
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
   - bank-admins
   authorization_server_id: bank-admins
   client_id: bank-admins
@@ -2142,6 +2171,37 @@ clients:
   subject_type: public
   system: true
   tenant_id: system
+  token_endpoint_auth_method: client_secret_basic
+  token_endpoint_auth_signing_alg: none
+  userinfo_signed_response_alg: none
+- application_type: web
+  audience:
+  - system-swagger
+  authorization_server_id: system
+  client_id: system-swagger
+  client_id_issued_at: 1615473636
+  client_name: System Swagger
+  client_secret: n8HF35qzZkmsukHJzzz9LnN8m9Mf97uq
+  grant_types:
+  - client_credentials
+  id_token_signed_response_alg: ES256
+  jwks:
+    keys: []
+  privacy: {}
+  registration_token: {}
+  request_object_signing_alg: any
+  response_types:
+  - code
+  scopes:
+  - manage_consents
+  - manage_logins
+  - manage_openbanking_consents
+  - manage_scope_grants
+  - read_gateway_configuration
+  - view_clients
+  - view_consents
+  subject_type: public
+  tenant_id: default
   token_endpoint_auth_method: client_secret_basic
   token_endpoint_auth_signing_alg: none
   userinfo_signed_response_alg: none
@@ -3534,6 +3594,22 @@ policies:
         - vbm
     name: identity-context
 policy_execution_points:
+- server_id: admin
+  target_fk: admin
+  tenant_id: default
+  type: server_client_assignment
+- server_id: admin
+  target_fk: admin
+  tenant_id: default
+  type: server_dynamic_client_registration
+- server_id: admin
+  target_fk: admin
+  tenant_id: default
+  type: server_machine_token
+- server_id: admin
+  target_fk: admin
+  tenant_id: default
+  type: server_user_token
 - policy_id: block_admin_developer
   server_id: admin
   target_fk: bube15t8739jub0p4g90
@@ -4287,12 +4363,22 @@ scope_grants:
 server_consents:
 - custom: {}
   oidc: {}
+  server_id: admin
+  tenant_id: default
+  type: oidc
+- custom: {}
+  oidc: {}
   server_id: bank-admins
   tenant_id: default
   type: oidc
 - custom: {}
   oidc: {}
   server_id: bank-customers
+  tenant_id: default
+  type: oidc
+- custom: {}
+  oidc: {}
+  server_id: developer
   tenant_id: default
   type: oidc
 - custom: {}
@@ -4309,17 +4395,7 @@ server_consents:
   type: custom
 - custom: {}
   oidc: {}
-  server_id: developer
-  tenant_id: default
-  type: oidc
-- custom: {}
-  oidc: {}
   server_id: system
-  tenant_id: default
-  type: oidc
-- custom: {}
-  oidc: {}
-  server_id: admin
   tenant_id: default
   type: oidc
 servers:
@@ -4339,6 +4415,7 @@ servers:
       jwks:
         keys: null
   grant_types:
+  - client_credentials
   - authorization_code
   id: admin
   id_token_ttl: 1h0m0s
@@ -4380,13 +4457,13 @@ servers:
   - pairwise
   tenant_id: default
   token_endpoint_authn_methods:
+  - none
   - client_secret_basic
   - client_secret_post
   - client_secret_jwt
   - private_key_jwt
-  - self_signed_tls_client_auth
   - tls_client_auth
-  - none
+  - self_signed_tls_client_auth
   type: admin
 - access_token_strategy: jwt
   access_token_ttl: 1h0m0s
