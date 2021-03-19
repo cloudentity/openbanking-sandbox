@@ -12,6 +12,7 @@
 *.out
 
 .idea
+.DS_Store
 
 data/seed.yaml.generated
 financroo/data/my.db
