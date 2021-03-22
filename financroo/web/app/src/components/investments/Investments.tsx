@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down("md")]: {
       position: "absolute",
       left: 24,
-      wirght: 24,
+      right: 24,
       width: "calc(100% - 48px)",
     },
   },
@@ -45,10 +45,7 @@ export default function Investments({
       />
       <PageContainer
         withSubheader
-        style={{
-          paddingTop: 48,
-          paddingBottom: 48,
-        }}
+        style={{ paddingTop: 48, paddingBottom: 48 }}
       >
         <img
           alt="financroo logo"
