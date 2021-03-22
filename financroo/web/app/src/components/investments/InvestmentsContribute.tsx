@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   footer: {
-    position: "fixed",
+    position: "absolute",
     bottom: 0,
     left: "50%",
     transform: "translateX(-50%)",
@@ -41,7 +41,10 @@ export default function InvestmentsContribute() {
   const classes = useStyles();
   const history = useHistory();
   const [step, setStep] = useState(0);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState("1");
+  const [paymentMethod] = useState("bank-transfer");
+  const [bank, setBank] = useState("go-bank");
+  const [account, setAccount] = useState("available-accocunt");
 
   useEffect(() => {
     if (step === -1) {
@@ -58,6 +61,8 @@ export default function InvestmentsContribute() {
   function handleNext() {
     setStep((step) => step + 1);
   }
+
+  console.log(amount, paymentMethod, bank, account);
 
   return (
     <div style={{ position: "relative" }}>
@@ -82,6 +87,7 @@ export default function InvestmentsContribute() {
         style={{
           paddingTop: 48,
           marginTop: subHeaderHeight,
+          position: "relative",
         }}
       >
         {step === 0 && (
@@ -97,12 +103,17 @@ export default function InvestmentsContribute() {
             amount={amount}
             handleBack={handleBack}
             handleNext={handleNext}
+            bank={bank}
+            setBank={setBank}
+            account={account}
+            setAcccount={setAccount}
           />
         )}
-        <div className={classes.footer}>
+        {/* FIXME */}
+        {/* <div className={classes.footer}>
           <Lock style={{ marginRight: 12 }} />
           We use multi-level ecryption measures to protect your data
-        </div>
+        </div> */}
       </PageContainer>
     </div>
   );

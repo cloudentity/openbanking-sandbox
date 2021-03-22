@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  title: string;
+  title: string | React.ReactNode;
   children: React.ReactNode;
   backButton: { title: string; onClick: () => void };
   nextButton: { title: string; onClick: () => void; disabled?: boolean };
