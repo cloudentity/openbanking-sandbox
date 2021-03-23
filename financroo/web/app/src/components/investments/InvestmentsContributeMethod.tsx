@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Chip from "@material-ui/core/Chip";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Radio from "@material-ui/core/Radio";
+import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
@@ -12,6 +13,9 @@ import bankIcon from "../../assets/icon-bank.svg";
 import cardIcon from "../../assets/icon-credit-card.svg";
 import paypalIcon from "../../assets/icon-paypal.svg";
 import walletIcon from "../../assets/icon-wallet.svg";
+import { theme } from "../../theme";
+import { Bank } from "../banks";
+import { Balance } from "./InvestmentsContribute";
 
 const useStyles = makeStyles((theme) => ({
   titleContainer: {
@@ -31,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     backgroundColor: theme.palette.primary.main,
     color: "white",
+    fontWeight: 600,
   },
   grid: {
     display: "grid",
@@ -51,11 +56,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 4,
     "& > img": {
       width: 29,
+      marginBottom: 8,
     },
     "& > span": {
-      fontSize: 12,
-      lineHeight: "22px",
-      color: "#626576",
+      ...theme.custom.caption,
     },
   },
   disabled: {
@@ -86,10 +90,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     border: "solid 1px #ECECEC",
-    borderBottom: "none",
-    "&:last-of-type": {
-      borderBottom: "solid 1px #ECECEC",
-    },
     padding: "10px 20px 10px 11px",
     "& > img": {
       paddingLeft: 3,
@@ -132,6 +132,13 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: 12,
     },
   },
+  alert: {
+    width: "100%",
+    "& > div:last-of-type": {
+      position: "relative",
+      top: 2,
+    },
+  },
 }));
 
 type Props = {
@@ -142,6 +149,10 @@ type Props = {
   setBank: (bank: string) => void;
   account: string;
   setAcccount: (account: string) => void;
+  banks: Bank[];
+  balances: Balance[];
+  alert: string;
+  setAlert: (message: string) => void;
 };
 
 export default function InvestmentsContributeMethod({
@@ -152,19 +163,41 @@ export default function InvestmentsContributeMethod({
   setBank,
   account,
   setAcccount,
+  banks,
+  balances,
+  alert,
+  setAlert,
 }: Props) {
   const classes = useStyles();
+  const selectedAccount = balances.find((a) => a.AccountId === account);
+
+  useEffect(() => {
+    if (selectedAccount) {
+      if (Number(amount) <= Number(selectedAccount.Amount.Amount)) {
+        setAlert("");
+      } else {
+        setAlert("Payment amount exceeds account balance");
+      }
+    }
+  }, [account, amount, selectedAccount, setAlert]);
 
   return (
     <ContributionCard
       title={
         <div className={classes.titleContainer}>
-          <div className={classes.title}>Payment total</div>
+          <div style={theme.custom.heading6}>PAYMENT TOTAL</div>
           <Chip label={`£ ${amount}`} className={classes.chip} />
         </div>
       }
       backButton={{ title: "Back", onClick: handleBack }}
-      nextButton={{ title: "Next", onClick: handleNext }}
+      nextButton={{
+        title: "Next",
+        onClick: () => {
+          if (!alert) {
+            handleNext();
+          }
+        },
+      }}
     >
       <Field label="Select payment method">
         <div className={classes.grid}>
@@ -192,10 +225,11 @@ export default function InvestmentsContributeMethod({
           style={{ width: "100%" }}
           variant="outlined"
         >
-          <MenuItem value="go-bank">Go Bank</MenuItem>
-          <MenuItem value="x-bank">X Bank</MenuItem>
-          <MenuItem value="y-bank">Y Bank</MenuItem>
-          <MenuItem value="z-bank">Z Bank</MenuItem>
+          {banks.map(({ name, value }) => (
+            <MenuItem value={value} key={value}>
+              {name || value}
+            </MenuItem>
+          ))}
         </Select>
       </Field>
       <Field>
@@ -213,38 +247,52 @@ export default function InvestmentsContributeMethod({
 
       <Field>
         <div className={classes.accountSelect}>
-          <div className={clsx([classes.accountSelectItem, classes.active])}>
-            <Radio checked color="primary" />
-            <img src={walletIcon} alt="wallet icon" />
-            <div className={classes.accountSelectItemLabel}>
-              <div>Checking account</div>
-              <div>**** ***** **** 31820</div>
-            </div>
-            <div style={{ flex: 1, textAlign: "right" }}>€ 99,920.20</div>
-          </div>
-          <div className={classes.accountSelectItem}>
-            <Radio disabled />
-            <img src={walletIcon} alt="wallet icon" />
-            <div className={classes.accountSelectItemLabel}>
-              <div>Checking account</div>
-              <div>**** ***** **** 31820</div>
-            </div>
-            <div style={{ flex: 1, textAlign: "right" }}>€ 99,920.20</div>
-          </div>
+          {balances
+            .filter((b) => b.BankId === bank)
+            .map(({ AccountId, Amount: { Amount } }) => (
+              <div
+                key={AccountId}
+                className={clsx([
+                  classes.accountSelectItem,
+                  account === AccountId && classes.active,
+                ])}
+              >
+                <Radio
+                  checked={account === AccountId}
+                  color="primary"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setAcccount(AccountId);
+                    }
+                  }}
+                />
+                <img src={walletIcon} alt="wallet icon" />
+                <div className={classes.accountSelectItemLabel}>
+                  <div>Checking account</div>
+                  <div>**** ***** **** {AccountId} </div>
+                </div>
+                <div style={{ flex: 1, textAlign: "right" }}>£ {Amount}</div>
+              </div>
+            ))}
         </div>
       </Field>
-      <Field label="Payee Information" style={{ marginBottom: 0 }}>
+      <Field label="Payee Information" style={alert ? {} : { marginBottom: 0 }}>
         <div className={classes.information}>
           <div>Payee Account Name</div>
-          <div>Financoo investments</div>
+          <div>FIXME</div>
           <div>Sort code</div>
           <div>35-64-89</div>
           <div>Account number</div>
-          <div>**** ***** **** 22289</div>
+          <div>**** ***** **** {selectedAccount?.AccountId}</div>
           <div>Payment reference</div>
           <div>Financoo investments Ltd</div>
         </div>
       </Field>
+      {alert && (
+        <Alert severity="error" className={classes.alert}>
+          {alert}
+        </Alert>
+      )}
     </ContributionCard>
   );
 }

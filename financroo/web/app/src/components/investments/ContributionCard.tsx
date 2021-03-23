@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 500,
+    width: 500,
     padding: "24px 0",
     margin: "auto",
   },
@@ -22,24 +22,22 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     padding: 32,
-    borderBottom: "solid 1px #ECECEC",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
   buttons: {
+    borderTop: "solid 1px #ECECEC",
     padding: "24px 32px 0 32px",
     display: "flex",
     justifyContent: "space-between",
     "& > button": {
       minWidth: 84,
-      textTransform: "none",
-      fontWeight: 500,
-      fontSize: 16,
-      lineHeight: "24px",
+      ...theme.custom.button,
     },
   },
   backButton: {
+    color: `${theme.palette.secondary.main} !important`,
     "&:hover": {
       backgroundColor: "white",
     },
@@ -52,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  title: string | React.ReactNode;
+  title?: string | React.ReactNode;
   children: React.ReactNode;
-  backButton: { title: string; onClick: () => void };
-  nextButton: { title: string; onClick: () => void; disabled?: boolean };
+  backButton?: { title: string; onClick: () => void };
+  nextButton?: { title: string; onClick: () => void; disabled?: boolean };
 };
 
 export default function ContributionCard({
@@ -68,29 +66,31 @@ export default function ContributionCard({
 
   return (
     <Card className={classes.card}>
-      <div className={classes.title}>{title}</div>
+      {title && <div className={classes.title}>{title}</div>}
       <CardContent className={classes.content}>{children}</CardContent>
-      <CardActions className={classes.buttons}>
-        <Button
-          onClick={backButton.onClick}
-          variant="outlined"
-          color="secondary"
-          className={classes.backButton}
-        >
-          {backButton.title}
-        </Button>
-        <Button
-          onClick={nextButton.onClick}
-          variant="contained"
-          disableElevation
-          color="primary"
-          style={{ color: "white" }}
-          className={classes.nextButton}
-          disabled={nextButton.disabled || false}
-        >
-          {nextButton.title}
-        </Button>
-      </CardActions>
+      {backButton && nextButton && (
+        <CardActions className={classes.buttons}>
+          <Button
+            onClick={backButton.onClick}
+            variant="outlined"
+            color="secondary"
+            className={classes.backButton}
+          >
+            {backButton.title}
+          </Button>
+          <Button
+            onClick={nextButton.onClick}
+            variant="contained"
+            disableElevation
+            color="primary"
+            style={{ color: "white" }}
+            className={classes.nextButton}
+            disabled={nextButton.disabled || false}
+          >
+            {nextButton.title}
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 }

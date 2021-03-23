@@ -11,6 +11,7 @@ export default function Investments({
   tenantId,
 }) {
   const history = useHistory();
+
   return (
     <div style={{ position: "relative" }}>
       <PageToolbar

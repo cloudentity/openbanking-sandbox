@@ -22,17 +22,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type Props = {
-  label?: string;
+  label?: string | React.ReactNode;
   helperText?: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
 };
 
-export default function Field({ label, helperText, children, style }: Props) {
+export default function Field({
+  label,
+  helperText,
+  children,
+  style = {},
+}: Props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.container} style={style || {}}>
+    <div className={classes.container} style={style}>
       {label && <div className={classes.label}>{label}</div>}
       {children}
       {helperText && <div className={classes.helperText}>{helperText}</div>}
