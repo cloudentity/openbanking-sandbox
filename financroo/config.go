@@ -49,8 +49,8 @@ type BankConfig struct {
 	AcpClient AcpClient `mapstructure:"acp_client"`
 }
 
-type FeatureFlags struct { 
-	Investments bool `mapstructure:"investments"` 
+type FeatureFlags struct {
+	Investments bool `mapstructure:"investments"`
 }
 
 type Config struct {
@@ -64,7 +64,7 @@ type Config struct {
 	KeyFile        string `mapstructure:"key_file" validate:"required"`
 	Login          LoginConfig
 	Banks          []BankConfig
-	FeatureFlags   FeatureFlags `mapstructure:"feature_flags"` 
+	FeatureFlags   FeatureFlags `mapstructure:"feature_flags"`
 }
 
 func LoadConfig() (Config, error) {
