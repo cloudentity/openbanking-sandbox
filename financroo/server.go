@@ -108,6 +108,9 @@ func (s *Server) Start() error {
 	r.GET("/api/balances", s.GetBalances())
 	r.GET("/api/banks", s.ConnectedBanks())
 
+	r.GET("/enable-investments", s.EnableInvestmentsFeature())
+	r.GET("/disable-investments", s.DisableInvestmentsFeature())
+
 	r.NoRoute(func(c *gin.Context) {
 		c.File("web/app/build/index.html")
 	})
