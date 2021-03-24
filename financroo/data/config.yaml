@@ -16,4 +16,4 @@ banks:
     root_ca: "/certs/ca.pem"
     timeout: 5s
 feature_flags:
-  investments: true
+  investments: false
