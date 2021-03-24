@@ -9,7 +9,6 @@ import (
 
 func EnableFeature(name string) func(ctx *gin.Context) {
 	return func(c *gin.Context) {
-		fmt.Println(name)
 		c.SetCookie(name, "yes", 60*60*24, "/", "", false, false)
 		c.Redirect(http.StatusFound, "/")
 	}
