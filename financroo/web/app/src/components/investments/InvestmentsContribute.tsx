@@ -70,7 +70,7 @@ export default function InvestmentsContribute() {
     retry: false,
   });
 
-  const { isLoading: fetchBalancesProgress, data: balancesRes } = useQuery(
+  const { isLoading: fetchBalancesProgress, error: fetchBalancesError, data: balancesRes } = useQuery(
     "fetchBalances",
     api.fetchBalances,
     {
@@ -125,12 +125,12 @@ export default function InvestmentsContribute() {
   useEffect(() => {
     const bankNeedsReconnect =
       path(["response", "error", "status"], fetchBanksError) === 401 ||
-      path(["response", "error", "status"], fetchBalancesProgress) === 401;
+      path(["response", "error", "status"], fetchBalancesError) === 401;
 
     if (bankNeedsReconnect) {
       history.push({ pathname: "/", state: { bankNeedsReconnect } });
     }
-  }, [fetchBanksError, fetchBalancesProgress, history]);
+  }, [fetchBanksError, fetchBalancesError, history]);
 
   return (
     <div style={{ position: "relative" }}>
