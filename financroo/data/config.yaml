@@ -15,3 +15,5 @@ banks:
     key_file: "/certs/tpp_key.pem"
     root_ca: "/certs/ca.pem"
     timeout: 5s
+feature_flags:
+  investments: true
