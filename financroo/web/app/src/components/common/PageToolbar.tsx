@@ -134,12 +134,16 @@ export default function PageToolbar({
                   style={{ height: 64 }}
                   onClick={() => history.push("/")}
                 />
-                <Tab
-                  label="Investments"
-                  value="investments"
-                  style={{ height: 64 }}
-                  onClick={() => history.push("/investments")}
-                />
+                {
+                  window.featureFlags && window.featureFlags.Investments && (
+                    <Tab
+                      label="Investments"
+                      value="investments"
+                      style={{ height: 64 }}
+                      onClick={() => history.push("/investments")}
+                    />
+                  )
+                }
                 <Tab label="Spending" value="spending" style={{ height: 64 }} />
                 <Tab label="Settings" value="settings" style={{ height: 64 }} />
               </Tabs>

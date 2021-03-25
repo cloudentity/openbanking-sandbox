@@ -15,6 +15,12 @@ import Callback from "./components/Callback";
 import AuthenticatedAppBase from "./components/AuthenticatedAppBase";
 import {putExpiresInInStore, putIATInInStore, putIdTokenInStore, putTokenInStore} from "./components/auth.utils";
 
+declare global {
+  interface Window { featureFlags: any; }
+}
+
+window.featureFlags = window.featureFlags || {};
+
 const theme = createMuiTheme({
   palette: {
     primary: {
