@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import {Theme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
-import PageContainer from "./PageContainer";
-import PageToolbar from "./PageToolbar";
+import PageContainer from "./common/PageContainer";
+import PageToolbar from "./common/PageToolbar";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
@@ -57,7 +57,7 @@ export default function ConnectAccount({connected, onAllowAccess, onClose}) {
 
   return (
     <Dialog open={true} fullScreen>
-      <PageToolbar>
+      <PageToolbar mode="dialog">
         {!selected && (
           <IconButton edge="start" color="inherit" aria-label="close" onClick={onClose}>
             <CloseIcon/>

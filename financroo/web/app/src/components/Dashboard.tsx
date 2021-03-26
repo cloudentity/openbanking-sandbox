@@ -1,20 +1,13 @@
 import React, {useState} from "react";
-import PageToolbar from "./PageToolbar";
-import MenuIcon from "@material-ui/icons/Menu";
-import IconButton from "@material-ui/core/IconButton";
+import PageToolbar from "./common/PageToolbar";
 import Connected from "./Connected";
 import Welcome from "./Welcome";
 import ConnectAccount from "./ConnectAccount";
 import {useQuery} from "react-query";
 import {api} from "../api/api";
 import Progress from "./Progress";
-import Tab from "@material-ui/core/Tab";
-import Hidden from "@material-ui/core/Hidden";
-import Tabs from "@material-ui/core/Tabs";
-import {Button} from "@material-ui/core";
-import {logout} from "./AuthPage";
-import PageContent from "./PageContent";
-import PageContainer from "./PageContainer";
+import PageContent from "./common/PageContent";
+import PageContainer from "./common/PageContainer";
 import {pathOr} from "ramda";
 
 export default function Dashboard({authorizationServerURL, authorizationServerId, tenantId}) {
@@ -56,28 +49,13 @@ export default function Dashboard({authorizationServerURL, authorizationServerId
 
   return (
     <div style={{position: 'relative'}}>
-      <PageToolbar>
-        <Hidden mdUp>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon/>
-          </IconButton>
-        </Hidden>
-        <Hidden smDown>
-          <Tabs
-            value={'accounts'}
-            indicatorColor="primary"
-            onChange={() => {
-            }}
-            aria-label="menu tabs"
-            style={{height: 64}}
-          >
-            <Tab label="Accounts" value={'accounts'} style={{height: 64}}/>
-            <Tab label="Spending" value={'spending'} style={{height: 64}}/>
-            <Tab label="Settings" value={'settings'} style={{height: 64}}/>
-          </Tabs>
-        </Hidden>
-        <Button variant={"outlined"} onClick={() => logout(authorizationServerURL, tenantId, authorizationServerId)}>Logout</Button>
-      </PageToolbar>
+      <PageToolbar 
+        mode="main"
+        authorizationServerURL={authorizationServerURL}
+        authorizationServerId={authorizationServerId}
+        tenantId={tenantId} 
+      />
+
       {showProgress && <Progress/>}
 
       {!showProgress && (

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -109,7 +110,7 @@ func (s *Server) Start() error {
 	r.GET("/api/banks", s.ConnectedBanks())
 
 	r.NoRoute(func(c *gin.Context) {
-		c.File("web/app/build/index.html")
+		c.HTML(http.StatusOK, "index.html", gin.H{"featureFlags": s.Config.FeatureFlags})
 	})
 
 	return r.RunTLS(fmt.Sprintf(":%s", strconv.Itoa(s.Config.Port)), s.Config.CertFile, s.Config.KeyFile)
