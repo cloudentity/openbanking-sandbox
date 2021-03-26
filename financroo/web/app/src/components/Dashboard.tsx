@@ -43,7 +43,7 @@ export default function Dashboard({
 
   useEffect(() => {
     if (state?.bankNeedsReconnect) {
-      setSnackbar("Error unauthorized. Bank needs reconnect");
+      setSnackbar("Error: unauthorized. Bank needs reconnect");
     }
   }, [state]);
 
@@ -136,7 +136,7 @@ export default function Dashboard({
         autoHideDuration={6000}
         onClose={() => setSnackbar("")}
         action={
-          <React.Fragment>
+          <>
             <IconButton
               size="small"
               aria-label="close"
@@ -145,7 +145,7 @@ export default function Dashboard({
             >
               <CloseIcon fontSize="small" />
             </IconButton>
-          </React.Fragment>
+          </>
         }
       >
         <Alert severity="error" className={classes.alert}>

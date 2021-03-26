@@ -122,7 +122,6 @@ export default function InvestmentsContribute() {
   function handleNext() {
     if (step === 2) {
       // FIXME request with transaction
-      console.log("BANK", amount, bank, account);
       history.push("/investments/contribute/mock-id/success");
     } else {
       setStep((step) => step + 1);
