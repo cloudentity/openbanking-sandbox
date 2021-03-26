@@ -21,6 +21,14 @@ import {
 } from "./components/auth.utils";
 import { theme } from "./theme";
 
+declare global {
+  interface Window {
+    featureFlags: any;
+  }
+}
+
+window.featureFlags = window.featureFlags || {};
+
 export type Config = {
   authorizationServerURL: string;
   authorizationServerId: string;
