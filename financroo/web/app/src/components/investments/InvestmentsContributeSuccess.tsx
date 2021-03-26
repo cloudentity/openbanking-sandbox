@@ -142,7 +142,7 @@ export default function InvestmentsContributeSuccess({
                 Total contribution paid
               </div>
               <div style={{ paddingBottom: 0 }}>
-                <Chip label="£ 1000" className={classes.chip} />
+                <Chip label="£ FIXME" className={classes.chip} />
               </div>
             </div>
           </Field>

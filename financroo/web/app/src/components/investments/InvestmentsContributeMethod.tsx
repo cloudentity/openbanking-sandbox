@@ -15,7 +15,7 @@ import paypalIcon from "../../assets/icon-paypal.svg";
 import walletIcon from "../../assets/icon-wallet.svg";
 import { theme } from "../../theme";
 import { Bank } from "../banks";
-import { Balance } from "./InvestmentsContribute";
+import { BalanceType, AccountType } from "./InvestmentsContribute";
 
 const useStyles = makeStyles((theme) => ({
   titleContainer: {
@@ -150,9 +150,10 @@ type Props = {
   account: string;
   setAcccount: (account: string) => void;
   banks: Bank[];
-  balances: Balance[];
+  balances: BalanceType[];
   alert: string;
   setAlert: (message: string) => void;
+  accounts: AccountType[];
 };
 
 export default function InvestmentsContributeMethod({
@@ -167,9 +168,11 @@ export default function InvestmentsContributeMethod({
   balances,
   alert,
   setAlert,
+  accounts,
 }: Props) {
   const classes = useStyles();
   const selectedAccount = balances.find((a) => a.AccountId === account);
+  const selectedAccountInfo = accounts.find((a) => a.AccountId === account);
 
   useEffect(() => {
     if (selectedAccount) {
@@ -279,9 +282,9 @@ export default function InvestmentsContributeMethod({
       <Field label="Payee Information" style={alert ? {} : { marginBottom: 0 }}>
         <div className={classes.information}>
           <div>Payee Account Name</div>
-          <div>FIXME</div>
+          <div>{selectedAccountInfo?.Account[0].Name}</div>
           <div>Sort code</div>
-          <div>35-64-89</div>
+          <div>{selectedAccountInfo?.Account[0].Identification}</div>
           <div>Account number</div>
           <div>**** ***** **** {selectedAccount?.AccountId}</div>
           <div>Payment reference</div>

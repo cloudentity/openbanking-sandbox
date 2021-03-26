@@ -15,7 +15,7 @@ import { api } from "../../api/api";
 import Progress from "../Progress";
 import { banks as banksArray } from "../banks";
 
-export type Balance = {
+export type BalanceType = {
   AccountId: string;
   Amount: { Amount: string; Currency: string };
   BankId: string;
@@ -23,6 +23,25 @@ export type Balance = {
   CreditLine: any;
   DateTime: string;
   Type: string;
+};
+
+export type AccountType = {
+  Account: {
+    Identification: string;
+    Name: string;
+    SchemeName: string;
+    SecondaryIdentification: string;
+  }[];
+  AccountId: string;
+  AccountSubType: string;
+  AccountType: string;
+  BankId: string;
+  Currency: string;
+  MaturityDate: string;
+  Nickname: string;
+  OpeningDate: string;
+  Status: string;
+  StatusUpdateDateTime: string;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -70,14 +89,23 @@ export default function InvestmentsContribute() {
     retry: false,
   });
 
-  const { isLoading: fetchBalancesProgress, error: fetchBalancesError, data: balancesRes } = useQuery(
-    "fetchBalances",
-    api.fetchBalances,
-    {
-      refetchOnWindowFocus: false,
-      retry: false,
-    }
-  );
+  const {
+    isLoading: fetchBalancesProgress,
+    error: fetchBalancesError,
+    data: balancesRes,
+  } = useQuery("fetchBalances", api.fetchBalances, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const {
+    isLoading: fetchAccountsProgress,
+    error: fetchAccountsError,
+    data: accountsRes,
+  } = useQuery("fetchAccounts", api.fetchAccounts, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
   useEffect(() => {
     if (step === -1) {
@@ -120,17 +148,23 @@ export default function InvestmentsContribute() {
   }, [banksRes]);
 
   const showProgress =
-    isProgress || fetchBanksProgress || fetchBalancesProgress;
+    isProgress ||
+    fetchBanksProgress ||
+    fetchBalancesProgress ||
+    fetchAccountsProgress;
+
+  const accounts = accountsRes?.accounts ?? [];
 
   useEffect(() => {
     const bankNeedsReconnect =
       path(["response", "error", "status"], fetchBanksError) === 401 ||
+      path(["response", "error", "status"], fetchAccountsError) === 401 ||
       path(["response", "error", "status"], fetchBalancesError) === 401;
 
     if (bankNeedsReconnect) {
       history.push({ pathname: "/", state: { bankNeedsReconnect } });
     }
-  }, [fetchBanksError, fetchBalancesError, history]);
+  }, [fetchBanksError, fetchBalancesError, fetchAccountsError, history]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -191,6 +225,7 @@ export default function InvestmentsContribute() {
               balances={balances || []}
               alert={alert}
               setAlert={setAlert}
+              accounts={accounts}
             />
           )}
           {step === 2 && (
@@ -201,6 +236,7 @@ export default function InvestmentsContribute() {
               bank={bank}
               account={account}
               balances={balances}
+              accounts={accounts}
             />
           )}
           <div className={classes.spacer} />

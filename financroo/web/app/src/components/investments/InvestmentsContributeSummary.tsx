@@ -6,7 +6,7 @@ import clsx from "clsx";
 import ContributionCard from "./ContributionCard";
 import Field from "./Field";
 import { theme } from "../../theme";
-import { Balance } from "./InvestmentsContribute";
+import { BalanceType, AccountType } from "./InvestmentsContribute";
 import { banks } from "../banks";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,9 +86,10 @@ type Props = {
   amount: string;
   bank: string;
   account: string;
-  balances: Balance[];
+  balances: BalanceType[];
   handleBack: () => void;
   handleNext: () => void;
+  accounts: AccountType[];
 };
 
 export default function InvestmentsContributeSummary({
@@ -98,11 +99,13 @@ export default function InvestmentsContributeSummary({
   balances,
   handleBack,
   handleNext,
+  accounts,
 }: Props) {
   const classes = useStyles();
 
   const selectedBalance = balances.find((a) => a.AccountId === account);
   const selectedBank = banks.find((a) => a.value === bank);
+  const selectedAccountInfo = accounts.find((a) => a.AccountId === account);
 
   return (
     <ContributionCard
@@ -127,9 +130,9 @@ export default function InvestmentsContributeSummary({
       <Field label="Payee Information">
         <div className={classes.information}>
           <div>Payee Account Name</div>
-          <div>FIXME</div>
+          <div>{selectedAccountInfo?.Account[0].Name}</div>
           <div>Sort code</div>
-          <div>35-64-89</div>
+          <div>{selectedAccountInfo?.Account[0].Identification}</div>
           <div>Account number</div>
           <div>**** ***** **** {selectedBalance?.AccountId}</div>
           <div>Payment reference</div>
