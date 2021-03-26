@@ -123,6 +123,7 @@ services:
       - ./data/ca.pem:/ca.pem
       - ./data/bank_cert.pem:/bank_cert.pem
       - ./data/bank_key.pem:/bank_key.pem
+      - ./bank/data:/app/data
     environment:
       - CLIENT_ID=bukj5p6k7qdmm5ppbi4g
       - ISSUER_URL=${ACP_INTERNAL_URL}/default/openbanking
