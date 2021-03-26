@@ -8,6 +8,7 @@ import PageContainer from "../common/PageContainer";
 import PageToolbar from "../common/PageToolbar";
 import ContributionCard from "./ContributionCard";
 import Field from "./Field";
+import Confetti from "./Confetti";
 import { theme } from "../../theme";
 import bankIcon from "../../assets/banks/gobank-icon.svg";
 import checkIcon from "../../assets/icon-check.svg";
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     gridColumnGap: 14,
   },
   card: {
+    position: "relative",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -124,6 +126,7 @@ export default function InvestmentsContributeSuccess({
           <div>You have reached another level with your retirement goal</div>
         </div>
         <ContributionCard>
+          <Confetti />
           <Field
             label={
               <div style={{ textAlign: "center" }}>Account Information</div>

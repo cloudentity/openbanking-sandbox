@@ -17,6 +17,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
+    "canvas-confetti": "^1.4.0",
     "clipboard-copy": "^3.2.0",
     "fast-text-encoding": "^1.0.3",
     "lodash.throttle": "^4.1.1",
