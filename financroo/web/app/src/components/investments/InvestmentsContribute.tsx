@@ -1,13 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import { ArrowLeft, Lock } from "react-feather";
 import { useHistory } from "react-router";
+import { useQuery } from "react-query";
+import { path } from "ramda";
 
 import PageContainer from "../common/PageContainer";
 import PageToolbar, { subHeaderHeight } from "../common/PageToolbar";
 import InvestmentsContributeAmount from "./InvestmentsContributeAmount";
 import InvestmentsContributeMethod from "./InvestmentsContributeMethod";
+import InvestmentsContributeSummary from "./InvestmentsContributeSummary";
+import { api } from "../../api/api";
+import Progress from "../Progress";
+import { banks as banksArray } from "../banks";
+
+export type BalanceType = {
+  AccountId: string;
+  Amount: { Amount: string; Currency: string };
+  BankId: string;
+  CreditDebitIndicator: string;
+  CreditLine: any;
+  DateTime: string;
+  Type: string;
+};
+
+export type AccountType = {
+  Account: {
+    Identification: string;
+    Name: string;
+    SchemeName: string;
+    SecondaryIdentification: string;
+  }[];
+  AccountId: string;
+  AccountSubType: string;
+  AccountType: string;
+  BankId: string;
+  Currency: string;
+  MaturityDate: string;
+  Nickname: string;
+  OpeningDate: string;
+  Status: string;
+  StatusUpdateDateTime: string;
+};
 
 const useStyles = makeStyles((theme) => ({
   toolbarButton: {
@@ -18,16 +53,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   footer: {
-    position: "fixed",
-    bottom: 0,
-    left: "50%",
-    transform: "translateX(-50%)",
+    padding: 34,
     display: "flex",
     alignItems: "center",
-    fontSize: 12,
-    lineHeight: "22px",
-    color: "#626576",
-    padding: 34,
+    ...theme.custom.caption,
+  },
+  spacer: {
+    flex: 1,
   },
 }));
 
@@ -42,6 +74,38 @@ export default function InvestmentsContribute() {
   const history = useHistory();
   const [step, setStep] = useState(0);
   const [amount, setAmount] = useState("");
+  const [bank, setBank] = useState("");
+  const [account, setAccount] = useState("");
+  const [alert, setAlert] = useState("");
+
+  const [isProgress] = useState(false);
+
+  const {
+    isLoading: fetchBanksProgress,
+    error: fetchBanksError,
+    data: banksRes,
+  } = useQuery("fetchBanks", api.fetchBanks, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const {
+    isLoading: fetchBalancesProgress,
+    error: fetchBalancesError,
+    data: balancesRes,
+  } = useQuery("fetchBalances", api.fetchBalances, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+
+  const {
+    isLoading: fetchAccountsProgress,
+    error: fetchAccountsError,
+    data: accountsRes,
+  } = useQuery("fetchAccounts", api.fetchAccounts, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
   useEffect(() => {
     if (step === -1) {
@@ -49,15 +113,57 @@ export default function InvestmentsContribute() {
       setStep(0);
       setAmount("");
     }
-  }, [step, history]);
+  }, [step, history, amount, bank, account]);
 
   function handleBack() {
     setStep((step) => step - 1);
   }
 
   function handleNext() {
-    setStep((step) => step + 1);
+    if (step === 2) {
+      // FIXME request with transaction
+      history.push("/investments/contribute/mock-id/success");
+    } else {
+      setStep((step) => step + 1);
+    }
   }
+
+  const balances = useMemo(() => {
+    const tmpBallances = balancesRes?.balances ?? [];
+    if (tmpBallances.length) {
+      setAccount(tmpBallances[0].AccountId);
+    }
+    return tmpBallances;
+  }, [balancesRes]);
+
+  const banks = useMemo(() => {
+    const tmpBanks = banksRes?.connected_banks ?? [];
+    if (tmpBanks.length) {
+      setBank(tmpBanks[0]);
+    }
+    return tmpBanks.map(
+      (b) => banksArray.find((v) => v.value === b) || { value: b, name: b }
+    );
+  }, [banksRes]);
+
+  const showProgress =
+    isProgress ||
+    fetchBanksProgress ||
+    fetchBalancesProgress ||
+    fetchAccountsProgress;
+
+  const accounts = accountsRes?.accounts ?? [];
+
+  useEffect(() => {
+    const bankNeedsReconnect =
+      path(["response", "error", "status"], fetchBanksError) === 401 ||
+      path(["response", "error", "status"], fetchAccountsError) === 401 ||
+      path(["response", "error", "status"], fetchBalancesError) === 401;
+
+    if (bankNeedsReconnect) {
+      history.push({ pathname: "/", state: { bankNeedsReconnect } });
+    }
+  }, [fetchBanksError, fetchBalancesError, fetchAccountsError, history]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -77,33 +183,68 @@ export default function InvestmentsContribute() {
           </div>
         }
       />
-      <PageContainer
-        withOnlySubheader
-        style={{
-          paddingTop: 48,
-          marginTop: subHeaderHeight,
-        }}
-      >
-        {step === 0 && (
-          <InvestmentsContributeAmount
-            amount={amount}
-            setAmount={setAmount}
-            handleBack={handleBack}
-            handleNext={handleNext}
-          />
-        )}
-        {step === 1 && (
-          <InvestmentsContributeMethod
-            amount={amount}
-            handleBack={handleBack}
-            handleNext={handleNext}
-          />
-        )}
-        <div className={classes.footer}>
-          <Lock style={{ marginRight: 12 }} />
-          We use multi-level ecryption measures to protect your data
-        </div>
-      </PageContainer>
+      {showProgress ? (
+        <Progress top={150} />
+      ) : (
+        <PageContainer
+          withOnlySubheader
+          style={{
+            paddingTop: 48,
+            marginTop: subHeaderHeight,
+            position: "relative",
+          }}
+          containerStyle={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "100%",
+          }}
+        >
+          {step === 0 && (
+            <InvestmentsContributeAmount
+              amount={amount}
+              setAmount={setAmount}
+              handleBack={handleBack}
+              handleNext={handleNext}
+              account={account}
+              setAlert={setAlert}
+            />
+          )}
+          {step === 1 && (
+            <InvestmentsContributeMethod
+              amount={amount}
+              handleBack={handleBack}
+              handleNext={handleNext}
+              bank={bank}
+              setBank={setBank}
+              account={account}
+              setAcccount={setAccount}
+              banks={banks || []}
+              balances={balances || []}
+              alert={alert}
+              setAlert={setAlert}
+              accounts={accounts}
+            />
+          )}
+          {step === 2 && (
+            <InvestmentsContributeSummary
+              amount={amount}
+              handleBack={handleBack}
+              handleNext={handleNext}
+              bank={bank}
+              account={account}
+              balances={balances}
+              accounts={accounts}
+            />
+          )}
+          <div className={classes.spacer} />
+          <div className={classes.footer}>
+            <Lock style={{ marginRight: 12 }} />
+            We use multi-level ecryption measures to protect your data
+          </div>
+        </PageContainer>
+      )}
     </div>
   );
 }

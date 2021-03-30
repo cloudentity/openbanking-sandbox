@@ -25,7 +25,7 @@ const useStyles = (
       overflowY: "auto",
       backgroundColor: "#F7FAFF",
       position: "fixed",
-      width: "100vw",
+      minWidth: "100vw",
       ...(withBackground
         ? {
             [theme.breakpoints.up("lg")]: {

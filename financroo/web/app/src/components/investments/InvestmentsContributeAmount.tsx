@@ -34,6 +34,8 @@ export default function InvestmentsContributeAmount({
   setAmount,
   handleBack,
   handleNext,
+  account,
+  setAlert,
 }) {
   const classes = useStyles();
 
@@ -54,7 +56,16 @@ export default function InvestmentsContributeAmount({
         }}
         variant="outlined"
         value={amount}
-        onChange={(v) => setAmount(v.target.value)}
+        onChange={(v) => {
+          setAmount(v.target.value);
+          if (
+            account &&
+            account.Amount?.Amount &&
+            Number(v.target.value) <= Number(account.Amount?.Amount)
+          ) {
+            setAlert("");
+          }
+        }}
         type="number"
         InputProps={{
           startAdornment: (

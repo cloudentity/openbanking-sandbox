@@ -8,40 +8,48 @@ import gobankIcon from "../assets/banks/gobank-icon.svg";
 import apexfinancialIcon from "../assets/banks/apexfinancial-icon.svg";
 import chaseIcon from "../assets/banks/chase-icon.svg";
 
-export const banks = [
+export type Bank = {
+  value: string;
+  disabled: boolean;
+  name?: string;
+  logo: string;
+  icon?: string;
+};
+
+export const banks: Bank[] = [
   {
-    value: 'gobank',
+    value: "gobank",
     disabled: false,
-    name: 'GO Bank',
+    name: "GO Bank",
     logo: gobank,
-    icon: gobankIcon
+    icon: gobankIcon,
   },
   {
-    value: 'apexfinancial',
+    value: "apexfinancial",
     disabled: true,
-    name: 'Apex Financial',
+    name: "Apex Financial",
     logo: apexfinancial,
-    icon: apexfinancialIcon
+    icon: apexfinancialIcon,
   },
   {
-    value: 'chase',
+    value: "chase",
     disabled: true,
     logo: chase,
-    icon: chaseIcon
+    icon: chaseIcon,
   },
   {
-    value: 'deutcshebank',
+    value: "deutcshebank",
     disabled: true,
     logo: deutcshebank,
   },
   {
-    value: 'hsbc',
+    value: "hsbc",
     disabled: true,
     logo: hsbc,
   },
   {
-    value: 'santander',
+    value: "santander",
     disabled: true,
     logo: santander,
   },
-]
+];

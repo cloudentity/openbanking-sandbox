@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Investments from "./investments/Investments";
 import InvestmentsContribute from "./investments/InvestmentsContribute";
+import InvestmentsContributeSuccess from "./investments/InvestmentsContributeSuccess";
 
 export default function AuthenticatedAppBase({
   authorizationServerURL,
@@ -44,6 +45,12 @@ export default function AuthenticatedAppBase({
           path={"/investments/contribute"}
           exact
           render={() => <InvestmentsContribute />}
+        />
+
+        <Route
+          path={"/investments/contribute/:id/success"}
+          exact
+          render={() => <InvestmentsContributeSuccess />}
         />
       </Switch>
     </Suspense>

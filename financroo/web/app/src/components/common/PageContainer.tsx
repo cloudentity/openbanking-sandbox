@@ -9,6 +9,7 @@ export default function PageContainer({
   withSubheader = false,
   withOnlySubheader = false,
   style = {},
+  containerStyle = {},
 }) {
   return (
     <PageContent
@@ -17,7 +18,9 @@ export default function PageContainer({
       withOnlySubheader={withOnlySubheader}
       style={style}
     >
-      <Container fixed={fixed}>{children}</Container>
+      <Container fixed={fixed} style={containerStyle}>
+        {children}
+      </Container>
     </PageContent>
   );
 }
