@@ -47,6 +47,10 @@ restart-acp:
 lint:
 	golangci-lint run --fix --deadline=5m ./...
 
+.PHONY: cover
+cover:
+	go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+
 .PHONY: stop
 stop:
 	docker-compose stop
