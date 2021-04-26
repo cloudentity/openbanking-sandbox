@@ -22,3 +22,5 @@ financroo/test.db
 /tests/debug.log
 /tests/cypress/videos/*
 /tests/cypress
+
+coverage.txt
