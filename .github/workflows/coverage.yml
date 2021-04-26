@@ -1,0 +1,22 @@
+name: coverage
+
+on:
+  push:
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Go
+      if: success()
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15.x
+    - name: Checkout master
+      uses: actions/checkout@v2
+    - name: Run tests with coverage
+      run: |
+        go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+        bash <(curl -s https://codecov.io/bash)
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
